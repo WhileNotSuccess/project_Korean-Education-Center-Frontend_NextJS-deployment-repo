@@ -1,5 +1,5 @@
-import HtmlDocs from "../components/htmlDocs";
-import EditorComponent from "../components/editorComponent";
+import HtmlDocs from "../components/HtmlDocs";
+import EditorComponent from "../components/EditorComponent";
 
 export default function PostTest() {
   return (

@@ -1,0 +1,100 @@
+{
+  "posts" : [
+    {
+      "id" : 1,
+      "title" : "제목1입니다",
+      "content" : "영진전문대학교 한국어교육센터는 2021년 3월 설립 이후, 한국어와 한국 문화의 매력을 널리 전파하는 선도적인 교육 기관으로 성장하고 있습니다.한국어교육센터는 영진전문대학교 내 부설 기관으로 운영되며,  실용적이고 차별화된 한국어 교육과 한국 생활 및 학업에 필요한 세심한 학생지원 서비스를 제공합니다.",
+      "author" : "작성자1",
+      "createAt" : "2025-01-23",
+      "category" : "introduction"
+    },
+    {
+      "id" : 2,
+      "title" : "제목2입니다",
+      "content" : "내용2입니다.",
+      "author" : "작성자2",
+      "createAt" : "2025-01-23",
+      "category" : "directions"
+    },
+    {
+      "id" : 3,
+      "title" : "제목3입니다",
+      "content" : "내용3입니다.",
+      "author" : "작성자3",
+      "createAt" : "2025-01-23",
+      "category" : "강사진 및 교직원 소개"
+    },
+    {
+      "id" : 4,
+      "title" : "베트남 유학생의 후기",
+      "content" : "영진전문대학교 교수님들과 선생님들께서 많이 도와주시고 격려 해주실 뿐만 아니라, 유학생에게 장학금을 많이 지원해 주어서 한국에서 문제없이 지냈습니다.",
+      "author" : "황득남",
+      "createAt" : "2025-01-23",
+      "category" : "review"
+    },
+    {
+      "id" : 5,
+      "title" : "일본인의 호텔항공관광과 후기",
+      "content" : "영진전문대학교를 한마디로 표현하자면 '실용적인 학교'라고 할 수 있을 만큼 실무수어버에 충실하는 것이 큰 매력입니다.",
+      "author" : "미야기 리사",
+      "createAt" : "2025-01-23",
+      "category" : "review"
+    },
+    {
+      "id" : 6,
+      "title" : "터키 유학생의 후기",
+      "content" : "대구는 한국의 다른 도시에 비해 생활비가 저렴합니다. 또, 영진전문대학교 한국어연수과정 수업료는 다른 대학교보다 저렴합니다.",
+      "author" : "심게 누르",
+      "createAt" : "2025-01-23",
+      "category" : "review"
+    }
+  ],
+  "staff": {
+    "teacher" : [
+      {
+        "id" : 1,
+        "name" : "최현서",
+        "position" : "강사",
+        "phone" : null,
+        "email" : null
+      },
+      {
+        "id" : 2,
+        "name" : "권기현",
+        "position" : "강사",
+        "phone" : null,
+        "email" : null
+      },
+      {
+        "id" : 3,
+        "name" : "이한",
+        "position" : "강사",
+        "phone" : null,
+        "email" : null
+      }
+    ],
+    "staff" : [
+      {
+        "id" : 4,
+        "name" : "문성윤",
+        "position" : "센터장",
+        "phone" : "010-1234-5678",
+        "email" : "test1234@naver.com"
+      },
+      {
+        "id" : 5,
+        "name" : "최현서",
+        "position" : "팀원",
+        "phone" : "010-4321-8765",
+        "email" : "test5678@naver.com"
+      },
+      {
+        "id" : 6,
+        "name" : "이한",
+        "position" : "팀원",
+        "phone" : "010-1010-4822",
+        "email" : "test8390@naver.com"
+      }
+    ]
+  }
+}
