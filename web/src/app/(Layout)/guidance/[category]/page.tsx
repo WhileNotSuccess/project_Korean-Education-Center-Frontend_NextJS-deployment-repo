@@ -13,8 +13,11 @@ interface GuidancePageProps {
 export default function GuidancePage( {params} : GuidancePageProps ){
   const {category} = params
 
+
+  
   return(
     <div className="w-full h-screen flex justify-center items-center">
+      
       <HtmlDocs name={category}/>
     </div>
   )

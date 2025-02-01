@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
 import japan from '../public/image/japan.png'
-import { guidanceMenu, menu, smallMenu } from "../menu";
+import { guidanceMenu, menu, smallMenu,boardMenu } from "../menu";
 import { useEffect, useState } from "react";
 
 
@@ -89,10 +89,10 @@ export default function RootLayout({
         </Link>
         </div>
         <div className="flex flex-col">
-        <Link href={'/korea-curriculum'}>
-        {smallMenu[language]?.koreaCurriculum}
+        <Link href={'/select/koreanCurriculum'}>
+        {smallMenu[language]?.koreanCurriculum}
         </Link>
-        <Link href={'/open-campus'}>
+        <Link href={'/select/openCampus'}>
         {smallMenu[language]?.openCampus}
         </Link>
         <Link href={'/board/review'}>
@@ -100,50 +100,43 @@ export default function RootLayout({
         </Link>
         </div>
         <div className="flex flex-col">
-        <Link href={'/center-intro'}>
-        {smallMenu[language]?.centerIntro}
-        </Link>
-        <Link href={'/center-intro'}>
-        {smallMenu[language]?.howToGetHere}
-        </Link>
-        <Link href={'/board/application-form'}>
-        {smallMenu[language]?.staffIntro}
-        </Link>
-        <Link href={'/guidance/visa'}>
-        {smallMenu[language]?.staffIntro}
-        </Link>
-        </div>
-        <div className="flex flex-col">
-        <Link href={'/guidance/dormitory'}>
-        {smallMenu[language]?.centerIntro}
-        </Link>
-        <Link href={'/guidance/facility'}>
-        {smallMenu[language]?.howToGetHere}
-        </Link>
-        <Link href={'/board/learning-materials'}>
-        {smallMenu[language]?.staffIntro}
-        </Link>
-        <Link href={'/guidance/insurance'}>
-        {smallMenu[language]?.staffIntro}
-        </Link>
-        </div>
-        <div className="flex flex-col">
-        <Link href={'/board/notice'}>
-        {smallMenu[language]?.centerIntro}
-        </Link>
-        <Link href={'/board/news'}>
-        {smallMenu[language]?.howToGetHere}
-        </Link>
-        <Link href={'/board/faq'}>
-        {smallMenu[language]?.staffIntro}
-        </Link>
-        </div>
-        </div>
+              <Link href={"/center-intro"}>
+                {smallMenu[language]?.howToGetHere}
+              </Link>
+              <Link href={"/board/application-form"}>
+                {boardMenu[language]?.["application-form"]}
+              </Link>
+              <Link href={"/guidance/visa"}>
+                {guidanceMenu[language]?.visa}
+              </Link>
+            </div>
+            <div className="flex flex-col">
+              <Link href={"/guidance/dormitory"}>
+                {smallMenu[language]?.centerIntro}
+              </Link>
+              <Link href={"/guidance/facility"}>
+                {smallMenu[language]?.howToGetHere}
+              </Link>
+              <Link href={"/board/learning-materials"}>
+                {boardMenu[language]?.["learning-materials"]}
+              </Link>
+              <Link href={"/guidance/insurance"}>
+                {guidanceMenu[language]?.insurance}
+              </Link>
+            </div>
+            <div className="flex flex-col">
+              <Link href={"/board/notice"}>{boardMenu[language]?.notice}</Link>
+              <Link href={"/board/news"}>{boardMenu[language]?.news}</Link>
+              <Link href={"/board/faq"}>{boardMenu[language]?.faq}</Link>
+            </div>
+          </div>
         </div>
       </div>
-      <img src="/images/영진소개배너.jpg" className="w-full h-60 mt-4 flex justify-center items-center">
-      </img>
-    {children} 
+      <img
+        src="/images/영진소개배너.jpg"
+        className="w-full h-60 mt-4 flex justify-center items-center"
+      ></img>
+      {children}
     </div>
   );
 }
