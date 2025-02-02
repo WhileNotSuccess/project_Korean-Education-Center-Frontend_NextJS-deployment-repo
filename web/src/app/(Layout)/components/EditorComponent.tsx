@@ -1,19 +1,17 @@
 "use client";
 import React, { useEffect, useState, useRef } from "react";
 import { Editor } from "@tinymce/tinymce-react";
-import { editorCompo, postError } from "@/app/menu";
+import { editorCompo, postError, postSuccess, categoryList, deleteError, deleteSuccess } from "@/app/menu";
 import Cookies from "js-cookie";
 import useCustomFormFetch from "@/app/lib/customFormFetch";
 import { Language } from "@/app/common/types";
+import useCustomFetch from "@/app/lib/customFetch";
 
 type EditorProps = {
-  updateProps?: {
-    id: number;
-    content: string;
-  };
+  id? : string
 };
 
-export default function EditorComponent({ updateProps }: EditorProps) {
+export default function EditorComponent( {id} : EditorProps) {
   const editorRef = useRef<any>(null); // tinymce를 직접 조작하는
   const [content, setContent] = useState<string>("");
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -21,29 +19,49 @@ export default function EditorComponent({ updateProps }: EditorProps) {
   const [title, setTitle] = useState<string>("");
   const [imagePath, setImagePath] = useState<Array<string>>([]);
   const customFormFetch = useCustomFormFetch();
+  const customFetch = useCustomFetch()
   const language: Language = (Cookies.get("language") as Language) || "korean";
+  const [category, setCategory] = useState<string>(categoryList[language]?.[0]?.key)
+
   useEffect(() => {
-    setContent(updateProps ? updateProps.content : "");
+    const oldPost = async ()=>{
+      console.log(id)
+      if (!id)return
+      try{
+        const data = await customFetch(`/posts?id=${id}`,{
+            method : "GET"
+          })
+          setContent(data.data.content)
+          console.log(content)
+          setTitle(data.data.title)
+          console.log(title)
+      }catch(error){
+
+      }
+    }
+    oldPost()
   }, []);
   useEffect(() => {
     setIsClient(true);
   }, []);
 
   const submit = async () => {
+    console.log(category)
     const formdata = new FormData();
     formdata.append("title", title);
     formdata.append("content", content);
-    formdata.append("category", "introduction");
-    formdata.append("language", "korean");
+    formdata.append("category", category);
+    formdata.append("language", language);
     formdata.append("imagePath", JSON.stringify(imagePath));
     try {
       const response = await customFormFetch(
-        updateProps ? `/posts/${updateProps.id}` : "/posts",
+        id ? `/posts/${id}` : "/posts",
         {
-          method: updateProps ? "PATCH" : "POST",
+          method: id ? "PATCH" : "POST",
           body: formdata,
         }
       );
+      alert(postSuccess[language]?.contentPost)
     } catch (error) {
       alert(postError[language]?.subError);
     }
@@ -77,9 +95,34 @@ export default function EditorComponent({ updateProps }: EditorProps) {
     setTitle(e.target.value);
   };
 
+  const onDelete = async (id : string | undefined)=>{
+    try{
+      const data = await customFetch(`/posts/${id}`, {
+        method : "DELETE"
+      })
+      alert(deleteSuccess[language]?.contentDelete)
+    }catch(error){
+      alert(deleteError[language]?.delete)
+    }
+  }
+
   return (
     <div style={{ width: "60%" }}>
-      <input className="w-40 border-2" onChange={onChange}></input>
+      <input className="w-40 border-2" onChange={onChange} value={title}></input>
+      <select
+      value={category}
+        onChange={(e)=>{setCategory(e.target.value)
+          console.log(category)
+        }}
+      >
+        {categoryList[language].map((item)=>{
+          return(
+          <option key={item.key} value={item.key}>
+            {item.value}
+          </option>
+          )
+        })}
+      </select>
       <Editor
         value={content}
         apiKey={process.env.NEXT_PUBLIC_TINYMCE_API}
@@ -121,7 +164,8 @@ export default function EditorComponent({ updateProps }: EditorProps) {
         style={{ display: "none" }}
         id="imageInput"
       />
-      <button onClick={submit}>{editorCompo[language]?.submit}</button>
+      <button className="border" onClick={submit}>{editorCompo[language]?.submit}</button>
+      <button className="border" onClick={()=>onDelete(id)}>{editorCompo[language]?.delete}</button>
     </div>
   );
 }

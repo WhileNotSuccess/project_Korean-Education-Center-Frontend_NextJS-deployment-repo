@@ -26,7 +26,7 @@ interface BoardData {
 
 export default function BoardPageCompo({ name }: BoardPageProps) {
   const customFetch = useCustomFetch();
-  const [sort, setSort] = useState<string>(boardPage["korean"]?.title);
+  const [searchOption, setSearchOption] = useState<string>(boardPage["korean"]?.title);
   const [boardData, setBoardData] = useState<BoardData[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1); // 현재 페이지
   const [nextPage, setNextPage] = useState<number>(0); // 다음 페이지
@@ -77,8 +77,8 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
         <div className="w-2/5 flex justify-evenly">
           <select
             className="w-28 h-8 border-2 border-black rounded"
-            value={sort}
-            onChange={(e) => setSort(e.target.value)}
+            value={searchOption}
+            onChange={(e) => setSearchOption(e.target.value)}
           >
             <option value={boardPage[language]?.title}>
               {boardPage[language]?.title}

@@ -1,4 +1,4 @@
-import LanguageSelector from "../components/Cookie";
+import LanguageSelector from "../../common/Cookie";
 
 export default function CookieTest() {
   

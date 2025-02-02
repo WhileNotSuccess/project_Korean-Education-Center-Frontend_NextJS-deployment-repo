@@ -64,9 +64,28 @@ export const boardPage : Record<Language, Record<string, string>> = { // 게시�
   }
 }
 
+export const categoryList : Record<Language, {key : string;  value :string}[]> = {
+  [Language.korean] : [
+    {key : "introduction" ,value :"한국어교육센터 소개"},
+    {key : "directions" , value : "오시는 길"},
+    {key : "visa" , value :"비자 안내"},
+    {key : "dormitory" , value : "기숙사 안내"},
+    {key : "facility" , value :"학교 시설 안내"},
+    {key : "insurance" , value: "건강 보험 안내"},
+    {key : "review" , value : "유학생 후기"},
+    {key : "application-form" , value : "신청 서류"},
+    {key : "learning-materials" , value : "학습 자료 안내"},
+    {key : "notice" , value : "공지사항"},
+    {key : "news" , value : "한국어교육센터 소식"},
+    {key : "faq" , value : "FAQ"}
+  ]
+}
+
 export const editorCompo : Record<Language, Record<string, string>> = { // (임시) 글 업로드 하는 페이지에 사용될 메뉴들
   [Language.korean] : {
-    submit : "제출"
+    submit : "제출",
+    delete : "삭제",
+    update : "수정"
   }
 }
 
@@ -90,5 +109,23 @@ export const postError : Record<Language, Record<string, string>> = { // post요
   [Language.korean] : {
     imgError : "이미지 업로드에 실패했습니다.",
     subError : "제출에 실패했습니다."
+  }
+}
+
+export const deleteError : Record<Language, Record<string, string>> = {
+  [Language.korean] : {
+    delete : "글 삭제에 실패했습니다"
+  }
+}
+
+export const postSuccess : Record<Language, Record<string, string>> = {
+  [Language.korean] : {
+    contentPost : "글 업로드에 성공했습니다."
+  }
+}
+
+export const deleteSuccess : Record<Language, Record<string, string>> = {
+  [Language.korean] : {
+    contentDelete : "글 삭제에 성공했습니다."
   }
 }

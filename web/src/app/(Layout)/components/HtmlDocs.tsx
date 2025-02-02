@@ -1,10 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
 import useCustomFetch from "@/app/lib/customFetch";
-import { guidanceMenu, getError } from "@/app/menu";
+import { guidanceMenu, getError, editorCompo} from "@/app/menu";
 import parser from "html-react-parser";
 import { HtmlDocsProps, Language } from "@/app/common/types";
 import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
 
 type HtmlDocsPropsId = {
   // [key in "id" | "category" ]: string;
@@ -16,6 +17,7 @@ export default function HtmlDocs(props: HtmlDocsProps) {
   const [content, setContent] = useState<string>("");
   const [title, setTitle] = useState<string>("");
   const customFetch = useCustomFetch();
+  const router = useRouter()
   let endpoint = "";
   const language: Language = (Cookies.get("language") as Language) || "korean";
 
@@ -28,10 +30,9 @@ export default function HtmlDocs(props: HtmlDocsProps) {
             : (endpoint = `/posts?category=${props.category}`);
         }
         const data = await customFetch(endpoint, {
-          // korean을 하드코딩이 아닌 로컬스토리지에서 받아오는 식으로 수정
           method: "GET",
         });
-        setContent(data.data.content); // 지금은 배열 형태라서 [0] 수정 해야함
+        setContent(data.data.content); 
         setTitle(data.data.title);
       } catch (error) {
         alert(getError[language]?.htmlError);
@@ -40,6 +41,10 @@ export default function HtmlDocs(props: HtmlDocsProps) {
     };
     introData();
   }, []);
+
+  const onUpdate = async (id? : string)=>{
+    router.push(`/post-update-test/${id}`)
+  }
 
   return (
     <div className="w-full h-screen">
@@ -50,6 +55,7 @@ export default function HtmlDocs(props: HtmlDocsProps) {
       >
         {props.category ? guidanceMenu[language]?.[props.category] : <></>}
       </div>
+      <button onClick={()=>onUpdate(props.id)}>{editorCompo[language]?.update}</button>
       <div className="w-full h-screen flex justify-center">
         <div className="w-3/5 border">
           {" "}
