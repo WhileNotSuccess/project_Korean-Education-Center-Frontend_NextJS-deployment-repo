@@ -44,26 +44,30 @@ export default function SelectTabComponent({ name, tabKeys }: SelectTabProps) {
   return (
     <div className="w-full h-screen">
        {/* 카테고리 제목 표시 */}
-      <div className="h-12 border-b flex items-center justify-center">
+      <div className="h-12 border-b flex items-center justify-center mb-4">
         <div className="text-3xl font-bold">
           {smallMenu["korean"]?.[name]}
         </div>
       </div>
 
+      <div className="border w-3/5 mx-auto">
       {/* 탭 메뉴 */}
-      <div className="w-3/5 mx-auto grid grid-cols-4 gap-x-1 gap-y-1 p-2">
+      <div className="mx-auto grid grid-cols-4 bg-sky-500/30">
         {Object.entries(tabKeys).map(([key, label]) => (
           <button
             key={key}
-            className={`py-2 text-base font-medium text-center border rounded-md transition ${
-              selectedTab === key ? "bg-blue-500 text-white" : "bg-gray-200 text-black"
+            className={`py-2 text-base font-medium text-center border transition ${
+              selectedTab === key ? "bg-blue-500 text-white font-black" : "bg-sky-500/50 text-white font-black"
             }`}
             onClick={() => setSelectedTab(key)} // 상태 업데이트
-          >
+          > 
             {label}
           </button>
         ))}
       </div>
+
+      </div>
+      
 
       {/* 내용 표시 */}
       <div className="w-full flex justify-center mt-8">
