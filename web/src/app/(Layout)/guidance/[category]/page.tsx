@@ -1,5 +1,5 @@
 import { guidanceMenu } from "@/app/menu"
-import HtmlDocs from "../../components/htmlDocs"
+import HtmlDocs from "../../components/HtmlDocs"
 
 
 interface GuidancePageProps {
@@ -13,12 +13,9 @@ interface GuidancePageProps {
 export default function GuidancePage( {params} : GuidancePageProps ){
   const {category} = params
 
-
-  
   return(
     <div className="w-full h-screen flex justify-center items-center">
-      
-      <HtmlDocs name={category}/>
+      <HtmlDocs category={category}/>
     </div>
   )
 }

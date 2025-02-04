@@ -6,7 +6,7 @@ export default function CenterIntro() {
 
   return (
     <main className="w-full h-screen flex justify-center items-center">
-      <StaffIntro name={name}/>
+      <StaffIntro category={name}/>
     </main>
   );
 }

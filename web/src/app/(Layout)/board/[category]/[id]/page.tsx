@@ -1,4 +1,4 @@
-import HtmlDocsId from "../../../components/htmlDocsId"
+import HtmlDocs from "@/app/(Layout)/components/HtmlDocs"
 
 
 interface GuidancePageProps {
@@ -14,7 +14,7 @@ export default function GuidancePage( {params} : GuidancePageProps ){
 
   return(
     <div className="w-full h-screen flex justify-center items-center">
-      <HtmlDocsId id={id}/>
+      <HtmlDocs id={id}/>
     </div>
   )
 }

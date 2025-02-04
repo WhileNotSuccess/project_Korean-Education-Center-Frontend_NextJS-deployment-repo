@@ -1,5 +1,5 @@
 import { boardMenu } from "@/app/menu"
-import BoardPageCompo from "../../components/boardPageCompo"
+import BoardPageCompo from "../../components/BoardPageCompo"
 
 
 interface BoardPageProps {
