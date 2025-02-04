@@ -75,19 +75,19 @@ export default async function RootLayout({
         </Link>
         </div>
         <div className="flex flex-col">
-        <Link href={'/select/koreanCurriculum'}>
-        {smallMenu[language]?.koreanCurriculum}
+        <Link href={'/select/korean-curriculum'}>
+        {smallMenu[language]?.["korean-curriculum"]}
         </Link>
-        <Link href={'/select/openCampus'}>
-        {smallMenu[language]?.openCampus}
+        <Link href={'/select/open-campus'}>
+        {smallMenu[language]?.["open-campus"]}
         </Link>
         <Link href={'/board/review'}>
-        {smallMenu[language]?.internationalReview}
+        {boardMenu[language]?.review}
         </Link>
         </div>
         <div className="flex flex-col">
               <Link href={"/center-intro"}>
-                {smallMenu[language]?.howToGetHere}
+                {smallMenu[language]?.centerIntro}
               </Link>
               <Link href={"/board/application-form"}>
                 {boardMenu[language]?.["application-form"]}
@@ -98,7 +98,7 @@ export default async function RootLayout({
             </div>
             <div className="flex flex-col">
               <Link href={"/guidance/dormitory"}>
-                {smallMenu[language]?.centerIntro}
+                {smallMenu[language]?.dormitory}
               </Link>
               <Link href={"/guidance/facility"}>
                 {smallMenu[language]?.howToGetHere}

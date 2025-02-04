@@ -5,6 +5,7 @@ import { guidanceMenu, getError } from "@/app/menu";
 import parser from "html-react-parser";
 import { HtmlDocsProps, Language } from "@/app/common/types";
 import Cookies from "js-cookie";
+import SchoolMap from "./SchoolMap";
 
 type HtmlDocsPropsId = {
   // [key in "id" | "category" ]: string;
@@ -50,8 +51,22 @@ export default function HtmlDocs(props: HtmlDocsProps) {
       >
         {props.category ? guidanceMenu[language]?.[props.category] : <></>}
       </div>
+      {props.category === "directions" ? 
+        <div className="w-full mt-4 flex justify-center" style={{ height: "400px", overflow: 'hidden' }}>
+          <SchoolMap />
+        </div>
+      : null}
+
+      {props.category === "directions" ? 
+        <div className="w-full mt-0 flex justify-center">
+           <div className="w-[70%] bg-[#5592e7] p-4"> 
+           <div className="text-left text-white text-lg  font-bold">대한민국 대구광역시 북구 복현로 35</div>
+          </div>
+        </div>
+      : null}
+
       <div className="w-full h-screen flex justify-center">
-        <div className="w-3/5 border">
+        <div className="w-3/5 ">
           {" "}
           {/* border쓴 이유는 어느정도 크기인지 확인하려고 */}
           {parser(content)}
