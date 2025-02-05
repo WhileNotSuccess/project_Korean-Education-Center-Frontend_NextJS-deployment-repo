@@ -25,3 +25,14 @@ export type Counseling = {
   schedule: string;
   name: string;
 };
+
+export type Application = {
+  id: number;
+  userId: number;
+  filename: string;
+  course: string;
+  createdDate: string;
+  filetype: string;
+  fileSize: number;
+  isDone: boolean;
+};

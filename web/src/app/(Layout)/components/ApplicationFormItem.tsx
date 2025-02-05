@@ -1,6 +1,9 @@
 import { formatDate } from "@/app/common/formatDate";
-
-export default function ApplicationFormItem() {
+import { Application } from "@/app/common/types";
+type ApplicationFormItemProp = {
+  data: Application;
+};
+export default function ApplicationFormItem({ data }: ApplicationFormItemProp) {
   const props = {
     name: "홍길동",
     isDone: "",
@@ -22,7 +25,13 @@ export default function ApplicationFormItem() {
         <hr className="my-2 border-gray-300" />
         <div className="space-y-2 h-40 overflow-y-auto">
           {array.map((item) => (
-            <div className="flex items-center text-gray-700" key={item}>
+            <div
+              onClick={() => {
+                window.location.href = `${process.env.NEXT_PUBLIC_BACKEND_URL}/${item}`;
+              }}
+              className="flex items-center text-gray-700"
+              key={item}
+            >
               <span className="mr-2">📄</span>
               <span className="font-medium">{item}</span>
             </div>

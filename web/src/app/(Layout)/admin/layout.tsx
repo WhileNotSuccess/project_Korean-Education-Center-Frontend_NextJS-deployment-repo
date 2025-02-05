@@ -208,7 +208,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                 </li>
                 <li>
                   <a
-                    href="/admin/application-form"
+                    href="/admin/applications"
                     className="block hover:underline text-xs"
                   >
                     서류확인

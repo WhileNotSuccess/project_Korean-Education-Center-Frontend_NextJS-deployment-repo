@@ -19,8 +19,8 @@ interface BoardData {
   title: string;
   content: string;
   author: string;
-  createdAt: string;
-  updatedAt: string;
+  createdDate: string;
+  updatedDate: string;
   category: string;
 }
 
@@ -141,7 +141,7 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
               </Link>
               <div className="w-1/5 flex justify-center">{item.author}</div>
               <div className="w-1/5 flex justify-center">
-                {formatDate(item.updatedAt)}
+                {formatDate(item.updatedDate)}
               </div>
             </div>
           ))
