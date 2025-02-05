@@ -57,6 +57,7 @@ export const boardPage : Record<Language, Record<string, string>> = { // 게시�
     title : "제목",
     content : "내용",
     createDate : "작성일",
+    updateDate : "수정일",
     search : "검색",
     write : "작성",
     number : "순번",

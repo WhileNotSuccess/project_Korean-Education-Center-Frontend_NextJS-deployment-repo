@@ -16,6 +16,7 @@ type HtmlDocsPropsId = {
 export default function HtmlDocs(props: HtmlDocsProps) {
   const [content, setContent] = useState<string>("");
   const [title, setTitle] = useState<string>("");
+  const [guidanceId, setGuidanceId] = useState<string>("")
   const customFetch = useCustomFetch();
   const router = useRouter()
   let endpoint = "";
@@ -34,6 +35,7 @@ export default function HtmlDocs(props: HtmlDocsProps) {
         });
         setContent(data.data.content); 
         setTitle(data.data.title);
+        setGuidanceId(data.data.id)
       } catch (error) {
         alert(getError[language]?.htmlError);
         console.error(getError[language]?.htmlError);
@@ -42,8 +44,8 @@ export default function HtmlDocs(props: HtmlDocsProps) {
     introData();
   }, []);
 
-  const onUpdate = async (id? : string)=>{
-    router.push(`/post-update-test/${id}`)
+  const onUpdate = async (guidanceId? : string)=>{
+    router.push(`/post-update-test/${guidanceId}`)
   }
 
   return (
@@ -53,9 +55,9 @@ export default function HtmlDocs(props: HtmlDocsProps) {
         className="w-full flex justify-center items-center font-bold text-3xl"
         style={{ height: "200px" }}
       >
-        {props.category ? guidanceMenu[language]?.[props.category] : <></>}
+        {props.category ? guidanceMenu[language]?.[props.category] : <div>{title}</div>}
       </div>
-      <button onClick={()=>onUpdate(props.id)}>{editorCompo[language]?.update}</button>
+      <button onClick={()=>onUpdate(guidanceId)}>{editorCompo[language]?.update}</button>
       <div className="w-full h-screen flex justify-center">
         <div className="w-3/5 border">
           {" "}

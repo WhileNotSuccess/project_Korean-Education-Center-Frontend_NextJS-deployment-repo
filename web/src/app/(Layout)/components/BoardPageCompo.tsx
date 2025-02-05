@@ -9,6 +9,7 @@ import { boardPage, getError } from "@/app/menu";
 import Cookies from "js-cookie";
 import { Language } from "@/app/common/types";
 import { formatDate } from "@/app/common/formatDate";
+import { useRouter } from "next/navigation";
 
 type BoardPageProps = {
   name: keyof (typeof boardMenu)["korean"];
@@ -19,8 +20,8 @@ interface BoardData {
   title: string;
   content: string;
   author: string;
-  createdAt: string;
-  updatedAt: string;
+  createdDate: string;
+  updatedDate: string;
   category: string;
 }
 
@@ -33,6 +34,7 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
   const [prevPage, setPrevPage] = useState<number>(0); // 이전 페이지
   const [totalPage, setTotalPage] = useState<number>(0);
   const language: Language = (Cookies.get("language") as Language) || "korean";
+  const router = useRouter()
 
   // 게시글 불러오기 함수
   const fetchBoard = async (currentPage: number) => {
@@ -43,7 +45,6 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
           method: "GET",
         }
       );
-
       setBoardData(data.data);
       setCurrentPage(data.currentPage);
       setNextPage(data.nextPage);
@@ -64,6 +65,10 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
       setCurrentPage(page);
     }
   };
+
+  const onWrite = (category : string)=>{
+    router.push(`/post-test/${category}`)
+  }
 
   return (
     <div className="w-full h-screen">
@@ -99,15 +104,14 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
           </button>
         </div>
         <div className="w-3/5 flex justify-center">
-          <button className="w-16 bg-[#0093EE] text-white">
+          <button className="w-16 bg-[#0093EE] text-white" onClick={()=>onWrite(name)}>
             {boardPage[language]?.write}
           </button>
         </div>
       </div>
       <div className="w-full flex flex-col items-center mb-5">
         <div className="w-4/5 h-16 border-x-0 border-y-2 border-black mt-12 flex items-center">
-          <div className="w-1/5 font-bold pl-10">
-            {boardPage[language]?.number}
+          <div className="w-24 font-bold pl-10">
           </div>
           <div className="w-2/5 font-bold flex justify-center">
             {boardPage[language]?.title}
@@ -118,6 +122,9 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
           <div className="w-1/5 font-bold flex justify-center">
             {boardPage[language]?.createDate}
           </div>
+          <div className="w-1/5 font-bold flex justify-center">
+            {boardPage[language]?.updateDate}
+          </div>
         </div>
         {boardData && boardData.length > 0 ? (
           boardData.map((item, index) => (
@@ -126,22 +133,23 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
               className="w-4/5 h-12 border-b-2 border-black flex items-center"
             >
               {name === "notice" ? (
-                <div className="w-1/5 pl-12 border rounded-sm">
+                <div className="w-20 border rounded-sm flex justify-center items-center">
                   {boardPage[language]?.notice}
                 </div>
               ) : (
-                <div className="w-1/5 pl-12">{item.id}</div>
+                <div className="w-20"></div>
               )}
 
               <Link
                 href={`/board/${name}/${item.id}`}
-                className="w-2/5 cursor-pointer"
+                className="w-2/5 cursor-pointer ml-4"
               >
                 {item.title}
               </Link>
               <div className="w-1/5 flex justify-center">{item.author}</div>
+              <div className="w-1/5 flex justify-center">{formatDate(item.createdDate)}</div>
               <div className="w-1/5 flex justify-center">
-                {formatDate(item.updatedAt)}
+                {formatDate(item.updatedDate)}
               </div>
             </div>
           ))
