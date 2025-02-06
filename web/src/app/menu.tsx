@@ -16,9 +16,10 @@ export const smallMenu  : Record<Language, Record<string, string>>= {  // 예시
     centerIntro : '한국어교육센터 소개',
     howToGetHere : '오시는길',
     staffIntro : '강사진 및 교직원 소개',
-    koreaCurriculum : "한국어교육과정",
-    openCampus : "오픈캠퍼스",
-    internationalReview : "유학생 후기"
+    "korean-curriculum" : "한국어교육과정",
+    "open-campus" : "오픈캠퍼스",
+    internationalReview : "유학생 후기",
+    dormitory : "기숙사 안내",
   }
 }
 
@@ -78,7 +79,10 @@ export const categoryList : Record<Language, {key : string;  value :string}[]> =
     {key : "learning-materials" , value : "학습 자료 안내"},
     {key : "notice" , value : "공지사항"},
     {key : "news" , value : "한국어교육센터 소식"},
-    {key : "faq" , value : "FAQ"}
+    {key : "faq" , value : "FAQ"},
+    {key : "korean-outline", value : "개요"},
+    {key : "korean-sample", value : "프로그램 샘플"},
+    
   ]
 }
 
@@ -129,4 +133,21 @@ export const deleteSuccess : Record<Language, Record<string, string>> = {
   [Language.korean] : {
     contentDelete : "글 삭제에 성공했습니다."
   }
+}
+
+export const koreancurriculumList : Record<Language, {key: string; value: string}[]> = {
+  [Language.korean] : [
+    {key:"korean-outline", value:"개요"},
+    {key:"korean-sample", value:"프로그램 샘플"},
+
+  ]
+}
+
+export const opencampusList : Record<Language, {key: string; value: string}[]> = {
+  [Language.korean] : [
+    {key:"opencampus-purpose", value: "목적"},
+    {key:"opencampus-content", value: "일정 및 내용"},
+    {key:"opencampus-schedule", value: "스케쥴"},
+
+  ]
 }

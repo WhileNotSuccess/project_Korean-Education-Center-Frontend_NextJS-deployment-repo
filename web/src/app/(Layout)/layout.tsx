@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
-import { boardMenu, guidanceMenu, menu, smallMenu } from "../menu";
+import { guidanceMenu, menu, smallMenu,boardMenu } from "../menu";
 import Cookies from "js-cookie";
 import { cookies } from "next/headers";
 import { Language } from "../common/types";
@@ -63,32 +63,31 @@ export default async function RootLayout({
         <div className="flex flex-row w-full">
           <div className="w-40"></div>
           <div className="w-full flex justify-evenly">
-            <div className="flex flex-col items-center">
-              <Link href={`/guidance/introduction`}>
-                {smallMenu[language]?.centerIntro}
-              </Link>
-              <Link href={"/guidance/directions"}>
-                {smallMenu[language]?.howToGetHere}
-              </Link>
-              <Link href={"/staff-intro"}>
-                {smallMenu[language]?.staffIntro}
-              </Link>
-            </div>
-            <div className="flex flex-col">
-              <Link href={"/korea-curriculum"}>
-                {smallMenu[language]?.koreaCurriculum}
-              </Link>
-              <Link href={"/open-campus"}>
-                {smallMenu[language]?.openCampus}
-              </Link>
-              <Link href={"/board/review"}>{boardMenu[language]?.review}</Link>
-            </div>
-            <div className="flex flex-col">
+          <div className="flex flex-col items-center">
+        <Link href={`/guidance/introduction`}>
+        {smallMenu[language]?.centerIntro}
+        </Link>
+        <Link href={'/guidance/directions'}>
+        {smallMenu[language]?.howToGetHere}
+        </Link>
+        <Link href={'/staff-intro'}>
+        {smallMenu[language]?.staffIntro}
+        </Link>
+        </div>
+        <div className="flex flex-col">
+        <Link href={'/select/korean-curriculum'}>
+        {smallMenu[language]?.["korean-curriculum"]}
+        </Link>
+        <Link href={'/select/open-campus'}>
+        {smallMenu[language]?.["open-campus"]}
+        </Link>
+        <Link href={'/board/review'}>
+        {boardMenu[language]?.review}
+        </Link>
+        </div>
+        <div className="flex flex-col">
               <Link href={"/center-intro"}>
                 {smallMenu[language]?.centerIntro}
-              </Link>
-              <Link href={"/center-intro"}>
-                {smallMenu[language]?.howToGetHere}
               </Link>
               <Link href={"/board/application-form"}>
                 {boardMenu[language]?.["application-form"]}
@@ -99,7 +98,7 @@ export default async function RootLayout({
             </div>
             <div className="flex flex-col">
               <Link href={"/guidance/dormitory"}>
-                {smallMenu[language]?.centerIntro}
+                {smallMenu[language]?.dormitory}
               </Link>
               <Link href={"/guidance/facility"}>
                 {smallMenu[language]?.howToGetHere}
