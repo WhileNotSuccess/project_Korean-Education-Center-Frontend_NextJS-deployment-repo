@@ -1,5 +1,5 @@
 import Link from "next/link";
-import SetCookie from "../components/Cookie";
+import SetCookie from "../../common/Cookie";
 
 export default function Home() {
 
