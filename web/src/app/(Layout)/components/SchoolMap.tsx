@@ -36,22 +36,22 @@ const SchoolMap = () => {
   }, []);
 
   useEffect(() => {
-    if (isLoaded && typeof window !== "undefined" && window.google) {
+    if (isLoaded && typeof window !== "undefined" && window.google && window.google.maps) {
       // 구글 맵 초기화
       const map = new window.google.maps.Map(mapRef.current as HTMLDivElement, {
-        center: { lat : 35.89563, lng: 128.62243 },
+        center: { lat: 35.89563, lng: 128.62243 },
         zoom: 15,
       });
-
+  
       // 주소 영진전문대학교 본교 
-      const location = {  lat : 35.89563, lng: 128.62243 };
-
+      const location = { lat: 35.89563, lng: 128.62243 };
+  
       // SVG 마커 아이콘 설정
       const svgIcon = {
         url: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><circle cx="10" cy="10" r="8" stroke="black" stroke-width="2" fill="red" /></svg>',
         scaledSize: new window.google.maps.Size(20, 20),
       };
-
+  
       new window.google.maps.Marker({
         position: location,
         map: map,
@@ -59,6 +59,7 @@ const SchoolMap = () => {
       });
     }
   }, [isLoaded]);
+  
 
   return (
     <div
