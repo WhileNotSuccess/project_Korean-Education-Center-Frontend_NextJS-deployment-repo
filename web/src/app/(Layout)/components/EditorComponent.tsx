@@ -75,7 +75,9 @@ export default function EditorComponent( props : EditorProps) {
       formData.append("image", file);
 
       try {
-        const data = await customFormFetch("/attachments", {
+        const data = await customFormFetch("/attachments/image", {
+          // 주소 바꿔야함, body랑 헤더를 커스텀 함수를 만들어서 보내는걸로로 변경해야함
+
           method: "POST",
           body: formData,
         });
