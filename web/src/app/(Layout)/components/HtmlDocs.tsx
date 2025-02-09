@@ -46,7 +46,7 @@ export default function HtmlDocs(props: HtmlDocsProps) {
   }, []);
 
   const onUpdate = async (guidanceId? : string)=>{
-    router.push(`/post-update-test/${guidanceId}`)
+    router.push(`/post-update/${guidanceId}`)
   }
 
   return (

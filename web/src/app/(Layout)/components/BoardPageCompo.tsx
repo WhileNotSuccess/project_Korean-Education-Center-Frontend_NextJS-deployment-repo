@@ -67,7 +67,7 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
   };
 
   const onWrite = (category : string)=>{
-    router.push(`/post-test/${category}`)
+    router.push(`/post/${category}`)
   }
 
   return (

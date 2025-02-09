@@ -1,5 +1,5 @@
 import { smallMenu } from "@/app/menu";
-import StaffIntro from "./staffIntro";
+import StaffIntro from "../components/StaffIntro";
 
 export default function CenterIntro() {
   const name = smallMenu["korean"].staffIntro

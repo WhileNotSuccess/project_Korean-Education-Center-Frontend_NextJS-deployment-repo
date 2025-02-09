@@ -1,4 +1,4 @@
-import EditorComponent from "../../components/EditorComponent";
+import EditorComponent from "../../components/EditorCompo";
 
 interface UpdateProps {
   params : {
