@@ -123,9 +123,21 @@ export const deleteError : Record<Language, Record<string, string>> = {
   }
 }
 
+export const updateError : Record<Language, Record<string, string>> = {
+  [Language.korean] : {
+    update : "글 수정에 실패했습니다."
+  }
+}
+
 export const postSuccess : Record<Language, Record<string, string>> = {
   [Language.korean] : {
     contentPost : "글 업로드에 성공했습니다."
+  }
+}
+
+export const updateSuccess : Record<Language, Record<string, string>> = {
+  [Language.korean] : {
+    updatePost : "글 수정에 성공했습니다."
   }
 }
 

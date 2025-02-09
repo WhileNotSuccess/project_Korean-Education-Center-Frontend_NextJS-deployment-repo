@@ -36,3 +36,12 @@ export type Application = {
   fileSize: number;
   isDone: boolean;
 };
+
+export type ServerDocumentFile = { // 서버에서 받는 파일 타입
+  id : number;
+  postId : number;
+  filename : string;
+  filetype : string;
+  filesize : number;
+  createdDate : string
+}

@@ -7,9 +7,10 @@ interface ApplicationPageProps {
 }
 
 export default function ApplicationPage({ params }: ApplicationPageProps) {
+  const {category} = params
   return (
     <div>
-      <ApplicationComponent category={params.category} />
+      <ApplicationComponent category={category} />
     </div>
   );
 }
