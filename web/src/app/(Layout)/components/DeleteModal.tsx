@@ -6,13 +6,14 @@ import { createPortal } from "react-dom";
 type ModalProps = {
   onClose: () => void;
   id: number;
+  target: string;
 };
 
-export default function CounselingItemDeleteModal({ onClose, id }: ModalProps) {
+export default function DeleteModal({ onClose, id, target }: ModalProps) {
   const customFetch = useCustomFetch();
 
   const onSubmit = async () => {
-    const response = await customFetch(`/consult/${id}`, {
+    const response = await customFetch(`/${target}/${id}`, {
       method: "DELETE",
     });
 
