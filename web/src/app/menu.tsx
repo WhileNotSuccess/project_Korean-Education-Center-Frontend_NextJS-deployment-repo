@@ -20,7 +20,8 @@ export const smallMenu  : Record<Language, Record<string, string>>= {  // 예시
     "open-campus" : "오픈캠퍼스",
     internationalReview : "유학생 후기",
     dormitory : "기숙사 안내",
-    facility : "학교 시설 안내"
+    facility : "학교 시설 안내",
+    "applied-to" : "입학 신청"
   }
 }
 

@@ -70,7 +70,7 @@ export default function HomePageCompo() {
       <div className="w-24 h-8 bg-blue-500 text-white border flex items-center justify-center">
         {homePage[language]?.["quick-service"]}
         </div>
-      <div className="w-full h-full border flex flex-wrap items-center justify-evenly bg-[#a3c5ed]">
+      <div className="w-full h-full border flex flex-wrap items-center justify-evenly bg-[#a3c5ed] border-blue-500">
         <Link href={"/guidance/introduction"} className="w-48 h-12 border rounded-3xl flex justify-center items-center bg-[#0072ba] text-white">
           {guidanceMenu[language]?.introduction}
         </Link>
@@ -127,6 +127,9 @@ export default function HomePageCompo() {
       </div>
       </div>
       
+      <div className="w-full h-36 bg-[#0072ba] mt-24">
+
+      </div>
     </div>
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import useCustomFetch from "@/app/lib/customFetch";
-import { guidanceMenu, getError, editorCompo} from "@/app/menu";
+import { guidanceMenu, getError, editorCompo, deleteSuccess, deleteError} from "@/app/menu";
 import parser from "html-react-parser";
 import { HtmlDocsProps, Language, ServerDocumentFile } from "@/app/common/types";
 import Cookies from "js-cookie";
@@ -50,6 +50,16 @@ export default function HtmlDocs(props: HtmlDocsProps) {
   const onUpdate = async (guidanceId? : string)=>{
     router.push(`/post-update/${guidanceId}`)
   }
+
+    const onDelete = async (id: string | undefined) => {
+      try {
+        const data = await customFetch(`/posts/${id}`, { method: "DELETE" });
+        alert(deleteSuccess[language]?.contentDelete);
+      } catch (error) {
+        alert(deleteError[language]?.delete);
+      }
+    };
+  
   return (
     <div className="w-full h-screen">
       {documentFiles ? documentFiles.map((item, index)=>{ // 화면에 파일 이름이 띄워지는지 확인용 테스트코드 ( 수정 or 삭제예정 )
@@ -78,7 +88,9 @@ export default function HtmlDocs(props: HtmlDocsProps) {
         </div>
         </div>
       : null}
-
+        <button className="border" onClick={() => onDelete(guidanceId)}>
+          {editorCompo[language]?.delete}
+        </button>
       <button onClick={()=>onUpdate(guidanceId)}>{editorCompo[language]?.update}</button>
       <div className="w-full h-screen flex justify-center">
         <div className="w-3/5 ">

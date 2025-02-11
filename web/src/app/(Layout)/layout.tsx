@@ -86,8 +86,8 @@ export default async function RootLayout({
         </Link>
         </div>
         <div className="flex flex-col">
-              <Link href={"/center-intro"}>
-                {smallMenu[language]?.centerIntro}
+              <Link href={"/select/applied-to"}>
+                {smallMenu[language]?.["applied-to"]}
               </Link>
               <Link href={"/board/application-form"}>
                 {boardMenu[language]?.["application-form"]}
@@ -95,7 +95,7 @@ export default async function RootLayout({
               <Link href={"/guidance/visa"}>
                 {guidanceMenu[language]?.visa}
               </Link>
-            </div>
+            </div>  
             <div className="flex flex-col">
               <Link href={"/guidance/dormitory"}>
                 {smallMenu[language]?.dormitory}

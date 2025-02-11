@@ -124,16 +124,6 @@ export default function EditorComponent( props : EditorProps) {
     }
   };
 
-  const onDelete = async (id: string | undefined) => {
-    try {
-      const data = await customFetch(`/posts/${id}`, { method: "DELETE" });
-      alert(deleteSuccess[language]?.contentDelete);
-    } catch (error) {
-      alert(deleteError[language]?.delete);
-    }
-  };
-
-
   return (
     <div className="w-full flex justify-center">
     <div style={{ width: "60%" }} className="mt-4">
@@ -219,10 +209,6 @@ export default function EditorComponent( props : EditorProps) {
       </button> : <button className="border" onClick={submit}>
         {editorCompo[language]?.submit}
       </button>}
-      
-      <button className="border" onClick={() => onDelete(props.id)}>
-        {editorCompo[language]?.delete}
-      </button>
     </div>
     </div>
   );
