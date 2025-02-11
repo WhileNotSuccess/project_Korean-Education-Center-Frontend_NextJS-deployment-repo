@@ -118,10 +118,10 @@ export default async function RootLayout({
           </div>
         </div>
       </div>
-      <img
-        src="/images/영진소개배너.jpg"
+{/*       <img
+        src="/images/한국어교육센터 기본배너.png"
         className="w-full h-60 mt-4 flex justify-center items-center"
-      ></img>
+      ></img> */}
       {children}
     </div>
   );

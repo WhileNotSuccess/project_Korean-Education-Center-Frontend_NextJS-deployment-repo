@@ -101,6 +101,13 @@ export const paginationPage : Record<Language, Record<string, string>> = { // �
   }
 }
 
+export const homePage : Record<Language, Record<string, string>> = {
+  [Language.korean] : {
+    notice : "공지사항",
+    download : "다운로드"
+  }
+}
+
 
 export const getError : Record<Language, Record<string, string>> = { // get요청에 실패했을때의 메뉴들
   [Language.korean] : {

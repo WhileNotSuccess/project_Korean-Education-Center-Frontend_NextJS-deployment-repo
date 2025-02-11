@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import Pagination from "./Pagination";
 import { boardPage, getError } from "@/app/menu";
 import Cookies from "js-cookie";
-import { Language } from "@/app/common/types";
+import { BoardData, Language } from "@/app/common/types";
 import { formatDate } from "@/app/common/formatDate";
 import { useRouter } from "next/navigation";
 
@@ -15,15 +15,6 @@ type BoardPageProps = {
   name: keyof (typeof boardMenu)["korean"];
 };
 
-interface BoardData {
-  id: string;
-  title: string;
-  content: string;
-  author: string;
-  createdDate: string;
-  updatedDate: string;
-  category: string;
-}
 
 export default function BoardPageCompo({ name }: BoardPageProps) {
   const customFetch = useCustomFetch();

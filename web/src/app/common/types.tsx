@@ -45,3 +45,13 @@ export type ServerDocumentFile = { // 서버에서 받는 파일 타입
   filesize : number;
   createdDate : string
 }
+
+export type BoardData = {
+  id: string;
+  title: string;
+  content: string;
+  author: string;
+  createdDate: string;
+  updatedDate: string;
+  category: string;
+}

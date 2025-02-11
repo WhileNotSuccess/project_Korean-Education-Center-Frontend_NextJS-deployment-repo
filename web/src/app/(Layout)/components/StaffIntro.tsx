@@ -48,12 +48,13 @@ export default function StaffIntro({ category }: HtmlDocsProps) {
           {staffPage["korean"]?.faculty}
         </div>
       </div>
-      <div className="w-full flex flex-wrap justify-evenly mt-4">
+      <div className="w-full flex items-center justify-center">
+      <div className="w-4/5 flex flex-wrap justify-evenly mt-4">
         {teacher.map((item) => {
           return (
             <div
               key={item.id}
-              className="w-52 h-24 border-2 border-[#A6CAEC] mb-4 text-[#0093EE]"
+              className="w-64 h-24 border-2 border-[#A6CAEC] mb-4 text-[#0093EE]"
             >
               <div className="font-bold border-b-2 border-[#0072BA] pl-2 h-8 flex flex-col justify-center">
                 {item.name}
@@ -63,12 +64,14 @@ export default function StaffIntro({ category }: HtmlDocsProps) {
           );
         })}
       </div>
+      </div>
       <div className="w-full h-24 flex items-center justify-center mt-6">
         <div className=" h-14 text-2xl font-bold w-4/5 border-b-2  border-[#0072BA] text-[#0093EE]">
           {staffPage["korean"]?.staff}
         </div>
       </div>
-      <div className="w-full flex flex-wrap justify-evenly mt-4">
+      <div className="w-full flex items-center justify-center">
+      <div className="w-4/5 flex flex-wrap justify-evenly mt-4">
         {staff.map((item) => {
           return (
             <div
@@ -92,6 +95,7 @@ export default function StaffIntro({ category }: HtmlDocsProps) {
             </div>
           );
         })}
+      </div>
       </div>
     </div>
   );
