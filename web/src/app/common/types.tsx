@@ -36,3 +36,11 @@ export type Application = {
   fileSize: number;
   isDone: boolean;
 };
+
+export type Banner = {
+  expiredDate: string;
+  id: number;
+  image: string;
+  language: string;
+  url: string;
+};
