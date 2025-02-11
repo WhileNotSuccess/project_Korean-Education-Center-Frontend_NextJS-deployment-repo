@@ -101,7 +101,7 @@ export default async function RootLayout({
                 {smallMenu[language]?.dormitory}
               </Link>
               <Link href={"/guidance/facility"}>
-                {smallMenu[language]?.howToGetHere}
+                {smallMenu[language]?.facility}
               </Link>
               <Link href={"/board/learning-materials"}>
                 {boardMenu[language]?.["learning-materials"]}

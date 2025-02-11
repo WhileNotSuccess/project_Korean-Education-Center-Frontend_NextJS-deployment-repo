@@ -7,7 +7,7 @@ export const menu : Record<Language, Record<string, string>> = { // 예시메뉴
     curriculum : '과정소개',
     application : '신청', 
     schoolLife : '학교생활',
-    notification : '소식/공지'
+    notification : '알림/공지'
   }
 }
 
@@ -20,6 +20,7 @@ export const smallMenu  : Record<Language, Record<string, string>>= {  // 예시
     "open-campus" : "오픈캠퍼스",
     internationalReview : "유학생 후기",
     dormitory : "기숙사 안내",
+    facility : "학교 시설 안내"
   }
 }
 
@@ -40,7 +41,7 @@ export const boardMenu : Record<Language, Record<string, string>> = {  // 게시
     "application-form" : "신청 서류",
     "learning-materials" : "학습 자료 안내",
     notice : "공지사항",
-    news : "한국어교육센터 소식",
+    news : "한국어교육센터 알림",
     faq : "FAQ"
   }
 }
@@ -82,7 +83,7 @@ export const categoryList : Record<Language, {key : string;  value :string}[]> =
     {key : "faq" , value : "FAQ"},
     {key : "korean-outline", value : "개요"},
     {key : "korean-sample", value : "프로그램 샘플"},
-    
+    {key : "applied-to", value : "입학 신청"},
   ]
 }
 
@@ -104,7 +105,10 @@ export const paginationPage : Record<Language, Record<string, string>> = { // �
 export const homePage : Record<Language, Record<string, string>> = {
   [Language.korean] : {
     notice : "공지사항",
-    download : "다운로드"
+    download : "다운로드",
+    "applied-to" : "입학신청",
+    "recruitment-guidelines" : "모집요강",
+    "quick-service" : "빠른서비스"
   }
 }
 
