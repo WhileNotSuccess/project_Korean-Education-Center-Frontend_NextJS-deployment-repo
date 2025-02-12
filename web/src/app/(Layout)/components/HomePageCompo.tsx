@@ -98,7 +98,7 @@ export default function HomePageCompo() {
             {boardData.map((item, index)=>{
               return(
                 <div key={index} className="w-full h-8 flex justify-between">
-                  <div>{item.title}</div> <div>{formatDate(item.createdDate)}</div>
+                  <Link href={`/board/notice/${item.id}`}>{item.title}</Link> <div>{formatDate(item.createdDate)}</div>
                 </div>
               )
             })}

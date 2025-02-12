@@ -25,6 +25,7 @@ export default function EditorComponent( props : EditorProps) {
   const [imagePath, setImagePath] = useState<Array<string>>([]);
   const [documentFiles, setDocumentFiles] = useState<Array<File>>([]); // 파일 저장을 위한 상태
   const [documentFileNames, setDocumentFileNames] = useState<Array<string>>([]); // 파일 이름 리스트
+  const [deleteFileNames, setDeleteFileNames] = useState<Array<string>>([]) // 삭제할 파일 이름 리스트
   const customFormFetch = useCustomFormFetch();
   const customFetch = useCustomFetch();
   const language: Language = (Cookies.get("language") as Language) || "korean";
@@ -48,51 +49,48 @@ export default function EditorComponent( props : EditorProps) {
   }, [props.id]);
 
   const submit = async () => {
-
   try {
-    // if (documentFiles.length > 0){
-    console.log("파일 있는곳")
     const formData = new FormData();
     formData.append("title", title);
     formData.append("content", content);
     formData.append("category", category);
     formData.append("language", language);
-    formData.append("imagePath", JSON.stringify(imagePath));
 
     // 첨부파일이 있다면, FormData에 추가
     documentFiles.forEach((file) => {
       formData.append("file", file); // 문서 파일도 함께 전송
     });
-
-
-      const response = await customFormFetch(
-        props.id ? `/posts/${props.id}` : "/posts",
-        { method: props.id ? "PATCH" : "POST", body: formData }
-      )
-    // }else {
-    //   console.log("파일 없는 곳")
-    //   //const imagePath = path.toString()
-    //   const body = JSON.stringify({
-    //     title,
-    //     content,
-    //     category,
-    //     language,
-    //     // imagePath // 지금은 잠시 뺴놨음
-    //   })
-    //   console.log(body)
-    //   const response = await customFetch(
-    //     "/posts", {
-    //       method : "POST",
-    //       body : body
-    //     }
-    //   )
-    // }
-
-    //{props.id? alert(updateSuccess[language]?.updatePost): alert(postSuccess[language]?.contentPost)}
-    } catch (error) {
+    const response = await customFormFetch(
+      "/posts",{ 
+        method: "POST", body: formData 
+      }
+    )} catch (error) {
       alert(postError[language]?.subError);
     }
   };
+
+  const update = async () =>{
+    try{
+      const formData = new FormData();
+      formData.append("title", title);
+      formData.append("content", content);
+      formData.append("category", category);
+      formData.append("language", language);
+      formData.append("deleteFilePath", JSON.stringify(deleteFileNames))
+      documentFiles.forEach((file) => {
+        formData.append("file", file); // 문서 파일도 함께 전송
+      });
+      const response = await customFormFetch(
+        `/posts/${props.id}`,{
+          method : "PATCH",
+          body : formData
+        }
+      )
+
+    }catch(error){
+
+    }
+  }
 
 
   const handleFileSelect = async (file: File) => {
@@ -101,7 +99,7 @@ export default function EditorComponent( props : EditorProps) {
       formData.append("image", file);
 
       try {
-        const data = await customFormFetch("/attachments/image", {
+        const data = await customFormFetch("/attachments", {
           // 주소 바꿔야함, body랑 헤더를 커스텀 함수를 만들어서 보내는걸로로 변경해야함
 
           method: "POST",
@@ -120,14 +118,18 @@ export default function EditorComponent( props : EditorProps) {
       const filesArray = Array.from(e.target.files);
       setDocumentFiles((prev) => [...prev, ...filesArray]);
       setDocumentFileNames((prev) => [...prev, ...filesArray.map((file) => file.name)]); // 파일 이름을 저장
-      console.log(documentFiles)
     }
   };
 
+  const addDeleteFileName = (fileName : string)=>{
+    setDocumentFiles((prev) => prev.filter((file) => file.name !== fileName));
+    setDocumentFileNames((prev) => prev.filter((name) => name !== fileName));
+    setDeleteFileNames((prev)=>[...prev, fileName])
+  }
+
   return (
     <div className="w-full flex justify-center">
-    <div style={{ width: "60%" }} className="mt-4">
-      
+    <div style={{ width: "60%" }} className="mt-4">      
 <form>
     <div className="flex">
       <div>
@@ -148,6 +150,22 @@ export default function EditorComponent( props : EditorProps) {
         </div>
     </div>
 </form>
+
+      <input
+        type="file"
+        accept=".*"
+        multiple
+        onChange={handleDocumentFileChange}
+      />
+      <ul>
+        {documentFileNames && documentFileNames.map((fileName, index) => (
+          <div key={index} className={`w-1/3 flex justify-between items-center ${deleteFileNames.includes(fileName) ? "hidden" : ""}`}>
+            <li >{fileName}</li>
+            <img src="/images/X버튼.png" className="size-4 cursor-pointer" onClick={()=>addDeleteFileName(fileName)}/>
+          </div>
+        ))}
+      </ul>
+
       <Editor
         id="tinymce-editor"
         value={content}
@@ -190,21 +208,8 @@ export default function EditorComponent( props : EditorProps) {
         style={{ display: "none" }}
         id="imageInput"
       />
-      {/* 문서 파일 선택 */}
-      <input
-        type="file"
-        accept=".*"
-        multiple
-        onChange={handleDocumentFileChange}
-      />
-      {/* 선택된 문서 파일들 표시 */}
-      <ul>
-        {documentFileNames && documentFileNames.map((fileName, index) => (
-          //<li key={index}>{fileName}</li>
-          <li key={index}>{fileName}</li>
-        ))}
-      </ul>
-      {props.id ? <button className="border" onClick={submit}>
+
+      {props.id ? <button className="border" onClick={update}>
         {editorCompo[language]?.update}
       </button> : <button className="border" onClick={submit}>
         {editorCompo[language]?.submit}
