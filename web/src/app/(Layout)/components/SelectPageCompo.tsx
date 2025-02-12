@@ -2,14 +2,14 @@
 
 import {useEffect, useState } from "react";
 import useCustomFetch from "@/app/lib/customFetch";
-import { smallMenu } from "@/app/menu";
+import { selectMenu } from "@/app/menu";
 import parser from "html-react-parser";
 import { Language } from "@/app/common/types";
 import Cookies from "js-cookie";
 
 type SelectTabProps = {
   categoryTab: Record<Language, {key: string; value: string}[]> // 세부 카테고리
-  name: keyof typeof smallMenu["korean"];
+  name: keyof typeof selectMenu["korean"];
 };
 
 export default function SelectTabComponent({ name, categoryTab }: SelectTabProps) {
@@ -34,7 +34,7 @@ export default function SelectTabComponent({ name, categoryTab }: SelectTabProps
         });
         setContent(data.data[0].content);
       } catch (error) {
-        alert(`${smallMenu[language]?.[name]}의 글을 불러올 수 없습니다`);
+        alert(`${selectMenu[language]?.[name]}의 글을 불러올 수 없습니다`);
         console.error("해당 게시글을 불러올 수 없습니다.");
       }
     };
@@ -48,7 +48,7 @@ export default function SelectTabComponent({ name, categoryTab }: SelectTabProps
        {/* 카테고리 제목 표시 */}
       <div className="h-12 border-b flex items-center justify-center mb-4">
         <div className="text-3xl font-bold">
-          {smallMenu["korean"]?.[name]}
+          {selectMenu["korean"]?.[name]}
         </div>
       </div>
 

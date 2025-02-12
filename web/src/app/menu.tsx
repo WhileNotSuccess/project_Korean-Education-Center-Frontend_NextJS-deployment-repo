@@ -45,6 +45,14 @@ export const boardMenu : Record<Language, Record<string, string>> = {  // 게시
   }
 }
 
+export const selectMenu : Record<Language, Record<string, string>> = {
+  [Language.korean] : {
+    "korean-curriculum" : "한국어교육과정",
+    "open-campus" : "오픈캠퍼스",
+    "applied-to" : "입학 신청"
+  }
+}
+
 export const staffPage  : Record<Language, Record<string, string>> = { // 강사진 및 교직원 소개 페이지
   [Language.korean] : {
   faculty : "강사진 소개",
@@ -149,5 +157,12 @@ export const opencampusList : Record<Language, {key: string; value: string}[]> =
     {key:"opencampus-content", value: "일정 및 내용"},
     {key:"opencampus-schedule", value: "스케쥴"},
 
+  ]
+}
+
+export const applicationList : Record<Language, {key: string; value: string}[]> = {
+  [Language.korean] : [
+    {key:"procedure-guide", value : "절차 안내"},
+    {key:"upload-documents", value : "서류 업로드"},
   ]
 }

@@ -59,18 +59,25 @@ export default function HtmlDocs(props: HtmlDocsProps) {
         {props.category ? guidanceMenu[language]?.[props.category] : <div>{title}</div>}
       </div>
       {props.category === "directions" ? 
+        <>
         <div className="w-full mt-4 flex justify-center" style={{ height: "400px", overflow: 'hidden' }}>
           <SchoolMap />
         </div>
+        <div className="w-full mt-0 flex justify-center">
+        <div className="w-[70%] bg-[#5592e7] p-4"> 
+        <div className="text-left text-white text-lg  font-bold">대한민국 대구광역시 북구 복현로 35</div>
+       </div>
+        </div>
+        </>
       : null}
 
-      {props.category === "directions" ? 
+      {/* {props.category === "directions" ? 
         <div className="w-full mt-0 flex justify-center">
            <div className="w-[70%] bg-[#5592e7] p-4"> 
            <div className="text-left text-white text-lg  font-bold">대한민국 대구광역시 북구 복현로 35</div>
           </div>
         </div>
-      : null}
+      : null} */}
 
       <button onClick={()=>onUpdate(guidanceId)}>{editorCompo[language]?.update}</button>
       <div className="w-full h-screen flex justify-center">

@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
-import { guidanceMenu, menu, smallMenu,boardMenu } from "../menu";
-import Cookies from "js-cookie";
+import { guidanceMenu, menu, smallMenu,boardMenu, selectMenu } from "../menu";
 import { cookies } from "next/headers";
 import { Language } from "../common/types";
 
@@ -86,8 +85,8 @@ export default async function RootLayout({
         </Link>
         </div>
         <div className="flex flex-col">
-              <Link href={"/center-intro"}>
-                {smallMenu[language]?.centerIntro}
+              <Link href={"/aplied-to"}>
+                {selectMenu[language]?.centerIntro}
               </Link>
               <Link href={"/board/application-form"}>
                 {boardMenu[language]?.["application-form"]}
