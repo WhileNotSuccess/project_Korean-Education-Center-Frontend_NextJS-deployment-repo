@@ -6,18 +6,18 @@ import { guidanceMenu, menu, smallMenu,boardMenu, selectMenu, counselingForm } f
 import { cookies } from "next/headers";
 import { Language } from "../common/types";
 import { useAuth } from "../hook/auth";
+import LoginCompo from "./components/LoginCompo";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
-  subsets: ["latin"],
+  subsets: ["latin"], 
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
-/* 
-const {user, logout, error, isLoading} = useAuth() */
+
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -36,11 +36,7 @@ export default async function RootLayout({
   return (
     <div className="h-screen w-full flex flex-col ">
       <div className="w-full min-h-15 bg-[#0093EE] flex justify-end gap-3 font-bold items-center pr-5">
-        <Link href={"/"}>메인</Link>
-        { !authToken ? <Link href={"/login"}>로그인</Link>
-        : <button /* onClick={logout} */>로그아웃</button> 
-
-        }
+        <LoginCompo authToken={authToken} />
         <Link href={"/japan"}>
           <img src="/images/japan.png" className="w-6 h-4"></img>
         </Link>

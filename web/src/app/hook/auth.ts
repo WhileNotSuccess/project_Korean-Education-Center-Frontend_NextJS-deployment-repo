@@ -1,11 +1,12 @@
-import useSWR from 'swr';
+'use client'
+import { default as useSWR } from 'swr'
 import cookie from 'js-cookie';
 
 export const useAuth = () => {
 
       
     const { data: user, error, mutate, isLoading } = useSWR(
-        '/user/info',  // 키 (baseURL은 환경변수에서 자동으로 붙음)
+        '/user/info',  
         async (endpoint) => {
             const baseURL = process.env.NEXT_PUBLIC_BACKEND_URL
             const response = await fetch(`${baseURL}${endpoint}`, {
@@ -19,10 +20,10 @@ export const useAuth = () => {
                 throw new Error('데이터를 불러오는데 실패했습니다.');
             }
 
-            return response.json(); // 응답을 JSON으로 변환해서 반환
+            return response.json(); 
         },
         {
-            refreshInterval: 60000 * 5 // 5분마다 요청
+            refreshInterval: 60000 * 5 
         }
     );
 
