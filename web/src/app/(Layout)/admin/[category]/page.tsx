@@ -6,10 +6,12 @@ interface AdminPageProps {
   };
 }
 
-export default function AdminPage({ params }: AdminPageProps) {
+
+export default function ApplicationPage({ params }: ApplicationPageProps) {
+  const {category} = params
   return (
     <div>
-      <AdminComponent category={params.category} />
+      <ApplicationComponent category={category} />
     </div>
   );
 }

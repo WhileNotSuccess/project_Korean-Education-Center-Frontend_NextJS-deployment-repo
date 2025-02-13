@@ -37,6 +37,25 @@ export type Application = {
   isDone: boolean;
 };
 
+export type ServerDocumentFile = { // 서버에서 받는 파일 타입
+  id : number;
+  postId : number;
+  filename : string;
+  filetype : string;
+  filesize : number;
+  createdDate : string
+}
+
+export type BoardData = {
+  id: string;
+  title: string;
+  content: string;
+  author: string;
+  createdDate: string;
+  updatedDate: string;
+  category: string;
+}
+
 export type Banner = {
   expiredDate: string;
   id: number;
@@ -44,3 +63,4 @@ export type Banner = {
   language: string;
   url: string;
 };
+

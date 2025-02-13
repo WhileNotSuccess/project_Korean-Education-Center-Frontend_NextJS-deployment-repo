@@ -1,6 +1,7 @@
 const useCustomFetch = () => {
   const customFetch = async (endpoint: string, options = {}) => {
     const baseURL = process.env.NEXT_PUBLIC_BACKEND_URL;
+    console.log(`${baseURL}${endpoint}`)
     const defaultOptions: RequestInit = {
       headers: {
         // 헤더를 application/json 뿐 아니라 form-data로 보내는 경우에는 어떻게 할것인지 생각, 폼데이터전용 함수를 만들어야 하나

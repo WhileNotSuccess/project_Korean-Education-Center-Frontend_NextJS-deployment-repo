@@ -86,8 +86,8 @@ export default async function RootLayout({
         </Link>
         </div>
         <div className="flex flex-col">
-              <Link href={"/center-intro"}>
-                {smallMenu[language]?.centerIntro}
+              <Link href={"/select/applied-to"}>
+                {smallMenu[language]?.["applied-to"]}
               </Link>
               <Link href={"/board/application-form"}>
                 {boardMenu[language]?.["application-form"]}
@@ -95,13 +95,13 @@ export default async function RootLayout({
               <Link href={"/guidance/visa"}>
                 {guidanceMenu[language]?.visa}
               </Link>
-            </div>
+            </div>  
             <div className="flex flex-col">
               <Link href={"/guidance/dormitory"}>
                 {smallMenu[language]?.dormitory}
               </Link>
               <Link href={"/guidance/facility"}>
-                {smallMenu[language]?.howToGetHere}
+                {smallMenu[language]?.facility}
               </Link>
               <Link href={"/board/learning-materials"}>
                 {boardMenu[language]?.["learning-materials"]}
@@ -118,10 +118,10 @@ export default async function RootLayout({
           </div>
         </div>
       </div>
-      <img
-        src="/images/영진소개배너.jpg"
+{/*       <img
+        src="/images/한국어교육센터 기본배너.png"
         className="w-full h-60 mt-4 flex justify-center items-center"
-      ></img>
+      ></img> */}
       {children}
     </div>
   );
