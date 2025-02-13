@@ -55,3 +55,12 @@ export type BoardData = {
   updatedDate: string;
   category: string;
 }
+
+export type Banner = {
+  expiredDate: string;
+  id: number;
+  image: string;
+  language: string;
+  url: string;
+};
+

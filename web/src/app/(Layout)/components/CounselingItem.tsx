@@ -3,7 +3,7 @@ import useCustomFetch from "@/app/lib/customFetch";
 import { useState } from "react";
 import CounselingItemUpdateModal from "./CounselingItemUpdateModal";
 import { formatDateWithTime } from "@/app/common/formatDateWithTime";
-import CounselingItemDeleteModal from "./CounselingItemDeleteModal";
+import DeleteModal from "./DeleteModal";
 
 export default function CounselingItem(props: Counseling) {
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
@@ -30,11 +30,12 @@ export default function CounselingItem(props: Counseling) {
         />
       )}
       {modalDeleteOpen && (
-        <CounselingItemDeleteModal
+        <DeleteModal
           onClose={() => {
             setModalDeleteOpen(false);
           }}
           id={props.id}
+          target="consult"
         />
       )}
       <div className="w-72 p-4 bg-white shadow-lg rounded-lg border border-gray-200">

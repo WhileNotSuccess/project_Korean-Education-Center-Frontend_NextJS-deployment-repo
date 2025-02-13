@@ -1,10 +1,11 @@
-import ApplicationComponent from "../../components/ApplicationComponent";
+import AdminComponent from "../../components/AdminComponent";
 
-interface ApplicationPageProps {
+interface AdminPageProps {
   params: {
     category: string;
   };
 }
+
 
 export default function ApplicationPage({ params }: ApplicationPageProps) {
   const {category} = params
