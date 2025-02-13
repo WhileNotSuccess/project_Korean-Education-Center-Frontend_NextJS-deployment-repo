@@ -2,10 +2,18 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
-import { guidanceMenu, menu, smallMenu,boardMenu } from "../menu";
-import Cookies from "js-cookie";
+import {
+  guidanceMenu,
+  menu,
+  smallMenu,
+  boardMenu,
+  selectMenu,
+  counselingForm,
+} from "../menu";
 import { cookies } from "next/headers";
 import { Language } from "../common/types";
+import { useAuth } from "../hook/auth";
+import LoginCompo from "./components/LoginCompo";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,12 +37,12 @@ export default async function RootLayout({
 }>) {
   const language =
     ((await cookies()).get("language")?.value as Language) || Language.korean;
-
+  const authToken =
+    ((await cookies()).get("access_token")?.value as string) || "";
   return (
     <div className="h-screen w-full flex flex-col ">
       <div className="w-full min-h-15 bg-[#0093EE] flex justify-end gap-3 font-bold items-center pr-5">
-        <Link href={"/"}>메인</Link>
-        <Link href={"/login"}>로그인</Link>
+        <LoginCompo authToken={authToken} />
         <Link href={"/japan"}>
           <img src="/images/japan.png" className="w-6 h-4"></img>
         </Link>
@@ -63,31 +71,32 @@ export default async function RootLayout({
         <div className="flex flex-row w-full">
           <div className="w-40"></div>
           <div className="w-full flex justify-evenly">
-          <div className="flex flex-col items-center">
-        <Link href={`/guidance/introduction`}>
-        {smallMenu[language]?.centerIntro}
-        </Link>
-        <Link href={'/guidance/directions'}>
-        {smallMenu[language]?.howToGetHere}
-        </Link>
-        <Link href={'/staff-intro'}>
-        {smallMenu[language]?.staffIntro}
-        </Link>
-        </div>
-        <div className="flex flex-col">
-        <Link href={'/select/korean-curriculum'}>
-        {smallMenu[language]?.["korean-curriculum"]}
-        </Link>
-        <Link href={'/select/open-campus'}>
-        {smallMenu[language]?.["open-campus"]}
-        </Link>
-        <Link href={'/board/review'}>
-        {boardMenu[language]?.review}
-        </Link>
-        </div>
-        <div className="flex flex-col">
+            <div className="flex flex-col items-center">
+              <Link href={`/guidance/introduction`}>
+                {smallMenu[language]?.centerIntro}
+              </Link>
+              <Link href={"/guidance/directions"}>
+                {smallMenu[language]?.howToGetHere}
+              </Link>
+              <Link href={"/staff-intro"}>
+                {smallMenu[language]?.staffIntro}
+              </Link>
+            </div>
+            <div className="flex flex-col">
+              <Link href={"/select/korean-curriculum"}>
+                {smallMenu[language]?.["korean-curriculum"]}
+              </Link>
+              <Link href={"/select/open-campus"}>
+                {smallMenu[language]?.["open-campus"]}
+              </Link>
+              <Link href={"/board/review"}>{boardMenu[language]?.review}</Link>
+            </div>
+            <div className="flex flex-col">
               <Link href={"/select/applied-to"}>
                 {smallMenu[language]?.["applied-to"]}
+              </Link>
+              <Link href={"/form/counseling"}>
+                {counselingForm[language]?.["counseling"]}
               </Link>
               <Link href={"/board/application-form"}>
                 {boardMenu[language]?.["application-form"]}
@@ -95,7 +104,7 @@ export default async function RootLayout({
               <Link href={"/guidance/visa"}>
                 {guidanceMenu[language]?.visa}
               </Link>
-            </div>  
+            </div>
             <div className="flex flex-col">
               <Link href={"/guidance/dormitory"}>
                 {smallMenu[language]?.dormitory}
@@ -118,7 +127,7 @@ export default async function RootLayout({
           </div>
         </div>
       </div>
-{/*       <img
+      {/*       <img
         src="/images/한국어교육센터 기본배너.png"
         className="w-full h-60 mt-4 flex justify-center items-center"
       ></img> */}
