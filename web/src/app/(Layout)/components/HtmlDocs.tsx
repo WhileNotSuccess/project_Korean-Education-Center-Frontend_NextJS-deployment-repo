@@ -17,6 +17,8 @@ type HtmlDocsPropsId = {
 export default function HtmlDocs(props: HtmlDocsProps) {
   const [content, setContent] = useState<string>("");
   const [title, setTitle] = useState<string>("");
+  const [author, setAuthor] = useState<string>("");
+  const [createdDate, setCreatedDate] = useState<string>("");
   const [guidanceId, setGuidanceId] = useState<string>("")
   const customFetch = useCustomFetch();
   const router = useRouter()
@@ -36,7 +38,9 @@ export default function HtmlDocs(props: HtmlDocsProps) {
         });
         setContent(data.data.content); 
         setTitle(data.data.title);
-        setGuidanceId(data.data.id)
+        setGuidanceId(data.data.id);
+        setAuthor(data.data.author);
+        setCreatedDate(data.data.createdDate);
       } catch (error) {
         alert(getError[language]?.htmlError);
         console.error(getError[language]?.htmlError);
@@ -53,11 +57,28 @@ export default function HtmlDocs(props: HtmlDocsProps) {
     <div className="w-full h-screen">
       <div className="h-12 border "></div>
       <div
-        className="w-full flex justify-center items-center font-bold text-3xl"
-        style={{ height: "200px" }}
+        className="w-full flex justify-center"
       >
-        {props.category ? guidanceMenu[language]?.[props.category] : <div>{title}</div>}
+        {props.category ?
+        <div className="w-full flex justify-center items-center font-bold text-3xl"
+        style={{ height: "200px" }}>
+          {guidanceMenu[language]?.[props.category]}   {/* guidancsMenu에 없다면 board 페이지이기 때문에 내부 div 스타일로 수정 */}
+        </div>
+         
+         : <>
+         <div className="w-11/12 flex border-t-2 border-blue-300 ">
+             <div className="text-lg font-bold mt-4">
+          {title}
+          </div>
+          </div>
+         <div>
+         {author} | {createdDate}
+       </div></>
+        
+         } 
       </div>
+
+      {/* 오시는 길 페이지 지도 */}
       {props.category === "directions" ? 
         <>
         <div className="w-full mt-4 flex justify-center" style={{ height: "400px", overflow: 'hidden' }}>
@@ -70,6 +91,7 @@ export default function HtmlDocs(props: HtmlDocsProps) {
         </div>
         </>
       : null}
+
 
       {/* {props.category === "directions" ? 
         <div className="w-full mt-0 flex justify-center">

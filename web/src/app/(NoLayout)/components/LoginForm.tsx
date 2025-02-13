@@ -40,6 +40,7 @@ export default function LoginForm() {
     window.location.href = `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/google/login`;
   };
 
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-cover bg-center relative" style={{ backgroundImage: `url('/images/background.jpg')`, height: '100vh' }}>
       <div className="absolute inset-0 bg-black bg-opacity-50"></div>
@@ -64,17 +65,15 @@ export default function LoginForm() {
             className="w-full p-2 border border-blue-500 rounded-lg text-blue-800 focus:outline-none focus:ring-2 focus:ring-white"
           />
           </div>
-          {error && <p className="text-red-500 text-sm">{error}</p>}
-          <div className="w-24 h-24 bg-blue-500 text-white rounded-lg font-semibold cursor-pointer flex justify-center items-center">로그인</div>
+          <div className="w-24 h-24 bg-blue-500 text-white rounded-lg font-semibold cursor-pointer flex justify-center items-center" onClick={handleSubmit}>로그인</div>
 
 {/*           <button type="submit" className="w-full bg-blue-500 text-white p-3 rounded-lg font-semibold">로그인</button>
  */}          </div>
-          <button type="button" onClick={handleGoogleLogin} className="w-full bg-blue-500 text-white p-3 rounded-lg font-semibold mt-2">구글 로그인</button>
-          <button type="button" onClick={() => router.push("/register")} className="w-full bg-blue-500 text-white p-3 rounded-lg font-semibold mt-2">회원가입</button>
+          
         </form>
-        <div className="mt-6 text-center space-x-4">
-          <button type="button" onClick={() => router.push("/find-id")} className="text-sm text-white hover:underline">아이디 찾기</button>
-          <button type="button" onClick={() => router.push("/find-password")} className="text-sm text-white hover:underline">비밀번호 찾기</button>
+        <div className="mt-4">
+        <button type="button" onClick={handleGoogleLogin} className="w-full bg-[#F2F2F2] rounded-lg font-semibold mt-2 flex justify-center"><img src="/images/logintab.png" alt="" className=""/></button>
+        <button type="button" onClick={() => router.push("/register")} className="w-full bg-blue-500 text-white p-2 rounded-lg font-semibold mt-2">회원가입</button>
         </div>
       </div>
     </div>

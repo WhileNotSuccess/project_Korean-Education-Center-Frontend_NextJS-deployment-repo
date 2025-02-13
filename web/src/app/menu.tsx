@@ -23,14 +23,14 @@ export const smallMenu  : Record<Language, Record<string, string>>= {  // 예시
   }
 }
 
-export const guidanceMenu : Record<Language, Record<string, string>> = {  // 문서페이지 메뉴
+export const  guidanceMenu : Record<Language, Record<string, string>> = {  // 문서페이지 메뉴
   [Language.korean] : {
     introduction : "한국어교육센터 소개",
     directions : "오시는 길",
     visa : "비자 안내",
     dormitory : "기숙사 안내",
     facility : "학교 시설 안내",
-    insurance : "건강 보험 안내"
+    insurance : "건강 보험 안내",
   }
 }
 
@@ -49,7 +49,7 @@ export const selectMenu : Record<Language, Record<string, string>> = {
   [Language.korean] : {
     "korean-curriculum" : "한국어교육과정",
     "open-campus" : "오픈캠퍼스",
-    "applied-to" : "입학 신청"
+    "applied-to" :  "입학신청",
   }
 }
 
@@ -142,7 +142,11 @@ export const deleteSuccess : Record<Language, Record<string, string>> = {
     contentDelete : "글 삭제에 성공했습니다."
   }
 }
-
+export const counselingForm : Record<Language, Record<string, string>> = {
+  [Language.korean] : 
+    {counseling : "상담 신청"},
+  
+}
 export const koreancurriculumList : Record<Language, {key: string; value: string}[]> = {
   [Language.korean] : [
     {key:"korean-outline", value:"개요"},
@@ -166,3 +170,9 @@ export const applicationList : Record<Language, {key: string; value: string}[]> 
     {key:"upload-documents", value : "서류 업로드"},
   ]
 }
+
+export const categoryMap: Record<string, Record<Language, { key: string; value: string }[]>> = {
+  "korean-curriculum": koreancurriculumList,
+  "open-campus": opencampusList,
+  "applied-to": applicationList,
+};

@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
-import { guidanceMenu, menu, smallMenu,boardMenu, selectMenu } from "../menu";
+import { guidanceMenu, menu, smallMenu,boardMenu, selectMenu, counselingForm } from "../menu";
 import { cookies } from "next/headers";
 import { Language } from "../common/types";
+import { useAuth } from "../hook/auth";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,6 +16,8 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
+/* 
+const {user, logout, error, isLoading} = useAuth() */
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -28,12 +31,16 @@ export default async function RootLayout({
 }>) {
   const language =
     ((await cookies()).get("language")?.value as Language) || Language.korean;
-
+  const authToken =
+    ((await cookies()).get("access_token")?.value as string) || "";
   return (
     <div className="h-screen w-full flex flex-col ">
       <div className="w-full min-h-15 bg-[#0093EE] flex justify-end gap-3 font-bold items-center pr-5">
         <Link href={"/"}>메인</Link>
-        <Link href={"/login"}>로그인</Link>
+        { !authToken ? <Link href={"/login"}>로그인</Link>
+        : <button /* onClick={logout} */>로그아웃</button> 
+
+        }
         <Link href={"/japan"}>
           <img src="/images/japan.png" className="w-6 h-4"></img>
         </Link>
@@ -85,8 +92,11 @@ export default async function RootLayout({
         </Link>
         </div>
         <div className="flex flex-col">
-              <Link href={"/aplied-to"}>
-                {selectMenu[language]?.centerIntro}
+              <Link href={"/select/applied-to"}>
+                {selectMenu[language]?.["applied-to"]}
+              </Link>
+              <Link href={"/form/counseling"}>
+                {counselingForm[language]?.["counseling"]}
               </Link>
               <Link href={"/board/application-form"}>
                 {boardMenu[language]?.["application-form"]}
