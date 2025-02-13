@@ -160,7 +160,7 @@ export default function EditorComponent( props : EditorProps) {
       <ul>
         {documentFileNames && documentFileNames.map((fileName, index) => (
           <div key={index} className={`w-1/3 flex justify-between items-center ${deleteFileNames.includes(fileName) ? "hidden" : ""}`}>
-            <li >{fileName}</li>
+            <li >{fileName.match(/^\d{8}-\d{6}_/) ? fileName.substring(16) : fileName}</li>
             <img src="/images/X버튼.png" className="size-4 cursor-pointer" onClick={()=>addDeleteFileName(fileName)}/>
           </div>
         ))}

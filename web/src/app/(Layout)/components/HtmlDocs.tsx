@@ -65,7 +65,7 @@ export default function HtmlDocs(props: HtmlDocsProps) {
       {documentFiles ? documentFiles.map((item, index)=>{ // 화면에 파일 이름이 띄워지는지 확인용 테스트코드 ( 수정 or 삭제예정 )
         return (
           <div key={index}>
-          {item.filename}
+          {item.filename.substring(16)}
           </div>
         )
       }) : null}
