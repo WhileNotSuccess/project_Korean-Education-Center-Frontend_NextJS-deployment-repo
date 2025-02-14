@@ -7,6 +7,7 @@ interface WriteProps{
   }
 }
 
+//test
 export default function PostTest({params}:WriteProps) {
   const {category} = params
   return (
