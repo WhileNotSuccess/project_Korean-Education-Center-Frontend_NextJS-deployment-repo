@@ -1,8 +1,9 @@
-'use client';
+"use client";
 
 import { useState, useEffect } from "react";
-import useCustomFetch from "../../lib/customFetch"; 
+import useCustomFetch from "../../lib/customFetch";
 import Cookies from "js-cookie"; // js-cookie import
+import { useRouter } from "next/navigation";
 
 export default function RegisterCompo() {
   const [email, setEmail] = useState<string>("");
@@ -10,9 +11,10 @@ export default function RegisterCompo() {
   const [name, setName] = useState<string>("");
   const [error, setError] = useState<string>("");
   const [message, setMessage] = useState<string>("");
+  const router = useRouter();
   const customFetch = useCustomFetch();
 
-  const newUser = Cookies.get("new_user") === "true";  // 쿠키값이 "true"일 경우 newUser가 true가 됩니다.
+  const newUser = Cookies.get("new_user") === "true"; // 쿠키값이 "true"일 경우 newUser가 true가 됩니다.
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,7 +30,8 @@ export default function RegisterCompo() {
         if (data.error) {
           setError(data.error);
         } else {
-          setMessage(data.message);  
+          setMessage(data.message);
+          router.push("/");
         }
       } catch (err) {
         setError("서버 오류가 발생했습니다.");
@@ -44,9 +47,9 @@ export default function RegisterCompo() {
         });
 
         if (data.error) {
-          setError(data.error); 
+          setError(data.error);
         } else {
-          setMessage(data.message); 
+          setMessage(data.message);
         }
       } catch (err) {
         setError("서버 오류가 발생했습니다.");
@@ -63,7 +66,7 @@ export default function RegisterCompo() {
       <h1>{newUser ? "구글 로그인" : "회원가입"}</h1>
       {error && <p style={{ color: "red" }}>{error}</p>}
       {message && <p>{message}</p>}
-      
+
       {/* 구글 로그인일 경우 이름만 받는 폼 */}
       {newUser ? (
         <form onSubmit={handleSubmit}>

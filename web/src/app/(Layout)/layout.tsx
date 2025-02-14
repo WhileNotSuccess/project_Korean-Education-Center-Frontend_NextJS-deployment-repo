@@ -37,12 +37,11 @@ export default async function RootLayout({
 }>) {
   const language =
     ((await cookies()).get("language")?.value as Language) || Language.korean;
-  const authToken =
-    ((await cookies()).get("access_token")?.value as string) || "";
+
   return (
     <div className="h-screen w-full flex flex-col ">
       <div className="w-full min-h-15 bg-[#0093EE] flex justify-end gap-3 font-bold items-center pr-5">
-        <LoginCompo authToken={authToken} />
+        <LoginCompo />
         <Link href={"/japan"}>
           <img src="/images/japan.png" className="w-6 h-4"></img>
         </Link>
