@@ -25,12 +25,23 @@ type HtmlDocsPropsId = {
 };
 
 export default function HtmlDocs(props: HtmlDocsProps) {
-  const [content, setContent] = useState<string>("");
-  const [title, setTitle] = useState<string>("");
-  const [guidanceId, setGuidanceId] = useState<string>(""); // props에서 category를 받았을때는 id가 없기 때문에 update를 할수 없음
   const [documentFiles, setDocumentFiles] = useState<ServerDocumentFile[]>([]);
-  const [author, setAuthor] = useState<string>("");
-  const [createdDate, setCreatedDate] = useState<string>("");
+  const [allData, setAllData] = useState<{
+    content : string
+    title : string
+    documentFiles : ServerDocumentFile[]
+    guidanceId : string
+    author : string
+    createdDate : string
+  }>({
+    content : "",
+    title : "",
+    documentFiles : [],
+    guidanceId : "",
+    author : "",
+    createdDate : ""
+  })
+  console.log(props.category)
 
   const customFetch = useCustomFetch();
   const router = useRouter();
@@ -48,12 +59,14 @@ export default function HtmlDocs(props: HtmlDocsProps) {
         const data = await customFetch(endpoint, {
           method: "GET",
         });
-        setContent(data.data.content);
-        setTitle(data.data.title);
-        setDocumentFiles(data.files);
-        setGuidanceId(data.data.id);
-        setAuthor(data.data.author);
-        setCreatedDate(data.data.createdDate);
+        setAllData({
+          content : data.data.content,
+          title : data.data.title,
+          documentFiles : data.files,
+          guidanceId : data.data.id,
+          author : data.data.author,
+          createdDate : data.data.createdDate
+        })
       } catch (error) {
         alert(getError[language]?.htmlError);
         console.error(getError[language]?.htmlError);
@@ -77,8 +90,8 @@ export default function HtmlDocs(props: HtmlDocsProps) {
 
   return (
     <div className="w-full h-screen">
-      {documentFiles
-        ? documentFiles.map((item, index) => {
+      {allData.documentFiles
+        ? allData.documentFiles.map((item, index) => {
             // 화면에 파일 이름이 띄워지는지 확인용 테스트코드 ( 수정 or 삭제예정 )
             return <div key={index}>{item.filename.substring(16)}</div>;
           })
@@ -96,10 +109,10 @@ export default function HtmlDocs(props: HtmlDocsProps) {
         ) : (
           <>
             <div className="w-11/12 flex border-t-2 border-blue-300 ">
-              <div className="text-lg font-bold mt-4">{title}</div>
+              <div className="text-lg font-bold mt-4">{allData.title}</div>
             </div>
             <div>
-              {author} | {createdDate}
+              {allData.author} | {allData.createdDate}
             </div>
           </>
         )}
@@ -123,12 +136,19 @@ export default function HtmlDocs(props: HtmlDocsProps) {
           </div>
         </>
       ) : null}
-
-      <button onClick={() => onUpdate(guidanceId)}>
-        {editorCompo[language]?.update}
+    {props.category ? <button onClick={() => onUpdate(allData.guidanceId)}>
+        {editorCompo[language]?.write}
+      </button> :
+      <button onClick={() => onUpdate(allData.guidanceId)}>
+      {editorCompo[language]?.update}
+    </button>
+      }
+      
+      <button onClick={() => onDelete(allData.guidanceId)}>
+        {editorCompo[language]?.delete}
       </button>
       <div className="w-full h-screen flex justify-center">
-        <div className="w-3/5 ">{parser(content)}</div>
+        <div className="w-3/5 ">{parser(allData.content)}</div>
       </div>
     </div>
   );

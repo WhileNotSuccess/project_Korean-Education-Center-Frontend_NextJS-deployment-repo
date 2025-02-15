@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from "react";
-import { homePage, guidanceMenu, boardMenu } from "@/app/menu";
+import { homePage, guidanceMenu, boardMenu, getError } from "@/app/menu";
 import { BoardData, Language } from "@/app/common/types";
 import Cookies from "js-cookie";
 import useCustomFetch from "@/app/lib/customFetch";
@@ -9,28 +9,46 @@ import { formatDate } from "@/app/common/formatDate";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
-export default function HomePageCompo() {
-  const images = [  // 배너 테스트용 ( 수정 예정 )
-    "/images/한국어교육센터 기본배너.png",
-    "/images/영진소개배너.jpg"
-  ];
+interface BannerType{
+  expiredData : string
+  id : number
+  image : string
+  language : string
+  url : string
+}
 
+export default function HomePageCompo() {
+  const [banner, setBanner] = useState<BannerType[]>([])
   const [currentIndex, setCurrentIndex] = useState(0);
   const language: Language = (Cookies.get("language") as Language) || "korean";
   const customFetch = useCustomFetch()
   const [boardData, setBoardData] = useState<BoardData[]>([])
   const router = useRouter()
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((currentIndex) => (currentIndex + 1) % images.length); // %으로 나머지를 구해 1, 2, 3, 0으로 변경
-      console.log(currentIndex)
-    }, 10000);
-    return () => clearInterval(interval);
-  }, []);
-
-  
   useEffect(()=>{
+    const bannerData = async()=>{
+      try{
+        const data = await customFetch("/banners",{
+          method : "GET"
+        })
+
+        setBanner(data.data)
+        console.log(data.data)
+      }catch(error){
+        alert(getError[language]?.bannerError)
+      }
+    }
+    bannerData()
+  },[])
+
+  useEffect(() => {  // 자동 슬라이드 배너
+    const interval = setInterval(() => {
+      setCurrentIndex((currentIndex) => (currentIndex + 1) % banner.length); // %으로 나머지를 구해 1, 2, 3, 0으로 변경
+    }, 6000);
+    return () => clearInterval(interval);
+  }, [banner.length]);
+
+  useEffect(()=>{  // Home페이지에 띄울 공지사항 리스트
     const noticeData = async() =>{
       try{
         const data = await customFetch(`/posts/notice?limit=4`,{
@@ -49,16 +67,20 @@ export default function HomePageCompo() {
     router.push("/board/notice")
   }
 
+  const onGoUrl = async (url : string)=>{
+    router.push(url)
+  }
+
   return (
-    <div className="w-full h-screen mt-4 flex flex-wrap">
+    <div className="w-full h-screen flex flex-wrap">
 <div className="relative w-full h-3 max-w-[2000px] h-auto overflow-hidden shadow-lg">
   <div className="h-full w-full object-contain flex transition-transform duration-700 ease-in-out " style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
-    {images.map((src, index) => (
-      <img key={index} src={src} className="h-auto max-w-full" />
+    {banner.map((banner, index) => (
+      <img key={index} src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${banner.image}`} className="h-auto max-w-full cursor-pointer" onClick={()=>onGoUrl(banner.url)} />
     ))}
   </div>
   <div className="absolute z-10 bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-    {images.map((_, index) => (
+    {banner.map((_, index) => (
       <button key={index} onClick={() => setCurrentIndex(index)}
         className={`w-3 h-3 rounded-full ${currentIndex === index ? "bg-blue-500" : "bg-gray-300"}`}>
       </button>

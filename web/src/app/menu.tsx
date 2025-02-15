@@ -41,6 +41,7 @@ export const editorCompo: Record<Language, Record<string, string>> = {
     submit: "제출",
     delete: "삭제",
     update: "수정",
+    write : "작성"
   },
 };
 
@@ -63,6 +64,7 @@ export const updateError: Record<Language, Record<string, string>> = {
 export const postSuccess: Record<Language, Record<string, string>> = {
   [Language.korean]: {
     contentPost: "글 업로드에 성공했습니다.",
+    appliedPost : "입학신청에 성공했습니다."
   },
 };
 
@@ -177,6 +179,7 @@ export const getError: Record<Language, Record<string, string>> = {
     staffError: "강사진 및 교직원 정보를 불러오지 못했습니다.",
     boardError: "게시글들을 불러올수 없습니다.",
     htmlError: "해당 게시글을 불러올수 없습니다.",
+    bannerError : "배너를 불러올수 없습니다."
   },
 };
 

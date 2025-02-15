@@ -1,4 +1,4 @@
-const useCustomFetch = () => {
+const useCustomFormFetch = () => {
   const customFormFetch = async (endpoint: string, options = {}) => {
     const baseURL = process.env.NEXT_PUBLIC_BACKEND_URL;
     const defaultOptions: RequestInit = {
@@ -20,4 +20,4 @@ const useCustomFetch = () => {
   return customFormFetch;
 };
 
-export default useCustomFetch;
+export default useCustomFormFetch;

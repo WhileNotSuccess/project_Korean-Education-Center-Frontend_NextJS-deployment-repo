@@ -87,7 +87,7 @@ export default function StaffIntro({ category }: HtmlDocsProps) {
                   <img src="/images/telephone.png" className="h-4 w-4 mr-2" />{" "}
                   {item.phone}
                 </div>
-                <div className="h-8 ml-2 font-bold flex flex-row items-center">
+                <div className="h-8 ml-2 font-bold flex flex-row items-center overflow-hidden text-ellipsis">
                   <img src="/images/mail.png" className="h-4 w-4 mr-2" />
                   {item.email}
                 </div>

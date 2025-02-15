@@ -1,11 +1,12 @@
 'use client'
 import React, { useEffect, useState, useRef } from "react";
 import { Editor } from "@tinymce/tinymce-react";
-import { editorCompo, postError, postSuccess, categoryList, deleteError, deleteSuccess, updateSuccess, updateError } from "@/app/menu";
+import { editorCompo, postError, postSuccess, categoryList, deleteError, deleteSuccess, updateSuccess, updateError, guidanceMenu } from "@/app/menu";
 import Cookies from "js-cookie";
 import useCustomFormFetch from "@/app/lib/customFormFetch";
 import { Language, ServerDocumentFile } from "@/app/common/types";
 import useCustomFetch from "@/app/lib/customFetch";
+import { handleFileChange, addDeleteFileName } from "@/app/common/formFile";
 
 // PATCH요청 미완성, 현재 POST요청은 formdata로만 보내기 가능(파일이없으면 application/json으로 보내려고 협의중), patch요청은 작동을 안함
 // 파일 업로드 로직은 미완성
@@ -113,30 +114,16 @@ export default function EditorComponent( props : EditorProps) {
     }
   };
 
-  const handleDocumentFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      const filesArray = Array.from(e.target.files);
-      setDocumentFiles((prev) => [...prev, ...filesArray]);
-      setDocumentFileNames((prev) => [...prev, ...filesArray.map((file) => file.name)]); // 파일 이름을 저장
-    }
-  };
-
-  const addDeleteFileName = (fileName : string)=>{
-    setDocumentFiles((prev) => prev.filter((file) => file.name !== fileName));
-    setDocumentFileNames((prev) => prev.filter((name) => name !== fileName));
-    setDeleteFileNames((prev)=>[...prev, fileName])
-  }
-
   return (
     <div className="w-full flex justify-center">
     <div style={{ width: "60%" }} className="mt-4">      
 <form>
     <div className="flex">
       <div>
-        <label htmlFor="search-dropdown" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Your Email</label>
-        <select className="shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-e-0 border-gray-300 dark:border-gray-700 dark:text-white rounded-s-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800"value={category} onChange={(e) => setCategory(e.target.value)}>All categories
+        <label htmlFor="search-dropdown" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">title</label>
+        <select className="shrink-0 z-10 inline-flex items-center py-2.5 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-e-0 border-gray-300 dark:border-gray-700 dark:text-white rounded-s-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800"value={category} onChange={(e) => setCategory(e.target.value)}>All categories
           {categoryList[language].map((item) => (
-          <option className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" key={item.key} value={item.key}>
+          <option className="block py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white text-center" key={item.key} value={item.key}>
             {item.value}
           </option>
         ))}
@@ -155,13 +142,13 @@ export default function EditorComponent( props : EditorProps) {
         type="file"
         accept=".*"
         multiple
-        onChange={handleDocumentFileChange}
+        onChange={(e)=>handleFileChange(e, setDocumentFiles, setDocumentFileNames, setDeleteFileNames)}
       />
       <ul>
         {documentFileNames && documentFileNames.map((fileName, index) => (
           <div key={index} className={`w-1/3 flex justify-between items-center ${deleteFileNames.includes(fileName) ? "hidden" : ""}`}>
-            <li >{fileName.match(/^\d{8}-\d{6}_/) ? fileName.substring(16) : fileName}</li>
-            <img src="/images/X버튼.png" className="size-4 cursor-pointer" onClick={()=>addDeleteFileName(fileName)}/>
+            <li className="w-1/2 overflow-hidden text-ellipsis whitespace-nowrap">{fileName.match(/^\d{8}-\d{6}_/) ? fileName.substring(16) : fileName}</li>
+            <img src="/images/X버튼.png" className="size-4 cursor-pointer" onClick={()=>addDeleteFileName(fileName, setDocumentFiles, setDocumentFileNames, setDeleteFileNames)}/>
           </div>
         ))}
       </ul>
@@ -209,11 +196,12 @@ export default function EditorComponent( props : EditorProps) {
         id="imageInput"
       />
 
-      {props.id ? <button className="border" onClick={update}>
-        {editorCompo[language]?.update}
-      </button> : <button className="border" onClick={submit}>
+      {category in guidanceMenu[Language.korean] || props.categoryName ? <button className="border" onClick={submit}>
         {editorCompo[language]?.submit}
-      </button>}
+      </button> :
+      <button className="border" onClick={update}>
+      {editorCompo[language]?.update}
+    </button>}
     </div>
     </div>
   );

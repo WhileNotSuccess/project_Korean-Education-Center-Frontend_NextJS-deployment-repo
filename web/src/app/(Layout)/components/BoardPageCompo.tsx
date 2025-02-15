@@ -26,7 +26,7 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
   const [totalPage, setTotalPage] = useState<number>(0);
   const language: Language = (Cookies.get("language") as Language) || "korean";
   const router = useRouter()
-
+  console.log(name)
   // 게시글 불러오기 함수
   const fetchBoard = async (currentPage: number) => {
     try {
