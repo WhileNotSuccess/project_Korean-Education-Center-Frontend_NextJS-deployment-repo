@@ -26,15 +26,21 @@ export type Counseling = {
   name: string;
 };
 
-export type Application = {
+export type Attachments = {
+  id: number;
+  fileSize: number;
+  filename: string;
+  filetype: string;
+  applicationId: number;
+};
+export type ApplicationFormItemProp = {
   id: number;
   userId: number;
-  filename: string;
+  userName: string;
   course: string;
   createdDate: string;
-  filetype: string;
-  fileSize: number;
-  isDone: boolean;
+  isDone: number;
+  attachments: Array<Attachments>;
 };
 
 export type ServerDocumentFile = {
