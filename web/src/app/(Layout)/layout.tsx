@@ -12,7 +12,6 @@ import {
 } from "../menu";
 import { cookies } from "next/headers";
 import { Language } from "../common/types";
-import { useAuth } from "../hook/auth";
 import LoginCompo from "./components/LoginCompo";
 
 const geistSans = Geist({
@@ -37,11 +36,10 @@ export default async function RootLayout({
 }>) {
   const language =
     ((await cookies()).get("language")?.value as Language) || Language.korean;
-
   return (
     <div className="h-screen w-full flex flex-col ">
       <div className="w-full min-h-15 bg-[#0093EE] flex justify-end gap-3 font-bold items-center pr-5">
-        <LoginCompo />
+        <LoginCompo/>
         <Link href={"/japan"}>
           <img src="/images/japan.png" className="w-6 h-4"></img>
         </Link>
@@ -50,78 +48,88 @@ export default async function RootLayout({
         </Link>
       </div>
       <div className="w-full min-h-25 bg-[#0072BA] flex items-center pl-5 peer">
+        <Link href={"/"} className="w-1/6 flex justify-center items-center">
         <img src="/images/영진로고.png" className="w-15 h-15"></img>
-        <h2 className="font-bold text-white w-40">
+        <h2 className="font-bold text-white w-full whitespace-nowrap">
           영진전문대<br></br>
           한국어교육센터
         </h2>
+        </Link>
         <div className="w-full h-full flex justify-evenly text-white font-bold items-center relative">
-          <Link href={"/center-intro"}>{menu[language]?.introduce}</Link>
-          <Link href={"/center-intro"}>{menu[language]?.curriculum}</Link>
-          <Link href={"/center-intro"}>{menu[language]?.application}</Link>
-          <Link href={"/center-intro"}>{menu[language]?.schoolLife}</Link>
-          <Link href={"/center-intro"}>{menu[language]?.notification}</Link>
+          <Link className="w-1/5 flex justify-center" href={"/center-intro"}>{menu[language]?.introduce}</Link>
+          <Link className="w-1/5 flex justify-center" href={"/center-intro"}>{menu[language]?.curriculum}</Link>
+          <Link className="w-1/5 flex justify-center" href={"/center-intro"}>{menu[language]?.application}</Link>
+          <Link className="w-1/5 flex justify-center" href={"/center-intro"}>{menu[language]?.schoolLife}</Link>
+          <Link className="w-1/5 flex justify-center" href={"/center-intro"}>{menu[language]?.notification}</Link>
         </div>
       </div>
       <div
         className="hidden peer-hover:block hover:block w-full min-h-52 z-50 bg-white absolute z-40"
         style={{ top: "86px" }}
       >
-        <div className="flex flex-row w-full">
-          <div className="w-40"></div>
-          <div className="w-full flex justify-evenly">
-            <div className="flex flex-col items-center">
-              <Link href={`/guidance/introduction`}>
+        <div className="min-h-52 flex flex-row w-full">
+          <div className="ml-5 h-full w-1/6"></div>
+          <div className="w-full h-[100%] flex justify-evenly">
+            <div className="w-1/5 h-52 flex flex-col items-center">
+              <Link href={`/guidance/introduction`} className="p-2 text-sm font-bold">
                 {smallMenu[language]?.centerIntro}
               </Link>
-              <Link href={"/guidance/directions"}>
+              <Link href={"/guidance/directions"}  className="p-2 text-sm font-bold" >
                 {smallMenu[language]?.howToGetHere}
               </Link>
-              <Link href={"/staff-intro"}>
+              <Link href={"/staff-intro"}  className="p-2 text-sm font-bold" >
                 {smallMenu[language]?.staffIntro}
               </Link>
             </div>
-            <div className="flex flex-col">
-              <Link href={"/select/korean-curriculum"}>
+            <div className="w-1/5 h-52 flex flex-col items-center">
+              <Link href={"/select/korean-curriculum"}  className="p-2 text-sm font-bold">
                 {smallMenu[language]?.["korean-curriculum"]}
               </Link>
-              <Link href={"/select/open-campus"}>
+              <Link href={"/select/open-campus"} className="p-2 text-sm font-bold" >
                 {smallMenu[language]?.["open-campus"]}
               </Link>
-              <Link href={"/board/review"}>{boardMenu[language]?.review}</Link>
+              <Link href={"/board/review"} className="p-2 text-sm font-bold" >
+              {boardMenu[language]?.review}
+              </Link>
             </div>
-            <div className="flex flex-col">
-              <Link href={"/select/applied-to"}>
+            <div className="w-1/5 h-52 flex flex-col items-center">
+              <Link href={"/select/applied-to"} className="p-2 text-sm font-bold">
                 {smallMenu[language]?.["applied-to"]}
               </Link>
-              <Link href={"/form/counseling"}>
+              <Link href={"/form/counseling"} className="p-2 text-sm font-bold">
                 {counselingForm[language]?.["counseling"]}
               </Link>
-              <Link href={"/board/application-form"}>
+              <Link href={"/board/application-form"} className="p-2 text-sm font-bold">
                 {boardMenu[language]?.["application-form"]}
               </Link>
-              <Link href={"/guidance/visa"}>
+              <Link href={"/guidance/visa"} className="p-2 text-sm font-bold">
                 {guidanceMenu[language]?.visa}
               </Link>
             </div>
-            <div className="flex flex-col">
-              <Link href={"/guidance/dormitory"}>
+            <div className="w-1/5 h-52 flex flex-col items-center">
+              <Link href={"/guidance/dormitory"} className="p-2 text-sm font-bold">
                 {smallMenu[language]?.dormitory}
               </Link>
-              <Link href={"/guidance/facility"}>
+              <Link href={"/guidance/facility"} className="p-2 text-sm font-bold">
                 {smallMenu[language]?.facility}
               </Link>
-              <Link href={"/board/learning-materials"}>
+              <Link href={"/board/learning-materials"} className="p-2 text-sm font-bold">
                 {boardMenu[language]?.["learning-materials"]}
               </Link>
-              <Link href={"/guidance/insurance"}>
+              <Link href={"/guidance/insurance"} className="p-2 text-sm font-bold">
                 {guidanceMenu[language]?.insurance}
               </Link>
             </div>
-            <div className="flex flex-col">
-              <Link href={"/board/notice"}>{boardMenu[language]?.notice}</Link>
-              <Link href={"/board/news"}>{boardMenu[language]?.news}</Link>
-              <Link href={"/board/faq"}>{boardMenu[language]?.faq}</Link>
+            <div className="w-1/5 h-52 flex flex-col items-center">
+              <Link href={"/board/notice"} className="p-2 text-sm font-bold" >
+                {boardMenu[language]?.notice}
+              </Link>
+              <Link href={"/board/news"} className="p-2 text-sm font-bold" >
+                {boardMenu[language]?.news}
+              </Link>
+              <Link href={"/board/faq"} className="p-2 text-sm font-bold" >
+                {boardMenu[language]?.faq}
+              </Link>
             </div>
           </div>
         </div>
