@@ -41,6 +41,7 @@ export const editorCompo: Record<Language, Record<string, string>> = {
     submit: "제출",
     delete: "삭제",
     update: "수정",
+    write : "작성"
   },
 };
 
@@ -50,7 +51,10 @@ export const homePage: Record<Language, Record<string, string>> = {
     download: "다운로드",
     "applied-to": "입학신청",
     "recruitment-guidelines": "모집요강",
-    "quick-service": "빠른서비스",
+    faq : "faq",
+    review : "유학생 후기",
+    footerAddress : "41527 대구광역시 북구 복현로 35 (복현2동 218) 영진전문대학교 한국어교육센터",
+    footerCallEmail : "대표전화 : +82-53-940-5632 이메일 : intl@yju.ac.kr"
   },
 };
 
@@ -63,6 +67,7 @@ export const updateError: Record<Language, Record<string, string>> = {
 export const postSuccess: Record<Language, Record<string, string>> = {
   [Language.korean]: {
     contentPost: "글 업로드에 성공했습니다.",
+    appliedPost : "입학신청에 성공했습니다."
   },
 };
 
@@ -89,7 +94,7 @@ export const boardMenu: Record<Language, Record<string, string>> = {
     "application-form": "신청 서류",
     "learning-materials": "학습 자료 안내",
     notice: "공지사항",
-    news: "한국어교육센터 소식",
+    news: "한국어교육센터 알림",
     faq: "FAQ",
     introduction: "한국어 교육센터 소개",
     directions: "오시는 길",
@@ -120,7 +125,7 @@ export const categoryList: Record<Language, { key: string; value: string }[]> =
       { key: "application-form", value: "신청 서류" },
       { key: "learning-materials", value: "학습 자료 안내" },
       { key: "notice", value: "공지사항" },
-      { key: "news", value: "한국어교육센터 소식" },
+      { key: "news", value: "한국어교육센터 알림" },
       { key: "faq", value: "FAQ" },
       { key: "korean-outline", value: "개요" },
       { key: "korean-sample", value: "프로그램 샘플" },
@@ -175,8 +180,10 @@ export const getError: Record<Language, Record<string, string>> = {
   // get요청에 실패했을때의 메뉴들
   [Language.korean]: {
     staffError: "강사진 및 교직원 정보를 불러오지 못했습니다.",
-    boardError: "게시글들을 불러올수 없습니다.",
-    htmlError: "해당 게시글을 불러올수 없습니다.",
+    boardError: "게시글들을 불러올 수 없습니다.",
+    htmlError: "해당 게시글을 불러올 수 없습니다.",
+    bannerError : "배너를 불러올 수 없습니다.",
+    newsError : "소식을 불러올 수 없습니다."
   },
 };
 
