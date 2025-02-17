@@ -36,8 +36,8 @@ export default function LoginForm() {
       <div className="absolute inset-0 bg-black bg-opacity-50"></div>
       <div className="relative bg-transparent  rounded-lg shadow-lg w-full max-w-md">
         <h1 className="text-3xl font-extrabold mb-6 text-blue-600">LOGIN</h1>
-        <p className="text-xl mb-6 text-white">
-          영진전문대 한국어교육센터 방문을 환영합니다.
+        <p className="text-lg mb-6 text-white whitespace-nowrap">
+          영진전문대학교 한국어교육센터 방문을 환영합니다.
         </p>
         <form onSubmit={handleSubmit} className="space-y-2">
           <div className="w-full flex justify-between space-x-4">

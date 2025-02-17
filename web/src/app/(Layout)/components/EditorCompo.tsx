@@ -240,6 +240,14 @@ export default function EditorComponent(props: EditorProps) {
             editorRef.current = editor;
           }}
           init={{
+            menu:{
+              file:{title : `${editorCompo[language]?.file}`, items : "newdocument | print"},
+              edit:{title : `${editorCompo[language]?.edit}`, items : "undo redo | cut copy paste pastetext | selectall "},
+              view:{title :`${editorCompo[language]?.view}`, items : "visualaid"},
+              insert:{title : `${editorCompo[language]?.insert}`, items : "image link table hr"},
+              format:{title : `${editorCompo[language]?.format}`, items : "forecolor backcolor |  bold italic underline strikethrough | superscript subscript code | formats blocks fontfamily fontsize | align lineheight | removeformat"},
+              table:{title : `${editorCompo[language]?.table}`, items : "inserttable tableprops deletetable | cell row column"}
+            },
             height: 500,
             plugins: ["lists", "link", "image", "table"],
             content_style: "p {margin:0}",
