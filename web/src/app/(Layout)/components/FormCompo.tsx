@@ -16,7 +16,7 @@ export default function FormComponent(props: CategoryProps) {
   const [formData, setFormData] = useState({
     phone: '',
     email: '',
-    date: '',
+    date: '', 
     name: '',
   });
 
@@ -33,21 +33,23 @@ export default function FormComponent(props: CategoryProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    // 사용자가 선택한 날짜를 KST 형식으로 받기 때문에, 이를 UTC로 변환합니다.
+    const localDate = new Date(formData.date); 
+    const utcDate = new Date(localDate.getTime());
+
     // 서버에 보낼 데이터를 객체로 묶음
-    
     const requestData = {
       name: formData.name,
       phone: formData.phone,
       email: formData.email,
-      schedule: formData.date,
+      schedule: utcDate.toISOString(), // UTC 형식으로 변환된 날짜
     };
-
 
     try {
       console.log(requestData);
       const response = await customFetch('/consult', {
         method: 'POST',
-        body: JSON.stringify(requestData), 
+        body: JSON.stringify(requestData),
       });
 
       if (response.success) {
