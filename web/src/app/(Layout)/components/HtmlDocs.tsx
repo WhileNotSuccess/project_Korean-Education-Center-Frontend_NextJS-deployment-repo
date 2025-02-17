@@ -1,4 +1,5 @@
-"use client";
+'use client'
+
 import { useEffect, useState } from "react";
 import useCustomFetch from "@/app/lib/customFetch";
 import {
@@ -19,18 +20,27 @@ import { useRouter } from "next/navigation";
 import SchoolMap from "./SchoolMap";
 
 type HtmlDocsPropsId = {
-  // [key in "id" | "category" ]: string;
   id?: string;
   category?: string;
 };
 
 export default function HtmlDocs(props: HtmlDocsProps) {
-  const [content, setContent] = useState<string>("");
-  const [title, setTitle] = useState<string>("");
-  const [guidanceId, setGuidanceId] = useState<string>(""); // props에서 category를 받았을때는 id가 없기 때문에 update를 할수 없음
   const [documentFiles, setDocumentFiles] = useState<ServerDocumentFile[]>([]);
-  const [author, setAuthor] = useState<string>("");
-  const [createdDate, setCreatedDate] = useState<string>("");
+  const [allData, setAllData] = useState<{
+    content: string;
+    title: string;
+    documentFiles: ServerDocumentFile[];
+    guidanceId: string;
+    author: string;
+    createdDate: string;
+  }>({
+    content: "",
+    title: "",
+    documentFiles: [],
+    guidanceId: "",
+    author: "",
+    createdDate: "",
+  });
 
   const customFetch = useCustomFetch();
   const router = useRouter();
@@ -48,12 +58,14 @@ export default function HtmlDocs(props: HtmlDocsProps) {
         const data = await customFetch(endpoint, {
           method: "GET",
         });
-        setContent(data.data.content);
-        setTitle(data.data.title);
-        setDocumentFiles(data.files);
-        setGuidanceId(data.data.id);
-        setAuthor(data.data.author);
-        setCreatedDate(data.data.createdDate);
+        setAllData({
+          content: data.data.content,
+          title: data.data.title,
+          documentFiles: data.files,
+          guidanceId: data.data.id,
+          author: data.data.author,
+          createdDate: data.data.createdDate,
+        });
       } catch (error) {
         alert(getError[language]?.htmlError);
         console.error(getError[language]?.htmlError);
@@ -77,35 +89,76 @@ export default function HtmlDocs(props: HtmlDocsProps) {
 
   return (
     <div className="w-full h-screen">
-      {documentFiles
-        ? documentFiles.map((item, index) => {
-            // 화면에 파일 이름이 띄워지는지 확인용 테스트코드 ( 수정 or 삭제예정 )
-            return <div key={index}>{item.filename.substring(16)}</div>;
-          })
-        : null}
-      <div className="h-12 border "></div>
+      <div className="h-12"></div>
+
       <div className="w-full flex justify-center">
         {props.category ? (
           <div
             className="w-full flex justify-center items-center font-bold text-3xl"
             style={{ height: "200px" }}
           >
-            {guidanceMenu[language]?.[props.category]}{" "}
-            {/* guidancsMenu에 없다면 board 페이지이기 때문에 내부 div 스타일로 수정 */}
+            {guidanceMenu[language]?.[props.category]}
           </div>
         ) : (
           <>
-            <div className="w-11/12 flex border-t-2 border-blue-300 ">
-              <div className="text-lg font-bold mt-4">{title}</div>
-            </div>
-            <div>
-              {author} | {createdDate}
+            <div className="w-11/12 flex flex-col mt-4">
+              
+              <div className="flex justify-between items-center border-t-2 border-blue-400 pt-2">
+                <div className="text-lg font-bold">{allData.title}</div>
+                
+              </div>
+
+             
+              <div className="text-sm mt-2 border-b-2 pb-2 flex items-center">
+                <div className="mr-2">
+                  <img src="/images/author.png" className="w-4 h-4"></img>
+                </div>
+                <div>{allData.author}</div>
+
+                <div className="ml-4 mr-2">
+                  <img src="/images/createdDate.png" className="w-4 h-4"></img>
+                </div>
+                <div>{allData.createdDate.substring(0, 10)}</div>
+              </div>
+
+              
+              <div className="border-b-2 pb-2 pt-2">
+                {allData.documentFiles.length > 0 ? (
+                  allData.documentFiles.map((item, index) => {
+                    return (
+                      <div key={index} className="flex items-center">
+                        <img src="/images/attachfile.png" className="w-4 h-4 mr-2"></img>
+                        {item.filename.substring(16)}
+                      </div>
+                    );
+                  })
+                ) : (
+                  <div className="mt-2">첨부파일이 없습니다.</div>
+                )}
+                
+              </div>
+              <div className="flex space-x-4 ml-auto mt-2">
+                
+                  <button
+                    className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+                    onClick={() => onUpdate(allData.guidanceId)}
+                  >
+                    {props.category ? editorCompo[language]?.write : editorCompo[language]?.update}
+                  </button>
+
+            
+                  <button
+                    className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
+                    onClick={() => onDelete(allData.guidanceId)}
+                  >
+                    {editorCompo[language]?.delete}
+                  </button>
+                </div>
             </div>
           </>
         )}
       </div>
 
-      {/* 오시는 길 페이지 지도 */}
       {props.category === "directions" ? (
         <>
           <div
@@ -116,7 +169,7 @@ export default function HtmlDocs(props: HtmlDocsProps) {
           </div>
           <div className="w-full mt-0 flex justify-center">
             <div className="w-[70%] bg-[#5592e7] p-4">
-              <div className="text-left text-white text-lg  font-bold">
+              <div className="text-left text-white text-lg font-bold">
                 대한민국 대구광역시 북구 복현로 35
               </div>
             </div>
@@ -124,11 +177,8 @@ export default function HtmlDocs(props: HtmlDocsProps) {
         </>
       ) : null}
 
-      <button onClick={() => onUpdate(guidanceId)}>
-        {editorCompo[language]?.update}
-      </button>
       <div className="w-full h-screen flex justify-center">
-        <div className="w-3/5 ">{parser(content)}</div>
+        <div className="w-3/5">{parser(allData.content)}</div>
       </div>
     </div>
   );

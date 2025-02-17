@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import useCustomFetch from "../../lib/customFetch";
+import { useState } from "react";
+import useCustomFetch from "../../lib/customFetch"; 
 import Cookies from "js-cookie"; // js-cookie import
 import { useRouter } from "next/navigation";
 
@@ -16,10 +16,13 @@ export default function RegisterCompo() {
 
   const newUser = Cookies.get("new_user") === "true"; // 쿠키값이 "true"일 경우 newUser가 true가 됩니다.
 
+  const handleGoogleRegister = () => {
+    router.push(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/google/login`);
+  }
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // new_user 쿠키가 true일 경우에는 PATCH 요청을 사용해 이름만 업데이트
+
     if (newUser) {
       try {
         const data = await customFetch("/users/name", {
@@ -57,51 +60,68 @@ export default function RegisterCompo() {
     }
   };
 
-  useEffect(() => {
-    console.log("New User:", newUser);
-  }, [newUser]);
-
   return (
-    <div>
-      <h1>{newUser ? "구글 로그인" : "회원가입"}</h1>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {message && <p>{message}</p>}
+    <div className="flex items-center justify-center min-h-screen bg-cover bg-center relative" style={{ backgroundImage: `url('/images/background.jpg')`, height: '100vh' }}>
+      <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+      <div className="relative bg-transparent rounded-lg shadow-lg w-full max-w-md">
+        <h1 className="text-3xl font-extrabold mb-6 text-white text-center">{newUser ? "구글 회원가입" : "회원가입"}</h1>
 
-      {/* 구글 로그인일 경우 이름만 받는 폼 */}
-      {newUser ? (
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            placeholder="이름"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-          <button type="submit">이름 변경</button>
-        </form>
-      ) : (
-        // 일반 회원가입 폼
-        <form onSubmit={handleSubmit}>
-          <input
-            type="email"
-            placeholder="이메일"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            type="password"
-            placeholder="비밀번호"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <input
-            type="text"
-            placeholder="이름"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-          <button type="submit">회원가입</button>
-        </form>
-      )}
+        {error && <p style={{ color: "red" }} className="text-center">{error}</p>}
+        {message && <p className="text-center">{message}</p>}
+        
+        
+        {newUser ? (
+          <form onSubmit={handleSubmit} className="space-y-4 px-4 py-6">
+            <div className="text-white">한국어교육센터에서 사용할 이름을 입력해주세요.</div>
+            <div className="flex flex-col space-y-2">
+              <input
+                type="text"
+                placeholder="이름"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="w-full p-3 border border-blue-500 rounded-lg text-blue-800 focus:outline-none focus:ring-2 focus:ring-white"
+              />
+            </div>
+            <button type="submit" className="w-full bg-blue-500 text-white p-3 rounded-lg font-semibold mt-4">이름 변경</button>
+          </form>
+        ) : (
+          // 일반 회원가입 폼
+          <form onSubmit={handleSubmit} className="space-y-4 px-4 py-6">
+            <div className="flex flex-col space-y-2">
+              <input
+                type="email"
+                placeholder="이메일"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full p-3 border border-blue-500 rounded-lg text-blue-800 focus:outline-none focus:ring-2 focus:ring-white"
+              />
+              <input
+                type="password"
+                placeholder="비밀번호"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full p-3 border border-blue-500 rounded-lg text-blue-800 focus:outline-none focus:ring-2 focus:ring-white"
+              />
+              <input
+                type="text"
+                placeholder="이름"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="w-full p-3 border border-blue-500 rounded-lg text-blue-800 focus:outline-none focus:ring-2 focus:ring-white"
+              />
+            </div>
+            <button type="submit" className="w-full bg-blue-500 text-white p-3 rounded-lg font-semibold mt-4">회원가입</button>
+
+            <button
+            type="button"
+            onClick={handleGoogleRegister}
+            className="w-full bg-[#F2F2F2] rounded-lg font-semibold mt-2 flex justify-center"
+          >
+            <img src="/images/signup.png" alt="" className="border-none" />  
+          </button>
+          </form>
+        )}
+      </div>
     </div>
   );
 }
