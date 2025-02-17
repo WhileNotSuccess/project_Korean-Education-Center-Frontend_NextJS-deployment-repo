@@ -1,4 +1,5 @@
-"use client";
+'use client'
+
 import { useEffect, useState } from "react";
 import useCustomFetch from "@/app/lib/customFetch";
 import {
@@ -100,45 +101,64 @@ export default function HtmlDocs(props: HtmlDocsProps) {
           </div>
         ) : (
           <>
-            {/* 제목과 작성자/작성일자 세로로 배치 */}
             <div className="w-11/12 flex flex-col mt-4">
-              <div className="text-lg font-bold border-t-2 border-blue-400 pt-2">{allData.title}</div>
+              
+              <div className="flex justify-between items-center border-t-2 border-blue-400 pt-2">
+                <div className="text-lg font-bold">{allData.title}</div>
+                
+              </div>
 
-              {/* 제목 아래 작성자와 작성일자 세로로 배치 */}
+             
               <div className="text-sm mt-2 border-b-2 pb-2 flex items-center">
-                {/* 작성자 아이콘 */}
                 <div className="mr-2">
                   <img src="/images/author.png" className="w-4 h-4"></img>
                 </div>
-                {/* 작성자 */}
                 <div>{allData.author}</div>
 
                 <div className="ml-4 mr-2">
-                <img src="/images/createdDate.png" className="w-4 h-4"></img>
+                  <img src="/images/createdDate.png" className="w-4 h-4"></img>
                 </div>
                 <div>{allData.createdDate.substring(0, 10)}</div>
               </div>
-              <div className="border-b-2 pb-2 pt-2">
-              {allData.documentFiles.length > 0 ? (
-                allData.documentFiles.map((item, index) => {
-                  return (
-                    <div key={index} className="flex items-center">
-                      <img src="/images/attachfile.png" className="w-4 h-4 mr-2"></img>
-                      {item.filename.substring(16)}
-                    </div>
-                  );
-                })
-              ) : (
-                <div className="mt-2">첨부파일이 없습니다.</div>
-              )}
-              </div>
+
               
+              <div className="border-b-2 pb-2 pt-2">
+                {allData.documentFiles.length > 0 ? (
+                  allData.documentFiles.map((item, index) => {
+                    return (
+                      <div key={index} className="flex items-center">
+                        <img src="/images/attachfile.png" className="w-4 h-4 mr-2"></img>
+                        {item.filename.substring(16)}
+                      </div>
+                    );
+                  })
+                ) : (
+                  <div className="mt-2">첨부파일이 없습니다.</div>
+                )}
+                
+              </div>
+              <div className="flex space-x-4 ml-auto mt-2">
+                
+                  <button
+                    className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+                    onClick={() => onUpdate(allData.guidanceId)}
+                  >
+                    {props.category ? editorCompo[language]?.write : editorCompo[language]?.update}
+                  </button>
+
+            
+                  <button
+                    className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
+                    onClick={() => onDelete(allData.guidanceId)}
+                  >
+                    {editorCompo[language]?.delete}
+                  </button>
+                </div>
             </div>
           </>
         )}
       </div>
 
-      {/* 오시는 길 페이지 지도 */}
       {props.category === "directions" ? (
         <>
           <div
@@ -157,22 +177,8 @@ export default function HtmlDocs(props: HtmlDocsProps) {
         </>
       ) : null}
 
-      {props.category ? (
-        <button onClick={() => onUpdate(allData.guidanceId)}>
-          {editorCompo[language]?.write}
-        </button>
-      ) : (
-        <button onClick={() => onUpdate(allData.guidanceId)}>
-          {editorCompo[language]?.update}
-        </button>
-      )}
-
-      <button onClick={() => onDelete(allData.guidanceId)}>
-        {editorCompo[language]?.delete}
-      </button>
-
       <div className="w-full h-screen flex justify-center">
-        <div className="w-3/5 ">{parser(allData.content)}</div>
+        <div className="w-3/5">{parser(allData.content)}</div>
       </div>
     </div>
   );
