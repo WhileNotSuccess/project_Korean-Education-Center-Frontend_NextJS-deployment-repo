@@ -240,6 +240,8 @@ export default function EditorComponent(props: EditorProps) {
             editorRef.current = editor;
           }}
           init={{
+            language:"ko_KR",
+            language_url:"/tinymce/langs/ko_KR.js",
             height: 500,
             plugins: ["lists", "link", "image", "table"],
             content_style: "p {margin:0}",
