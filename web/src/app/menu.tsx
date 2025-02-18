@@ -41,7 +41,13 @@ export const editorCompo: Record<Language, Record<string, string>> = {
     submit: "제출",
     delete: "삭제",
     update: "수정",
-    write : "작성"
+    write : "작성",
+    file : "파일",
+    edit : "편집",
+    view : "보기",
+    insert: "삽입",
+    format : "서식",
+    table : "테이블"
   },
 };
 

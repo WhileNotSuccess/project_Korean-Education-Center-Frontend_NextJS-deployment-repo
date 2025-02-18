@@ -51,16 +51,16 @@ export default async function RootLayout({
         <Link href={"/"} className="w-1/6 flex justify-center items-center">
         <img src="/images/영진로고.png" className="w-15 h-15"></img>
         <h2 className="font-bold text-white w-full whitespace-nowrap">
-          영진전문대<br></br>
+          영진전문대학교<br></br>
           한국어교육센터
         </h2>
         </Link>
         <div className="w-full h-full flex justify-evenly text-white font-bold items-center relative">
-          <Link className="w-1/5 flex justify-center" href={"/center-intro"}>{menu[language]?.introduce}</Link>
-          <Link className="w-1/5 flex justify-center" href={"/center-intro"}>{menu[language]?.curriculum}</Link>
-          <Link className="w-1/5 flex justify-center" href={"/center-intro"}>{menu[language]?.application}</Link>
-          <Link className="w-1/5 flex justify-center" href={"/center-intro"}>{menu[language]?.schoolLife}</Link>
-          <Link className="w-1/5 flex justify-center" href={"/center-intro"}>{menu[language]?.notification}</Link>
+        <div className="w-1/5 flex justify-center cursor-pointer">{menu[language]?.introduce}</div>
+          <div className="w-1/5 flex justify-center cursor-pointer">{menu[language]?.curriculum}</div>
+          <div className="w-1/5 flex justify-center cursor-pointer">{menu[language]?.application}</div>
+          <div className="w-1/5 flex justify-center cursor-pointer">{menu[language]?.schoolLife}</div>
+          <div className="w-1/5 flex justify-center cursor-pointer">{menu[language]?.notification}</div>
         </div>
       </div>
       <div
