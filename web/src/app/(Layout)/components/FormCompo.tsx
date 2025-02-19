@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { counselingForm } from '@/app/menu';
+import { counselingForm, counselingPageMenu } from '@/app/menu';
 import Cookies from 'js-cookie';
 import { Language } from '@/app/common/types';
 import useCustomFetch from '@/app/lib/customFetch';
@@ -65,16 +65,21 @@ export default function FormComponent(props: CategoryProps) {
 
   return (
     <div className="w-full h-screen flex flex-col items-center">
-      {/* 상담 신청 텍스트 부분 */}
+      {/* 상담 신청 제목 */}
       <div className="w-full flex justify-center items-center font-bold text-3xl mt-12">
         {counselingForm[language]?.[props.category]}
       </div>
 
-      {/* 폼 영역 */}
-      <div className="w-full p-8 bg-white rounded-lg shadow-lg border-2 border-gray-300 mt-8 max-w-lg mx-auto">
+      {/* 상담 안내글 */}
+      <div className="w-full max-w-lg p-4 bg-blue-100 rounded-md shadow-md border border-blue-300 mt-8 mb-6 text-lg font-semibold text-blue-700 text-center">
+        {counselingPageMenu[language]["counseling-guide"]}
+      </div>
+
+      {/* 상담 신청 폼 */}
+      <div className="w-full p-8 bg-white rounded-lg shadow-lg border-2 border-blue-300 max-w-lg mx-auto">
         <form onSubmit={handleSubmit} className="flex flex-col gap-6">
           <div className="flex flex-col">
-            <label htmlFor="name" className="text-lg font-medium mb-2">이름</label>
+            <label htmlFor="name" className=" text-lg font-bold mb-2 text-blue-700">{counselingPageMenu[language]["name"]}</label>
             <input
               type="text"
               id="name"
@@ -82,12 +87,12 @@ export default function FormComponent(props: CategoryProps) {
               value={formData.name}
               onChange={handleChange}
               required
-              className="p-3 border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="p-3 border-2 border-blue-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
           </div>
 
           <div className="flex flex-col">
-            <label htmlFor="phone" className="text-lg font-medium mb-2">휴대폰 번호</label>
+            <label htmlFor="phone" className=" text-lg font-bold mb-2 text-blue-700">{counselingPageMenu[language]["phone"]}</label>
             <input
               type="tel"
               id="phone"
@@ -95,12 +100,12 @@ export default function FormComponent(props: CategoryProps) {
               value={formData.phone}
               onChange={handleChange}
               required
-              className="p-3 border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="p-3 border-2 border-blue-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
           </div>
 
           <div className="flex flex-col">
-            <label htmlFor="email" className="text-lg font-medium mb-2">이메일</label>
+            <label htmlFor="email" className=" text-lg font-bold mb-2 text-blue-700">{counselingPageMenu[language]["email"]}</label>
             <input
               type="email"
               id="email"
@@ -108,20 +113,20 @@ export default function FormComponent(props: CategoryProps) {
               value={formData.email}
               onChange={handleChange}
               required
-              className="p-3 border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="p-3 border-2 border-blue-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
           </div>
 
           <div className="flex flex-col">
-            <label htmlFor="date" className="text-lg font-medium mb-2">상담 일정</label>
+            <label htmlFor="date" className=" text-lg font-bold mb-2 text-blue-700">{counselingPageMenu[language]["date"]}</label>
             <input
-              type="datetime-local"
+              type="date"
               id="date"
               name="date"
               value={formData.date}
               onChange={handleChange}
               required
-              className="p-3 border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="p-3 border-2 border-blue-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
           </div>
 
@@ -129,7 +134,7 @@ export default function FormComponent(props: CategoryProps) {
             type="submit"
             className="mt-6 p-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
           >
-            저장
+            {counselingPageMenu[language]["save"]}
           </button>
         </form>
       </div>
