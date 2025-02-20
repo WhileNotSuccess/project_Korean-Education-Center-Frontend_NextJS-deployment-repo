@@ -16,9 +16,6 @@ import useCustomFormFetch from "@/app/lib/customFormFetch";
 import { Language, ServerDocumentFile } from "@/app/common/types";
 import useCustomFetch from "@/app/lib/customFetch";
 
-// PATCH요청 미완성, 현재 POST요청은 formdata로만 보내기 가능(파일이없으면 application/json으로 보내려고 협의중), patch요청은 작동을 안함
-// 파일 업로드 로직은 미완성
-
 type EditorProps = {
   id?: string;
   categoryName?: string;
@@ -79,6 +76,7 @@ export default function EditorComponent(props: EditorProps) {
         method: "POST",
         body: formData,
       });
+      alert(postSuccess[language]?.contentPost)
     } catch (error) {
       alert(postError[language]?.subError);
     }
@@ -99,7 +97,10 @@ export default function EditorComponent(props: EditorProps) {
         method: "PATCH",
         body: formData,
       });
-    } catch (error) {}
+      alert(updateSuccess[language]?.updatePost)
+    } catch (error) {
+      alert(updateError[language]?.update)
+    }
   };
 
   const handleFileSelect = async (file: File) => {
@@ -232,9 +233,9 @@ export default function EditorComponent(props: EditorProps) {
         </ul>
 
         <Editor
+          tinymceScriptSrc={"/tinymce/tinymce.min.js"}
           id="tinymce-editor"
           value={content}
-          apiKey={process.env.NEXT_PUBLIC_TINYMCE_API}
           onInit={(evt, editor) => {
             console.log(editor.id);
             editorRef.current = editor;

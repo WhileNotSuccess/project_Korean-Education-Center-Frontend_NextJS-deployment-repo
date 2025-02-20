@@ -147,16 +147,16 @@ export default function HomePageCompo() {
     ))}
   </div>
 </div>
-    <div className="w-full h-[70%] mt-12 flex justify-center">
-      <div className="w-96 h-full border mr-4 flex flex-col">
-        <div className="h-14 flex justify-between items-center px-4">
-          <h1 className="text-2xl font-bold">{homePage[language]?.notice}</h1>
+    <div className="w-full mt-12 flex justify-center">
+      <div className="w-96 border mr-4 flex flex-col">
+        <div className="flex justify-between items-center px-4">
+          <h1 className="text-2xl font-bold p-2">{homePage[language]?.notice}</h1>
           <img src="images/add_button.png" className="w-8 cursor-pointer" onClick={()=>onGoNotice()}/>
         </div>
-        <div className="mt-4 h-full flex flex-col">
+        <div className="flex flex-col px-2">
             {noticeData.map((item, index)=>{
               return(
-                <div key={index} className="w-full flex-1 flex justify-between items-center border-b px-4">
+                <div key={index} className="w-full flex flex-1 justify-between items-center border-b p-4">
                   <Link href={`/board/notice/${item.id}`} className="w-[70%] overflow-hidden text-ellipsis whitespace-nowrap">{item.title}</Link> <div className="font-light text-sm">{formatDate(item.createdDate)}</div>
                 </div>
               )
@@ -165,14 +165,14 @@ export default function HomePageCompo() {
       </div>
       <div  className="w-96  flex flex-col justify-between">
         <div className="w-full   border">
-        <div className="h-14 flex justify-between items-center px-4">
-          <h1 className="text-2xl font-bold">{homePage[language]?.review}</h1>
+        <div className="flex justify-between items-center px-4">
+          <h1 className="text-2xl font-bold p-2">{homePage[language]?.review}</h1>
           <img src="images/add_button.png" className="w-8 cursor-pointer" onClick={()=>onGoNotice()}/>
         </div>
         <div className="flex flex-col px-2">
             {reviewData.map((item, index)=>{
               return(
-                <div key={index} className="w-full flex flex-1 justify-between items-center border-b p-4">
+                <div key={index} className="w-full flex justify-between items-center border-b p-4">
                   <Link href={`/board/review/${item.id}`} className="w-[70%] overflow-hidden text-ellipsis whitespace-nowrap">{item.title}</Link> <div className="font-light text-sm">{formatDate(item.createdDate)}</div>
                 </div>
               )
@@ -180,8 +180,8 @@ export default function HomePageCompo() {
           </div>
         </div>
         <div className="w-full mt-4 border">
-        <div className="h-14 flex justify-between items-center px-4">
-          <h1 className="text-2xl font-bold">{homePage[language]?.faq}</h1>
+        <div className="flex justify-between items-center px-4">
+          <h1 className="text-2xl font-bold p-2">{homePage[language]?.faq}</h1>
           <img src="images/add_button.png" className="w-8 cursor-pointer" onClick={()=>onGoNotice()}/>
         </div>
         <div className="flex flex-col px-2">
