@@ -57,7 +57,7 @@ export const homePage: Record<Language, Record<string, string>> = {
     download: "다운로드",
     "applied-to": "입학신청",
     "recruitment-guidelines": "모집요강",
-    faq : "faq",
+    faq : "FAQ",
     review : "유학생 후기",
     footerAddress : "41527 대구광역시 북구 복현로 35 (복현2동 218) 영진전문대학교 한국어교육센터",
     footerCallEmail : "대표전화 : +82-53-940-5632 이메일 : intl@yju.ac.kr"
