@@ -4,14 +4,17 @@ import {
   ApplicationFormItemProp,
   Banner,
   Counseling,
+  Teacher,
 } from "@/app/common/types";
 import useCustomFetch from "@/app/lib/customFetch";
 import { useEffect, useState } from "react";
 import CounselingItem from "./CounselingItem";
 import ApplicationFormItem from "./ApplicationFormItem";
-import BoardPageCompo from "./BoardPageCompo";
+import BoardPageCompo from "../../components/BoardPageCompo";
 import BannerItem from "./BannerItem";
 import BannerPostModal from "./BannerPostModal";
+import StaffIntro from "../../components/StaffIntro";
+import StaffComponent from "./StaffComponent";
 
 type AdminComponentProps = {
   category: string;
@@ -25,6 +28,8 @@ export default function AdminComponent({ category }: AdminComponentProps) {
   );
   const [bannerPostModal, setBannerPostModal] = useState<boolean>(false);
   const [banners, setBanners] = useState<Banner[]>([]);
+  const [teacher, setTeacher] = useState<Teacher[]>([]);
+  const [staff, setStaff] = useState<Teacher[]>([]);
   if (category === "counseling") {
     useEffect(() => {
       async function getCounseling() {
@@ -108,6 +113,25 @@ export default function AdminComponent({ category }: AdminComponentProps) {
           })}
         </div>
       </>
+    );
+  } else if (category === "staff") {
+    useEffect(() => {
+      async function getStaff() {
+        const response = await customFetch("/staff");
+        setTeacher(response.teacher);
+        setStaff(response.staff);
+      }
+      getStaff();
+    }, []);
+    return (
+      <div className="flex flex-wrap">
+        {teacher.map((item) => {
+          return <StaffComponent key={item.name} {...item} />;
+        })}
+        {staff.map((item) => {
+          return <StaffComponent key={item.name} {...item} />;
+        })}
+      </div>
     );
   } else {
     return (
