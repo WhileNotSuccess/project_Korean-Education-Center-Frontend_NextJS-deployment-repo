@@ -75,3 +75,11 @@ export type LoginBody = {
   email: string;
   password: string;
 };
+
+export interface Teacher {
+  id: number;
+  name: string;
+  position: string;
+  phone: string | null;
+  email: string | null;
+}

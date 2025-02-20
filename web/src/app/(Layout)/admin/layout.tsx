@@ -61,7 +61,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                     href="/admin/news"
                     className="block hover:underline text-xs"
                   >
-                    소식
+                    한국어교육센터 알림
                   </a>
                 </li>
                 <li>
@@ -183,6 +183,14 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                     오픈캠퍼스 스케쥴
                   </a>
                 </li>
+                <li>
+                  <a
+                    href="/admin/procedure-guide"
+                    className="block hover:underline text-xs"
+                  >
+                    입학신청 절차안내
+                  </a>
+                </li>
               </ul>
             )}
           </li>
@@ -224,6 +232,22 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
               className="w-full text-left text-lg text-[#0093EE]"
             >
               배너
+            </a>
+          </li>
+          <li className="mb-4">
+            <a
+              href="/admin/staff"
+              className="w-full text-left text-lg text-[#0093EE]"
+            >
+              강사진 및 교직원 소개
+            </a>
+          </li>
+          <li className="mb-4">
+            <a
+              href="/admin/guidelinesForApplicants"
+              className="w-full text-left text-lg text-[#0093EE]"
+            >
+              모집요강
             </a>
           </li>
         </ul>
