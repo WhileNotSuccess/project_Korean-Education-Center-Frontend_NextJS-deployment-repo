@@ -41,7 +41,13 @@ export const editorCompo: Record<Language, Record<string, string>> = {
     submit: "제출",
     delete: "삭제",
     update: "수정",
-    write : "작성"
+    write: "작성",
+    file: "파일",
+    edit: "편집",
+    view: "보기",
+    insert: "삽입",
+    format: "서식",
+    table: "테이블",
   },
 };
 
@@ -51,10 +57,11 @@ export const homePage: Record<Language, Record<string, string>> = {
     download: "다운로드",
     "applied-to": "입학신청",
     "recruitment-guidelines": "모집요강",
-    faq : "faq",
-    review : "유학생 후기",
-    footerAddress : "41527 대구광역시 북구 복현로 35 (복현2동 218) 영진전문대학교 한국어교육센터",
-    footerCallEmail : "대표전화 : +82-53-940-5632 이메일 : intl@yju.ac.kr"
+    faq: "FAQ",
+    review: "유학생 후기",
+    footerAddress:
+      "41527 대구광역시 북구 복현로 35 (복현2동 218) 영진전문대학교 한국어교육센터",
+    footerCallEmail: "대표전화 : +82-53-940-5632 이메일 : intl@yju.ac.kr",
   },
 };
 
@@ -67,7 +74,7 @@ export const updateError: Record<Language, Record<string, string>> = {
 export const postSuccess: Record<Language, Record<string, string>> = {
   [Language.korean]: {
     contentPost: "글 업로드에 성공했습니다.",
-    appliedPost : "입학신청에 성공했습니다."
+    appliedPost: "입학신청에 성공했습니다.",
   },
 };
 
@@ -109,6 +116,8 @@ export const boardMenu: Record<Language, Record<string, string>> = {
     "opencampus-content": "오픈캠퍼스 일정 및 내용",
     "opencampus-schedule": "오픈캠퍼스 스케쥴",
     banner: "배너",
+    "procedure-guide": "입학 신청의 절차 안내",
+    guidelinesForApplicants: "모집요강",
   },
 };
 
@@ -182,8 +191,8 @@ export const getError: Record<Language, Record<string, string>> = {
     staffError: "강사진 및 교직원 정보를 불러오지 못했습니다.",
     boardError: "게시글들을 불러올 수 없습니다.",
     htmlError: "해당 게시글을 불러올 수 없습니다.",
-    bannerError : "배너를 불러올 수 없습니다.",
-    newsError : "소식을 불러올 수 없습니다."
+    bannerError: "배너를 불러올 수 없습니다.",
+    newsError: "소식을 불러올 수 없습니다.",
   },
 };
 

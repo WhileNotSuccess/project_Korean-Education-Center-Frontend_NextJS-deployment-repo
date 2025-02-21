@@ -8,11 +8,10 @@ export default function LoginCompo() {
 
   return (
     <div>
-      <Link href={"/"}>메인</Link>
       {!user ? (
-        <Link href={"/login"}>로그인</Link>
+         <Link href={"/login"} className="text-white font-bold hover:underline">로그인</Link>
       ) : (
-        <Link href={"/dashboard"}>&nbsp;&nbsp; 환영합니다! {user.name}님</Link>
+        <Link href={"/dashboard"} className="text-white font-bold hover:underline">&nbsp;&nbsp; 환영합니다! {user.name}님</Link>
       )}
     </div>
   );
