@@ -35,6 +35,7 @@ export default function ApplicationFormItem(data: ApplicationFormItemProp) {
         <div className="w-full relative">
           <h2 className="text-blue-500 font-bold text-lg inline-block">
             {data.userName}
+            <div>email: {data.userEmail}</div>
           </h2>
           <span
             onClick={() => {

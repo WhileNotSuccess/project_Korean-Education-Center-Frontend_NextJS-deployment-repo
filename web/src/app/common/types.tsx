@@ -37,6 +37,7 @@ export type ApplicationFormItemProp = {
   id: number;
   userId: number;
   userName: string;
+  userEmail: string;
   course: string;
   createdDate: string;
   isDone: number;
