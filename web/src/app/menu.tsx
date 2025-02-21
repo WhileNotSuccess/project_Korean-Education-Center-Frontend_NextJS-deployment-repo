@@ -253,3 +253,9 @@ export const counselingPageMenu : Record<Language, Record<string, string>> = {
   }
 }
 
+export const locationMap: Record<Language, Record<string, string>> = {
+  [Language.korean]: {
+    "main-campus" : " 대구광역시 북구 복현로 35",
+    
+}
+}

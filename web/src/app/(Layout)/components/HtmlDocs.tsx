@@ -8,6 +8,7 @@ import {
   editorCompo,
   deleteSuccess,
   deleteError,
+  locationMap
 } from "../../menu";
 import parser from "html-react-parser";
 import {
@@ -17,7 +18,9 @@ import {
 } from "@/app/common/types";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
-import SchoolMap from "./SchoolMap";
+import MapCompo from "./MapCompo";
+
+
 
 type HtmlDocsPropsId = {
   id?: string;
@@ -165,12 +168,12 @@ export default function HtmlDocs(props: HtmlDocsProps) {
             className="w-full mt-4 flex justify-center"
             style={{ height: "400px", overflow: "hidden" }}
           >
-            <SchoolMap />
+            <MapCompo />
           </div>
           <div className="w-full mt-0 flex justify-center">
-            <div className="w-[70%] bg-[#5592e7] p-4">
+            <div className="w-[70%] bg-[#5592e7] p-4 mb-10">
               <div className="text-left text-white text-lg font-bold">
-                대한민국 대구광역시 북구 복현로 35
+                {locationMap[language]["main-campus"]}
               </div>
             </div>
           </div>

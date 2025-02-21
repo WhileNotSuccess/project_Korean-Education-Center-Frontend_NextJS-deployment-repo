@@ -232,3 +232,14 @@ export const categoryMap: Record<
   "open-campus": opencampusList,
   "applied-to": applicationList,
 };
+
+export const locationMap: Record<string,   { location: { lat: number; lng: number }; address: string }> = {
+
+"본교" : {
+  location: {
+   lat: 35.89563,
+   lng: 128.62243,
+  },
+address: "대구광역시 북구 복현로 35" },
+
+};
