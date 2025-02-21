@@ -33,7 +33,7 @@
 
     // 비동기 데이터 요청
     useEffect(() => {
-    if (selectedTab==="procedure-guide") {
+    if (selectedTab) {
       const fetchData = async () => {
         try {
           const data = await customFetch(`/posts?category=${selectedTab}`, {

@@ -18,6 +18,7 @@ interface BannerType{
 }
 
 interface NewsType{
+  id: number
   image : string
   title : string
 }
@@ -36,7 +37,8 @@ export default function HomePageCompo() {
   const [startX, setStartX] = useState(0); // 드래그 시작 X 위치
   const [scrollLeft, setScrollLeft] = useState(0); // 슬라이더의 현재 스크롤 위치
   const [newsData, setNewsData] = useState<NewsType[]>([])
-
+  const itemRef = useRef<HTMLDivElement>(null); // 슬라이더 내부 각 div의 길이 참조용
+  const [itemWidth, setItemWidth] = useState(0); // 내부 각 div 길이 변수
 
   const onMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!sliderRef.current) return;
@@ -84,7 +86,7 @@ export default function HomePageCompo() {
         const data = await customFetch("/banners",{
           method : "GET"
         })
-
+        console.log(data.data)
         setBanner(data.data)
       }catch(error){
         alert(getError[language]?.bannerError)
@@ -123,13 +125,55 @@ export default function HomePageCompo() {
   },[])
 
 
-  const onGoNotice = async ()=>{
-    router.push("/board/notice")
+  const onGoBoard = async (category : string)=>{
+    router.push(`/board/${category}`)
   }
 
   const onGoUrl = async (url : string)=>{
     router.push(url)
   }
+
+  useEffect(() => {
+    const updateItemWidth = () => {
+      if (itemRef.current) {
+        setItemWidth(itemRef.current.clientWidth+16)
+      }
+    };
+
+    updateItemWidth(); // 초기 설정
+  }, [newsData]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      onScrollRight();
+    }, 10000); // 10초마다 실행
+
+    return () => clearInterval(interval); // 컴포넌트 언마운트 시 정리
+  }, [itemWidth]);
+
+
+  const onScrollLeft = () => {
+    console.log(itemRef.current)
+    if (sliderRef.current) {
+      const slider = sliderRef.current;
+      if (slider.scrollLeft <= 0) {
+        slider.scrollLeft = slider.scrollWidth - slider.clientWidth;
+      } else {
+        slider.scrollLeft -= itemWidth;
+      }
+    }
+  };
+
+  const onScrollRight = () => {
+    if (sliderRef.current) {
+      const slider = sliderRef.current;
+      if (slider.scrollLeft + slider.clientWidth >= slider.scrollWidth - 1) {
+        slider.scrollLeft = 0;
+      } else {
+        slider.scrollLeft += itemWidth;
+      }
+    }
+  };
 
   return (
     <div className="w-full h-screen flex flex-wrap">
@@ -147,11 +191,11 @@ export default function HomePageCompo() {
     ))}
   </div>
 </div>
-    <div className="w-full mt-12 flex justify-center">
+    <div className="w-full mt-12 flex flex-col justify-center items-center sm:flex-row sm:items-stretch">
       <div className="w-96 border mr-4 flex flex-col">
         <div className="flex justify-between items-center px-4">
           <h1 className="text-2xl font-bold p-2">{homePage[language]?.notice}</h1>
-          <img src="images/add_button.png" className="w-8 cursor-pointer" onClick={()=>onGoNotice()}/>
+          <img src="images/add_button.png" className="w-8 cursor-pointer" onClick={()=>onGoBoard("notice")}/>
         </div>
         <div className="flex flex-col px-2">
             {noticeData.map((item, index)=>{
@@ -167,7 +211,7 @@ export default function HomePageCompo() {
         <div className="w-full   border">
         <div className="flex justify-between items-center px-4">
           <h1 className="text-2xl font-bold p-2">{homePage[language]?.review}</h1>
-          <img src="images/add_button.png" className="w-8 cursor-pointer" onClick={()=>onGoNotice()}/>
+          <img src="images/add_button.png" className="w-8 cursor-pointer" onClick={()=>onGoBoard("review")}/>
         </div>
         <div className="flex flex-col px-2">
             {reviewData.map((item, index)=>{
@@ -182,7 +226,7 @@ export default function HomePageCompo() {
         <div className="w-full mt-4 border">
         <div className="flex justify-between items-center px-4">
           <h1 className="text-2xl font-bold p-2">{homePage[language]?.faq}</h1>
-          <img src="images/add_button.png" className="w-8 cursor-pointer" onClick={()=>onGoNotice()}/>
+          <img src="images/add_button.png" className="w-8 cursor-pointer" onClick={()=>onGoBoard("faq")}/>
         </div>
         <div className="flex flex-col px-2">
             {faqData.map((item, index)=>{
@@ -199,7 +243,7 @@ export default function HomePageCompo() {
       </div>
     </div>
     {/* 빠른서비스 및 서류 다운하는 탭*/}
-    <div className="fixed w-24 h-[80%] right-0 top-1/5 border bg-blue-500/80  rounded-l-xl flex flex-col justify-evenly py-2"> 
+    <div className="hidden sm:block fixed w-24 h-[80%] right-0 top-1/5 border bg-blue-500/80  rounded-l-xl flex flex-col justify-evenly py-2"> 
       <div className="w-full flex  flex-col justify-center items-center cursor-pointer">
         <div className="size-12 p-2 border rounded-full bg-[#ffffff]">
             <img src="images/home.png"/>
@@ -250,13 +294,14 @@ export default function HomePageCompo() {
       </div>
     </div>
       {/* 클릭후 드래그로 움직이는 소식 탭 */}
-    <div className="w-full flex flex-col items-center justify-center mt-12">
+      <div className="w-full flex justify-center items-center">
+    <div className="min-w-[75%] flex flex-col items-center justify-center mt-12">
         <div className="w-[80%] font-bold text-2xl">
           {boardMenu[language]?.news}
         </div>
     <div
       ref={sliderRef}
-      className="relative w-[80%] overflow-hidden cursor-pointer active:cursor-grabbing mt-4"
+      className="relative w-[71%] overflow-hidden cursor-pointer active:cursor-grabbing mt-4 scroll-smooth"
       onMouseDown={onMouseDown}
       onMouseLeave={onMouseUp}
       onMouseUp={onMouseUp}
@@ -264,14 +309,25 @@ export default function HomePageCompo() {
     >
       <div className="flex gap-4 w-max">
       {newsData.map((item, index) => (
-        <div key={index} className="flex flex-col items-center">
+        <Link href={`/board/news/${item.id}`} key={index}>
+        <div ref={index === 0 ? itemRef : null} className="w-64 flex flex-col items-center">
           <img
-            src={item.image}
-            className="w-64 h-40 object-cover rounded-lg pointer-events-none"
+            src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${item.image}`}
+            className="w-full h-40 object-cover rounded-lg pointer-events-none"
           />
           <p className="text-center mt-2">{item.title}</p>
         </div>
+        </Link>
       ))}
+      </div>
+    </div>
+    <div className="w-48 flex justify-between items-center">
+    <div onClick={onScrollLeft}>
+        <img src="/images/left.png" className="size-8 cursor-pointer"/>
+      </div>
+      <div onClick={onScrollRight}>
+        <img src="/images/right.png" className="size-8 cursor-pointer"/>
+      </div>
       </div>
     </div>
     </div>

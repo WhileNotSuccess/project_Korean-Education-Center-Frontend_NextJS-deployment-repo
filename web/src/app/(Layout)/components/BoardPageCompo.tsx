@@ -133,7 +133,7 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
 
               <Link
                 href={`/board/${name}/${item.id}`}
-                className="w-2/5 cursor-pointer ml-4"
+                className="w-2/5 cursor-pointer ml-4 overflow-hidden text-ellipsis whitespace-nowrap"
               >
                 {item.title}
               </Link>
