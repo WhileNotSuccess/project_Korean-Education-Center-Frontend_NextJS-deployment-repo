@@ -15,6 +15,7 @@ import BannerItem from "./BannerItem";
 import BannerPostModal from "./BannerPostModal";
 import StaffIntro from "../../components/StaffIntro";
 import StaffComponent from "./StaffComponent";
+import StaffModal from "./StaffModal";
 
 type AdminComponentProps = {
   category: string;
@@ -30,6 +31,7 @@ export default function AdminComponent({ category }: AdminComponentProps) {
   const [banners, setBanners] = useState<Banner[]>([]);
   const [teacher, setTeacher] = useState<Teacher[]>([]);
   const [staff, setStaff] = useState<Teacher[]>([]);
+  const [staffPostModal, setStaffPostModal] = useState<boolean>(false);
   if (category === "counseling") {
     useEffect(() => {
       async function getCounseling() {
@@ -124,14 +126,38 @@ export default function AdminComponent({ category }: AdminComponentProps) {
       getStaff();
     }, []);
     return (
-      <div className="flex flex-wrap">
-        {teacher.map((item) => {
-          return <StaffComponent key={item.name} {...item} />;
-        })}
-        {staff.map((item) => {
-          return <StaffComponent key={item.name} {...item} />;
-        })}
-      </div>
+      <>
+        {staffPostModal && (
+          <StaffModal
+            onClose={() => {
+              setStaffPostModal(false);
+            }}
+            method="POST"
+          />
+        )}
+        <div className="flex flex-wrap">
+          <h1 className="text-3xl mb-4 font-bold text-center w-full">
+            강사진 및 교직원 소개
+            <span className="p-4 text-right">
+              <button
+                onClick={() => {
+                  setStaffPostModal(true);
+                }}
+                className="text-white bg-blue-600 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5"
+              >
+                추가하기
+              </button>
+            </span>
+          </h1>
+
+          {teacher.map((item) => {
+            return <StaffComponent key={item.name} {...item} />;
+          })}
+          {staff.map((item) => {
+            return <StaffComponent key={item.name} {...item} />;
+          })}
+        </div>
+      </>
     );
   } else {
     return (

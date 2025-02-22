@@ -5,24 +5,38 @@ import { createPortal } from "react-dom";
 
 type ModalProps = {
   onClose: () => void;
-  data: Teacher;
+  method: string;
+  data?: Teacher;
 };
 
-export default function StaffUpdateModal({ onClose, data }: ModalProps) {
-  const [inputs, setInputs] = useState<Teacher>(data);
-  const [selectedTime, setSelectedTime] = useState<string>("");
+export default function StaffModal({ onClose, data, method }: ModalProps) {
+  const [inputs, setInputs] = useState<Teacher>(
+    data
+      ? data
+      : {
+          id: 0,
+          name: "",
+          position: "",
+          phone: "",
+          email: "",
+        }
+  );
+
   const customFetch = useCustomFetch();
 
   const onSubmit = async () => {
-    const response = await customFetch(`/staff/${data.id}`, {
-      method: "PATCH",
-      body: JSON.stringify({
-        name: inputs.name,
-        email: inputs.email,
-        phone: inputs.phone,
-        position: inputs.position,
-      }),
-    });
+    const response = await customFetch(
+      method == "POST" ? `/staff` : `/staff/${inputs.id}`,
+      {
+        method: method,
+        body: JSON.stringify({
+          name: inputs.name,
+          email: inputs.email,
+          phone: inputs.phone,
+          position: inputs.position,
+        }),
+      }
+    );
 
     if (response) {
       window.location.href = location.href;
@@ -109,9 +123,9 @@ export default function StaffUpdateModal({ onClose, data }: ModalProps) {
         <div className="p-4 text-center">
           <button
             onClick={onSubmit}
-            className="text-white bg-red-600 hover:bg-red-800 font-medium rounded-lg text-sm px-5 py-2.5"
+            className="text-white bg-blue-600 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5"
           >
-            수정하기
+            {method == "POST" ? "추가하기" : "수정하기"}
           </button>
         </div>
       </div>

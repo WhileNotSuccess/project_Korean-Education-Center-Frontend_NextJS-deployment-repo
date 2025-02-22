@@ -68,7 +68,7 @@ export default function ApplicationFormItem(data: ApplicationFormItemProp) {
               onClick={() => {
                 window.location.href = `${process.env.NEXT_PUBLIC_BACKEND_URL}/${item.filename}`;
               }}
-              className="flex items-center text-gray-700"
+              className="flex items-center text-gray-700 cursor-pointer"
               key={item.id}
             >
               <span className="mr-2">📄</span>

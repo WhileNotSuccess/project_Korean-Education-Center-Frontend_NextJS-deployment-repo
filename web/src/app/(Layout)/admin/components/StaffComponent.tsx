@@ -3,7 +3,7 @@ import { ApplicationFormItemProp, Teacher } from "@/app/common/types";
 import useCustomFetch from "@/app/lib/customFormFetch";
 import { useState } from "react";
 import DeleteModal from "./DeleteModal";
-import StaffUpdateModal from "./StaffUpdateModal";
+import StaffModal from "./StaffModal";
 
 export default function StaffComponent(item: Teacher) {
   const customFetch = useCustomFetch();
@@ -14,11 +14,12 @@ export default function StaffComponent(item: Teacher) {
   return (
     <div className="flex m-2">
       {modalUpdateOpen && (
-        <StaffUpdateModal
+        <StaffModal
           onClose={() => {
             setModalUpdateOpen(false);
           }}
           data={item}
+          method="PATCH"
         />
       )}
       {modalDeleteOpen && (
