@@ -51,7 +51,7 @@ export default function StaffIntro({ category }: HtmlDocsProps) {
                 <div className="font-bold border-b-2 border-[#0072BA] pl-2 h-8 flex flex-col justify-center">
                   {item.name}
                 </div>
-                <div className="ml-2">{item.position}</div>
+                <div className="ml-2">강사</div>
               </div>
             );
           })}
