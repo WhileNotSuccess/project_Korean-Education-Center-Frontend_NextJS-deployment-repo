@@ -249,13 +249,22 @@ export const categoryMap: Record<
   "applied-to": applicationList,
 };
 
-export const counselingPageMenu: Record<Language, Record<string, string>> = {
+
+export const counselingPageMenu : Record<Language, Record<string, string>> = {
+
+  [Language.korean] : {
+    "counseling-guide" : `상담 운영 시간은 한국 시간(KST) 기준으로\n평일 오전 9시 ~ 오후 6시,\n주말 오전 9시 ~ 오후 5시까지입니다.`,
+    "name": "이름",
+    "phone": "휴대폰 번호",
+    "email": "이메일",
+    "date": "상담 일정",
+    "save": "저장",
+  }
+}
+
+export const locationMap: Record<Language, Record<string, string>> = {
   [Language.korean]: {
-    "counseling-guide": `상담 운영 시간은 한국 시간(KST) 기준으로\n평일 오전 9시 ~ 오후 6시,\n주말 오전 9시 ~ 오후 5시까지입니다.`,
-    name: "이름",
-    phone: "휴대폰 번호",
-    email: "이메일",
-    date: "상담 일정",
-    save: "저장",
-  },
-};
+    "main-campus" : " 대구광역시 북구 복현로 35",
+    
+}
+}
