@@ -1,4 +1,5 @@
-import AdminComponent from "../../components/AdminComponent";
+import AdminComponent from "../components/AdminComponent";
+import CheckAdmin from "../components/CheckAdmin";
 
 interface AdminPageProps {
   params: {
@@ -10,6 +11,7 @@ export default function ApplicationPage({ params }: AdminPageProps) {
   const { category } = params;
   return (
     <div>
+      <CheckAdmin />
       <AdminComponent category={category} />
     </div>
   );

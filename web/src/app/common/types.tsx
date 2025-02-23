@@ -37,6 +37,7 @@ export type ApplicationFormItemProp = {
   id: number;
   userId: number;
   userName: string;
+  userEmail: string;
   course: string;
   createdDate: string;
   isDone: number;
@@ -75,3 +76,11 @@ export type LoginBody = {
   email: string;
   password: string;
 };
+
+export interface Teacher {
+  id: number;
+  name: string;
+  position: string;
+  phone: string | null;
+  email: string | null;
+}

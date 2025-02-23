@@ -1,40 +1,40 @@
 "use client";
-import { ApplicationFormItemProp } from "@/app/common/types";
+import { ApplicationFormItemProp, Teacher } from "@/app/common/types";
 import useCustomFetch from "@/app/lib/customFormFetch";
 import { useState } from "react";
 import DeleteModal from "./DeleteModal";
+import StaffModal from "./StaffModal";
 
-export default function ApplicationFormItem(data: ApplicationFormItemProp) {
+export default function StaffComponent(item: Teacher) {
   const customFetch = useCustomFetch();
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const [modalUpdateOpen, setModalUpdateOpen] = useState<boolean>(false);
   const [modalDeleteOpen, setModalDeleteOpen] = useState<boolean>(false);
-  const updateIsDone = async () => {
-    const formData = new FormData();
-    formData.append("isDone", data.isDone ? "false" : "true");
-    const response = await customFetch(`/application-form/${data.id}`, {
-      method: "PATCH",
-      body: formData,
-    });
-    if (response) {
-      window.location.href = location.href;
-    }
-  };
+
   return (
     <div className="flex m-2">
+      {modalUpdateOpen && (
+        <StaffModal
+          onClose={() => {
+            setModalUpdateOpen(false);
+          }}
+          data={item}
+          method="PATCH"
+        />
+      )}
       {modalDeleteOpen && (
         <DeleteModal
           onClose={() => {
             setModalDeleteOpen(false);
           }}
-          id={data.id}
-          target="application-form"
+          id={item.id}
+          target="staff"
         />
       )}
       <div className="w-72 p-4 bg-white shadow-lg rounded-lg border border-gray-200 ">
         <div className="w-full relative">
           <h2 className="text-blue-500 font-bold text-lg inline-block">
-            {data.userName}
+            {item.name}
           </h2>
           <span
             onClick={() => {
@@ -55,36 +55,33 @@ export default function ApplicationFormItem(data: ApplicationFormItemProp) {
                 >
                   삭제
                 </li>
+                <li
+                  onClick={() => {
+                    setModalUpdateOpen(true);
+                  }}
+                  className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                >
+                  수정
+                </li>
               </ul>
             </div>
           )}
         </div>
 
         <hr className="my-2 border-gray-300" />
-        <div className="space-y-2 h-40 overflow-y-auto">
-          {data.attachments.map((item) => (
-            <div
-              onClick={() => {
-                window.location.href = `${process.env.NEXT_PUBLIC_BACKEND_URL}/${item.filename}`;
-              }}
-              className="flex items-center text-gray-700"
-              key={item.id}
-            >
-              <span className="mr-2">📄</span>
-              <span className="font-medium">{item.filename}</span>
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-4">
-          <button
-            onClick={updateIsDone}
-            className={`${
-              data.isDone ? "bg-gray-400" : "bg-blue-500"
-            } text-white px-4 py-1 rounded-md text-sm font-semibold`}
-          >
-            {data.isDone ? "완료됨" : "처리전"}
-          </button>
+        <div className="space-y-2 h-30 overflow-y-auto">
+          <div className="flex items-center text-gray-700">
+            <span className="mr-2">📧</span>
+            <span className="font-medium">{item.email}</span>
+          </div>
+          <div className="flex items-center text-gray-700">
+            <span className="mr-2">📞</span>
+            <span className="font-medium">{item.phone}</span>
+          </div>
+          <div className="flex items-center text-gray-700">
+            <span className="mr-2">💼</span>
+            <span className="font-medium">{item.position}</span>
+          </div>
         </div>
       </div>
     </div>
