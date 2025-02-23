@@ -40,30 +40,6 @@ export default function HomePageCompo() {
   const itemRef = useRef<HTMLDivElement>(null); // 슬라이더 내부 각 div의 길이 참조용
   const [itemWidth, setItemWidth] = useState(0); // 내부 각 div 길이 변수
 
-  const onMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!sliderRef.current) return;
-    setIsDragging(true); // 드래그 시작
-    setStartX(e.pageX - sliderRef.current.offsetLeft); // 드래그 시작 위치 저장
-    setScrollLeft(sliderRef.current.scrollLeft); // 현재 스크롤 상태 저장
-  };
-
-  // 마우스 이동 시 이미지 이동
-  const onMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!isDragging || !sliderRef.current) return;
-    e.preventDefault();
-    const x = e.pageX - sliderRef.current.offsetLeft; // 현재 마우스의 위치, offsetLeft = 부모div의 왼쪽 끝에서 해당 div의 왼쪽까지의 거리가 어느정도 되는지
-    const walk = (x - startX); // 드래그 시작하고 얼마나 움직였는지 확인, startX = 드래그 시작전 마우스의 위치, x = 드래그를 하면서 실시간으로 바뀌는 마우스의 위치
-    sliderRef.current.scrollLeft = scrollLeft - walk; // 스크롤 이동
-    if (sliderRef.current.scrollLeft <= 0 || sliderRef.current.scrollLeft >= sliderRef.current.scrollWidth - sliderRef.current.clientWidth) {
-      setIsDragging(false); 
-    }
-  };
-
-  // 마우스 클릭 종료
-  const onMouseUp = () => {
-    setIsDragging(false); // 드래그 종료
-  };
-
   useEffect(()=>{
     const newsData = async()=>{
       try{
@@ -133,17 +109,17 @@ export default function HomePageCompo() {
     router.push(url)
   }
 
-  useEffect(() => {
+  useEffect(() => {  // 자동+클릭으로 넘어가는 길이 설정
     const updateItemWidth = () => {
       if (itemRef.current) {
-        setItemWidth(itemRef.current.clientWidth+16)
+        setItemWidth(itemRef.current.clientWidth+16) // 16은 이미지 간격
       }
     };
 
     updateItemWidth(); // 초기 설정
   }, [newsData]);
 
-  useEffect(() => {
+  useEffect(() => {  // 한국어교육센터 알림 자동으로 넘어가는 기능
     const interval = setInterval(() => {
       onScrollRight();
     }, 10000); // 10초마다 실행
@@ -243,7 +219,7 @@ export default function HomePageCompo() {
       </div>
     </div>
     {/* 빠른서비스 및 서류 다운하는 탭*/}
-    <div className="hidden sm:block fixed w-24 h-[80%] right-0 top-1/5 border bg-blue-500/80  rounded-l-xl flex flex-col justify-evenly py-2"> 
+    <div className="fixed w-24 h-[80%] right-0 top-1/5 border bg-blue-500/80  rounded-l-xl flex flex-col justify-evenly py-2"> 
       <div className="w-full flex  flex-col justify-center items-center cursor-pointer">
         <div className="size-12 p-2 border rounded-full bg-[#ffffff]">
             <img src="images/home.png"/>
@@ -302,11 +278,7 @@ export default function HomePageCompo() {
     <div
       ref={sliderRef}
       className="relative w-[71%] overflow-hidden cursor-pointer active:cursor-grabbing mt-4 scroll-smooth"
-      onMouseDown={onMouseDown}
-      onMouseLeave={onMouseUp}
-      onMouseUp={onMouseUp}
-      onMouseMove={onMouseMove}
-    >
+      >
       <div className="flex gap-4 w-max">
       {newsData.map((item, index) => (
         <Link href={`/board/news/${item.id}`} key={index}>
