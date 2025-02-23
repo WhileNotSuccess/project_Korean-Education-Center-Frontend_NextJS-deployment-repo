@@ -227,53 +227,53 @@ export default function HomePageCompo() {
     </div>
     {/* 빠른서비스 및 서류 다운하는 탭*/}
     <div className="fixed w-24 h-[80%] right-0 top-1/5 border bg-blue-500/80  rounded-l-xl flex flex-col justify-evenly py-2"> 
-      <div className="w-full flex  flex-col justify-center items-center cursor-pointer">
+      <Link href={"/guidance/introduction"}  className="w-full flex  flex-col justify-center items-center cursor-pointer">
         <div className="size-12 p-2 border rounded-full bg-[#ffffff]">
             <img src="images/home.png"/>
         </div>
-        <Link href={"/guidance/introduction"} className="text-xs text-wrap font-light text-center text-white">
+        <div className="text-xs text-wrap font-light text-center text-white">
         {guidanceMenu[language]?.introduction}
-        </Link>
-      </div>
-      <div className="w-full flex  flex-col justify-center items-center cursor-pointer">
+        </div>
+      </Link>
+      <Link href={"/board/faq"} className="w-full flex  flex-col justify-center items-center cursor-pointer">
         <div className="size-12 p-2 border rounded-full bg-[#ffffff]">
             <img src="images/faq.png"/>
         </div>
-        <Link href={"/board/faq"} className="text-xs text-wrap font-light text-center text-white">
+        <div  className="text-xs text-wrap font-light text-center text-white">
         {boardMenu[language]?.faq}
-        </Link>
-      </div>
-      <div className="w-full flex  flex-col justify-center items-center cursor-pointer">
+        </div>
+      </Link>
+      <Link href={"/board/review"} className="w-full flex  flex-col justify-center items-center cursor-pointer">
         <div className="size-12 p-2 border rounded-full bg-[#ffffff]">
             <img src="images/review.png"/>
         </div>
-        <Link href={"/board/review"} className="text-xs text-wrap font-light text-center text-white">
+        <div className="text-xs text-wrap font-light text-center text-white">
         {boardMenu[language]?.review}
-        </Link>
-      </div>
-      <div className="w-full flex  flex-col justify-center items-center cursor-pointer">
+        </div>
+      </Link>
+      <Link href={"/board/news"} className="w-full flex  flex-col justify-center items-center cursor-pointer">
         <div className="size-12 p-2 border rounded-full bg-[#ffffff]">
             <img src="images/light.png"/>
         </div>
-        <Link href={"/board/news"} className="text-xs text-wrap font-light text-center text-white">
+        <div  className="text-xs text-wrap font-light text-center text-white">
         {boardMenu[language]?.news}
-        </Link>
-      </div>
-      <div className="w-full flex  flex-col justify-center items-center cursor-pointer">
+        </div>
+      </Link>
+      <Link href={"/select/applied-to"} className="w-full flex  flex-col justify-center items-center cursor-pointer">
         <div className="size-12 p-2 border rounded-full bg-[#ffffff]">
             <img src="images/문서1.png"/>
         </div>
-        <Link href={"/guidance/introduction"} className="text-xs text-wrap font-light text-center text-white">
+        <div  className="text-xs text-wrap font-light text-center text-white">
         {homePage[language]?.["applied-to"]}
-        </Link>
-      </div>
+        </div>
+      </Link>
       <div className="w-full flex  flex-col justify-center items-center cursor-pointer">
         <div className="size-12 p-2 border rounded-full bg-[#ffffff]">
             <img src="images/학사모1.png"/>
         </div>
-        <Link href={"/guidance/introduction"} className="text-xs text-wrap font-light text-center text-white">
+        <div className="text-xs text-wrap font-light text-center text-white">
         {homePage[language]?.["recruitment-guidelines"]}
-        </Link>
+        </div>
       </div>
     </div>
       {/* 클릭후 드래그로 움직이는 소식 탭 */}
