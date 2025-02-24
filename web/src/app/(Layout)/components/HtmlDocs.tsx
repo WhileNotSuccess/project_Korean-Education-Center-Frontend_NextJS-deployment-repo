@@ -21,11 +21,6 @@ import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import MapCompo from "./MapCompo";
 
-type HtmlDocsPropsId = {
-  id?: string;
-  category?: string;
-};
-
 export default function HtmlDocs(props: HtmlDocsProps) {
   const [allData, setAllData] = useState<{
     content: string;
@@ -86,12 +81,14 @@ export default function HtmlDocs(props: HtmlDocsProps) {
   };
 
   const onUpdate = (guidanceId?: string) => {
-    router.push(`/post-update/${guidanceId}`);
+    router.push(`/post-update/${guidanceId ?? props.id}`);
   };
 
   const onDelete = async (guidanceId?: string) => {
     try {
-      await customFetch(`/posts/${guidanceId}`, { method: "DELETE" });
+      await customFetch(`/posts/${guidanceId ?? props.id}`, {
+        method: "DELETE",
+      });
       alert(deleteSuccess[language]?.contentDelete);
       router.push("/");
     } catch (error) {
@@ -137,7 +134,11 @@ export default function HtmlDocs(props: HtmlDocsProps) {
                       className="w-4 h-4 mr-2"
                     />
                     <button
-                      onClick={() => handleFileDownload(item.filename)}
+                      onClick={() => {
+                        router.push(
+                          `${process.env.NEXT_PUBLIC_BACKEND_URL}/${item.filename}`
+                        );
+                      }}
                       className="text-blue-600 hover:underline"
                     >
                       {item.filename}
@@ -188,7 +189,9 @@ export default function HtmlDocs(props: HtmlDocsProps) {
       )}
 
       <div className="w-full h-screen flex justify-center">
-        <div className="w-3/5">{parser(allData.content)}</div>
+        <div className="w-3/5">
+          <div className="flex flex-wrap">{parser(allData.content)}</div>
+        </div>
       </div>
     </div>
   );

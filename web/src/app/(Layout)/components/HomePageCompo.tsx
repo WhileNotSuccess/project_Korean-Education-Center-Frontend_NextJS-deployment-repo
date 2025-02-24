@@ -374,39 +374,6 @@ export default function HomePageCompo() {
             </Link>
           </div>
         </div>
-        <Link
-          href={"/board/news"}
-          className="w-full flex  flex-col justify-center items-center cursor-pointer"
-        >
-          <div className="size-12 p-2 border rounded-full bg-[#ffffff]">
-            <img src="images/light.png" />
-          </div>
-          <div className="text-xs text-wrap font-light text-center text-white">
-            {boardMenu[language]?.news}
-          </div>
-        </Link>
-        <Link
-          href={"/select/applied-to"}
-          className="w-full flex  flex-col justify-center items-center cursor-pointer"
-        >
-          <div className="size-12 p-2 border rounded-full bg-[#ffffff]">
-            <img src="images/문서1.png" />
-          </div>
-          <div className="text-xs text-wrap font-light text-center text-white">
-            {homePage[language]?.["applied-to"]}
-          </div>
-        </Link>
-        <div className="w-full flex  flex-col justify-center items-center cursor-pointer">
-          <div className="size-12 p-2 border rounded-full bg-[#ffffff]">
-            <img src="images/학사모1.png" />
-          </div>
-          <Link
-            href={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${guidelinesForApplicants?.filename}`}
-            className="text-xs text-wrap font-light text-center text-white"
-          >
-            {homePage[language]?.["recruitment-guidelines"]}
-          </Link>
-        </div>
       </div>
       {/* 클릭후 드래그로 움직이는 소식 탭 */}
       <div className="w-full flex justify-center items-center">
