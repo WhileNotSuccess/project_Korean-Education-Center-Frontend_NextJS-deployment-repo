@@ -15,6 +15,7 @@ import Cookies from "js-cookie";
 import useCustomFormFetch from "@/app/lib/customFormFetch";
 import { Language, ServerDocumentFile } from "@/app/common/types";
 import useCustomFetch from "@/app/lib/customFetch";
+import { useRouter } from "next/navigation";
 
 type EditorProps = {
   id?: string;
@@ -36,6 +37,7 @@ export default function EditorComponent(props: EditorProps) {
   const customFetch = useCustomFetch();
   const language: Language = (Cookies.get("language") as Language) || "korean";
   const [category, setCategory] = useState<string>(props.categoryName || "");
+  const router = useRouter()
 
   useEffect(() => {
     const oldPost = async () => {
@@ -77,6 +79,7 @@ export default function EditorComponent(props: EditorProps) {
         body: formData,
       });
       alert(postSuccess[language]?.contentPost)
+      router.back()
     } catch (error) {
       alert(postError[language]?.subError);
     }
@@ -98,6 +101,7 @@ export default function EditorComponent(props: EditorProps) {
         body: formData,
       });
       alert(updateSuccess[language]?.updatePost)
+      router.back()
     } catch (error) {
       alert(updateError[language]?.update)
     }
@@ -126,6 +130,8 @@ export default function EditorComponent(props: EditorProps) {
   const handleDocumentFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const filesArray = Array.from(e.target.files);
+      const newFileNames = filesArray.map((file) => file.name);
+      setDeleteFileNames((prev) => prev.filter((name) => !newFileNames.includes(name)));
       setDocumentFiles((prev) => [...prev, ...filesArray]);
       setDocumentFileNames((prev) => [
         ...prev,
@@ -179,30 +185,10 @@ export default function EditorComponent(props: EditorProps) {
                 onChange={(e) => setTitle(e.target.value)}
                 value={title}
               />
-              <button
-                type="submit"
-                className="absolute top-0 end-0 p-2.5 h-full text-sm font-medium text-white bg-blue-700 rounded-e-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              >
-                <svg
-                  className="w-4 h-4"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-                  />
-                </svg>
-              </button>
             </div>
           </div>
         </form>
-
+        <div className="w-[50%] border">
         <input
           type="file"
           accept=".*"
@@ -214,15 +200,17 @@ export default function EditorComponent(props: EditorProps) {
             documentFileNames.map((fileName, index) => (
               <div
                 key={index}
-                className={`w-1/3 flex justify-between items-center ${
+                className={`flex justify-between items-center ${
                   deleteFileNames.includes(fileName) ? "hidden" : ""
                 }`}
-              >
+              ><div className="flex flex-rows items-center">
+                <img src="/images/attachfile.png" className="size-4 flex justify-center items-center mr-4"/>
                 <li>
                   {fileName.match(/^\d{8}-\d{6}_/)
                     ? fileName.substring(16)
                     : fileName}
                 </li>
+                </div>
                 <img
                   src="/images/X버튼.png"
                   className="size-4 cursor-pointer"
@@ -231,6 +219,7 @@ export default function EditorComponent(props: EditorProps) {
               </div>
             ))}
         </ul>
+        </div>
 
         <Editor
           tinymceScriptSrc={"/tinymce/tinymce.min.js"}
@@ -278,11 +267,11 @@ export default function EditorComponent(props: EditorProps) {
         />
 
         {props.id ? (
-          <button className="border" onClick={update}>
+          <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 mt-4" onClick={update}>
             {editorCompo[language]?.update}
           </button>
         ) : (
-          <button className="border" onClick={submit}>
+          <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 mt-4" onClick={submit}>
             {editorCompo[language]?.submit}
           </button>
         )}

@@ -85,6 +85,7 @@ export default function HtmlDocs(props: HtmlDocsProps) {
     try {
       const data = await customFetch(`/posts/${id}`, { method: "DELETE" });
       alert(deleteSuccess[language]?.contentDelete);
+      router.back()
     } catch (error) {
       alert(deleteError[language]?.delete);
     }

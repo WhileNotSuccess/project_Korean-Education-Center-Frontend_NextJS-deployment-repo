@@ -35,9 +35,9 @@ export default function SelectTabComponent({
     }
   }, [categoryTab]);
 
-  // 비동기 데이터 요청
-  useEffect(() => {
-    if (selectedTab && selectedTab !== "upload-documents") {
+    // 비동기 데이터 요청
+    useEffect(() => {
+    if (selectedTab) {
       const fetchData = async () => {
         try {
           const data = await customFetch(`/posts?category=${selectedTab}`, {
