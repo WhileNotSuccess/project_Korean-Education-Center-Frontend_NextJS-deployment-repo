@@ -215,6 +215,14 @@ export const deleteSuccess: Record<Language, Record<string, string>> = {
     contentDelete: "글 삭제에 성공했습니다.",
   },
 };
+
+export const fileError: Record<Language, Record<string, string>> = {
+  // 파일 다운로드 관련 에러
+  [Language.korean]: {
+    Error: "파일 다운로드에 실패했습니다.",
+  },
+};
+
 export const counselingForm: Record<Language, Record<string, string>> = {
   [Language.korean]: { counseling: "상담 신청" },
 };
@@ -267,4 +275,11 @@ export const locationMap: Record<Language, Record<string, string>> = {
     "main-campus" : " 대구광역시 북구 복현로 35",
     
 }
+}
+
+export const LoginCompoMenu : Record<Language, Record<string, string>> = {
+  [Language.korean]: {
+    Login: "로그인",
+  }
+
 }
