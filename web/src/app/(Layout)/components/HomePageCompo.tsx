@@ -8,6 +8,7 @@ import useCustomFetch from "@/app/lib/customFetch";
 import { formatDate } from "@/app/common/formatDate";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import BoardDataMapCompo from "./BoardDataMapCompo";
 
 interface BannerType {
   expiredData: string;
@@ -28,14 +29,8 @@ export default function HomePageCompo() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const language: Language = (Cookies.get("language") as Language) || "korean";
   const customFetch = useCustomFetch();
-  const [noticeData, setNoticeData] = useState<BoardData[]>([]);
-  const [reviewData, setReviewData] = useState<BoardData[]>([]);
-  const [faqData, setFaqData] = useState<BoardData[]>([]);
   const router = useRouter();
   const sliderRef = useRef<HTMLDivElement>(null); // 슬라이더 div 참조
-  const [isDragging, setIsDragging] = useState(false); // 드래그 상태
-  const [startX, setStartX] = useState(0); // 드래그 시작 X 위치
-  const [scrollLeft, setScrollLeft] = useState(0); // 슬라이더의 현재 스크롤 위치
   const [newsData, setNewsData] = useState<NewsType[]>([]);
   const [guidelinesForApplicants, setGuidelinesForApplicants] =
     useState<Attachments>();
@@ -76,37 +71,6 @@ export default function HomePageCompo() {
       }
     };
     bannerData();
-  }, []);
-
-  useEffect(() => {
-    // 자동 슬라이드 배너
-    const interval = setInterval(() => {
-      setCurrentIndex((currentIndex) => (currentIndex + 1) % banner.length); // %으로 나머지를 구해 1, 2, 3, 0으로 변경
-    }, 6000);
-    return () => clearInterval(interval);
-  }, [banner.length]);
-
-  useEffect(() => {
-    // Home페이지에 띄울 리스트
-    const boardData = async () => {
-      try {
-        const noticeData = await customFetch(`/posts/notice?limit=8`, {
-          method: "GET",
-        });
-        const reviewData = await customFetch("/posts/review?limit=3", {
-          method: "GET",
-        });
-        const faqData = await customFetch("/posts/faq?limit=3", {
-          method: "GET",
-        });
-        setNoticeData(noticeData.data);
-        setReviewData(reviewData.data);
-        setFaqData(faqData.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    boardData();
   }, []);
 
   const onGoBoard = async (category: string) => {
@@ -189,7 +153,7 @@ export default function HomePageCompo() {
         </div>
       </div>
       <div className="w-full mt-12 flex flex-col justify-center items-center sm:flex-row sm:items-stretch">
-        <div className="w-96 border mr-4 flex flex-col">
+        <div className="w-96 border sm:mr-4 sm:mb-0 mb-4 flex flex-col">
           <div className="flex justify-between items-center px-4">
             <h1 className="text-2xl font-bold p-2">
               {homePage[language]?.notice}
@@ -201,24 +165,7 @@ export default function HomePageCompo() {
             />
           </div>
           <div className="flex flex-col px-2">
-            {noticeData.map((item, index) => {
-              return (
-                <div
-                  key={index}
-                  className="w-full flex flex-1 justify-between items-center border-b p-4"
-                >
-                  <Link
-                    href={`/board/notice/${item.id}`}
-                    className="w-[70%] overflow-hidden text-ellipsis whitespace-nowrap"
-                  >
-                    {item.title}
-                  </Link>{" "}
-                  <div className="font-light text-sm">
-                    {formatDate(item.createdDate)}
-                  </div>
-                </div>
-              );
-            })}
+            <BoardDataMapCompo category={"notice"} limit={8} />
           </div>
         </div>
         <div className="w-96  flex flex-col justify-between">
@@ -234,24 +181,7 @@ export default function HomePageCompo() {
               />
             </div>
             <div className="flex flex-col px-2">
-              {reviewData.map((item, index) => {
-                return (
-                  <div
-                    key={index}
-                    className="w-full flex justify-between items-center border-b p-4"
-                  >
-                    <Link
-                      href={`/board/review/${item.id}`}
-                      className="w-[70%] overflow-hidden text-ellipsis whitespace-nowrap"
-                    >
-                      {item.title}
-                    </Link>{" "}
-                    <div className="font-light text-sm">
-                      {formatDate(item.createdDate)}
-                    </div>
-                  </div>
-                );
-              })}
+              <BoardDataMapCompo category={"review"} limit={3}/>
             </div>
           </div>
           <div className="w-full mt-4 border">
@@ -266,30 +196,13 @@ export default function HomePageCompo() {
               />
             </div>
             <div className="flex flex-col px-2">
-              {faqData.map((item, index) => {
-                return faqData ? (
-                  <div
-                    key={index}
-                    className="w-full flex-1 flex items-center justify-between border-b p-4"
-                  >
-                    <Link
-                      href={`/board/faq/${item.id}`}
-                      className="w-[70%] overflow-hidden text-ellipsis whitespace-nowrap"
-                    >
-                      {item.title}
-                    </Link>{" "}
-                    <div className="font-light text-sm">
-                      {formatDate(item.createdDate)}
-                    </div>
-                  </div>
-                ) : null;
-              })}
+              <BoardDataMapCompo category={"faq"} limit={3}/>
             </div>
           </div>
         </div>
         {/* 빠른서비스 및 서류 다운하는 탭*/}
-        <div className="fixed w-24 h-[80%] right-0 top-1/5 border bg-blue-500/80  rounded-l-xl flex flex-col justify-evenly py-2">
-          <div className="w-full flex  flex-col justify-center items-center cursor-pointer">
+        <div className="hidden sm:fixed sm:w-24 sm:min-h-[80%] sm:right-0 sm:top-24 sm:border sm:bg-blue-500/80 sm:rounded-l-xl sm:flex sm:flex-col sm:justify-evenly sm:py-2">
+        <div className="w-full flex  flex-col justify-center items-center cursor-pointer">
             <Link
               href={"/guidance/introduction"}
               className="size-12 p-2 border rounded-full bg-[#ffffff]"
@@ -418,7 +331,7 @@ export default function HomePageCompo() {
           src="https://kcenter.yju.ac.kr/kr/wp-content/uploads/sites/2/2023/05/logo.png"
           className="w-48"
         />
-        <div className="flex flex-col justify-center whitespace-nowrap font-bold text-sm">
+        <div className="hidden sm:block flex flex-col justify-center whitespace-nowrap font-bold text-sm">
           <div>{homePage[language]?.footerAddress}</div>
           <div>{homePage[language]?.footerCallEmail}</div>
         </div>

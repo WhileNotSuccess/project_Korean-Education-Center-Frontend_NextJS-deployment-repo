@@ -281,5 +281,31 @@ export const LoginCompoMenu : Record<Language, Record<string, string>> = {
   [Language.korean]: {
     Login: "로그인",
   }
+}
 
+export const Hamburger : Record<Language, { topMenu: string; subMenu:{address : string, name: string}[] }[]> = {
+  [Language.korean] : [
+    {topMenu : "센터소개", subMenu: [
+      {address:"/guidance/introduction",name:"한국어교육센터 소개"},
+      {address:"/guidance/directions",name:"오시는길"},
+      {address:"/staff-intro",name:"강사진 및 교직원 소개"}]},
+    {topMenu : "과정소개", subMenu: [
+      {address:"/select/korean-curriculum",name:"한국어교육과정"},
+      {address:"/select/open-campus",name:"오픈캠퍼스"},
+      {address:"/board/review",name:"유학생 후기"}]},
+    {topMenu : "신청", subMenu: [
+      {address:"/select/applied-to",name:"입학 신청"},
+      {address:"/form/counseling",name:"상담 신청"},
+      {address:"/board/application-form",name:"신청 서류"},
+      {address:"/guidance/visa",name:"비자 안내"}]},
+    {topMenu : "학교생활", subMenu: [
+      {address:"/guidance/dormitory",name:"기숙사 안내"},
+      {address:"/guidance/facility",name:"학교 시설 안내"},
+      {address:"/board/learning-materials",name:"학습 자료 안내"},
+      {address:"/guidance/insurance",name:"건강 보험 안내"}]},
+    {topMenu : "알림/공지", subMenu: [
+      {address:"/board/notice",name:"공지사항"},
+      {address:"/board/news",name:"한국어교육센터 알림"},
+      {address:"/board/faq",name:"FAQ"}]},
+  ]
 }
