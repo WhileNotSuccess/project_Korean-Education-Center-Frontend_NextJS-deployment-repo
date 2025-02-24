@@ -25,8 +25,17 @@ export default function SelectTabComponent({
   const [selectedTab, setSelectedTab] = useState<string>("");
   const [file, setFile] = useState<Array<File>>([]);
   const [documentFileNames, setDocumentFileNames] = useState<Array<string>>([]); // 파일 이름 리스트
-  const [course, setCourse] = useState("");
+  const [aplicationName, setAplicationName] = useState("");
+  const [selectedCourse, setSelectedCourse] = useState(""); // 기본값 설정
   const [deleteFileNames, setDeleteFileNames] = useState<Array<string>>([]); // 삭제할 파일 이름 리스트
+  const [courseOptions, setCourseOptions] = useState<Array<{ course: string }>>(
+    [
+      // 하드코딩된 과정 옵션
+      { course: "지원과정 1" },
+      { course: "지원과정 2" },
+      { course: "지원과정 3" },
+    ]
+  ); // 지원과정 목록 추가시 삭제 예정
 
   useEffect(() => {
     if (categoryTab && categoryTab[language]?.[0]?.key.length > 0) {
@@ -35,8 +44,8 @@ export default function SelectTabComponent({
     }
   }, [categoryTab]);
 
-    // 비동기 데이터 요청
-    useEffect(() => {
+  // 비동기 데이터 요청
+  useEffect(() => {
     if (selectedTab) {
       const fetchData = async () => {
         try {
@@ -52,6 +61,20 @@ export default function SelectTabComponent({
 
       fetchData();
     }
+
+    /* const fetchCourseOptions = async () => { // 지원과정 불러오는 함수 (지원과정 추가 시 넣을 예정)
+      try {
+        const data = await customFetch("/course-options", { // 해당 API 경로를 사용할 수 있는 주소로 수정
+          method: "GET",
+        });
+    
+        setCourseOptions(data.options);
+      } catch (error) {
+        console.error("지원과정 목록을 불러올 수 없습니다.", error);
+      }
+    };
+
+    fetchCourseOptions(); */
   }, [selectedTab, name, categoryTab]);
 
   const handleSubmit = async (e: any) => {
@@ -61,19 +84,20 @@ export default function SelectTabComponent({
     file.forEach((file) => {
       formData.append("files", file);
     });
-    formData.append("course", course);
+    formData.append("course", selectedCourse); // 선택된 과정 값 전달
     try {
       const response = await customFormFetch("/application-form", {
         method: "POST",
         body: formData,
       });
       alert(postSuccess[language]?.appliedPost);
-    } catch (error) {}
+    } catch (error) {
+      console.error("폼 제출 실패", error);
+    }
   };
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-  ) => {
-    setCourse(e.target.value);
+
+  const handleCourseChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedCourse(e.target.value); // 지원 과정 변경
   };
 
   return (
@@ -82,7 +106,7 @@ export default function SelectTabComponent({
       <div className="h-12 border-b flex items-center justify-center mb-4">
         <div className="text-3xl font-bold">{selectMenu["korean"]?.[name]}</div>
       </div>
-      <div className=" w-3/5 mx-auto">
+      <div className="w-3/5 mx-auto">
         {/* 탭 메뉴 */}
         <div className="flex justify-center gap-1 p-4">
           {categoryTab[language].map((item) => (
@@ -104,13 +128,13 @@ export default function SelectTabComponent({
       {/* 내용 표시 */}
       <div className="w-full flex justify-center mt-8">
         {selectedTab !== "upload-documents" ? (
-          <div className="w-3/5  p-4">
+          <div className="w-3/5 p-4">
             {typeof content === "string"
               ? parser(content)
               : "내용을 불러올 수 없습니다."}
           </div>
         ) : (
-          <div className="w-3/5  p-4 border">
+          <div className="w-3/5 p-4 border">
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <input
@@ -158,16 +182,38 @@ export default function SelectTabComponent({
                     ))}
                 </ul>
               </div>
+
               <div>
                 <textarea
-                  id="course"
-                  name="course"
-                  value={course}
-                  onChange={handleInputChange}
-                  placeholder="지원 과정을 입력하세요"
-                  className="mt-2 w-full h-24 border border-gray-300 p-2"
+                  id="application-name"
+                  name="application-name"
+                  value={aplicationName}
+                  onChange={(e) => setAplicationName(e.target.value)}
+                  placeholder="이름을 입력하세요"
+                  className="pt-1 w-full h-9 border border-gray-300"
                 />
               </div>
+
+              <div>
+                <select
+                  id="course"
+                  name="course"
+                  value={selectedCourse}
+                  onChange={handleCourseChange}
+                  className="mt-2 w-full h-10 text-base border border-gray-300 p-2"
+                >
+                  {courseOptions.length > 0 ? (
+                    courseOptions.map((option, index) => (
+                      <option key={index} value={option.course}>
+                        {option.course}
+                      </option>
+                    ))
+                  ) : (
+                    <option value="">지원과정을 불러오는 중...</option>
+                  )}
+                </select>
+              </div>
+
               <button
                 type="submit"
                 className="w-full bg-blue-500 text-white py-2 rounded-md"

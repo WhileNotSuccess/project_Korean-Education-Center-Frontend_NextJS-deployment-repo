@@ -2,16 +2,20 @@
 
 import Link from "next/link";
 import { useAuth } from "@/app/hook/auth";
+import { LoginCompoMenu } from "@/app/menu";
+import { Language } from "@/app/common/types";
+import Cookies from "js-cookie";
 
 export default function LoginCompo() {
   const { user } = useAuth();
+    const language: Language = (Cookies.get("language") as Language) || "korean";
 
   return (
     <div>
       {!user ? (
-         <Link href={"/login"} className="text-white font-bold hover:underline">로그인</Link>
+         <Link href={"/login"} className="text-white font-bold hover:underline">{LoginCompoMenu[language].Login}</Link>
       ) : (
-        <Link href={"/dashboard"} className="text-white font-bold hover:underline">&nbsp;&nbsp; 환영합니다! {user.name}님</Link>
+        <Link href={"/dashboard"} className="text-white font-bold hover:underline">&nbsp;&nbsp; {user.name}님</Link>
       )}
     </div>
   );
