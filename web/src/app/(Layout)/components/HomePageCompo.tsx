@@ -271,9 +271,11 @@ export default function HomePageCompo() {
         <div className="size-12 p-2 border rounded-full bg-[#ffffff]">
             <img src="images/학사모1.png"/>
         </div>
-        <div className="text-xs text-wrap font-light text-center text-white">
+        <Link
+         href={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${guidelinesForApplicants?.filename}`}
+         className="text-xs text-wrap font-light text-center text-white">
         {homePage[language]?.["recruitment-guidelines"]}
-        </div>
+        </Link>
       </div>
     </div>
       {/* 클릭후 드래그로 움직이는 소식 탭 */}

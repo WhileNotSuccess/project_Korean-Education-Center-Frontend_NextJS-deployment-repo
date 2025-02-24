@@ -18,7 +18,7 @@ type BoardPageProps = {
 
 export default function BoardPageCompo({ name }: BoardPageProps) {
   const customFetch = useCustomFetch();
-  const [searchOption, setSearchOption] = useState<string>(boardPage["korean"]?.title);
+  const [searchOption, setSearchOption] = useState<string>("title");
   const [boardData, setBoardData] = useState<BoardData[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1); // 현재 페이지
   const [nextPage, setNextPage] = useState<number>(0); // 다음 페이지
@@ -26,6 +26,7 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
   const [totalPage, setTotalPage] = useState<number>(0);
   const language: Language = (Cookies.get("language") as Language) || "korean";
   const router = useRouter()
+  const [inputValue, setInputValue] = useState("")
 
   // 게시글 불러오기 함수
   const fetchBoard = async (currentPage: number) => {
@@ -61,6 +62,26 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
     router.push(`/post/${category}`)
   }
 
+  const onSearch = async(value : string)=>{
+    console.log(name)
+    console.log(searchOption)
+    console.log(value)
+    try{
+      const data = await customFetch(`/posts/search?limit=10&page=1&${searchOption}=${value}`,{
+        method : "GET"
+      })
+      console.log(data.data)
+      setBoardData(data.data);
+      setCurrentPage(data.currentPage);
+      setNextPage(data.nextPage);
+      setPrevPage(data.prevPage);
+      setTotalPage(data.totalPage);
+      alert(`/posts/search?limit=10&page=1&${searchOption}=${value}`)
+    }catch(error){
+      alert("테스트 실패")
+    }
+  }
+
   return (
     <div className="w-full h-screen">
       <div
@@ -76,21 +97,24 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
             value={searchOption}
             onChange={(e) => setSearchOption(e.target.value)}
           >
-            <option value={boardPage[language]?.title}>
+            <option value="title">
               {boardPage[language]?.title}
             </option>
-            <option value={boardPage[language]?.content}>
+            <option value="content">
               {boardPage[language]?.content}
             </option>
-            <option value={boardPage[language]?.createDate}>
-              {boardPage[language]?.createDate}
+            <option value="author">
+              {boardPage[language]?.author}
             </option>
           </select>
           <input
+            onChange={(e)=>setInputValue(e.target.value)}
             className="w-60 h-8 border-2 border-black rounded pl-2 ml-2"
             placeholder="제목을 입력하세요"
           ></input>
-          <button className="min-w-12 bg-[#0093EE] text-white ml-2">
+          <button 
+            onClick={()=>onSearch(inputValue)}
+            className="min-w-12 bg-[#0093EE] text-white ml-2">
             {boardPage[language]?.search}
           </button>
         </div>
