@@ -26,7 +26,6 @@ interface NewsType {
 export default function HomePageCompo() {
   const [banner, setBanner] = useState<BannerType[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const language: Language = (Cookies.get("language") as Language) || "korean";
   const customFetch = useCustomFetch();
   const [noticeData, setNoticeData] = useState<BoardData[]>([]);
   const [reviewData, setReviewData] = useState<BoardData[]>([]);
@@ -41,7 +40,14 @@ export default function HomePageCompo() {
     useState<Attachments>();
   const itemRef = useRef<HTMLDivElement>(null); // 슬라이더 내부 각 div의 길이 참조용
   const [itemWidth, setItemWidth] = useState(0); // 내부 각 div 길이 변수
+  const [language, setLanguage] = useState<Language>(Language.korean);
 
+  useEffect(() => {
+    const savedLanguage = Cookies.get("language") as Language;
+    if (savedLanguage) {
+      setLanguage(savedLanguage);
+    }
+  }, []);
   useEffect(() => {
     const newsData = async () => {
       try {

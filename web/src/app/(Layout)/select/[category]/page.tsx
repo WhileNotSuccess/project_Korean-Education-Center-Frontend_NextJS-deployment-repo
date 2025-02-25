@@ -11,10 +11,9 @@ type SelectTabProps = {
 
 export default function SelectTabPage({ params }: SelectTabProps) {
   const { category } = params;
-  const language: Language = (Cookies.get("language") as Language) || Language.korean;
 
   const categoryTab = categoryMap[category];
-  
+
   return (
     <div className="w-full h-screen flex justify-center items-center">
       <SelectTabComponent name={category} categoryTab={categoryTab} />

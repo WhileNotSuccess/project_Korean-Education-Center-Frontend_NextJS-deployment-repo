@@ -40,7 +40,14 @@ export default function HtmlDocs(props: HtmlDocsProps) {
 
   const customFetch = useCustomFetch();
   const router = useRouter();
-  const language: Language = (Cookies.get("language") as Language) || "korean";
+  const [language, setLanguage] = useState<Language>(Language.korean);
+
+  useEffect(() => {
+    const savedLanguage = Cookies.get("language") as Language;
+    if (savedLanguage) {
+      setLanguage(savedLanguage);
+    }
+  }, []);
 
   useEffect(() => {
     const introData = async () => {

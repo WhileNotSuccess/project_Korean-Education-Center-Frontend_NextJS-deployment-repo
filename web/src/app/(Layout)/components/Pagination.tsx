@@ -1,6 +1,8 @@
+"use client";
 import { Language } from "@/app/common/types";
 import { paginationPage } from "@/app/menu";
 import Cookies from "js-cookie";
+import { useEffect, useState } from "react";
 
 // components/Pagination.tsx
 interface Props {
@@ -22,7 +24,14 @@ const Pagination: React.FC<Props> = ({
     { length: totalPage },
     (_, index) => index + 1
   );
-  const language: Language = (Cookies.get("language") as Language) || "korean";
+  const [language, setLanguage] = useState<Language>(Language.korean);
+
+  useEffect(() => {
+    const savedLanguage = Cookies.get("language") as Language;
+    if (savedLanguage) {
+      setLanguage(savedLanguage);
+    }
+  }, []);
 
   return (
     <div className="flex items-center justify-center space-x-2 mb-5">
