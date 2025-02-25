@@ -43,7 +43,7 @@ export default function StaffModal({ onClose, data, method }: ModalProps) {
     }
   };
   return createPortal(
-    <div
+    <dialog
       id="popup-modal"
       tabIndex={-1}
       className="fixed inset-0 z-50 flex justify-center items-center bg-black bg-opacity-50"
@@ -129,7 +129,7 @@ export default function StaffModal({ onClose, data, method }: ModalProps) {
           </button>
         </div>
       </div>
-    </div>,
+    </dialog>,
     document.body
   );
 }

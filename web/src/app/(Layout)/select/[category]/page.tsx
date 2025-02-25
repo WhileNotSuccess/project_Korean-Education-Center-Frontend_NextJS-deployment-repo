@@ -11,8 +11,6 @@ type SelectTabProps = {
 
 export default function SelectTabPage({ params }: SelectTabProps) {
   const { category } = params;
-  const language: Language = (Cookies.get("language") as Language) || Language.korean;
-
   const categoryTab = categoryMap[category];
   
   return (

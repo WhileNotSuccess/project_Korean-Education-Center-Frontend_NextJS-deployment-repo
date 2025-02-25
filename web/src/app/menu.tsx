@@ -17,7 +17,7 @@ export const smallMenu: Record<Language, Record<string, string>> = {
   [Language.korean]: {
     centerIntro: "한국어교육센터 소개",
     howToGetHere: "오시는길",
-    staffIntro: "강사진 및 교직원 소개",
+    "staff-intro": "강사진 및 교직원 소개",
     "korean-curriculum": "한국어교육과정",
     "open-campus": "오픈캠퍼스",
     internationalReview: "유학생 후기",

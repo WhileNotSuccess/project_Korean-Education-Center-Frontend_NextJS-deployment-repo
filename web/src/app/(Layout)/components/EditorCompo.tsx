@@ -38,6 +38,7 @@ export default function EditorComponent(props: EditorProps) {
   const [category, setCategory] = useState<string>(props.categoryName || "");
   const router = useRouter()
   const [postLanguage, setPostLanguage] = useState("korean")
+  const [isAdmin, setIsAdmin] = useState(false)
 
   useEffect(() => {
     const oldPost = async () => {
@@ -62,13 +63,25 @@ export default function EditorComponent(props: EditorProps) {
     oldPost();
   }, [props.id]);
 
+  useEffect(()=>{
+    const fetchUserInfo = async () => {
+      try {
+        const adminData = await customFetch("/users");
+        setIsAdmin(adminData.result);
+      } catch (error) {
+        console.error("유저 정보 불러오기 실패:", error);
+      }
+    };
+    fetchUserInfo()
+  },[])
+
   const submit = async () => {
     try {
       const formData = new FormData();
       formData.append("title", title);
       formData.append("content", content);
       formData.append("category", category);
-      formData.append("language", language);
+      {isAdmin ? formData.append("language", postLanguage) : formData.append("language", language)}
 
       // 첨부파일이 있다면, FormData에 추가
       documentFiles.forEach((file) => {
@@ -91,8 +104,7 @@ export default function EditorComponent(props: EditorProps) {
       formData.append("title", title);
       formData.append("content", content);
       formData.append("category", category);
-      formData.append("language", postLanguage); // language값은 관리자인지 아닌지 확인하는 코드 추가후 관리자일땐 select값으로 일반 유저는 쿠키 값으로 수정 예정
-      //formData.append("language", language);
+      {isAdmin ? formData.append("language", postLanguage) : formData.append("language", language)}
       formData.append("deleteFilePath", JSON.stringify(deleteFileNames));
       documentFiles.forEach((file) => {
         formData.append("files", file); // 문서 파일도 함께 전송
@@ -224,7 +236,8 @@ export default function EditorComponent(props: EditorProps) {
         </section>
 
         <section>
-          <select // 해당 버튼은 관리자 인지 확인하는 코드 추가후 관리자일때만 보이게 수정 예정
+          {isAdmin ? 
+          <select
           className="border rounded-sm cursor-pointer"
           value={postLanguage}
           onChange={(e)=>setPostLanguage(e.target.value)}>
@@ -240,7 +253,7 @@ export default function EditorComponent(props: EditorProps) {
               )
             })
           }
-          </select>
+          </select> : null}
         </section>
         </div>
       <section>

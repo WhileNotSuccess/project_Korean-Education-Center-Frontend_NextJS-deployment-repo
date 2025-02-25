@@ -12,7 +12,7 @@ import { formatDate } from "@/app/common/formatDate";
 import { useRouter } from "next/navigation";
 
 type BoardPageProps = {
-  name: keyof (typeof boardMenu)["korean"];
+  name: keyof (typeof boardMenu)[Language];
 };
 
 
@@ -28,6 +28,7 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
   const router = useRouter()
   const [inputValue, setInputValue] = useState("")
 
+  console.log(name)
   // 게시글 불러오기 함수
   const fetchBoard = async (currentPage: number) => {
     try {
@@ -62,9 +63,6 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
   }
 
   const onSearch = async(value : string)=>{
-    console.log(name)
-    console.log(searchOption)
-    console.log(value)
     try{
       const data = await customFetch(`/posts/search?limit=10&page=1&category=${name}&${searchOption}=${value}`,{
         method : "GET"

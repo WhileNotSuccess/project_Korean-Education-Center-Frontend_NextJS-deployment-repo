@@ -22,7 +22,7 @@ export default function DeleteModal({ onClose, id, target }: ModalProps) {
     }
   };
   return createPortal(
-    <div
+    <dialog
       id="popup-modal"
       tabIndex={-1}
       className="fixed inset-0 z-50 flex justify-center items-center bg-black bg-opacity-50"
@@ -47,7 +47,7 @@ export default function DeleteModal({ onClose, id, target }: ModalProps) {
           </button>
         </div>
       </div>
-    </div>,
+    </dialog>,
     document.body
   );
 }

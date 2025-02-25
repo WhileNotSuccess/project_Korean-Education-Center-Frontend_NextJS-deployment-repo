@@ -21,7 +21,7 @@ export default function ApplicationFormItem(data: ApplicationFormItemProp) {
     }
   };
   return (
-    <div className="flex m-2">
+    <article className="flex m-2">
       {modalDeleteOpen && (
         <DeleteModal
           onClose={() => {
@@ -88,6 +88,6 @@ export default function ApplicationFormItem(data: ApplicationFormItemProp) {
           </button>
         </div>
       </div>
-    </div>
+    </article>
   );
 }

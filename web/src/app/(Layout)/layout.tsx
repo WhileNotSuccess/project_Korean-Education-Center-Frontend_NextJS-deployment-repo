@@ -39,7 +39,7 @@ export default async function RootLayout({
     ((await cookies()).get("language")?.value as Language) || Language.korean;
   return (
     <div className="h-screen w-full flex flex-col">
-      <div className="w-full min-h-15 bg-[#0093EE] flex justify-end gap-3 font-bold items-center pr-5">
+      <header className="w-full min-h-15 bg-[#0093EE] flex justify-end gap-3 font-bold items-center pr-5">
         <LoginCompo/>
         <Link href={"/japan"}>
           <img src="/images/japan.png" className="w-6 h-4"></img>
@@ -47,8 +47,9 @@ export default async function RootLayout({
         <Link href={"/usa"}>
           <img src="/images/usa.png" className="w-6 h-4"></img>
         </Link>
-      </div>
-      <div className="w-full min-h-25 bg-[#0072BA] flex items-center pl-5 peer sm:justify-center justify-between">
+      </header>
+
+      <section className="w-full min-h-25 bg-[#0072BA] flex items-center pl-5 peer sm:justify-center justify-between">
         <Link href={"/"} className="w-1/6 flex justify-center items-center">
         <img src="/images/영진로고.png" className="w-15 h-15"></img>
         <h2 className="font-bold text-white w-full whitespace-nowrap">
@@ -64,8 +65,8 @@ export default async function RootLayout({
           <div className="w-1/5 flex justify-center cursor-pointer">{menu[language]?.notification}</div>
         </div>
         <HamburgerMenuCompo/>
-      </div>
-      <div
+      </section>
+      <section
         className="hidden sm:hidden sm:peer-hover:block sm:hover:block sm:w-full sm:min-h-52 sm:z-50 sm:bg-white sm:absolute sm:z-40"
         style={{ top: "86px" }}
       >
@@ -80,7 +81,7 @@ export default async function RootLayout({
                 {smallMenu[language]?.howToGetHere}
               </Link>
               <Link href={"/staff-intro"}  className="p-2 text-sm font-bold" >
-                {smallMenu[language]?.staffIntro}
+                {smallMenu[language]?.["staff-intro"]}
               </Link>
             </div>
             <div className="w-1/5 h-52 flex flex-col items-center border-r">
@@ -135,11 +136,7 @@ export default async function RootLayout({
             </div>
           </div>
         </div>
-      </div>
-      {/*       <img
-        src="/images/한국어교육센터 기본배너.png"
-        className="w-full h-60 mt-4 flex justify-center items-center"
-      ></img> */}
+      </section>
       {children}
     </div>
   );

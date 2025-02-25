@@ -32,7 +32,7 @@ export default function HamburgerMenuCompo (){
           </div>
           <ul>
           {Hamburger[language].map((item, index) => (
-            <li key={index} className="border-b">
+            <div key={index} className="border-b">
               <div 
                 className="px-4 py-2 font-bold text-lg text-center flex justify-between items-center cursor-pointer" 
                 onClick={() => toggleSubMenu(index)}
@@ -40,23 +40,22 @@ export default function HamburgerMenuCompo (){
                 {item.topMenu}
                 <span>{openSubMenu === index ? "▲" : "▼"}</span>
               </div>
-              <ul 
+              <div 
                 className={`flex flex-col transition-all overflow-hidden ${
                   openSubMenu === index ? "max-h-40 opacity-100" : "max-h-0 opacity-0"
                 }`}
               >
                 {item.subMenu.map((subItem, subIndex) => (
-                  <li key={subIndex} >
-                  <Link 
+                  <Link
+                   key={subIndex}
                     href={subItem.address} 
                     className="px-6 py-2 bg-gray-100 hover:bg-gray-200 transition"
                   >
                     {subItem.name}
                   </Link>
-                  </li>
                 ))}
-              </ul>
-            </li>
+              </div>
+            </div>
           ))}
           </ul>
         </aside>

@@ -3,7 +3,7 @@ import { counselingForm } from "@/app/menu";
 
 type FormProps = {
   params: {
-    category: keyof typeof counselingForm["korean"];
+    category: keyof typeof counselingForm[Language];
   };
 };
 

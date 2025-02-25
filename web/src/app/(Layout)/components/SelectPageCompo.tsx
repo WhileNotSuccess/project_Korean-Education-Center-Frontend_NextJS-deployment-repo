@@ -11,7 +11,7 @@ import { handleFileChange, addDeleteFileName } from "../../common/formFile";
 
 type SelectTabProps = {
   categoryTab: Record<Language, { key: string; value: string }[]>; // 세부 카테고리
-  name: keyof (typeof selectMenu)["korean"];
+  name: keyof (typeof selectMenu)[Language];
 };
 
 export default function SelectTabComponent({
@@ -104,7 +104,7 @@ export default function SelectTabComponent({
     <main className="w-full h-screen">
       {/* 카테고리 제목 표시 */}
       <header className="h-12 border-b flex items-center justify-center mb-4">
-        <div className="text-3xl font-bold">{selectMenu["korean"]?.[name]}</div>
+        <div className="text-3xl font-bold">{selectMenu[Language]?.[name]}</div>
       </header>
       <div className="w-3/5 mx-auto">
         {/* 탭 메뉴 */}

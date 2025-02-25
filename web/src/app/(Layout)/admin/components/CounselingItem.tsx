@@ -20,7 +20,7 @@ export default function CounselingItem(props: Counseling) {
     }
   };
   return (
-    <div className="flex m-2">
+    <article className="flex m-2">
       {modalUpdateOpen && (
         <CounselingItemUpdateModal
           onClose={() => {
@@ -38,7 +38,7 @@ export default function CounselingItem(props: Counseling) {
           target="consult"
         />
       )}
-      <div className="w-72 p-4 bg-white shadow-lg rounded-lg border border-gray-200">
+      <section className="w-72 p-4 bg-white shadow-lg rounded-lg border border-gray-200">
         <div className="w-full relative">
           <h2 className="text-blue-500 font-bold text-lg inline-block">
             {props.name}
@@ -76,22 +76,22 @@ export default function CounselingItem(props: Counseling) {
         </div>
 
         <hr className="my-2 border-gray-300" />
-        <div className="space-y-2">
-          <div className="flex items-center text-gray-700">
+        <ul className="space-y-2">
+          <li className="flex items-center text-gray-700">
             <span className="mr-2">📞</span>
             <span className="font-medium">{props.phone}</span>
-          </div>
-          <div className="flex items-center text-gray-700">
+          </li>
+          <li className="flex items-center text-gray-700">
             <span className="mr-2">📧</span>
             <span className="font-medium">{props.email}</span>
-          </div>
-          <div className="flex items-center text-gray-700">
+          </li>
+          <li className="flex items-center text-gray-700">
             <span className="mr-2">📅</span>
             <span className="font-medium">
               {formatDateWithTime(props.schedule)}
             </span>
-          </div>
-        </div>
+          </li>
+        </ul>
         <div className="mt-4">
           <button
             onClick={onClick}
@@ -102,7 +102,7 @@ export default function CounselingItem(props: Counseling) {
             {props.isDone ? "완료됨" : "진행전"}
           </button>
         </div>
-      </div>
-    </div>
+      </section>
+    </article>
   );
 }

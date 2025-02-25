@@ -1,48 +1,43 @@
-"use client";
-
+'use client'
 import { useEffect, useState } from "react";
 import useCustomFetch from "@/app/lib/customFetch";
-import {
-  guidanceMenu,
-  getError,
-  editorCompo,
-  deleteSuccess,
-  deleteError,
-  locationMap,
-} from "../../menu";
+import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
 import parser from "html-react-parser";
 import {
   HtmlDocsProps,
   Language,
   ServerDocumentFile,
+  UserInfo,
 } from "@/app/common/types";
-import Cookies from "js-cookie";
-import { useRouter } from "next/navigation";
+import {
+  getError,
+  deleteSuccess,
+  deleteError,
+  editorCompo,
+  locationMap,
+  guidanceMenu,
+} from "../../menu";
 import MapCompo from "./MapCompo";
 
 export default function HtmlDocs(props: HtmlDocsProps) {
-  const [allData, setAllData] = useState<{
-    content: string;
-    title: string;
-    documentFiles: ServerDocumentFile[];
-    guidanceId: string;
-    author: string;
-    createdDate: string;
-  }>({
+  const [allData, setAllData] = useState({
     content: "",
     title: "",
-    documentFiles: [],
+    documentFiles: [] as ServerDocumentFile[],
     guidanceId: "",
     author: "",
     createdDate: "",
   });
 
+  const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
+  const [isAdmin, setIsAdmin] = useState(false);
   const customFetch = useCustomFetch();
   const router = useRouter();
   const language: Language = (Cookies.get("language") as Language) || "korean";
 
   useEffect(() => {
-    const introData = async () => {
+    const fetchData = async () => {
       try {
         const endpoint = props.id
           ? `/posts?id=${props.id}`
@@ -62,7 +57,21 @@ export default function HtmlDocs(props: HtmlDocsProps) {
         console.error(getError[language]?.htmlError);
       }
     };
-    introData();
+
+    const fetchUserInfo = async () => {
+      try {
+        const userData = await customFetch("/users/info");
+        setUserInfo(userData);
+
+        const adminData = await customFetch("/users");
+        setIsAdmin(adminData.result);
+      } catch (error) {
+        console.error("유저 정보 불러오기 실패:", error);
+      }
+    };
+
+    fetchData();
+    fetchUserInfo();
   }, []);
 
   const onUpdate = (guidanceId?: string) => {
@@ -81,6 +90,8 @@ export default function HtmlDocs(props: HtmlDocsProps) {
       console.error(error);
     }
   };
+
+  const canEditOrDelete = isAdmin || userInfo?.name === allData.author;
 
   return (
     <main className="w-full h-screen">
@@ -119,11 +130,11 @@ export default function HtmlDocs(props: HtmlDocsProps) {
                       className="w-4 h-4 mr-2"
                     />
                     <button
-                      onClick={() => {
+                      onClick={() =>
                         router.push(
                           `${process.env.NEXT_PUBLIC_BACKEND_URL}/${item.filename}`
-                        );
-                      }}
+                        )
+                      }
                       className="text-blue-600 hover:underline"
                     >
                       {item.filename}
@@ -131,26 +142,26 @@ export default function HtmlDocs(props: HtmlDocsProps) {
                   </div>
                 ))
               ) : (
-                <p className="mt-2">첨부파일이 없습니다.</p>
+                <p className="mt-2">{getError[language]?.noFile}</p>
               )}
             </section>
 
-            <div className="flex space-x-4 ml-auto mt-2">
-              <button
-                className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
-                onClick={() => onUpdate(allData.guidanceId)}
-              >
-                {props.category
-                  ? editorCompo[language]?.write
-                  : editorCompo[language]?.update}
-              </button>
-              <button
-                className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
-                onClick={() => onDelete(allData.guidanceId)}
-              >
-                {editorCompo[language]?.delete}
-              </button>
-            </div>
+            {canEditOrDelete && (
+              <div className="flex space-x-4 ml-auto mt-2">
+                <button
+                  className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+                  onClick={() => onUpdate(allData.guidanceId)}
+                >
+                  {editorCompo[language]?.update}
+                </button>
+                <button
+                  className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
+                  onClick={() => onDelete(allData.guidanceId)}
+                >
+                  {editorCompo[language]?.delete}
+                </button>
+              </div>
+            )}
           </article>
         )}
       </section>
@@ -173,9 +184,9 @@ export default function HtmlDocs(props: HtmlDocsProps) {
         </>
       )}
 
-      <section className="w-full h-screen flex justify-center">
+      <section className="w-full flex justify-center">
         <div className="w-3/5">
-          <div className="flex flex-wrap">{parser(allData.content)}</div>
+          <div className="prose w-full break-words">{parser(allData.content)}</div>
         </div>
       </section>
     </main>
