@@ -1,14 +1,21 @@
 "use client";
 
-import { HtmlDocsProps, Teacher } from "@/app/common/types";
+import {Language, Teacher } from "@/app/common/types";
 import useCustomFetch from "@/app/lib/customFetch";
 import { useEffect, useState } from "react";
-import { staffPage, getError } from "@/app/menu";
+import { staffPage, getError, smallMenu } from "@/app/menu";
+import Cookies from "js-cookie";
 
-export default function StaffIntro({ category }: HtmlDocsProps) {
+type StaffPageProps = {
+  name: keyof (typeof smallMenu)[Language];
+};
+
+export default function StaffIntro({ name }: StaffPageProps) {
   const [teacher, setTeacher] = useState<Teacher[]>([]);
   const [staff, setStaff] = useState<Teacher[]>([]);
   const customFetch = useCustomFetch();
+  const language: Language = (Cookies.get("language") as Language) || "korean";
+
 
   useEffect(() => {
     const staffData = async () => {
@@ -19,8 +26,7 @@ export default function StaffIntro({ category }: HtmlDocsProps) {
         setTeacher(data.teacher);
         setStaff(data.staff);
       } catch (error) {
-        alert(getError["korean"]?.staffError);
-        console.error(getError["korean"]?.staffError);
+        alert(getError[language]?.staffError);
       }
     };
     staffData();
@@ -33,13 +39,13 @@ export default function StaffIntro({ category }: HtmlDocsProps) {
         className="w-full flex justify-center items-center font-bold text-3xl"
         style={{ height: "200px" }}
       >
-        {category}
+        {smallMenu[language]?.[name]}
       </section>
       
       <section className="w-full">
       <div className="w-full h-24 flex items-center justify-center">
         <div className=" h-14 text-2xl font-bold w-4/5 border-b-2  border-[#0072BA] text-[#0093EE]">
-          {staffPage["korean"]?.faculty}
+          {staffPage[language]?.faculty}
         </div>
       </div>
       <div className="w-full flex items-center justify-center">
@@ -63,7 +69,7 @@ export default function StaffIntro({ category }: HtmlDocsProps) {
     <section className="w-full mt-6">
       <div className="w-full h-24 flex items-center justify-center">
         <div className=" h-14 text-2xl font-bold w-4/5 border-b-2  border-[#0072BA] text-[#0093EE]">
-          {staffPage["korean"]?.staff}
+          {staffPage[language]?.staff}
         </div>
       </div>
       <div className="w-full flex items-center justify-center">

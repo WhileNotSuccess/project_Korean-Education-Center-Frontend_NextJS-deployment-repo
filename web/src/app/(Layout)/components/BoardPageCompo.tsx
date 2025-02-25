@@ -28,7 +28,6 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
   const router = useRouter()
   const [inputValue, setInputValue] = useState("")
 
-  console.log(name)
   // 게시글 불러오기 함수
   const fetchBoard = async (currentPage: number) => {
     try {

@@ -80,7 +80,7 @@ export default async function RootLayout({
               <Link href={"/guidance/directions"}  className="p-2 text-sm font-bold" >
                 {smallMenu[language]?.howToGetHere}
               </Link>
-              <Link href={"/staff-intro"}  className="p-2 text-sm font-bold" >
+              <Link href={"/staff/staff-intro"}  className="p-2 text-sm font-bold" >
                 {smallMenu[language]?.["staff-intro"]}
               </Link>
             </div>
