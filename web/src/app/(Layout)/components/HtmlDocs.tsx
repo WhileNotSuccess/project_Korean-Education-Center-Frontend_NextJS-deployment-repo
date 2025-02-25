@@ -8,7 +8,6 @@ import {
   editorCompo,
   deleteSuccess,
   deleteError,
-  fileError,
   locationMap,
 } from "../../menu";
 import parser from "html-react-parser";
@@ -66,20 +65,6 @@ export default function HtmlDocs(props: HtmlDocsProps) {
     introData();
   }, []);
 
-  const handleFileDownload = async (filename: string) => {
-    try {
-      const response = await customFetch(`/attachments/${filename}`, {
-        method: "GET",
-      });
-
-      if (!response) {
-        throw new Error(fileError[language]?.Error);
-      }
-    } catch (error) {
-      alert(fileError[language]?.Error);
-    }
-  };
-
   const onUpdate = (guidanceId?: string) => {
     router.push(`/post-update/${guidanceId ?? props.id}`);
   };
@@ -98,24 +83,24 @@ export default function HtmlDocs(props: HtmlDocsProps) {
   };
 
   return (
-    <div className="w-full h-screen">
+    <main className="w-full h-screen">
       <div className="h-12"></div>
 
-      <div className="w-full flex justify-center">
+      <section className="w-full flex justify-center">
         {props.category ? (
-          <div
+          <header
             className="w-full flex justify-center items-center font-bold text-3xl"
             style={{ height: "200px" }}
           >
             {guidanceMenu[language]?.[props.category]}
-          </div>
+          </header>
         ) : (
-          <div className="w-11/12 flex flex-col mt-4">
+          <article className="w-11/12 flex flex-col mt-4">
             <div className="flex justify-between items-center border-t-2 border-blue-400 pt-2">
               <div className="text-lg font-bold">{allData.title}</div>
             </div>
 
-            <div className="text-sm mt-2 border-b-2 pb-2 flex items-center">
+            <section className="text-sm mt-2 border-b-2 pb-2 flex items-center">
               <img src="/images/author.png" className="w-4 h-4 mr-2" />
               <div>{allData.author}</div>
               <img
@@ -123,9 +108,9 @@ export default function HtmlDocs(props: HtmlDocsProps) {
                 className="w-4 h-4 ml-4 mr-2"
               />
               <div>{allData.createdDate.substring(0, 10)}</div>
-            </div>
+            </section>
 
-            <div className="border-b-2 pb-2 pt-2">
+            <section className="border-b-2 pb-2 pt-2">
               {allData.documentFiles.length > 0 ? (
                 allData.documentFiles.map((item) => (
                   <div key={item.id} className="flex items-center">
@@ -146,9 +131,9 @@ export default function HtmlDocs(props: HtmlDocsProps) {
                   </div>
                 ))
               ) : (
-                <div className="mt-2">첨부파일이 없습니다.</div>
+                <p className="mt-2">첨부파일이 없습니다.</p>
               )}
-            </div>
+            </section>
 
             <div className="flex space-x-4 ml-auto mt-2">
               <button
@@ -166,33 +151,33 @@ export default function HtmlDocs(props: HtmlDocsProps) {
                 {editorCompo[language]?.delete}
               </button>
             </div>
-          </div>
+          </article>
         )}
-      </div>
+      </section>
 
       {props.category === "directions" && (
         <>
-          <div
+          <section
             className="w-full mt-4 flex justify-center"
             style={{ height: "400px", overflow: "hidden" }}
           >
             <MapCompo />
-          </div>
-          <div className="w-full mt-0 flex justify-center">
+          </section>
+          <section className="w-full mt-0 flex justify-center">
             <div className="w-[70%] bg-[#5592e7] p-4 mb-10">
               <div className="text-left text-white text-lg font-bold">
                 {locationMap[language]["main-campus"]}
               </div>
             </div>
-          </div>
+          </section>
         </>
       )}
 
-      <div className="w-full h-screen flex justify-center">
+      <section className="w-full h-screen flex justify-center">
         <div className="w-3/5">
           <div className="flex flex-wrap">{parser(allData.content)}</div>
         </div>
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }

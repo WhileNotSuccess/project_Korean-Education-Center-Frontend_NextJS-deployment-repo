@@ -11,12 +11,12 @@ export default function LoginCompo() {
     const language: Language = (Cookies.get("language") as Language) || "korean";
 
   return (
-    <div>
+    <section>
       {!user ? (
          <Link href={"/login"} className="text-white font-bold hover:underline">{LoginCompoMenu[language].Login}</Link>
       ) : (
         <Link href={"/dashboard"} className="text-white font-bold hover:underline">&nbsp;&nbsp; {user.name}님</Link>
       )}
-    </div>
+    </section>
   );
 }

@@ -39,7 +39,7 @@ export default function BoardDataMapCompo (props : Props) {
     <div>
       {data.map((item, index) => {
       return (
-        <div
+        <article
           key={index}
           className="w-full flex flex-1 justify-between items-center border-b p-4"
           >
@@ -48,11 +48,11 @@ export default function BoardDataMapCompo (props : Props) {
             className="w-[70%] overflow-hidden text-ellipsis whitespace-nowrap"
             >
               {item.title}
-          </Link>{" "}
-        <div className="font-light text-sm">
+          </Link>
+        <time className="font-light text-sm">
          {formatDate(item.createdDate)}
-        </div>
-      </div>);
+        </time>
+      </article>);
     })}
     </div>
   )

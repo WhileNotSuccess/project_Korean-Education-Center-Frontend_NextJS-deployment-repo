@@ -38,8 +38,8 @@ export default function NameChangeModal({ isOpen, onClose }: NameChangeModalProp
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+    <dialog className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+      <section className="bg-white p-6 rounded-lg shadow-lg w-96">
         <h2 className="text-lg font-semibold mb-4">이름 변경</h2>
         <input
           type="text"
@@ -63,7 +63,7 @@ export default function NameChangeModal({ isOpen, onClose }: NameChangeModalProp
             취소
           </button>
         </div>
-      </div>
-    </div>
+      </section>
+    </dialog>
   );
 }

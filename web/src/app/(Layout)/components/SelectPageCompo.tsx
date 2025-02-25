@@ -101,14 +101,14 @@ export default function SelectTabComponent({
   };
 
   return (
-    <div className="w-full h-screen">
+    <main className="w-full h-screen">
       {/* 카테고리 제목 표시 */}
-      <div className="h-12 border-b flex items-center justify-center mb-4">
+      <header className="h-12 border-b flex items-center justify-center mb-4">
         <div className="text-3xl font-bold">{selectMenu["korean"]?.[name]}</div>
-      </div>
+      </header>
       <div className="w-3/5 mx-auto">
         {/* 탭 메뉴 */}
-        <div className="flex justify-center gap-1 p-4">
+        <nav className="flex justify-center gap-1 p-4">
           {categoryTab[language].map((item) => (
             <button
               key={item.key}
@@ -122,19 +122,19 @@ export default function SelectTabComponent({
               {item.value}
             </button>
           ))}
-        </div>
+        </nav>
       </div>
 
       {/* 내용 표시 */}
-      <div className="w-full flex justify-center mt-8">
+      <section className="w-full flex justify-center mt-8">
         {selectedTab !== "upload-documents" ? (
-          <div className="w-3/5 p-4">
+          <article className="w-3/5 p-4">
             {typeof content === "string"
               ? parser(content)
               : "내용을 불러올 수 없습니다."}
-          </div>
+          </article>
         ) : (
-          <div className="w-3/5 p-4 border">
+          <section className="w-3/5 p-4 border">
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <input
@@ -221,9 +221,9 @@ export default function SelectTabComponent({
                 제출
               </button>
             </form>
-          </div>
+          </section>
         )}
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }

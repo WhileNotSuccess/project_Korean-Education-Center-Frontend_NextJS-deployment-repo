@@ -6,10 +6,9 @@ import {
   postError,
   postSuccess,
   categoryList,
-  deleteError,
-  deleteSuccess,
   updateSuccess,
   updateError,
+  postLanguageList
 } from "@/app/menu";
 import Cookies from "js-cookie";
 import useCustomFormFetch from "@/app/lib/customFormFetch";
@@ -38,6 +37,7 @@ export default function EditorComponent(props: EditorProps) {
   const language: Language = (Cookies.get("language") as Language) || "korean";
   const [category, setCategory] = useState<string>(props.categoryName || "");
   const router = useRouter()
+  const [postLanguage, setPostLanguage] = useState("korean")
 
   useEffect(() => {
     const oldPost = async () => {
@@ -91,7 +91,8 @@ export default function EditorComponent(props: EditorProps) {
       formData.append("title", title);
       formData.append("content", content);
       formData.append("category", category);
-      formData.append("language", language);
+      formData.append("language", postLanguage); // language값은 관리자인지 아닌지 확인하는 코드 추가후 관리자일땐 select값으로 일반 유저는 쿠키 값으로 수정 예정
+      //formData.append("language", language);
       formData.append("deleteFilePath", JSON.stringify(deleteFileNames));
       documentFiles.forEach((file) => {
         formData.append("files", file); // 문서 파일도 함께 전송
@@ -147,8 +148,8 @@ export default function EditorComponent(props: EditorProps) {
   };
 
   return (
-    <div className="w-full flex justify-center">
-      <div style={{ width: "60%" }} className="mt-4">
+    <main className="w-full flex justify-center">
+      <section style={{ width: "60%" }} className="mt-4">
         <form>
           <div className="flex">
             <div>
@@ -188,7 +189,8 @@ export default function EditorComponent(props: EditorProps) {
             </div>
           </div>
         </form>
-        <div className="w-[50%] border">
+        <div className="w-full flex justify-between items-center">
+        <section className="w-[50%] border">
         <input
           type="file"
           accept=".*"
@@ -219,8 +221,29 @@ export default function EditorComponent(props: EditorProps) {
               </div>
             ))}
         </ul>
-        </div>
+        </section>
 
+        <section>
+          <select // 해당 버튼은 관리자 인지 확인하는 코드 추가후 관리자일때만 보이게 수정 예정
+          className="border rounded-sm cursor-pointer"
+          value={postLanguage}
+          onChange={(e)=>setPostLanguage(e.target.value)}>
+          {
+            postLanguageList[language].map((item)=>{
+              return(
+                <option
+                key={item.key}
+                value={item.key}
+              >
+                {item.value}
+              </option>                
+              )
+            })
+          }
+          </select>
+        </section>
+        </div>
+      <section>
         <Editor
           tinymceScriptSrc={"/tinymce/tinymce.min.js"}
           id="tinymce-editor"
@@ -265,7 +288,7 @@ export default function EditorComponent(props: EditorProps) {
           style={{ display: "none" }}
           id="imageInput"
         />
-
+        </section>
         {props.id ? (
           <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 mt-4" onClick={update}>
             {editorCompo[language]?.update}
@@ -275,7 +298,7 @@ export default function EditorComponent(props: EditorProps) {
             {editorCompo[language]?.submit}
           </button>
         )}
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }

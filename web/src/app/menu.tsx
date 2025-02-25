@@ -57,6 +57,7 @@ export const homePage: Record<Language, Record<string, string>> = {
     download: "다운로드",
     "applied-to": "입학신청",
     "recruitment-guidelines": "모집요강",
+    "Application-Form" : "입학신청서",
     faq: "FAQ",
     review: "유학생 후기",
     footerAddress:
@@ -182,6 +183,7 @@ export const boardPage: Record<Language, Record<string, string>> = {
     write: "작성",
     number: "순번",
     author: "작성자",
+    writeTitle : "제목을 입력하세요"
   },
 };
 
@@ -193,6 +195,8 @@ export const getError: Record<Language, Record<string, string>> = {
     htmlError: "해당 게시글을 불러올 수 없습니다.",
     bannerError: "배너를 불러올 수 없습니다.",
     newsError: "소식을 불러올 수 없습니다.",
+    entranceApplicationError : "모집요강 및 입학신청를 불러올 수 없습니다.",
+    searchBoardError : "검색된 게시글들을 불러올 수 없습니다."
   },
 };
 
@@ -207,6 +211,7 @@ export const postError: Record<Language, Record<string, string>> = {
 export const deleteError: Record<Language, Record<string, string>> = {
   [Language.korean]: {
     delete: "글 삭제에 실패했습니다",
+    userError : "로그인 후 이용하셔야 합니다."
   },
 };
 
@@ -307,5 +312,13 @@ export const Hamburger : Record<Language, { topMenu: string; subMenu:{address : 
       {address:"/board/notice",name:"공지사항"},
       {address:"/board/news",name:"한국어교육센터 알림"},
       {address:"/board/faq",name:"FAQ"}]},
+  ]
+}
+
+export const postLanguageList : Record<Language, { key: string; value: string }[]> = {
+  [Language.korean] :  [
+    { key: "korean", value: "한국어" },
+    { key: "japanese", value: "일본어" },
+    { key: "english", value: "영어" },
   ]
 }

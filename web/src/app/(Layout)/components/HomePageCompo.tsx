@@ -24,6 +24,13 @@ interface NewsType {
   title: string;
 }
 
+interface Applicants {
+  applicationFileName:string
+  applicationImageName:string
+  guidelinesForApplicantsFileName:string
+  guidelinesForApplicantsImageName:string
+}
+
 export default function HomePageCompo() {
   const [banner, setBanner] = useState<BannerType[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -36,6 +43,7 @@ export default function HomePageCompo() {
     useState<Attachments>();
   const itemRef = useRef<HTMLDivElement>(null); // 슬라이더 내부 각 div의 길이 참조용
   const [itemWidth, setItemWidth] = useState(0); // 내부 각 div 길이 변수
+  const [entranceApplication, setEntranceApplication] = useState<Applicants>()
 
   useEffect(() => {
     const newsData = async () => {
@@ -72,6 +80,20 @@ export default function HomePageCompo() {
     };
     bannerData();
   }, []);
+
+  useEffect(()=>{  // 모집요강 및 입학신청서를 불러오는 함수수
+    const entranceApplicationData = async ()=>{
+      try{
+        const data = await customFetch("/posts/main/applicants",{
+          method : "GET"
+        })
+        setEntranceApplication(data)
+      }catch(error){
+      alert(getError[language].entranceApplicationError)
+      }
+    }
+    entranceApplicationData()
+  },[])
 
   const onGoBoard = async (category: string) => {
     router.push(`/board/${category}`);
@@ -127,6 +149,7 @@ export default function HomePageCompo() {
   return (
     <div className="w-full h-screen flex flex-wrap">
       <div className="relative w-full h-3 max-w-[2000px] h-auto overflow-hidden shadow-lg">
+      <section>
         <div
           className="h-full w-full object-contain flex transition-transform duration-700 ease-in-out "
           style={{ transform: `translateX(-${currentIndex * 100}%)` }}
@@ -151,10 +174,12 @@ export default function HomePageCompo() {
             ></button>
           ))}
         </div>
+        </section>
       </div>
       <div className="w-full mt-12 flex flex-col justify-center items-center sm:flex-row sm:items-stretch">
+        <section>
         <div className="w-96 border sm:mr-4 sm:mb-0 mb-4 flex flex-col">
-          <div className="flex justify-between items-center px-4">
+          <header className="flex justify-between items-center px-4">
             <h1 className="text-2xl font-bold p-2">
               {homePage[language]?.notice}
             </h1>
@@ -163,14 +188,16 @@ export default function HomePageCompo() {
               className="w-8 cursor-pointer"
               onClick={() => onGoBoard("notice")}
             />
-          </div>
+          </header>
           <div className="flex flex-col px-2">
             <BoardDataMapCompo category={"notice"} limit={8} />
           </div>
         </div>
+        </section>
         <div className="w-96  flex flex-col justify-between">
+          <section>
           <div className="w-full   border">
-            <div className="flex justify-between items-center px-4">
+            <header className="flex justify-between items-center px-4">
               <h1 className="text-2xl font-bold p-2">
                 {homePage[language]?.review}
               </h1>
@@ -179,13 +206,15 @@ export default function HomePageCompo() {
                 className="w-8 cursor-pointer"
                 onClick={() => onGoBoard("review")}
               />
-            </div>
+            </header>
             <div className="flex flex-col px-2">
               <BoardDataMapCompo category={"review"} limit={3}/>
             </div>
           </div>
+          </section>
+          <section>
           <div className="w-full mt-4 border">
-            <div className="flex justify-between items-center px-4">
+            <header className="flex justify-between items-center px-4">
               <h1 className="text-2xl font-bold p-2">
                 {homePage[language]?.faq}
               </h1>
@@ -194,14 +223,15 @@ export default function HomePageCompo() {
                 className="w-8 cursor-pointer"
                 onClick={() => onGoBoard("faq")}
               />
-            </div>
+            </header>
             <div className="flex flex-col px-2">
               <BoardDataMapCompo category={"faq"} limit={3}/>
             </div>
           </div>
+          </section>
         </div>
         {/* 빠른서비스 및 서류 다운하는 탭*/}
-        <div className="hidden sm:fixed sm:w-24 sm:min-h-[80%] sm:right-0 sm:top-24 sm:border sm:bg-blue-500/80 sm:rounded-l-xl sm:flex sm:flex-col sm:justify-evenly sm:py-2">
+     <aside className="hidden sm:fixed sm:w-24 sm:min-h-[80%] sm:right-0 sm:top-24 sm:border sm:bg-blue-500/80 sm:rounded-l-xl sm:flex sm:flex-col sm:justify-evenly sm:py-2">
         <div className="w-full flex  flex-col justify-center items-center cursor-pointer">
             <Link
               href={"/guidance/introduction"}
@@ -286,10 +316,10 @@ export default function HomePageCompo() {
               {homePage[language]?.["recruitment-guidelines"]}
             </Link>
           </div>
-        </div>
+     </aside>
       </div>
       {/* 클릭후 드래그로 움직이는 소식 탭 */}
-      <div className="w-full flex justify-center items-center">
+   <article className="w-full flex justify-center items-center">
         <div className="min-w-[75%] flex flex-col items-center justify-center mt-12">
           <div className="w-[80%] font-bold text-2xl">
             {boardMenu[language]?.news}
@@ -301,7 +331,7 @@ export default function HomePageCompo() {
             <div className="flex gap-4 w-max">
               {newsData.map((item, index) => (
                 <Link href={`/board/news/${item.id}`} key={index}>
-                  <div
+                  <article
                     ref={index === 0 ? itemRef : null}
                     className="w-64 flex flex-col items-center"
                   >
@@ -310,7 +340,7 @@ export default function HomePageCompo() {
                       className="w-full h-40 object-cover rounded-lg pointer-events-none"
                     />
                     <p className="text-center mt-2">{item.title}</p>
-                  </div>
+                  </article>
                 </Link>
               ))}
             </div>
@@ -324,15 +354,40 @@ export default function HomePageCompo() {
             </div>
           </div>
         </div>
+   </article>
+
+
+      <div className="w-full flex justify-center items-center gap-12 mt-12">
+        <div className="flex flex-col w-64">
+          <div className="text-center bg-gray-100 hover:bg-gray-200 cursor-pointer p-2 text-lg rounded-lg"
+           onClick={()=>{
+            router.push(`${process.env.NEXT_PUBLIC_BACKEND_URL}/${entranceApplication?.applicationFileName}`)
+            }}>
+              {homePage[language]?.["Application-Form"]}
+          </div>
+          <img src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${entranceApplication?.applicationImageName}`} 
+          className="w-full h-64 object-cover mt-4"/>
+        </div>
+        <div className="flex flex-col w-64">
+          <div className="text-center bg-gray-100 hover:bg-gray-200 cursor-pointer p-2 text-lg rounded-lg"
+          onClick={()=>{
+            router.push(`${process.env.NEXT_PUBLIC_BACKEND_URL}/${entranceApplication?.guidelinesForApplicantsFileName}`)
+            }}>
+              {homePage[language]?.["recruitment-guidelines"]}
+          </div>
+          <img src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${entranceApplication?.guidelinesForApplicantsImageName}`} 
+          className="w-full h-64 object-cover mt-4"/>
+        </div>
       </div>
-      <div className="w-full h-36 bg-[#0072ba] mt-24"></div>
+
+      <footer className="w-full h-36 bg-[#0072ba] mt-24"></footer>
       <div className="w-full flex justify-center py-8">
         <img
           src="https://kcenter.yju.ac.kr/kr/wp-content/uploads/sites/2/2023/05/logo.png"
           className="w-48"
         />
         <div className="hidden sm:block flex flex-col justify-center whitespace-nowrap font-bold text-sm">
-          <div>{homePage[language]?.footerAddress}</div>
+          <address>{homePage[language]?.footerAddress}</address>
           <div>{homePage[language]?.footerCallEmail}</div>
         </div>
       </div>
