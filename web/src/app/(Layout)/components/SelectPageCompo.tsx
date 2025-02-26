@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 
 type SelectTabProps = {
   categoryTab: Record<Language, { key: string; value: string }[]>; // 세부 카테고리
-  name: keyof (typeof selectMenu)["korean"];
+  name: keyof (typeof selectMenu)[Language];
 };
 
 export default function SelectTabComponent({
@@ -23,7 +23,6 @@ export default function SelectTabComponent({
   const customFormFetch = useCustomFormFetch();
   const router = useRouter();
   const [content, setContent] = useState<string>(" ");
-  const language: Language = (Cookies.get("language") as Language) || "korean";
   const [selectedTab, setSelectedTab] = useState<string>("");
   const [file, setFile] = useState<Array<File>>([]);
   const [documentFileNames, setDocumentFileNames] = useState<Array<string>>([]); // 파일 이름 리스트
@@ -31,6 +30,15 @@ export default function SelectTabComponent({
   const [selectedCourse, setSelectedCourse] = useState(""); // 기본값 설정
   const [deleteFileNames, setDeleteFileNames] = useState<Array<string>>([]); // 삭제할 파일 이름 리스트
   const [courseOptions, setCourseOptions] = useState<Array<{ id: number, name: string }>>([]); // 지원과정 목록
+  const [language, setLanguage] = useState<Language>(Language.korean);
+
+  useEffect(() => {
+    const savedLanguage = Cookies.get("language") as Language;
+    if (savedLanguage) {
+      setLanguage(savedLanguage);
+    }
+  }, []);
+
 
   useEffect(() => {
     if (categoryTab && categoryTab[language]?.[0]?.key.length > 0) {
@@ -114,14 +122,14 @@ export default function SelectTabComponent({
   };
 
   return (
-    <div className="w-full h-screen">
+    <main className="w-full h-screen">
       {/* 카테고리 제목 표시 */}
-      <div className="h-12 border-b flex items-center justify-center mb-4">
-        <div className="text-3xl font-bold">{selectMenu["korean"]?.[name]}</div>
-      </div>
+      <header className="h-12 border-b flex items-center justify-center mb-4">
+        <div className="text-3xl font-bold">{selectMenu[language]?.[name]}</div>
+      </header>
       <div className="w-3/5 mx-auto">
         {/* 탭 메뉴 */}
-        <div className="flex justify-center gap-1 p-4">
+        <nav className="flex justify-center gap-1 p-4">
           {categoryTab[language].map((item) => (
             <button
               key={item.key}
@@ -135,19 +143,19 @@ export default function SelectTabComponent({
               {item.value}
             </button>
           ))}
-        </div>
+        </nav>
       </div>
 
       {/* 내용 표시 */}
-      <div className="w-full flex justify-center mt-8">
+      <section className="w-full flex justify-center mt-8">
         {selectedTab !== "upload-documents" ? (
-          <div className="w-3/5 p-4">
+          <article className="w-3/5 p-4">
             {typeof content === "string"
               ? parser(content)
               : SelectPageCompoMenu[language].failLoadContent}
-          </div>
+          </article>
         ) : (
-          <div className="w-3/5 p-4 border">
+          <section className="w-3/5 p-4 border">
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <input
@@ -237,9 +245,9 @@ export default function SelectTabComponent({
                 {SelectPageCompoMenu[language].submit}
               </button>
             </form>
-          </div>
+          </section>
         )}
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }

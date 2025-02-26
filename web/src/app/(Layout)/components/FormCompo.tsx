@@ -64,19 +64,19 @@ export default function FormComponent(props: CategoryProps) {
   };
 
   return (
-    <div className="w-full h-screen flex flex-col items-center">
+    <main className="w-full h-screen flex flex-col items-center">
       {/* 상담 신청 제목 */}
-      <div className="w-full flex justify-center items-center font-bold text-3xl mt-12">
+      <header className="w-full flex justify-center items-center font-bold text-3xl mt-12">
         {counselingForm[language]?.[props.category]}
-      </div>
+      </header>
 
       {/* 상담 안내글 */}
-      <div className="w-full max-w-lg p-4 bg-blue-100 rounded-md shadow-md border border-blue-300 mt-8 mb-6 text-lg font-semibold text-blue-700 text-center">
+      <section className="w-full max-w-lg p-4 bg-blue-100 rounded-md shadow-md border border-blue-300 mt-8 mb-6 text-lg font-semibold text-blue-700 text-center">
         {counselingPageMenu[language]["counseling-guide"]}
-      </div>
+      </section>
 
       {/* 상담 신청 폼 */}
-      <div className="w-full p-8 bg-white rounded-lg shadow-lg border-2 border-blue-300 max-w-lg mx-auto">
+      <section className="w-full p-8 bg-white rounded-lg shadow-lg border-2 border-blue-300 max-w-lg mx-auto">
         <form onSubmit={handleSubmit} className="flex flex-col gap-6">
           <div className="flex flex-col">
             <label htmlFor="name" className=" text-lg font-bold mb-2 text-blue-700">{counselingPageMenu[language]["name"]}</label>
@@ -137,7 +137,7 @@ export default function FormComponent(props: CategoryProps) {
             {counselingPageMenu[language]["save"]}
           </button>
         </form>
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }

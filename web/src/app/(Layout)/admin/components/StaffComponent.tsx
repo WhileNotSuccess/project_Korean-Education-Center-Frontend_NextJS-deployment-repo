@@ -12,7 +12,7 @@ export default function StaffComponent(item: Teacher) {
   const [modalDeleteOpen, setModalDeleteOpen] = useState<boolean>(false);
 
   return (
-    <div className="flex m-2">
+    <section className="flex m-2">
       {modalUpdateOpen && (
         <StaffModal
           onClose={() => {
@@ -31,8 +31,8 @@ export default function StaffComponent(item: Teacher) {
           target="staff"
         />
       )}
-      <div className="w-72 p-4 bg-white shadow-lg rounded-lg border border-gray-200 ">
-        <div className="w-full relative">
+      <article className="w-72 p-4 bg-white shadow-lg rounded-lg border border-gray-200 ">
+        <header className="w-full relative">
           <h2 className="text-blue-500 font-bold text-lg inline-block">
             {item.name}
           </h2>
@@ -66,10 +66,10 @@ export default function StaffComponent(item: Teacher) {
               </ul>
             </div>
           )}
-        </div>
+        </header>
 
         <hr className="my-2 border-gray-300" />
-        <div className="space-y-2 h-30 overflow-y-auto">
+        <section className="space-y-2 h-30 overflow-y-auto">
           <div className="flex items-center text-gray-700">
             <span className="mr-2">📧</span>
             <span className="font-medium">{item.email}</span>
@@ -82,8 +82,8 @@ export default function StaffComponent(item: Teacher) {
             <span className="mr-2">💼</span>
             <span className="font-medium">{item.position}</span>
           </div>
-        </div>
-      </div>
-    </div>
+        </section>
+      </article>
+    </section>
   );
 }
