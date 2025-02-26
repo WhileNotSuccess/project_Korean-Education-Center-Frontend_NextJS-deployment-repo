@@ -3,11 +3,12 @@
 import { useEffect, useState } from "react";
 import useCustomFetch from "@/app/lib/customFetch";
 import useCustomFormFetch from "@/app/lib/customFormFetch";
-import { selectMenu, postSuccess } from "@/app/menu";
+import { selectMenu, postSuccess, SelectPageCompoMenu } from "@/app/menu";
 import parser from "html-react-parser";
 import { Language } from "@/app/common/types";
 import Cookies from "js-cookie";
 import { handleFileChange, addDeleteFileName } from "../../common/formFile";
+import { useRouter } from "next/navigation";
 
 type SelectTabProps = {
   categoryTab: Record<Language, { key: string; value: string }[]>; // 세부 카테고리
@@ -20,13 +21,15 @@ export default function SelectTabComponent({
 }: SelectTabProps) {
   const customFetch = useCustomFetch();
   const customFormFetch = useCustomFormFetch();
+  const router = useRouter();
   const [content, setContent] = useState<string>(" ");
   const [selectedTab, setSelectedTab] = useState<string>("");
   const [file, setFile] = useState<Array<File>>([]);
   const [documentFileNames, setDocumentFileNames] = useState<Array<string>>([]); // 파일 이름 리스트
-  const [aplicationName, setAplicationName] = useState("");
+  const [aplicationPhoneNumber, setAplicationPhoneNumber] = useState("");
   const [selectedCourse, setSelectedCourse] = useState(""); // 기본값 설정
   const [deleteFileNames, setDeleteFileNames] = useState<Array<string>>([]); // 삭제할 파일 이름 리스트
+  const [courseOptions, setCourseOptions] = useState<Array<{ id: number, name: string }>>([]); // 지원과정 목록
   const [language, setLanguage] = useState<Language>(Language.korean);
 
   useEffect(() => {
@@ -35,14 +38,7 @@ export default function SelectTabComponent({
       setLanguage(savedLanguage);
     }
   }, []);
-  const [courseOptions, setCourseOptions] = useState<Array<{ course: string }>>(
-    [
-      // 하드코딩된 과정 옵션
-      { course: "지원과정 1" },
-      { course: "지원과정 2" },
-      { course: "지원과정 3" },
-    ]
-  ); // 지원과정 목록 추가시 삭제 예정
+
 
   useEffect(() => {
     if (categoryTab && categoryTab[language]?.[0]?.key.length > 0) {
@@ -61,46 +57,72 @@ export default function SelectTabComponent({
           });
           setContent(data.data.content);
         } catch (error) {
-          alert(`${selectMenu[language]?.[name]}의 글을 불러올 수 없습니다`);
-          console.error("해당 게시글을 불러올 수 없습니다.");
+          alert(SelectPageCompoMenu[language].failLoadPosts);
+          console.error(SelectPageCompoMenu[language].failLoadPosts);
         }
       };
-
+  
       fetchData();
     }
-
-    /* const fetchCourseOptions = async () => { // 지원과정 불러오는 함수 (지원과정 추가 시 넣을 예정)
+    
+    const fetchCourseOptions = async () => {
       try {
-        const data = await customFetch("/course-options", { // 해당 API 경로를 사용할 수 있는 주소로 수정
+        const data = await customFetch("/course", {
           method: "GET",
         });
-    
-        setCourseOptions(data.options);
+  
+        if (data.data && data.data.length > 0) {
+          setCourseOptions(data.data); // 강좌 목록 저장
+          // 강좌 목록이 로드되면 첫 번째 강좌를 기본 선택으로 설정
+          if (!selectedCourse && data.data.length > 0) {
+            setSelectedCourse(data.data[0].id.toString()); // 첫 번째 강좌의 id 설정
+          }
+        } else {
+          setCourseOptions([]); // 강좌가 없을 경우 빈 배열
+        }
       } catch (error) {
-        console.error("지원과정 목록을 불러올 수 없습니다.", error);
+        console.error(SelectPageCompoMenu[language].failLoadCourse);
+        setCourseOptions([]); // API 호출 실패 시 빈 배열
       }
     };
-
-    fetchCourseOptions(); */
-  }, [selectedTab, name, categoryTab]);
-
+  
+    fetchCourseOptions();
+  }, [selectedTab, name, categoryTab, selectedCourse]); // selectedCourse를 의존성 배열에 추가
+   
+  
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    console.log(file.length);
-    const formData = new FormData();
-    file.forEach((file) => {
-      formData.append("files", file);
-    });
-    formData.append("course", selectedCourse); // 선택된 과정 값 전달
-    try {
-      const response = await customFormFetch("/application-form", {
-        method: "POST",
-        body: formData,
+    if (file.length === 0) {
+      alert(SelectPageCompoMenu[language].needFile);
+    } else if (aplicationPhoneNumber === "") {
+      alert(SelectPageCompoMenu[language].needPhoneNumber);
+    } else if (selectedCourse === "") {
+      alert(SelectPageCompoMenu[language].needCourse);
+    } else {
+      const formData = new FormData();
+      file.forEach((file) => {
+        formData.append("files", file);
       });
-      alert(postSuccess[language]?.appliedPost);
-    } catch (error) {
-      console.error("폼 제출 실패", error);
+      formData.append("course", selectedCourse); // 선택된 과정 값 전달
+      try {
+        const response = await customFormFetch("/application-form", {
+          method: "POST",
+          body: formData,
+        });
+        alert(postSuccess[language]?.appliedPost);
+        router.push("/")
+      } catch (error) {
+        console.error("폼 제출 실패", error);
+      }
     }
+  };
+
+
+  const formatPhoneNumber = (value: string) => {
+    const numbers = value.replace(/\D/g, ""); 
+    if (numbers.length <= 3) return numbers;
+    if (numbers.length <= 7) return `${numbers.slice(0, 3)}-${numbers.slice(3)}`;
+    return `${numbers.slice(0, 3)}-${numbers.slice(3, 7)}-${numbers.slice(7, 11)}`;
   };
 
   const handleCourseChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -111,7 +133,7 @@ export default function SelectTabComponent({
     <main className="w-full h-screen">
       {/* 카테고리 제목 표시 */}
       <header className="h-12 border-b flex items-center justify-center mb-4">
-        <div className="text-3xl font-bold">{selectMenu[Language]?.[name]}</div>
+        <div className="text-3xl font-bold">{selectMenu[language]?.[name]}</div>
       </header>
       <div className="w-3/5 mx-auto">
         {/* 탭 메뉴 */}
@@ -138,7 +160,7 @@ export default function SelectTabComponent({
           <article className="w-3/5 p-4">
             {typeof content === "string"
               ? parser(content)
-              : "내용을 불러올 수 없습니다."}
+              : SelectPageCompoMenu[language].failLoadContent}
           </article>
         ) : (
           <section className="w-3/5 p-4 border">
@@ -192,40 +214,43 @@ export default function SelectTabComponent({
 
               <div>
                 <textarea
-                  id="application-name"
-                  name="application-name"
-                  value={aplicationName}
-                  onChange={(e) => setAplicationName(e.target.value)}
-                  placeholder="이름을 입력하세요"
+                  id="application-phone"
+                  name="application-phone"
+                  value={aplicationPhoneNumber}
+                  onChange={(e) => setAplicationPhoneNumber(formatPhoneNumber(e.target.value))}
+                  placeholder={SelectPageCompoMenu[language].inputPhoneNumber}
                   className="pt-1 w-full h-9 border border-gray-300"
                 />
               </div>
 
               <div>
-                <select
-                  id="course"
-                  name="course"
-                  value={selectedCourse}
-                  onChange={handleCourseChange}
-                  className="mt-2 w-full h-10 text-base border border-gray-300 p-2"
-                >
-                  {courseOptions.length > 0 ? (
-                    courseOptions.map((option, index) => (
-                      <option key={index} value={option.course}>
-                        {option.course}
-                      </option>
-                    ))
-                  ) : (
-                    <option value="">지원과정을 불러오는 중...</option>
-                  )}
-                </select>
+              <select
+                id="course"
+                name="course"
+                value={selectedCourse}
+                onChange={handleCourseChange}
+                className="mt-2 w-full h-10 text-base border border-gray-300 p-2"
+              >
+                {courseOptions.length > 0 ? (
+                  courseOptions.map((option) => (
+                    <option key={option.id} value={option.id}>
+                      {option.name}
+                    </option>
+                  ))
+                ) : (
+                  <option value="" disabled>
+                    {SelectPageCompoMenu[language].noCourse}
+                  </option>
+                )}
+              </select>
+
               </div>
 
               <button
                 type="submit"
                 className="w-full bg-blue-500 text-white py-2 rounded-md"
               >
-                제출
+                {SelectPageCompoMenu[language].submit}
               </button>
             </form>
           </section>

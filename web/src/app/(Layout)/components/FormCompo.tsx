@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { counselingForm, counselingPageMenu } from '@/app/menu';
+import { counselingForm, counselingPageMenu, FormComponentMenu, serverError } from '@/app/menu';
 import Cookies from 'js-cookie';
 import { Language } from '@/app/common/types';
 import useCustomFetch from '@/app/lib/customFetch';
@@ -22,18 +22,28 @@ export default function FormComponent(props: CategoryProps) {
 
   const customFetch = useCustomFetch();
 
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+    if (name === 'phone') {
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: formatPhoneNumber(value)
+      }))
+    } else {
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: value
+      }));
+    }
+    
+    
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // 사용자가 선택한 날짜를 KST 형식으로 받기 때문에, 이를 UTC로 변환합니다.
+    
     const localDate = new Date(formData.date); 
     const utcDate = new Date(localDate.getTime());
 
@@ -42,7 +52,7 @@ export default function FormComponent(props: CategoryProps) {
       name: formData.name,
       phone: formData.phone,
       email: formData.email,
-      schedule: utcDate.toISOString(), // UTC 형식으로 변환된 날짜
+      schedule: utcDate.toISOString(),
     };
 
     try {
@@ -52,17 +62,24 @@ export default function FormComponent(props: CategoryProps) {
         body: JSON.stringify(requestData),
       });
 
-      if (response.success) {
-        alert('상담 신청이 완료되었습니다.');
+      if (!response.error) {
+        alert(FormComponentMenu[language].applicationSuccess);
       } else {
-        alert(response.message);
+        alert(FormComponentMenu[language].applicationfail);
       }
     } catch (error) {
       console.error(error);
-      alert('서버와의 연결에 문제가 발생했습니다.');
+      alert(serverError[language].server);
     }
   };
 
+
+  const formatPhoneNumber = (value: string) => {
+    const numbers = value.replace(/\D/g, ""); 
+    if (numbers.length <= 3) return numbers;
+    if (numbers.length <= 7) return `${numbers.slice(0, 3)}-${numbers.slice(3)}`;
+    return `${numbers.slice(0, 3)}-${numbers.slice(3, 7)}-${numbers.slice(7, 11)}`;
+  };
   return (
     <main className="w-full h-screen flex flex-col items-center">
       {/* 상담 신청 제목 */}

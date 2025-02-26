@@ -91,7 +91,7 @@ export default function HtmlDocs(props: HtmlDocsProps) {
         method: "DELETE",
       });
       alert(deleteSuccess[language]?.contentDelete);
-      router.push("/");
+      router.back();
     } catch (error) {
       alert(deleteError[language]?.delete);
       console.error(error);

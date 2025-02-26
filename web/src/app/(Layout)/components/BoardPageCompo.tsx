@@ -12,10 +12,11 @@ import { formatDate } from "@/app/common/formatDate";
 import { useRouter } from "next/navigation";
 
 type BoardPageProps = {
-  name: keyof (typeof boardMenu)[Language];
+  name: keyof (typeof boardMenu)["korean"];
 };
 
-export default function BoardPageCompo({ name }: BoardPageProps) {
+
+export default function  BoardPageCompo({ name }: BoardPageProps) {
   const customFetch = useCustomFetch();
   const [searchOption, setSearchOption] = useState<string>("title");
   const [boardData, setBoardData] = useState<BoardData[]>([]);
@@ -23,17 +24,11 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
   const [nextPage, setNextPage] = useState<number>(0); // 다음 페이지
   const [prevPage, setPrevPage] = useState<number>(0); // 이전 페이지
   const [totalPage, setTotalPage] = useState<number>(0);
-
-  const router = useRouter();
-  const [inputValue, setInputValue] = useState("");
-  const [language, setLanguage] = useState<Language>(Language.korean);
-
-  useEffect(() => {
-    const savedLanguage = Cookies.get("language") as Language;
-    if (savedLanguage) {
-      setLanguage(savedLanguage);
-    }
-  }, []);
+  const language: Language = (Cookies.get("language") as Language) || "korean";
+  const [adminCheck, setAdminCheck] = useState<Boolean>(false);
+  const [userCheck, setUserCheck] = useState<Boolean>(false);
+  const router = useRouter()
+  const [inputValue, setInputValue] = useState("")
 
   // 게시글 불러오기 함수
   const fetchBoard = async (currentPage: number) => {
@@ -51,6 +46,7 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
       setTotalPage(data.totalPage);
     } catch (error) {
       alert(getError[language]?.boardError);
+      console.error(getError[language]?.boardError);
     }
   };
 
@@ -58,19 +54,45 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
     fetchBoard(currentPage);
   }, [currentPage]); // currentPage가 변경될 때마다 데이터를 불러옴
 
+
+  useEffect(()=> {
+    async function admincheck() {
+      const response = await customFetch("/users");
+    if(response && response.result) {
+      setAdminCheck(true)
+    }
+    }
+    admincheck();
+    console.log(adminCheck)
+  },[]);
+  
+  useEffect(()=> {
+    async function usercheck() {
+      const response = await customFetch("/users/info");
+    if(response && response.id) {
+      setUserCheck(true)
+    }
+    }
+    usercheck();
+    console.log(userCheck);
+  },[]);
+
   const onPageChange = (page: number) => {
     if (page > 0 && page <= totalPage) {
       setCurrentPage(page);
     }
   };
 
-  const onWrite = (category: string) => {
-    router.push(`/post/${category}`);
-  };
+  const onWrite = (category : string)=>{
+    router.push(`/post/${category}`)
+  }
 
   const onSearch = async(value : string)=>{
+    console.log(name)
+    console.log(searchOption)
+    console.log(value)
     try{
-      const data = await customFetch(`/posts/search?limit=10&page=1&category=${name}&${searchOption}=${value}`,{
+      const data = await customFetch(`/posts/search?limit=10&page=1&${searchOption}=${value}`,{
         method : "GET"
       })
       console.log(data.data)
@@ -81,9 +103,9 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
       setTotalPage(data.totalPage);
       alert(`/posts/search?limit=10&page=1&${searchOption}=${value}`)
     }catch(error){
-      alert(getError[language]?.searchBoardError)
+      alert("테스트 실패")
     }
-  };
+  }
 
   return (
     <div className="w-full h-screen">
@@ -118,12 +140,14 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
           </button>
           </div>
           <div className="flex justify-center ml-2">
+          {(name === "review" || name === "faq") && ( adminCheck || userCheck ) ? (
           <button
             className="min-w-12 px-2 bg-[#0093EE] text-white"
             onClick={() => onWrite(name)}
           >
             {boardPage[language]?.write}
-          </button>
+          </button>):
+          null}
         </div>
         </div>
 
