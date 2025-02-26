@@ -25,10 +25,10 @@ interface NewsType {
 }
 
 interface Applicants {
-  applicationFileName:string
-  applicationImageName:string
-  guidelinesForApplicantsFileName:string
-  guidelinesForApplicantsImageName:string
+  applicationFileName: string;
+  applicationImageName: string;
+  guidelinesForApplicantsFileName: string;
+  guidelinesForApplicantsImageName: string;
 }
 
 export default function HomePageCompo() {
@@ -42,7 +42,7 @@ export default function HomePageCompo() {
     useState<Attachments>();
   const itemRef = useRef<HTMLDivElement>(null); // 슬라이더 내부 각 div의 길이 참조용
   const [itemWidth, setItemWidth] = useState(0); // 내부 각 div 길이 변수
-  const [entranceApplication, setEntranceApplication] = useState<Applicants>()
+  const [entranceApplication, setEntranceApplication] = useState<Applicants>();
   const [language, setLanguage] = useState<Language>(Language.korean);
 
   useEffect(() => {
@@ -87,19 +87,20 @@ export default function HomePageCompo() {
     bannerData();
   }, []);
 
-  useEffect(()=>{  // 모집요강 및 입학신청서를 불러오는 함수수
-    const entranceApplicationData = async ()=>{
-      try{
-        const data = await customFetch("/posts/main/applicants",{
-          method : "GET"
-        })
-        setEntranceApplication(data)
-      }catch(error){
-      alert(getError[language].entranceApplicationError)
+  useEffect(() => {
+    // 모집요강 및 입학신청서를 불러오는 함수수
+    const entranceApplicationData = async () => {
+      try {
+        const data = await customFetch("/posts/main/applicants", {
+          method: "GET",
+        });
+        setEntranceApplication(data);
+      } catch (error) {
+        alert(getError[language].entranceApplicationError);
       }
-    }
-    entranceApplicationData()
-  },[])
+    };
+    entranceApplicationData();
+  }, []);
 
   const onGoBoard = async (category: string) => {
     router.push(`/board/${category}`);
@@ -155,90 +156,90 @@ export default function HomePageCompo() {
   return (
     <div className="w-full h-screen flex flex-wrap">
       <div className="relative w-full h-3 max-w-[2000px] h-auto overflow-hidden shadow-lg">
-      <section>
-        <div
-          className="h-full w-full object-contain flex transition-transform duration-700 ease-in-out "
-          style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-        >
-          {banner.map((banner, index) => (
-            <img
-              key={index}
-              src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${banner.image}`}
-              className="h-auto max-w-full cursor-pointer"
-              onClick={() => onGoUrl(banner.url)}
-            />
-          ))}
-        </div>
-        <div className="absolute z-10 bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-          {banner.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentIndex(index)}
-              className={`w-3 h-3 rounded-full ${
-                currentIndex === index ? "bg-blue-500" : "bg-gray-300"
-              }`}
-            ></button>
-          ))}
-        </div>
+        <section>
+          <div
+            className="h-full w-full object-contain flex transition-transform duration-700 ease-in-out "
+            style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+          >
+            {banner.map((banner, index) => (
+              <img
+                key={index}
+                src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${banner.image}`}
+                className="h-auto max-w-full cursor-pointer"
+                onClick={() => onGoUrl(banner.url)}
+              />
+            ))}
+          </div>
+          <div className="absolute z-10 bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+            {banner.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentIndex(index)}
+                className={`w-3 h-3 rounded-full ${
+                  currentIndex === index ? "bg-blue-500" : "bg-gray-300"
+                }`}
+              ></button>
+            ))}
+          </div>
         </section>
       </div>
       <div className="w-full mt-12 flex flex-col justify-center items-center sm:flex-row sm:items-stretch">
         <section>
-        <div className="w-96 border sm:mr-4 sm:mb-0 mb-4 flex flex-col">
-          <header className="flex justify-between items-center px-4">
-            <h1 className="text-2xl font-bold p-2">
-              {homePage[language]?.notice}
-            </h1>
-            <img
-              src="images/add_button.png"
-              className="w-8 cursor-pointer"
-              onClick={() => onGoBoard("notice")}
-            />
-          </header>
-          <div className="flex flex-col px-2">
-            <BoardDataMapCompo category={"notice"} limit={8} />
+          <div className="w-96 border sm:mr-4 sm:mb-0 mb-4 flex flex-col">
+            <header className="flex justify-between items-center px-4">
+              <h1 className="text-2xl font-bold p-2">
+                {homePage[language]?.notice}
+              </h1>
+              <img
+                src="images/add_button.png"
+                className="w-8 cursor-pointer"
+                onClick={() => onGoBoard("notice")}
+              />
+            </header>
+            <div className="flex flex-col px-2">
+              <BoardDataMapCompo category={"notice"} limit={8} />
+            </div>
           </div>
-        </div>
         </section>
         <div className="w-96  flex flex-col justify-between">
           <section>
-          <div className="w-full   border">
-            <header className="flex justify-between items-center px-4">
-              <h1 className="text-2xl font-bold p-2">
-                {homePage[language]?.review}
-              </h1>
-              <img
-                src="images/add_button.png"
-                className="w-8 cursor-pointer"
-                onClick={() => onGoBoard("review")}
-              />
-            </header>
-            <div className="flex flex-col px-2">
-              <BoardDataMapCompo category={"review"} limit={3}/>
+            <div className="w-full   border">
+              <header className="flex justify-between items-center px-4">
+                <h1 className="text-2xl font-bold p-2">
+                  {homePage[language]?.review}
+                </h1>
+                <img
+                  src="images/add_button.png"
+                  className="w-8 cursor-pointer"
+                  onClick={() => onGoBoard("review")}
+                />
+              </header>
+              <div className="flex flex-col px-2">
+                <BoardDataMapCompo category={"review"} limit={3} />
+              </div>
             </div>
-          </div>
           </section>
           <section>
-          <div className="w-full mt-4 border">
-            <header className="flex justify-between items-center px-4">
-              <h1 className="text-2xl font-bold p-2">
-                {homePage[language]?.faq}
-              </h1>
-              <img
-                src="images/add_button.png"
-                className="w-8 cursor-pointer"
-                onClick={() => onGoBoard("faq")}
-              />
-            </header>
-            <div className="flex flex-col px-2">
-              <BoardDataMapCompo category={"faq"} limit={3}/>
+            <div className="w-full mt-4 border">
+              <header className="flex justify-between items-center px-4">
+                <h1 className="text-2xl font-bold p-2">
+                  {homePage[language]?.faq}
+                </h1>
+                <img
+                  src="images/add_button.png"
+                  className="w-8 cursor-pointer"
+                  onClick={() => onGoBoard("faq")}
+                />
+              </header>
+              <div className="flex flex-col px-2">
+                <BoardDataMapCompo category={"faq"} limit={3} />
+              </div>
             </div>
-          </div>
           </section>
         </div>
         {/* 빠른서비스 및 서류 다운하는 탭*/}
-     <aside className="hidden sm:fixed sm:w-24 sm:min-h-[80%] sm:right-0 sm:top-24 sm:border sm:bg-blue-500/80 sm:rounded-l-xl sm:flex sm:flex-col sm:justify-evenly sm:py-2">
-        <div className="w-full flex  flex-col justify-center items-center cursor-pointer">
+        <aside className="hidden sm:fixed sm:w-24 sm:min-h-[80%] sm:right-0 sm:top-24 sm:border sm:bg-blue-500/80 sm:rounded-l-xl sm:flex sm:flex-col sm:justify-evenly sm:py-2">
+          <div className="w-full flex  flex-col justify-center items-center cursor-pointer">
             <Link
               href={"/guidance/introduction"}
               className="size-12 p-2 border rounded-full bg-[#ffffff]"
@@ -322,10 +323,10 @@ export default function HomePageCompo() {
               {homePage[language]?.["recruitment-guidelines"]}
             </Link>
           </div>
-     </aside>
+        </aside>
       </div>
       {/* 클릭후 드래그로 움직이는 소식 탭 */}
-   <article className="w-full flex justify-center items-center">
+      <article className="w-full flex justify-center items-center">
         <div className="min-w-[75%] flex flex-col items-center justify-center mt-12">
           <div className="w-[80%] font-bold text-2xl">
             {boardMenu[language]?.news}
@@ -360,29 +361,40 @@ export default function HomePageCompo() {
             </div>
           </div>
         </div>
-   </article>
-
+      </article>
 
       <div className="w-full flex justify-center items-center gap-12 mt-12">
         <div className="flex flex-col w-64">
-          <div className="text-center bg-gray-100 hover:bg-gray-200 cursor-pointer p-2 text-lg rounded-lg"
-           onClick={()=>{
-            router.push(`${process.env.NEXT_PUBLIC_BACKEND_URL}/${entranceApplication?.applicationFileName}`)
-            }}>
-              {homePage[language]?.["Application-Form"]}
+          <div
+            className="text-center bg-gray-100 hover:bg-gray-200 cursor-pointer p-2 text-lg rounded-lg"
+            onClick={() => {
+              router.push(
+                `${process.env.NEXT_PUBLIC_BACKEND_URL}/${entranceApplication?.applicationFileName}`
+              );
+            }}
+          >
+            {homePage[language]?.["Application-Form"]}
           </div>
-          <img src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${entranceApplication?.applicationImageName}`} 
-          className="w-full h-64 object-cover mt-4"/>
+          <img
+            src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${entranceApplication?.applicationImageName}`}
+            className="w-full h-64 object-cover mt-4"
+          />
         </div>
         <div className="flex flex-col w-64">
-          <div className="text-center bg-gray-100 hover:bg-gray-200 cursor-pointer p-2 text-lg rounded-lg"
-          onClick={()=>{
-            router.push(`${process.env.NEXT_PUBLIC_BACKEND_URL}/${entranceApplication?.guidelinesForApplicantsFileName}`)
-            }}>
-              {homePage[language]?.["recruitment-guidelines"]}
+          <div
+            className="text-center bg-gray-100 hover:bg-gray-200 cursor-pointer p-2 text-lg rounded-lg"
+            onClick={() => {
+              router.push(
+                `${process.env.NEXT_PUBLIC_BACKEND_URL}/${entranceApplication?.guidelinesForApplicantsFileName}`
+              );
+            }}
+          >
+            {homePage[language]?.["recruitment-guidelines"]}
           </div>
-          <img src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${entranceApplication?.guidelinesForApplicantsImageName}`} 
-          className="w-full h-64 object-cover mt-4"/>
+          <img
+            src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${entranceApplication?.guidelinesForApplicantsImageName}`}
+            className="w-full h-64 object-cover mt-4"
+          />
         </div>
       </div>
 
