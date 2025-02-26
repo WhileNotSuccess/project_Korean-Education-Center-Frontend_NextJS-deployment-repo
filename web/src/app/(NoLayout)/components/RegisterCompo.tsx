@@ -65,9 +65,9 @@ export default function RegisterCompo() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-cover bg-center relative" style={{ backgroundImage: `url('/images/background.jpg')`, height: '100vh' }}>
+    <main className="flex items-center justify-center min-h-screen bg-cover bg-center relative" style={{ backgroundImage: `url('/images/background.jpg')`, height: '100vh' }}>
       <div className="absolute inset-0 bg-black bg-opacity-50"></div>
-      <div className="relative bg-transparent rounded-lg shadow-lg w-full max-w-md">
+      <section className="relative bg-transparent rounded-lg shadow-lg w-full max-w-md">
         <h1 className="text-3xl font-extrabold mb-6 text-white text-center">{newUser ? "구글 회원가입" : "회원가입"}</h1>
 
         {error && <p style={{ color: "red" }} className="text-center">{error}</p>}
@@ -125,7 +125,7 @@ export default function RegisterCompo() {
           </button>
           </form>
         )}
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }

@@ -3,10 +3,8 @@ import { guidanceMenu } from "../menu";
 const language = "korean";
 
 export interface HtmlDocsProps {
-  //category : keyof typeof guidanceMenu["korean"]
-  //[key in "id" | "category" ]: string;
   id?: string;
-  category?: string | number;
+  category?: string;
 }
 
 export interface MenuType {
@@ -15,6 +13,8 @@ export interface MenuType {
 
 export enum Language {
   korean = "korean",
+  english = "english",
+  japanese = "japanese",
 }
 
 export type Counseling = {

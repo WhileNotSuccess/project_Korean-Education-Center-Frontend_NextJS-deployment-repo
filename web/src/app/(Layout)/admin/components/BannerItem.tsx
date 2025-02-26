@@ -11,7 +11,7 @@ export default function BannerItem(props: Banner) {
   const [modalDeleteOpen, setModalDeleteOpen] = useState<boolean>(false);
 
   return (
-    <div className="flex m-2">
+    <article className="flex m-2">
       {modalDeleteOpen && (
         <DeleteModal
           onClose={() => {
@@ -21,12 +21,14 @@ export default function BannerItem(props: Banner) {
           target="banners"
         />
       )}
-      <div className="w-full p-4 bg-white shadow-lg rounded-lg border border-gray-200">
+      <section className="w-full p-4 bg-white shadow-lg rounded-lg border border-gray-200">
         <div className="w-full relative">
+          <figure>
           <img
             src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${props.image}`}
             alt=""
           />
+        </figure>
           <span
             onClick={() => {
               setMenuOpen(!menuOpen);
@@ -36,7 +38,7 @@ export default function BannerItem(props: Banner) {
             ㅤㅤ⋮
           </span>
           {menuOpen && (
-            <div className="absolute top-full right-0 mt-1 w-40 bg-white border rounded shadow-lg">
+            <nav className="absolute top-full right-0 mt-1 w-40 bg-white border rounded shadow-lg">
               <ul className="py-2 text-sm text-gray-700">
                 <li
                   onClick={() => {
@@ -47,7 +49,7 @@ export default function BannerItem(props: Banner) {
                   삭제
                 </li>
               </ul>
-            </div>
+            </nav>
           )}
         </div>
 
@@ -71,7 +73,7 @@ export default function BannerItem(props: Banner) {
           </div>
         </div>
         <div className="mt-4"></div>
-      </div>
-    </div>
+      </section>
+    </article>
   );
 }

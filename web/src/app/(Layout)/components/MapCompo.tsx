@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react';
-
+import { useEffect, useState } from "react";
 
 declare global {
   interface Window {
@@ -20,13 +19,19 @@ export default function MapCompo() {
       window.kakao.maps.load(() => {
         const container = document.getElementById("map");
         const options = {
-          center: new window.kakao.maps.LatLng(35.89624247445099, 128.62269497391293), // 기본 중심 좌표 설정
+          center: new window.kakao.maps.LatLng(
+            35.89624247445099,
+            128.62269497391293
+          ), // 기본 중심 좌표 설정
           level: 3,
         };
         const mapInstance = new window.kakao.maps.Map(container, options);
 
         // 마커 위치 설정
-        const markerPosition = new window.kakao.maps.LatLng( 35.89624247445099, 128.62269497391293); // 마커 위치
+        const markerPosition = new window.kakao.maps.LatLng(
+          35.89624247445099,
+          128.62269497391293
+        ); // 마커 위치
         const markerInstance = new window.kakao.maps.Marker({
           position: markerPosition,
         });
@@ -45,5 +50,5 @@ export default function MapCompo() {
     };
   }, []);
 
-  return <div id="map" style={{ width: "70%", height: "160%" }}></div>;
+  return <section id="map" style={{ width: "70%", height: "160%" }}></section>;
 }

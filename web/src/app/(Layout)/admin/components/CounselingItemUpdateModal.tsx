@@ -41,7 +41,7 @@ export default function CounselingItemUpdateModal({
     }
   };
   return createPortal(
-    <div
+    <dialog
       id="popup-modal"
       tabIndex={-1}
       className="fixed inset-0 z-50 flex justify-center items-center bg-black bg-opacity-50"
@@ -126,7 +126,7 @@ export default function CounselingItemUpdateModal({
           </button>
         </div>
       </div>
-    </div>,
+    </dialog>,
     document.body
   );
 }

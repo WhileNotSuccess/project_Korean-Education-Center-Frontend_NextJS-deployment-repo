@@ -6,10 +6,9 @@ import {
   postError,
   postSuccess,
   categoryList,
-  deleteError,
-  deleteSuccess,
   updateSuccess,
   updateError,
+  postLanguageList
 } from "@/app/menu";
 import Cookies from "js-cookie";
 import useCustomFormFetch from "@/app/lib/customFormFetch";
@@ -35,9 +34,18 @@ export default function EditorComponent(props: EditorProps) {
   const [deleteFileNames, setDeleteFileNames] = useState<Array<string>>([]); // 삭제할 파일 이름 리스트
   const customFormFetch = useCustomFormFetch();
   const customFetch = useCustomFetch();
-  const language: Language = (Cookies.get("language") as Language) || "korean";
   const [category, setCategory] = useState<string>(props.categoryName || "");
   const router = useRouter()
+  const [postLanguage, setPostLanguage] = useState("korean")
+  const [isAdmin, setIsAdmin] = useState(false)
+  const [language, setLanguage] = useState<Language>(Language.korean);
+
+  useEffect(() => {
+    const savedLanguage = Cookies.get("language") as Language;
+    if (savedLanguage) {
+      setLanguage(savedLanguage);
+    }
+  }, []);
 
   useEffect(() => {
     const oldPost = async () => {
@@ -62,6 +70,18 @@ export default function EditorComponent(props: EditorProps) {
     oldPost();
   }, [props.id]);
 
+  useEffect(()=>{
+    const fetchUserInfo = async () => {
+      try {
+        const adminData = await customFetch("/users");
+        setIsAdmin(adminData.result);
+      } catch (error) {
+        console.error("유저 정보 불러오기 실패:", error);
+      }
+    };
+    fetchUserInfo()
+  },[])
+
   const submit = async () => {
     if( title === "" ){
       alert(editorCompo[language].needInputTitle)
@@ -73,7 +93,7 @@ export default function EditorComponent(props: EditorProps) {
       formData.append("title", title);
       formData.append("content", content);
       formData.append("category", category);
-      formData.append("language", language);
+      {isAdmin ? formData.append("language", postLanguage) : formData.append("language", language)}
 
       // 첨부파일이 있다면, FormData에 추가
       documentFiles.forEach((file) => {
@@ -83,8 +103,8 @@ export default function EditorComponent(props: EditorProps) {
         method: "POST",
         body: formData,
       });
-      alert(postSuccess[language]?.contentPost)
-      router.back()
+      alert(postSuccess[language]?.contentPost);
+      router.back();
     } catch (error) {
       alert(postError[language]?.subError);
     }
@@ -98,7 +118,7 @@ export default function EditorComponent(props: EditorProps) {
       formData.append("title", title);
       formData.append("content", content);
       formData.append("category", category);
-      formData.append("language", language);
+      {isAdmin ? formData.append("language", postLanguage) : formData.append("language", language)}
       formData.append("deleteFilePath", JSON.stringify(deleteFileNames));
       documentFiles.forEach((file) => {
         formData.append("files", file); // 문서 파일도 함께 전송
@@ -107,10 +127,10 @@ export default function EditorComponent(props: EditorProps) {
         method: "PATCH",
         body: formData,
       });
-      alert(updateSuccess[language]?.updatePost)
-      router.back()
+      alert(updateSuccess[language]?.updatePost);
+      router.back();
     } catch (error) {
-      alert(updateError[language]?.update)
+      alert(updateError[language]?.update);
     }
   };
 
@@ -138,7 +158,9 @@ export default function EditorComponent(props: EditorProps) {
     if (e.target.files) {
       const filesArray = Array.from(e.target.files);
       const newFileNames = filesArray.map((file) => file.name);
-      setDeleteFileNames((prev) => prev.filter((name) => !newFileNames.includes(name)));
+      setDeleteFileNames((prev) =>
+        prev.filter((name) => !newFileNames.includes(name))
+      );
       setDocumentFiles((prev) => [...prev, ...filesArray]);
       setDocumentFileNames((prev) => [
         ...prev,
@@ -154,8 +176,8 @@ export default function EditorComponent(props: EditorProps) {
   };
 
   return (
-    <div className="w-full flex justify-center">
-      <div style={{ width: "60%" }} className="mt-4">
+    <main className="w-full flex justify-center">
+      <section style={{ width: "60%" }} className="mt-4">
         <form>
           <div className="flex">
             <div>
@@ -165,6 +187,21 @@ export default function EditorComponent(props: EditorProps) {
               >
                 Your Email
               </label>
+            </div>
+            <div className="relative w-full">
+              <input
+                type="search"
+                id="search-dropdown"
+                className="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg rounded-s-gray-100 rounded-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
+                placeholder="Title"
+                required
+                onChange={(e) => setTitle(e.target.value)}
+                value={title}
+              />
+            </div>
+          </div>
+          {isAdmin ?
+              <div className="w-full flex justify-between border">
               <select
                 className="shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-e-0 border-gray-300 dark:border-gray-700 dark:text-white rounded-s-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
                 value={category}
@@ -181,21 +218,28 @@ export default function EditorComponent(props: EditorProps) {
                   </option>
                 ))}
               </select>
-            </div>
-            <div className="relative w-full">
-              <input
-                type="search"
-                id="search-dropdown"
-                className="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg rounded-s-gray-100 rounded-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
-                placeholder="Title"
-                required
-                onChange={(e) => setTitle(e.target.value)}
-                value={title}
-              />
-            </div>
-          </div>
+    
+          <select
+          className="border rounded-sm cursor-pointer"
+          value={postLanguage}
+          onChange={(e)=>setPostLanguage(e.target.value)}>
+          {
+            postLanguageList[language].map((item)=>{
+              return(
+                <option
+                key={item.key}
+                value={item.key}
+              >
+                {item.value}
+              </option>                
+              )
+            })
+          }
+          </select></div> : null}
         </form>
-        <div className="w-[50%] border">
+
+        <div className="w-full flex justify-between items-center">
+        <section className="w-[50%] border">
         <input
           type="file"
           accept=".*"
@@ -226,8 +270,9 @@ export default function EditorComponent(props: EditorProps) {
               </div>
             ))}
         </ul>
+        </section>
         </div>
-
+      <section>
         <Editor
           tinymceScriptSrc={"/tinymce/tinymce.min.js"}
           id="tinymce-editor"
@@ -237,8 +282,8 @@ export default function EditorComponent(props: EditorProps) {
             editorRef.current = editor;
           }}
           init={{
-            language:"ko_KR",
-            language_url:"/tinymce/langs/ko_KR.js",
+            language: "ko_KR",
+            language_url: "/tinymce/langs/ko_KR.js",
             height: 500,
             plugins: ["lists", "link", "image", "table"],
             content_style: "p {margin:0}",
@@ -272,17 +317,23 @@ export default function EditorComponent(props: EditorProps) {
           style={{ display: "none" }}
           id="imageInput"
         />
-
+        </section>
         {props.id ? (
-          <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 mt-4" onClick={update}>
+          <button
+            className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 mt-4"
+            onClick={update}
+          >
             {editorCompo[language]?.update}
           </button>
         ) : (
-          <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 mt-4" onClick={submit}>
+          <button
+            className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 mt-4"
+            onClick={submit}
+          >
             {editorCompo[language]?.submit}
           </button>
         )}
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }

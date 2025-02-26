@@ -1,10 +1,11 @@
 import { boardMenu } from "@/app/menu"
 import BoardPageCompo from "../../components/BoardPageCompo"
+import { Language } from "@/app/common/types";
 
 
 interface BoardPageProps {
   params : {
-  category : keyof typeof boardMenu["korean"]
+  category : keyof typeof boardMenu[Language]
   }
 }
 

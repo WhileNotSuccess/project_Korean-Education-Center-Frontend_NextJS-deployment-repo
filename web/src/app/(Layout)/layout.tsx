@@ -13,6 +13,7 @@ import {
 import { cookies } from "next/headers";
 import { Language } from "../common/types";
 import LoginCompo from "./components/LoginCompo";
+import HamburgerMenuCompo from "./components/HamburgerMenuCompo";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,8 +38,8 @@ export default async function RootLayout({
   const language =
     ((await cookies()).get("language")?.value as Language) || Language.korean;
   return (
-    <div className="h-screen w-full flex flex-col ">
-      <div className="w-full min-h-15 bg-[#0093EE] flex justify-end gap-3 font-bold items-center pr-5">
+    <div className="h-screen w-full flex flex-col">
+      <header className="w-full min-h-15 bg-[#0093EE] flex justify-end gap-3 font-bold items-center pr-5">
         <LoginCompo/>
         <Link href={"/japan"}>
           <img src="/images/japan.png" className="w-6 h-4"></img>
@@ -46,8 +47,9 @@ export default async function RootLayout({
         <Link href={"/usa"}>
           <img src="/images/usa.png" className="w-6 h-4"></img>
         </Link>
-      </div>
-      <div className="w-full min-h-25 bg-[#0072BA] flex items-center pl-5 peer">
+      </header>
+
+      <section className="w-full min-h-25 bg-[#0072BA] flex items-center pl-5 peer sm:justify-center justify-between">
         <Link href={"/"} className="w-1/6 flex justify-center items-center">
         <img src="/images/영진로고.png" className="w-15 h-15"></img>
         <h2 className="font-bold text-white w-full whitespace-nowrap">
@@ -55,33 +57,34 @@ export default async function RootLayout({
           한국어교육센터
         </h2>
         </Link>
-        <div className="w-full h-full flex justify-evenly text-white font-bold items-center relative">
+        <div className="hidden sm:w-full sm:h-full sm:flex sm:justify-evenly sm:text-white sm:font-bold sm:items-center sm:relative">
         <div className="w-1/5 flex justify-center cursor-pointer">{menu[language]?.introduce}</div>
           <div className="w-1/5 flex justify-center cursor-pointer">{menu[language]?.curriculum}</div>
           <div className="w-1/5 flex justify-center cursor-pointer">{menu[language]?.application}</div>
           <div className="w-1/5 flex justify-center cursor-pointer">{menu[language]?.schoolLife}</div>
           <div className="w-1/5 flex justify-center cursor-pointer">{menu[language]?.notification}</div>
         </div>
-      </div>
-      <div
-        className="hidden peer-hover:block hover:block w-full min-h-52 z-50 bg-white absolute z-40"
+        <HamburgerMenuCompo/>
+      </section>
+      <section
+        className="hidden sm:hidden sm:peer-hover:block sm:hover:block sm:w-full sm:min-h-52 sm:z-50 sm:bg-white sm:absolute sm:z-40"
         style={{ top: "86px" }}
       >
         <div className="min-h-52 flex flex-row w-full">
           <div className="ml-5 h-full w-1/6"></div>
           <div className="w-full h-[100%] flex justify-evenly">
-            <div className="w-1/5 h-52 flex flex-col items-center">
+            <div className="w-1/5 h-52 flex flex-col items-center border-r">
               <Link href={`/guidance/introduction`} className="p-2 text-sm font-bold">
                 {smallMenu[language]?.centerIntro}
               </Link>
               <Link href={"/guidance/directions"}  className="p-2 text-sm font-bold" >
                 {smallMenu[language]?.howToGetHere}
               </Link>
-              <Link href={"/staff-intro"}  className="p-2 text-sm font-bold" >
-                {smallMenu[language]?.staffIntro}
+              <Link href={"/staff/staff-intro"}  className="p-2 text-sm font-bold" >
+                {smallMenu[language]?.["staff-intro"]}
               </Link>
             </div>
-            <div className="w-1/5 h-52 flex flex-col items-center">
+            <div className="w-1/5 h-52 flex flex-col items-center border-r">
               <Link href={"/select/korean-curriculum"}  className="p-2 text-sm font-bold">
                 {smallMenu[language]?.["korean-curriculum"]}
               </Link>
@@ -92,7 +95,7 @@ export default async function RootLayout({
               {boardMenu[language]?.review}
               </Link>
             </div>
-            <div className="w-1/5 h-52 flex flex-col items-center">
+            <div className="w-1/5 h-52 flex flex-col items-center border-r">
               <Link href={"/select/applied-to"} className="p-2 text-sm font-bold">
                 {smallMenu[language]?.["applied-to"]}
               </Link>
@@ -106,7 +109,7 @@ export default async function RootLayout({
                 {guidanceMenu[language]?.visa}
               </Link>
             </div>
-            <div className="w-1/5 h-52 flex flex-col items-center">
+            <div className="w-1/5 h-52 flex flex-col items-center border-r">
               <Link href={"/guidance/dormitory"} className="p-2 text-sm font-bold">
                 {smallMenu[language]?.dormitory}
               </Link>
@@ -133,11 +136,7 @@ export default async function RootLayout({
             </div>
           </div>
         </div>
-      </div>
-      {/*       <img
-        src="/images/한국어교육센터 기본배너.png"
-        className="w-full h-60 mt-4 flex justify-center items-center"
-      ></img> */}
+      </section>
       {children}
     </div>
   );

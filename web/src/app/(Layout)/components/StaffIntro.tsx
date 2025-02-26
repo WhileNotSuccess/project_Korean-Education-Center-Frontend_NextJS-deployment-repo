@@ -1,14 +1,21 @@
 "use client";
 
-import { HtmlDocsProps, Teacher } from "@/app/common/types";
+import {Language, Teacher } from "@/app/common/types";
 import useCustomFetch from "@/app/lib/customFetch";
 import { useEffect, useState } from "react";
-import { staffPage, getError } from "@/app/menu";
+import { staffPage, getError, smallMenu } from "@/app/menu";
+import Cookies from "js-cookie";
 
-export default function StaffIntro({ category }: HtmlDocsProps) {
+type StaffPageProps = {
+  name: keyof (typeof smallMenu)[Language];
+};
+
+export default function StaffIntro({ name }: StaffPageProps) {
   const [teacher, setTeacher] = useState<Teacher[]>([]);
   const [staff, setStaff] = useState<Teacher[]>([]);
   const customFetch = useCustomFetch();
+  const language: Language = (Cookies.get("language") as Language) || "korean";
+
 
   useEffect(() => {
     const staffData = async () => {
@@ -19,8 +26,7 @@ export default function StaffIntro({ category }: HtmlDocsProps) {
         setTeacher(data.teacher);
         setStaff(data.staff);
       } catch (error) {
-        alert(getError["korean"]?.staffError);
-        console.error(getError["korean"]?.staffError);
+        alert(getError[language]?.staffError);
       }
     };
     staffData();
@@ -28,23 +34,25 @@ export default function StaffIntro({ category }: HtmlDocsProps) {
 
   return (
     <div className="w-full h-screen">
-      <div className="h-12 border"></div>
-      <div
+      <header className="h-12 border"></header>
+      <section
         className="w-full flex justify-center items-center font-bold text-3xl"
         style={{ height: "200px" }}
       >
-        {category}
-      </div>
+        {smallMenu[language]?.[name]}
+      </section>
+      
+      <section className="w-full">
       <div className="w-full h-24 flex items-center justify-center">
         <div className=" h-14 text-2xl font-bold w-4/5 border-b-2  border-[#0072BA] text-[#0093EE]">
-          {staffPage["korean"]?.faculty}
+          {staffPage[language]?.faculty}
         </div>
       </div>
       <div className="w-full flex items-center justify-center">
-        <div className="w-4/5 flex flex-wrap justify-evenly mt-4">
+        <ul className="w-4/5 flex flex-wrap justify-evenly mt-4">
           {teacher.map((item) => {
             return (
-              <div
+              <li
                 key={item.id}
                 className="w-64 h-24 border-2 border-[#A6CAEC] mb-4 text-[#0093EE]"
               >
@@ -52,21 +60,23 @@ export default function StaffIntro({ category }: HtmlDocsProps) {
                   {item.name}
                 </div>
                 <div className="ml-2">강사</div>
-              </div>
+              </li>
             );
           })}
-        </div>
+        </ul>
       </div>
-      <div className="w-full h-24 flex items-center justify-center mt-6">
+      </section>
+    <section className="w-full mt-6">
+      <div className="w-full h-24 flex items-center justify-center">
         <div className=" h-14 text-2xl font-bold w-4/5 border-b-2  border-[#0072BA] text-[#0093EE]">
-          {staffPage["korean"]?.staff}
+          {staffPage[language]?.staff}
         </div>
       </div>
       <div className="w-full flex items-center justify-center">
-        <div className="w-4/5 flex flex-wrap justify-evenly mt-4">
+        <ul className="w-4/5 flex flex-wrap justify-evenly mt-4">
           {staff.map((item) => {
             return (
-              <div
+              <li
                 key={item.id}
                 className="w-52 h-40 border-2 border-[#A6CAEC] mb-4 text-[#0093EE]"
               >
@@ -79,16 +89,17 @@ export default function StaffIntro({ category }: HtmlDocsProps) {
                     <img src="/images/telephone.png" className="h-4 w-4 mr-2" />{" "}
                     {item.phone}
                   </div>
-                  <div className="h-8 ml-2 font-bold flex flex-row items-center">
+                  <div className="h-8 ml-2 font-bold flex flex-row items-center overflow-hidden">
                     <img src="/images/mail.png" className="h-4 w-4 mr-2" />
                     {item.email}
                   </div>
                 </div>
-              </div>
+              </li>
             );
           })}
-        </div>
+        </ul>
       </div>
-    </div>
+      </section>
+  </div>
   );
 }
