@@ -234,12 +234,15 @@ export default function EditorComponent(props: EditorProps) {
         </form>
 
         <div className="w-full flex justify-between items-center">
-        <section className="w-[50%] border">
+        <section className="w-[50%]">
         <input
           type="file"
           accept=".*"
           multiple
           onChange={handleDocumentFileChange}
+          style={{ 
+            color: "transparent", // 텍스트 숨김
+          }}
         />
         <ul>
           {documentFileNames &&
