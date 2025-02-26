@@ -12,7 +12,7 @@ import { formatDate } from "@/app/common/formatDate";
 import { useRouter } from "next/navigation";
 
 type BoardPageProps = {
-  name: keyof (typeof boardMenu)["korean"];
+  name: keyof (typeof boardMenu)[Language];
 };
 
 export default function BoardPageCompo({ name }: BoardPageProps) {
@@ -51,7 +51,6 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
       setTotalPage(data.totalPage);
     } catch (error) {
       alert(getError[language]?.boardError);
-      console.error(getError[language]?.boardError);
     }
   };
 
@@ -69,38 +68,32 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
     router.push(`/post/${category}`);
   };
 
-  const onSearch = async (value: string) => {
-    console.log(name);
-    console.log(searchOption);
-    console.log(value);
-    try {
-      const data = await customFetch(
-        `/posts/search?limit=10&page=1&${searchOption}=${value}`,
-        {
-          method: "GET",
-        }
-      );
-      console.log(data.data);
+  const onSearch = async(value : string)=>{
+    try{
+      const data = await customFetch(`/posts/search?limit=10&page=1&category=${name}&${searchOption}=${value}`,{
+        method : "GET"
+      })
+      console.log(data.data)
       setBoardData(data.data);
       setCurrentPage(data.currentPage);
       setNextPage(data.nextPage);
       setPrevPage(data.prevPage);
       setTotalPage(data.totalPage);
-      alert(`/posts/search?limit=10&page=1&${searchOption}=${value}`);
-    } catch (error) {
-      alert("테스트 실패");
+      alert(`/posts/search?limit=10&page=1&${searchOption}=${value}`)
+    }catch(error){
+      alert(getError[language]?.searchBoardError)
     }
   };
 
   return (
     <div className="w-full h-screen">
-      <div
+      <header
         className="w-full flex justify-center items-center font-bold text-3xl"
         style={{ height: "200px" }}
       >
         {boardMenu[language]?.[name]}
-      </div>
-      <div className="w-full flex pl-40">
+      </header>
+      <section className="w-full flex pl-40">
         <div className="w-2/5 flex justify-evenly">
           <select
             className="w-28 h-8 border-2 border-black rounded"
@@ -114,7 +107,7 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
           <input
             onChange={(e) => setInputValue(e.target.value)}
             className="w-60 h-8 border-2 border-black rounded pl-2 ml-2"
-            placeholder="제목을 입력하세요"
+            placeholder={`${boardPage[language]?.writeTitle}`}
           ></input>
           <button
             onClick={() => onSearch(inputValue)}
@@ -131,8 +124,8 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
             {boardPage[language]?.write}
           </button>
         </div>
-      </div>
-      <div className="w-full flex flex-col items-center mb-5">
+      </section>
+      <section className="w-full flex flex-col items-center mb-5">
         <div className="w-4/5 h-16 border-x-0 border-y-2 border-black mt-12 flex items-center">
           <div className="w-24 font-bold pl-10"></div>
           <div className="w-2/5 font-bold flex justify-center">
@@ -177,10 +170,10 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
               </div>
             </div>
           ))
-        ) : (
-          <></>
-        )}
-      </div>
+        ) : 
+          null
+        }
+      </section>
       <div className="w-full flex justify-center">
         <Pagination
           currentPage={currentPage}

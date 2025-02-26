@@ -37,6 +37,7 @@ const Pagination: React.FC<Props> = ({
     <div className="flex items-center justify-center space-x-2 mb-5">
       {/* 이전 버튼 (공간 유지) */}
       <button
+        aria-label={`${paginationPage[language]?.prev}`}
         className="border px-3 py-1 min-w-[60px] text-center"
         onClick={() => onPageChange(prevPage)}
         style={{ visibility: prevPage ? "visible" : "hidden" }}
@@ -61,6 +62,7 @@ const Pagination: React.FC<Props> = ({
 
       {/* 다음 버튼 (공간 유지) */}
       <button
+        aria-label={`${paginationPage[language]?.next}`}
         className="border px-3 py-1 min-w-[60px] text-center"
         onClick={() => onPageChange(nextPage)}
         style={{ visibility: nextPage ? "visible" : "hidden" }}

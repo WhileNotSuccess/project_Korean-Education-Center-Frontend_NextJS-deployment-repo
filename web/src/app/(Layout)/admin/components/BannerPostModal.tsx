@@ -41,12 +41,12 @@ export default function BannerPostModal({ onClose }: ModalProps) {
     }
   };
   return createPortal(
-    <div
+    <dialog
       id="popup-modal"
       tabIndex={-1}
       className="fixed inset-0 z-50 flex justify-center items-center bg-black bg-opacity-50"
     >
-      <div className="relative p-4 w-full max-w-md bg-white rounded-lg shadow-lg">
+      <article className="relative p-4 w-full max-w-md bg-white rounded-lg shadow-lg">
         <button
           onClick={onClose}
           className="absolute top-3 right-3 text-gray-400 hover:text-gray-600"
@@ -134,8 +134,8 @@ export default function BannerPostModal({ onClose }: ModalProps) {
             업로드
           </button>
         </div>
-      </div>
-    </div>,
+      </article>
+    </dialog>,
     document.body
   );
 }

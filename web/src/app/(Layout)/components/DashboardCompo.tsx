@@ -43,13 +43,13 @@ export default function DashboardCompo() {
 
 useEffect(()=>{console.log(submittedDocuments)},[submittedDocuments])
   if (!user) {
-    return <div>로딩 중이거나 사용자 정보가 없습니다.</div>;
+    return <h2>로딩 중이거나 사용자 정보가 없습니다.</h2>;
   }
 
   return (
     
-    <div className="w-full min-h-screen flex flex-col items-center bg-gray-50 py-10">
-      <div className="w-full max-w-3xl bg-white p-8 rounded-lg shadow-lg space-y-6">
+    <article className="w-full min-h-screen flex flex-col items-center bg-gray-50 py-10">
+      <section className="w-full max-w-3xl bg-white p-8 rounded-lg shadow-lg space-y-6">
         <div className="flex flex-col sm:flex-row justify-between items-center mb-6">
           <div className="flex flex-col sm:flex-row items-center space-x-2 mb-4 sm:mb-0">
             <h2 className="text-2xl font-semibold">{user.name} 님의 정보</h2>
@@ -72,21 +72,21 @@ useEffect(()=>{console.log(submittedDocuments)},[submittedDocuments])
           </div>
         </div>
 
-        <div className="space-y-4">
+        <section className="space-y-4">
           <h3 className="text-xl font-semibold">제출한 서류</h3>
           <div className="space-y-2">
             {submittedDocuments.map((doc) => (
-              <div key={doc.Id} className="p-3 bg-blue-50 rounded-md shadow-sm">
+              <article key={doc.Id} className="p-3 bg-blue-50 rounded-md shadow-sm">
                 <p className="font-medium">{doc.course} 서류</p>
                 <p className="text-sm text-gray-600">{new Date(doc.createdDate).toLocaleDateString()}</p>
                 <p className="text-sm text-gray-600">{doc.isDone ? '제출 완료' : '제출 미완료'}</p>
-              </div>
+              </article>
             ))}
           </div>
-        </div>
-      </div>
+        </section>
+      </section>
 
       <NameChangeModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
-    </div>
+    </article>
   );
 }

@@ -41,18 +41,23 @@ export default function AdminComponent({ category }: AdminComponentProps) {
       getCounseling();
     }, []);
     return (
-      <>
-        <h1 className="text-3xl mb-4 font-bold text-center">상담 신청 확인</h1>
-        <div className="flex flex-row flex-wrap ">
+      <section>
+        <header>
+          <h1 className="text-3xl mb-4 font-bold text-center">상담 신청 확인</h1>
+        </header>
+
+        <ul className="flex flex-row flex-wrap ">
           {counselingList.map((item) => {
             return (
-              <div key={item.id}>
-                <CounselingItem {...item} />
-              </div>
+              <li key={item.id}>
+                <article>
+                  <CounselingItem {...item} />
+                </article>
+              </li>
             );
           })}
-        </div>
-      </>
+        </ul>
+      </section>
     );
   } else if (category === "applications") {
     useEffect(() => {
@@ -63,19 +68,24 @@ export default function AdminComponent({ category }: AdminComponentProps) {
       getApplications();
     }, []);
     return (
-      <>
-        <h1 className="text-3xl mb-4 font-bold text-center">서류 확인</h1>
-        <div className="flex flex-row flex-wrap ">
+      <section>
+        <header>
+          <h1 className="text-3xl mb-4 font-bold text-center">서류 확인</h1>
+        </header>
+
+        <ul className="flex flex-row flex-wrap ">
           {applications.map((item) => {
             console.log(applications);
             return (
-              <div key={item.id}>
-                <ApplicationFormItem {...item} />
-              </div>
+              <li key={item.id}>
+                <article>
+                  <ApplicationFormItem {...item} />
+                </article>
+              </li>
             );
           })}
-        </div>
-      </>
+        </ul>
+      </section>
     );
   } else if (category === "banner") {
     useEffect(() => {
@@ -86,7 +96,7 @@ export default function AdminComponent({ category }: AdminComponentProps) {
       getBanners();
     }, []);
     return (
-      <>
+      <section>
         {bannerPostModal ? (
           <BannerPostModal
             onClose={() => {
@@ -94,7 +104,9 @@ export default function AdminComponent({ category }: AdminComponentProps) {
             }}
           />
         ) : null}
-        <h1 className="text-3xl mb-4 font-bold text-center">배너</h1>
+        <header>
+          <h1 className="text-3xl mb-4 font-bold text-center">배너</h1>
+        </header>
         <div className="w-full">
           <button
             onClick={() => {
@@ -105,16 +117,18 @@ export default function AdminComponent({ category }: AdminComponentProps) {
             배너 추가
           </button>
         </div>
-        <div className="flex flex-row flex-wrap ">
+        <ul className="flex flex-row flex-wrap ">
           {banners.map((item) => {
             return (
-              <div key={item.id}>
-                <BannerItem {...item} />
-              </div>
+              <li key={item.id}>
+                <article>
+                  <BannerItem {...item} />
+                </article>
+              </li>
             );
           })}
-        </div>
-      </>
+        </ul>
+      </section>
     );
   } else if (category === "staff") {
     useEffect(() => {
@@ -126,7 +140,7 @@ export default function AdminComponent({ category }: AdminComponentProps) {
       getStaff();
     }, []);
     return (
-      <>
+      <section>
         {staffPostModal && (
           <StaffModal
             onClose={() => {
@@ -151,19 +165,27 @@ export default function AdminComponent({ category }: AdminComponentProps) {
           </h1>
 
           {teacher.map((item) => {
-            return <StaffComponent key={item.name} {...item} />;
+            return(
+            <article>   
+            <StaffComponent key={item.name} {...item} />
+            </article>
+            )
           })}
           {staff.map((item) => {
-            return <StaffComponent key={item.name} {...item} />;
+            return (
+            <article>
+            <StaffComponent key={item.name} {...item} />
+            </article>
+            )
           })}
         </div>
-      </>
+      </section>
     );
   } else {
     return (
-      <div className="w-full h-screen flex justify-center items-center">
+      <section className="w-full h-screen flex justify-center items-center">
         <BoardPageCompo name={category} />
-      </div>
+      </section>
     );
   }
 }

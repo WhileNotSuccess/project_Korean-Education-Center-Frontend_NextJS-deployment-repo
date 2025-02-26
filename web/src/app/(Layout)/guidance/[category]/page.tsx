@@ -1,10 +1,11 @@
 import { guidanceMenu } from "@/app/menu"
 import HtmlDocs from "../../components/HtmlDocs"
+import { Language } from "@/app/common/types"
 
 
 interface GuidancePageProps {
   params : {
-  category : keyof typeof guidanceMenu["korean"] // 
+  category : keyof typeof guidanceMenu[Language] // 
   // category : string 
   }
 }

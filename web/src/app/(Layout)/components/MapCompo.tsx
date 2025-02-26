@@ -50,5 +50,5 @@ export default function MapCompo() {
     };
   }, []);
 
-  return <div id="map" style={{ width: "70%", height: "160%" }}></div>;
+  return <section id="map" style={{ width: "70%", height: "160%" }}></section>;
 }

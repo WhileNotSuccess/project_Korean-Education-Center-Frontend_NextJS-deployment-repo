@@ -1,43 +1,37 @@
-"use client";
-
+'use client'
 import { useEffect, useState } from "react";
 import useCustomFetch from "@/app/lib/customFetch";
-import {
-  guidanceMenu,
-  getError,
-  editorCompo,
-  deleteSuccess,
-  deleteError,
-  fileError,
-  locationMap,
-} from "../../menu";
+import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
 import parser from "html-react-parser";
 import {
   HtmlDocsProps,
   Language,
   ServerDocumentFile,
+  UserInfo,
 } from "@/app/common/types";
-import Cookies from "js-cookie";
-import { useRouter } from "next/navigation";
+import {
+  getError,
+  deleteSuccess,
+  deleteError,
+  editorCompo,
+  locationMap,
+  guidanceMenu,
+} from "../../menu";
 import MapCompo from "./MapCompo";
 
 export default function HtmlDocs(props: HtmlDocsProps) {
-  const [allData, setAllData] = useState<{
-    content: string;
-    title: string;
-    documentFiles: ServerDocumentFile[];
-    guidanceId: string;
-    author: string;
-    createdDate: string;
-  }>({
+  const [allData, setAllData] = useState({
     content: "",
     title: "",
-    documentFiles: [],
+    documentFiles: [] as ServerDocumentFile[],
     guidanceId: "",
     author: "",
     createdDate: "",
   });
 
+  const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
+  const [isAdmin, setIsAdmin] = useState(false);
   const customFetch = useCustomFetch();
   const router = useRouter();
   const [language, setLanguage] = useState<Language>(Language.korean);
@@ -50,7 +44,7 @@ export default function HtmlDocs(props: HtmlDocsProps) {
   }, []);
 
   useEffect(() => {
-    const introData = async () => {
+    const fetchData = async () => {
       try {
         const endpoint = props.id
           ? `/posts?id=${props.id}`
@@ -70,22 +64,22 @@ export default function HtmlDocs(props: HtmlDocsProps) {
         console.error(getError[language]?.htmlError);
       }
     };
-    introData();
-  }, []);
 
-  const handleFileDownload = async (filename: string) => {
-    try {
-      const response = await customFetch(`/attachments/${filename}`, {
-        method: "GET",
-      });
+    const fetchUserInfo = async () => {
+      try {
+        const userData = await customFetch("/users/info");
+        setUserInfo(userData);
 
-      if (!response) {
-        throw new Error(fileError[language]?.Error);
+        const adminData = await customFetch("/users");
+        setIsAdmin(adminData.result);
+      } catch (error) {
+        console.error("유저 정보 불러오기 실패:", error);
       }
-    } catch (error) {
-      alert(fileError[language]?.Error);
-    }
-  };
+    };
+
+    fetchData();
+    fetchUserInfo();
+  }, []);
 
   const onUpdate = (guidanceId?: string) => {
     router.push(`/post-update/${guidanceId ?? props.id}`);
@@ -104,25 +98,27 @@ export default function HtmlDocs(props: HtmlDocsProps) {
     }
   };
 
+  const canEditOrDelete = isAdmin || userInfo?.name === allData.author;
+
   return (
-    <div className="w-full h-screen">
+    <main className="w-full h-screen">
       <div className="h-12"></div>
 
-      <div className="w-full flex justify-center">
+      <section className="w-full flex justify-center">
         {props.category ? (
-          <div
+          <header
             className="w-full flex justify-center items-center font-bold text-3xl"
             style={{ height: "200px" }}
           >
             {guidanceMenu[language]?.[props.category]}
-          </div>
+          </header>
         ) : (
-          <div className="w-11/12 flex flex-col mt-4">
+          <article className="w-11/12 flex flex-col mt-4">
             <div className="flex justify-between items-center border-t-2 border-blue-400 pt-2">
               <div className="text-lg font-bold">{allData.title}</div>
             </div>
 
-            <div className="text-sm mt-2 border-b-2 pb-2 flex items-center">
+            <section className="text-sm mt-2 border-b-2 pb-2 flex items-center">
               <img src="/images/author.png" className="w-4 h-4 mr-2" />
               <div>{allData.author}</div>
               <img
@@ -130,9 +126,9 @@ export default function HtmlDocs(props: HtmlDocsProps) {
                 className="w-4 h-4 ml-4 mr-2"
               />
               <div>{allData.createdDate.substring(0, 10)}</div>
-            </div>
+            </section>
 
-            <div className="border-b-2 pb-2 pt-2">
+            <section className="border-b-2 pb-2 pt-2">
               {allData.documentFiles.length > 0 ? (
                 allData.documentFiles.map((item) => (
                   <div key={item.id} className="flex items-center">
@@ -141,11 +137,11 @@ export default function HtmlDocs(props: HtmlDocsProps) {
                       className="w-4 h-4 mr-2"
                     />
                     <button
-                      onClick={() => {
+                      onClick={() =>
                         router.push(
                           `${process.env.NEXT_PUBLIC_BACKEND_URL}/${item.filename}`
-                        );
-                      }}
+                        )
+                      }
                       className="text-blue-600 hover:underline"
                     >
                       {item.filename}
@@ -153,53 +149,53 @@ export default function HtmlDocs(props: HtmlDocsProps) {
                   </div>
                 ))
               ) : (
-                <div className="mt-2">첨부파일이 없습니다.</div>
+                <p className="mt-2">{getError[language]?.noFile}</p>
               )}
-            </div>
+            </section>
 
-            <div className="flex space-x-4 ml-auto mt-2">
-              <button
-                className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
-                onClick={() => onUpdate(allData.guidanceId)}
-              >
-                {props.category
-                  ? editorCompo[language]?.write
-                  : editorCompo[language]?.update}
-              </button>
-              <button
-                className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
-                onClick={() => onDelete(allData.guidanceId)}
-              >
-                {editorCompo[language]?.delete}
-              </button>
-            </div>
-          </div>
+            {canEditOrDelete && (
+              <div className="flex space-x-4 ml-auto mt-2">
+                <button
+                  className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+                  onClick={() => onUpdate(allData.guidanceId)}
+                >
+                  {editorCompo[language]?.update}
+                </button>
+                <button
+                  className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
+                  onClick={() => onDelete(allData.guidanceId)}
+                >
+                  {editorCompo[language]?.delete}
+                </button>
+              </div>
+            )}
+          </article>
         )}
-      </div>
+      </section>
 
       {props.category === "directions" && (
         <>
-          <div
+          <section
             className="w-full mt-4 flex justify-center"
             style={{ height: "400px", overflow: "hidden" }}
           >
             <MapCompo />
-          </div>
-          <div className="w-full mt-0 flex justify-center">
+          </section>
+          <section className="w-full mt-0 flex justify-center">
             <div className="w-[70%] bg-[#5592e7] p-4 mb-10">
               <div className="text-left text-white text-lg font-bold">
                 {locationMap[language]["main-campus"]}
               </div>
             </div>
-          </div>
+          </section>
         </>
       )}
 
-      <div className="w-full h-screen flex justify-center">
+      <section className="w-full flex justify-center">
         <div className="w-3/5">
-          <div className="flex flex-wrap">{parser(allData.content)}</div>
+          <div className="prose w-full break-words">{parser(allData.content)}</div>
         </div>
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }

@@ -19,7 +19,7 @@ export default function LoginCompo() {
   }, []);
 
   return (
-    <div>
+    <section>
       {!user ? (
         <Link href={"/login"} className="text-white font-bold hover:underline">
           {LoginCompoMenu[language].Login}
@@ -32,6 +32,6 @@ export default function LoginCompo() {
           &nbsp;&nbsp; {user.name}님
         </Link>
       )}
-    </div>
+    </section>
   );
 }

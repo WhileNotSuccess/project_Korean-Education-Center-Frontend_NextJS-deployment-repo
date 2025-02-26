@@ -11,7 +11,6 @@ type SelectTabProps = {
 
 export default function SelectTabPage({ params }: SelectTabProps) {
   const { category } = params;
-
   const categoryTab = categoryMap[category];
 
   return (

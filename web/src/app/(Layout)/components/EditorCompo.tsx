@@ -6,10 +6,9 @@ import {
   postError,
   postSuccess,
   categoryList,
-  deleteError,
-  deleteSuccess,
   updateSuccess,
   updateError,
+  postLanguageList
 } from "@/app/menu";
 import Cookies from "js-cookie";
 import useCustomFormFetch from "@/app/lib/customFormFetch";
@@ -36,7 +35,9 @@ export default function EditorComponent(props: EditorProps) {
   const customFormFetch = useCustomFormFetch();
   const customFetch = useCustomFetch();
   const [category, setCategory] = useState<string>(props.categoryName || "");
-  const router = useRouter();
+  const router = useRouter()
+  const [postLanguage, setPostLanguage] = useState("korean")
+  const [isAdmin, setIsAdmin] = useState(false)
   const [language, setLanguage] = useState<Language>(Language.korean);
 
   useEffect(() => {
@@ -69,13 +70,26 @@ export default function EditorComponent(props: EditorProps) {
     oldPost();
   }, [props.id]);
 
+  useEffect(()=>{
+    const fetchUserInfo = async () => {
+      try {
+        const adminData = await customFetch("/users");
+        setIsAdmin(adminData.result);
+      } catch (error) {
+        console.error("유저 정보 불러오기 실패:", error);
+      }
+    };
+    fetchUserInfo()
+  },[])
+
   const submit = async () => {
+    console.log(category)
     try {
       const formData = new FormData();
       formData.append("title", title);
       formData.append("content", content);
       formData.append("category", category);
-      formData.append("language", language);
+      {isAdmin ? formData.append("language", postLanguage) : formData.append("language", language)}
 
       // 첨부파일이 있다면, FormData에 추가
       documentFiles.forEach((file) => {
@@ -93,12 +107,13 @@ export default function EditorComponent(props: EditorProps) {
   };
 
   const update = async () => {
+    console.log(category)
     try {
       const formData = new FormData();
       formData.append("title", title);
       formData.append("content", content);
       formData.append("category", category);
-      formData.append("language", language);
+      {isAdmin ? formData.append("language", postLanguage) : formData.append("language", language)}
       formData.append("deleteFilePath", JSON.stringify(deleteFileNames));
       documentFiles.forEach((file) => {
         formData.append("files", file); // 문서 파일도 함께 전송
@@ -156,8 +171,8 @@ export default function EditorComponent(props: EditorProps) {
   };
 
   return (
-    <div className="w-full flex justify-center">
-      <div style={{ width: "60%" }} className="mt-4">
+    <main className="w-full flex justify-center">
+      <section style={{ width: "60%" }} className="mt-4">
         <form>
           <div className="flex">
             <div>
@@ -167,6 +182,21 @@ export default function EditorComponent(props: EditorProps) {
               >
                 Your Email
               </label>
+            </div>
+            <div className="relative w-full">
+              <input
+                type="search"
+                id="search-dropdown"
+                className="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg rounded-s-gray-100 rounded-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
+                placeholder="Title"
+                required
+                onChange={(e) => setTitle(e.target.value)}
+                value={title}
+              />
+            </div>
+          </div>
+          {isAdmin ?
+              <div className="w-full flex justify-between border">
               <select
                 className="shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-e-0 border-gray-300 dark:border-gray-700 dark:text-white rounded-s-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
                 value={category}
@@ -183,57 +213,61 @@ export default function EditorComponent(props: EditorProps) {
                   </option>
                 ))}
               </select>
-            </div>
-            <div className="relative w-full">
-              <input
-                type="search"
-                id="search-dropdown"
-                className="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg rounded-s-gray-100 rounded-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
-                placeholder="Title"
-                required
-                onChange={(e) => setTitle(e.target.value)}
-                value={title}
-              />
-            </div>
-          </div>
+    
+          <select
+          className="border rounded-sm cursor-pointer"
+          value={postLanguage}
+          onChange={(e)=>setPostLanguage(e.target.value)}>
+          {
+            postLanguageList[language].map((item)=>{
+              return(
+                <option
+                key={item.key}
+                value={item.key}
+              >
+                {item.value}
+              </option>                
+              )
+            })
+          }
+          </select></div> : null}
         </form>
-        <div className="w-[50%] border">
-          <input
-            type="file"
-            accept=".*"
-            multiple
-            onChange={handleDocumentFileChange}
-          />
-          <ul>
-            {documentFileNames &&
-              documentFileNames.map((fileName, index) => (
-                <div
-                  key={index}
-                  className={`flex justify-between items-center ${
-                    deleteFileNames.includes(fileName) ? "hidden" : ""
-                  }`}
-                >
-                  <div className="flex flex-rows items-center">
-                    <img
-                      src="/images/attachfile.png"
-                      className="size-4 flex justify-center items-center mr-4"
-                    />
-                    <li>
-                      {fileName.match(/^\d{8}-\d{6}_/)
-                        ? fileName.substring(16)
-                        : fileName}
-                    </li>
-                  </div>
-                  <img
-                    src="/images/X버튼.png"
-                    className="size-4 cursor-pointer"
-                    onClick={() => addDeleteFileName(fileName)}
-                  />
-                </div>
-              ))}
-          </ul>
-        </div>
 
+        <div className="w-full flex justify-between items-center">
+        <section className="w-[50%] border">
+        <input
+          type="file"
+          accept=".*"
+          multiple
+          onChange={handleDocumentFileChange}
+        />
+        <ul>
+          {documentFileNames &&
+            documentFileNames.map((fileName, index) => (
+              <div
+                key={index}
+                className={`flex justify-between items-center ${
+                  deleteFileNames.includes(fileName) ? "hidden" : ""
+                }`}
+              ><div className="flex flex-rows items-center">
+                <img src="/images/attachfile.png" className="size-4 flex justify-center items-center mr-4"/>
+                <li>
+                  {fileName.match(/^\d{8}-\d{6}_/)
+                    ? fileName.substring(16)
+                    : fileName}
+                </li>
+                </div>
+                <img
+                  src="/images/X버튼.png"
+                  className="size-4 cursor-pointer"
+                  onClick={() => addDeleteFileName(fileName)}
+                />
+              </div>
+            ))}
+        </ul>
+        </section>
+        </div>
+      <section>
         <Editor
           tinymceScriptSrc={"/tinymce/tinymce.min.js"}
           id="tinymce-editor"
@@ -278,7 +312,7 @@ export default function EditorComponent(props: EditorProps) {
           style={{ display: "none" }}
           id="imageInput"
         />
-
+        </section>
         {props.id ? (
           <button
             className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 mt-4"
@@ -294,7 +328,7 @@ export default function EditorComponent(props: EditorProps) {
             {editorCompo[language]?.submit}
           </button>
         )}
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }

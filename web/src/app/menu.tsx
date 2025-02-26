@@ -31,7 +31,7 @@ export const smallMenu: Record<Language, Record<string, string>> = {
   [Language.korean]: {
     centerIntro: "한국어교육센터 소개",
     howToGetHere: "오시는길",
-    staffIntro: "강사진 및 교직원 소개",
+    "staff-intro": "강사진 및 교직원 소개",
     "korean-curriculum": "한국어교육과정",
     "open-campus": "오픈캠퍼스",
     internationalReview: "유학생 후기",
@@ -125,6 +125,7 @@ export const homePage: Record<Language, Record<string, string>> = {
     download: "다운로드",
     "applied-to": "입학신청",
     "recruitment-guidelines": "모집요강",
+    "Application-Form" : "입학신청서",
     faq: "FAQ",
     review: "유학생 후기",
     footerAddress:
@@ -417,6 +418,7 @@ export const boardPage: Record<Language, Record<string, string>> = {
     write: "작성",
     number: "순번",
     author: "작성자",
+    writeTitle : "제목을 입력하세요"
   },
   [Language.japanese]: {
     notice: "お知らせ",
@@ -450,6 +452,8 @@ export const getError: Record<Language, Record<string, string>> = {
     htmlError: "해당 게시글을 불러올 수 없습니다.",
     bannerError: "배너를 불러올 수 없습니다.",
     newsError: "소식을 불러올 수 없습니다.",
+    entranceApplicationError : "모집요강 및 입학신청를 불러올 수 없습니다.",
+    searchBoardError : "검색된 게시글들을 불러올 수 없습니다."
   },
   [Language.japanese]: {
     staffError: "スタッフおよび職員情報を読み込めませんでした。",
@@ -486,6 +490,7 @@ export const postError: Record<Language, Record<string, string>> = {
 export const deleteError: Record<Language, Record<string, string>> = {
   [Language.korean]: {
     delete: "글 삭제에 실패했습니다",
+    userError : "로그인 후 이용하셔야 합니다."
   },
   [Language.japanese]: {
     delete: "投稿の削除に失敗しました。",
@@ -624,3 +629,38 @@ export const LoginCompoMenu: Record<Language, Record<string, string>> = {
     Login: "Login",
   },
 };
+
+export const Hamburger : Record<Language, { topMenu: string; subMenu:{address : string, name: string}[] }[]> = {
+  [Language.korean] : [
+    {topMenu : "센터소개", subMenu: [
+      {address:"/guidance/introduction",name:"한국어교육센터 소개"},
+      {address:"/guidance/directions",name:"오시는길"},
+      {address:"/staff-intro",name:"강사진 및 교직원 소개"}]},
+    {topMenu : "과정소개", subMenu: [
+      {address:"/select/korean-curriculum",name:"한국어교육과정"},
+      {address:"/select/open-campus",name:"오픈캠퍼스"},
+      {address:"/board/review",name:"유학생 후기"}]},
+    {topMenu : "신청", subMenu: [
+      {address:"/select/applied-to",name:"입학 신청"},
+      {address:"/form/counseling",name:"상담 신청"},
+      {address:"/board/application-form",name:"신청 서류"},
+      {address:"/guidance/visa",name:"비자 안내"}]},
+    {topMenu : "학교생활", subMenu: [
+      {address:"/guidance/dormitory",name:"기숙사 안내"},
+      {address:"/guidance/facility",name:"학교 시설 안내"},
+      {address:"/board/learning-materials",name:"학습 자료 안내"},
+      {address:"/guidance/insurance",name:"건강 보험 안내"}]},
+    {topMenu : "알림/공지", subMenu: [
+      {address:"/board/notice",name:"공지사항"},
+      {address:"/board/news",name:"한국어교육센터 알림"},
+      {address:"/board/faq",name:"FAQ"}]},
+  ]
+}
+
+export const postLanguageList : Record<Language, { key: string; value: string }[]> = {
+  [Language.korean] :  [
+    { key: "korean", value: "한국어" },
+    { key: "japanese", value: "일본어" },
+    { key: "english", value: "영어" },
+  ]
+}
