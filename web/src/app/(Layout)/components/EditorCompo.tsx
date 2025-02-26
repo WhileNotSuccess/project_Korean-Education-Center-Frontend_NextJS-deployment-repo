@@ -83,7 +83,11 @@ export default function EditorComponent(props: EditorProps) {
   },[])
 
   const submit = async () => {
-    console.log(category)
+    if( title === "" ){
+      alert(editorCompo[language].needInputTitle)
+    } else if( content === "") {
+      alert(editorCompo[language].needInputContent)
+    } else {
     try {
       const formData = new FormData();
       formData.append("title", title);
@@ -105,9 +109,10 @@ export default function EditorComponent(props: EditorProps) {
       alert(postError[language]?.subError);
     }
   };
+}
 
   const update = async () => {
-    console.log(category)
+    
     try {
       const formData = new FormData();
       formData.append("title", title);
