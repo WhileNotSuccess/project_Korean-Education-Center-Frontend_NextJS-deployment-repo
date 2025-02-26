@@ -250,6 +250,14 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
               모집요강
             </a>
           </li>
+          <li className="mb-4">
+            <a
+              href="/admin/applicants"
+              className="w-full text-left text-lg text-[#0093EE]"
+            >
+              입학신청서
+            </a>
+          </li>
         </ul>
       </aside>
 

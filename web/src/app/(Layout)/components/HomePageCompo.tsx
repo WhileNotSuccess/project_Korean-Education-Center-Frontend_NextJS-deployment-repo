@@ -34,7 +34,6 @@ interface Applicants {
 export default function HomePageCompo() {
   const [banner, setBanner] = useState<BannerType[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const language: Language = (Cookies.get("language") as Language) || "korean";
   const customFetch = useCustomFetch();
   const router = useRouter();
   const sliderRef = useRef<HTMLDivElement>(null); // 슬라이더 div 참조
@@ -44,7 +43,14 @@ export default function HomePageCompo() {
   const itemRef = useRef<HTMLDivElement>(null); // 슬라이더 내부 각 div의 길이 참조용
   const [itemWidth, setItemWidth] = useState(0); // 내부 각 div 길이 변수
   const [entranceApplication, setEntranceApplication] = useState<Applicants>()
+  const [language, setLanguage] = useState<Language>(Language.korean);
 
+  useEffect(() => {
+    const savedLanguage = Cookies.get("language") as Language;
+    if (savedLanguage) {
+      setLanguage(savedLanguage);
+    }
+  }, []);
   useEffect(() => {
     const newsData = async () => {
       try {

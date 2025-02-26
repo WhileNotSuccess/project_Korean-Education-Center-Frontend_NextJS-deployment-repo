@@ -21,13 +21,20 @@ export default function SelectTabComponent({
   const customFetch = useCustomFetch();
   const customFormFetch = useCustomFormFetch();
   const [content, setContent] = useState<string>(" ");
-  const language: Language = (Cookies.get("language") as Language) || "korean";
   const [selectedTab, setSelectedTab] = useState<string>("");
   const [file, setFile] = useState<Array<File>>([]);
   const [documentFileNames, setDocumentFileNames] = useState<Array<string>>([]); // 파일 이름 리스트
   const [aplicationName, setAplicationName] = useState("");
   const [selectedCourse, setSelectedCourse] = useState(""); // 기본값 설정
   const [deleteFileNames, setDeleteFileNames] = useState<Array<string>>([]); // 삭제할 파일 이름 리스트
+  const [language, setLanguage] = useState<Language>(Language.korean);
+
+  useEffect(() => {
+    const savedLanguage = Cookies.get("language") as Language;
+    if (savedLanguage) {
+      setLanguage(savedLanguage);
+    }
+  }, []);
   const [courseOptions, setCourseOptions] = useState<Array<{ course: string }>>(
     [
       // 하드코딩된 과정 옵션
