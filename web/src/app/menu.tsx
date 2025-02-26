@@ -1,4 +1,4 @@
-import { Language,  MenuType } from "./common/types";
+import { Language, MenuType } from "./common/types";
 
 export const menu: Record<Language, Record<string, string>> = {
   // 예시메뉴
@@ -91,8 +91,8 @@ export const editorCompo: Record<Language, Record<string, string>> = {
     insert: "삽입",
     format: "서식",
     table: "테이블",
-    needInputTitle : "제목을 입력해주세요",
-    needInputContent : "내용을 입력해주세요",
+    needInputTitle: "제목을 입력해주세요",
+    needInputContent: "내용을 입력해주세요",
   },
   [Language.japanese]: {
     submit: "提出",
@@ -126,7 +126,7 @@ export const homePage: Record<Language, Record<string, string>> = {
     download: "다운로드",
     "applied-to": "입학신청",
     "recruitment-guidelines": "모집요강",
-    "Application-Form" : "입학신청서",
+    "Application-Form": "입학신청서",
     faq: "FAQ",
     review: "유학생 후기",
     footerAddress:
@@ -170,17 +170,16 @@ export const updateError: Record<Language, Record<string, string>> = {
 };
 
 export const serverError: Record<Language, Record<string, string>> = {
-  [Language.korean] : {
-    server : "서버 오류가 발생했습니다.",
+  [Language.korean]: {
+    server: "서버 오류가 발생했습니다.",
   },
-  [Language.english] : {
-
+  [Language.english]: {
+    server: "A server error has occurred.",
   },
-  [Language.japanese] : {
-  
+  [Language.japanese]: {
+    server: "サーバーエラーが発生しました。",
   },
-  
-}
+};
 
 export const postSuccess: Record<Language, Record<string, string>> = {
   [Language.korean]: {
@@ -436,7 +435,7 @@ export const boardPage: Record<Language, Record<string, string>> = {
     write: "작성",
     number: "순번",
     author: "작성자",
-    writeTitle : "제목을 입력하세요"
+    writeTitle: "제목을 입력하세요",
   },
   [Language.japanese]: {
     notice: "お知らせ",
@@ -470,8 +469,8 @@ export const getError: Record<Language, Record<string, string>> = {
     htmlError: "해당 게시글을 불러올 수 없습니다.",
     bannerError: "배너를 불러올 수 없습니다.",
     newsError: "소식을 불러올 수 없습니다.",
-    entranceApplicationError : "모집요강 및 입학신청를 불러올 수 없습니다.",
-    searchBoardError : "검색된 게시글들을 불러올 수 없습니다."
+    entranceApplicationError: "모집요강 및 입학신청를 불러올 수 없습니다.",
+    searchBoardError: "검색된 게시글들을 불러올 수 없습니다.",
   },
   [Language.japanese]: {
     staffError: "スタッフおよび職員情報を読み込めませんでした。",
@@ -508,7 +507,7 @@ export const postError: Record<Language, Record<string, string>> = {
 export const deleteError: Record<Language, Record<string, string>> = {
   [Language.korean]: {
     delete: "글 삭제에 실패했습니다",
-    userError : "로그인 후 이용하셔야 합니다."
+    userError: "로그인 후 이용하셔야 합니다.",
   },
   [Language.japanese]: {
     delete: "投稿の削除に失敗しました。",
@@ -641,8 +640,8 @@ export const LoginCompoMenu: Record<Language, Record<string, string>> = {
     Login: "로그인",
     register: "회원가입",
     welcome: "영진전문대학교 한국어교육센터 방문을 환영합니다.",
-    inputId : "아이디 입력",
-    inputPassWord : "비밀번호 입력",
+    inputId: "아이디 입력",
+    inputPassWord: "비밀번호 입력",
   },
   [Language.japanese]: {
     Login: "ログイン",
@@ -652,14 +651,11 @@ export const LoginCompoMenu: Record<Language, Record<string, string>> = {
   },
 };
 
-
-
-export const TermsAgreementMenu : Record<Language, Record<string, string>> = {
-
-  [Language.korean] : {
-    MainTermOfUse : "약관 동의",
-    TermOfUse : "이용약관 동의 (필수)",
-    TermOfUseContent : `본인은 [영진전문대학교] 의 교육 서비스를 이용하기 위해 다음과 같은 약관에 동의합니다.
+export const TermsAgreementMenu: Record<Language, Record<string, string>> = {
+  [Language.korean]: {
+    MainTermOfUse: "약관 동의",
+    TermOfUse: "이용약관 동의 (필수)",
+    TermOfUseContent: `본인은 [영진전문대학교] 의 교육 서비스를 이용하기 위해 다음과 같은 약관에 동의합니다.
 1. 이용약관의 목적
 본 약관은 [영진전문대학교](이하 "영진전문대학교")에서 제공하는 교육 서비스 이용에 관한 사항을 규정하는 것을 목적으로 합니다.
 
@@ -677,8 +673,8 @@ export const TermsAgreementMenu : Record<Language, Record<string, string>> = {
 
 5. 이용 계약의 해지
 학생이 약관을 위반하거나 부정한 방법으로 서비스를 이용할 경우, 학교는 이용 계약을 해지할 수 있습니다.`,
-informationConsent : '개인정보 처리방침 동의 (필수)',
-informationConsentContext : `개인정보 처리방침 동의서
+    informationConsent: "개인정보 처리방침 동의 (필수)",
+    informationConsentContext: `개인정보 처리방침 동의서
 
 [영진전문대학교](이하 "영진전문대학교")는 학생들의 개인정보 보호를 매우 중요하게 생각하며, 다음과 같은 개인정보 처리방침을 시행합니다. 본인은 본 개인정보 처리방침에 동의합니다.
 
@@ -702,189 +698,469 @@ informationConsentContext : `개인정보 처리방침 동의서
 
 7. 개인정보 처리방침의 변경
 학교는 개인정보 처리방침을 수시로 변경할 수 있으며, 변경된 사항은 학교의 웹사이트를 통해 공지됩니다.
-
 `,
-next: '다음',
-},
-[Language.english] : {
-
-},
-[Language.japanese] : {
-
-},
-
-}
-
-export const RegisterCompoMenu : Record<Language, Record<string, string>> = {
-  [Language.korean] : {
-    inputName : "한국어교육센터에서 사용할 이름을 입력해주세요.",
-    register : "회원가입",
-    namePlaceHolder : "이름",
-    emailPlaceHolder : "이메일",
-    passWordPlaceHolder : "비밀번호",
+    next: "다음",
   },
+  [Language.english]: {
+    MainTermOfUse: "Terms Agreement",
+    TermOfUse: "Agreement to Terms of Use (Required)",
+    TermOfUseContent: `I agree to the following terms to use the educational services of [Youngjin University].
 
-  [Language.english] : {
+1. Purpose of the Terms of Use
+These terms and conditions govern the use of educational services provided by [Youngjin University] (hereinafter referred to as "Youngjin University").
 
-  },
-  [Language.japanese] : {
+2. Obligations of the User
+The user must not infringe on the rights of others while using the school's educational services and must comply with the school's rules and guidelines.
 
-  },
+3. Service Usage
+The school provides educational services to students and may provide the necessary materials and information. The rights and responsibilities related to service usage are fulfilled as specified in these terms.
 
-}
+4. Limitation of Liability
+The school is not responsible for service unavailability due to unavoidable circumstances such as natural disasters.
 
-export const FormComponentMenu : Record<Language, Record<string, string>> = {
-  [Language.korean] : {
-    applicationSuccess : "상담 신청이 완료되었습니다.",
-    applicationfail : "상담 신청에 실패했습니다.",
-  },
-  [Language.english] : {
+5. Changes to Terms
+The school may change these terms at any time, and the updated terms will be notified through the official school website.
 
-  },
-  [Language.japanese] : {
-  
-  },
-  
-}
+6. Termination of Agreement
+The school may terminate the agreement if the student violates the terms or uses the service inappropriately.`,
+    informationConsent: "Agreement to Privacy Policy (Required)",
+    informationConsentContext: `Privacy Policy Agreement
 
-export const DashboardCompoMenu : Record<Language, Record<string, string>> = {
-  [Language.korean] : {
-    loadingOrNotFoundUser : "로딩 중이거나 사용자 정보가 없습니다.",
-    userInfomation : "님의 정보",
-    nameChange : "이름 변경",
-    connectGoogle : "구글 연동",
-    submitDocument : "제출한 서류",
-    submitComplete  : "제출 완료",
-    submitIncomplete : "제출 미완료",
-  },
-  [Language.english] : {
+[Youngjin University] (hereinafter referred to as "Youngjin University") takes the protection of student personal information very seriously and implements the following privacy policy. I agree to this privacy policy.
 
-  },
-  [Language.japanese] : {
-  
-  },
-  
-}
+1. Information Collected
+The school collects student information such as name, date of birth, contact details, email address, and academic records.
 
-export const NameChangeModalMenu : Record<Language, Record<string, string>> = {
-  [Language.korean] : {
-    successNameChange : "이름이 성공적으로 변경되었습니다.",
-    failNameChange : "이름 변경에 실패했습니다.",
-    nameChangeError : "이름 변경 중 오류가 발생했습니다",
-    nameChange : "이름 변경",
-    save : "저장",
-    cancel : "취소",
-    newNameInput : "새로운 이름 입력"
-  },
-  [Language.english] : {
+2. Purpose of Information Collection
+The school uses the collected personal information for academic management, providing educational services, and delivering notices.
 
-  },
-  [Language.japanese] : {
-  
-  },
-  
-}
+3. Retention and Use of Information
+The student's personal information will be retained until the end of the educational program and will be immediately destroyed, except where required by law.
 
-export const NeedLinkCompoMenu : Record<Language, Record<string, string>> = {
-  [Language.korean] : {
-    notConnectGoogle : "해당 이메일로 가입되어있는 계정이 있지만, 구글 연동은 되어있지 않습니다.\n기존 계정으로 로그인 후, 마이페이지에서 구글 연동을 진행해주세요",
-    connectGoogleGuide : "구글 연동 절차 안내",
-    step1 : "기존 계정으로 로그인한 후 이름을 클릭해 마이페이지로 이동합니다.",
-    step2 : "마이페이지에서 '구글 연동' 옵션을 찾아 연동을 진행합니다.",
-    step3 : "구글 로그인창으로 이동해 로그인합니다.",
-    step4 : "홈페이지로 돌아왔다면 구글 연동이 완료됩니다."
-  },
-  [Language.english] : {
+4. Provision of Information to Third Parties
+The school does not provide personal information to third parties, except when required by law.
 
-  },
-  [Language.japanese] : {
-  
-  },
-  
-}
+5. Protection of Information
+The school takes necessary technical and administrative measures to protect the student's personal information.
 
-export const SelectPageCompoMenu : Record<Language, Record<string, string>> = {
-  [Language.korean] : {
-    failLoadPosts : "해당 게시글을 불러올 수 없습니다.",
-    failLoadContent : "내용을 불러올 수 없습니다.",
-    failLoadCourse : "지원과정 목록을 불러올 수 없습니다.",
-    failLoadUserInfo : "유저 정보를 불러오는데 실패했습니다.",
-    needLogin : "로그인이 필요합니다.",
-    needFile : "파일을 첨부해주세요.",
-    needPhoneNumber : "전화번호를 입력해주세요.",
-    needCourse : "지원과정을 선택해주세요.",
-    loadingCourse : "지원과정을 불러오는 중...",
-    submit : "제출",
-    inputPhoneNumber : "전화번호를 입력하세요.",
-  },
-  [Language.english] : {
+6. Rights Regarding Information Processing
+Students can request to view, modify, or delete their personal information at any time by contacting the school's privacy management department.
 
+7. Changes to Privacy Policy
+The school may change the privacy policy at any time, and changes will be announced on the school's website.`,
+    next: "Next",
   },
-  [Language.japanese] : {
-  
-  },
-  
-}
+  [Language.japanese]: {
+    MainTermOfUse: "利用規約同意",
+    TermOfUse: "利用規約同意（必須）",
+    TermOfUseContent: `私は[Youngjin University]の教育サービスを利用するために、以下の規約に同意します。
 
-export const AuthMenu : Record<Language, Record<string, string>> = {
-  [Language.korean] : {
-    LoadError : "데이터를 불러오는데 실패했습니다."
-  },
-  [Language.english] : {
+1. 利用規約の目的
+本規約は、[Youngjin University]（以下「Youngjin University」）が提供する教育サービスの利用に関する事項を規定することを目的とします。
 
-  },
-  [Language.japanese] : {
-  
-  },
-  
-  }
+2. 利用者の義務
+利用者は、学校の教育サービスを利用する際、他人の権利を侵害せず、学校の規則と指針を遵守しなければなりません。
 
+3. サービス利用
+学校は学生に教育サービスを提供し、必要な資料や情報を提供することがあります。サービス利用に関する権利と義務は本規約に従って履行されます。
 
-export const Hamburger : Record<Language, { topMenu: string; subMenu:{address : string, name: string}[] }[]> = {
-  [Language.korean] : [
-    {topMenu : "센터소개", subMenu: [
-      {address:"/guidance/introduction",name:"한국어교육센터 소개"},
-      {address:"/guidance/directions",name:"오시는길"},
-      {address:"/staff-intro",name:"강사진 및 교직원 소개"}]},
-    {topMenu : "과정소개", subMenu: [
-      {address:"/select/korean-curriculum",name:"한국어교육과정"},
-      {address:"/select/open-campus",name:"오픈캠퍼스"},
-      {address:"/board/review",name:"유학생 후기"}]},
-    {topMenu : "신청", subMenu: [
-      {address:"/select/applied-to",name:"입학 신청"},
-      {address:"/form/counseling",name:"상담 신청"},
-      {address:"/board/application-form",name:"신청 서류"},
-      {address:"/guidance/visa",name:"비자 안내"}]},
-    {topMenu : "학교생활", subMenu: [
-      {address:"/guidance/dormitory",name:"기숙사 안내"},
-      {address:"/guidance/facility",name:"학교 시설 안내"},
-      {address:"/board/learning-materials",name:"학습 자료 안내"},
-      {address:"/guidance/insurance",name:"건강 보험 안내"}]},
-    {topMenu : "알림/공지", subMenu: [
-      {address:"/board/notice",name:"공지사항"},
-      {address:"/board/news",name:"한국어교육센터 알림"},
-      {address:"/board/faq",name:"FAQ"}]},
+4. 責任の制限
+学校は天災などの不可抗力によってサービス提供が不可能になった場合、その責任を負いません。
+
+5. 規約の変更
+学校はいつでも本規約を変更することができ、変更された規約は学校の公式ウェブサイトで通知されます。
+
+6. 利用契約の解除
+学生が規約に違反したり、不正な方法でサービスを利用した場合、学校は利用契約を解除することがあります。`,
+    informationConsent: "個人情報保護方針同意（必須）",
+    informationConsentContext: `個人情報保護方針同意書
+
+[Youngjin University]（以下「Youngjin University」）は、学生の個人情報の保護を非常に重要視しており、以下の個人情報保護方針を実施しています。本方針に同意します。
+
+1. 収集する個人情報
+学校は、学生の名前、生年月日、連絡先、メールアドレス、学籍情報などを収集します。
+
+2. 収集目的
+学校は収集した個人情報を、学生の学業管理、教育サービスの提供、通知案内などの目的で使用します。
+
+3. 個人情報の保有および利用期間
+学生の個人情報は、該当する教育プログラムが終了するまで保持され、その後、法的義務を除き、速やかに破棄されます。
+
+4. 第三者への提供
+学校は学生の個人情報を第三者に提供することはなく、法的要求がある場合に限り提供されることがあります。
+
+5. 情報保護
+学校は学生の個人情報を安全に保護するために必要な技術的および管理的措置を講じています。
+
+6. 個人情報処理に関する権利
+学生は、いつでも自分の個人情報の閲覧、修正、削除を要求することができ、その手続きは学校の個人情報管理部門に問い合わせて処理できます。
+
+7. 個人情報保護方針の変更
+学校は個人情報保護方針を変更することがあり、変更された事項は学校のウェブサイトを通じて通知されます。`,
+    next: "次へ",
+  },
+};
+
+export const RegisterCompoMenu: Record<Language, Record<string, string>> = {
+  [Language.korean]: {
+    inputName: "한국어교육센터에서 사용할 이름을 입력해주세요.",
+    register: "회원가입",
+    namePlaceHolder: "이름",
+    emailPlaceHolder: "이메일",
+    passWordPlaceHolder: "비밀번호",
+  },
+  [Language.english]: {
+    inputName:
+      "Please enter the name to be used at the Korean Language Education Center.",
+    register: "Register",
+    namePlaceHolder: "Name",
+    emailPlaceHolder: "Email",
+    passWordPlaceHolder: "Password",
+  },
+  [Language.japanese]: {
+    inputName: "韓国語教育センターで使用する名前を入力してください。",
+    register: "登録",
+    namePlaceHolder: "名前",
+    emailPlaceHolder: "メール",
+    passWordPlaceHolder: "パスワード",
+  },
+};
+
+export const FormComponentMenu: Record<Language, Record<string, string>> = {
+  [Language.korean]: {
+    applicationSuccess: "상담 신청이 완료되었습니다.",
+    applicationfail: "상담 신청에 실패했습니다.",
+  },
+  [Language.english]: {
+    applicationSuccess: "The consultation application has been completed.",
+    applicationfail: "Failed to apply for consultation.",
+  },
+  [Language.japanese]: {
+    applicationSuccess: "相談申請が完了しました。",
+    applicationfail: "相談申請に失敗しました。",
+  },
+};
+
+export const DashboardCompoMenu: Record<Language, Record<string, string>> = {
+  [Language.korean]: {
+    loadingOrNotFoundUser: "로딩 중이거나 사용자 정보가 없습니다.",
+    userInfomation: "님의 정보",
+    nameChange: "이름 변경",
+    connectGoogle: "구글 연동",
+    submitDocument: "제출한 서류",
+    submitComplete: "제출 완료",
+    submitIncomplete: "제출 미완료",
+  },
+  [Language.english]: {
+    loadingOrNotFoundUser: "Loading or no user information found.",
+    userInfomation: "'s Information",
+    nameChange: "Change Name",
+    connectGoogle: "Connect Google",
+    submitDocument: "Submitted Documents",
+    submitComplete: "Submission Complete",
+    submitIncomplete: "Submission Incomplete",
+  },
+  [Language.japanese]: {
+    loadingOrNotFoundUser: "読み込み中またはユーザー情報がありません。",
+    userInfomation: "の情報",
+    nameChange: "名前変更",
+    connectGoogle: "Google連携",
+    submitDocument: "提出した書類",
+    submitComplete: "提出完了",
+    submitIncomplete: "提出未完了",
+  },
+};
+
+export const NameChangeModalMenu: Record<Language, Record<string, string>> = {
+  [Language.korean]: {
+    successNameChange: "이름이 성공적으로 변경되었습니다.",
+    failNameChange: "이름 변경에 실패했습니다.",
+    nameChangeError: "이름 변경 중 오류가 발생했습니다",
+    nameChange: "이름 변경",
+    save: "저장",
+    cancel: "취소",
+    newNameInput: "새로운 이름 입력",
+  },
+  [Language.english]: {
+    successNameChange: "Name has been successfully changed.",
+    failNameChange: "Failed to change name.",
+    nameChangeError: "An error occurred while changing the name.",
+    nameChange: "Change Name",
+    save: "Save",
+    cancel: "Cancel",
+    newNameInput: "Enter new name",
+  },
+  [Language.japanese]: {
+    successNameChange: "名前が正常に変更されました。",
+    failNameChange: "名前の変更に失敗しました。",
+    nameChangeError: "名前変更中にエラーが発生しました。",
+    nameChange: "名前変更",
+    save: "保存",
+    cancel: "キャンセル",
+    newNameInput: "新しい名前を入力",
+  },
+};
+
+export const NeedLinkCompoMenu: Record<Language, Record<string, string>> = {
+  [Language.korean]: {
+    notConnectGoogle:
+      "해당 이메일로 가입되어있는 계정이 있지만, 구글 연동은 되어있지 않습니다.\n기존 계정으로 로그인 후, 마이페이지에서 구글 연동을 진행해주세요",
+    connectGoogleGuide: "구글 연동 절차 안내",
+    step1: "기존 계정으로 로그인한 후 이름을 클릭해 마이페이지로 이동합니다.",
+    step2: "마이페이지에서 '구글 연동' 옵션을 찾아 연동을 진행합니다.",
+    step3: "구글 로그인창으로 이동해 로그인합니다.",
+    step4: "홈페이지로 돌아왔다면 구글 연동이 완료됩니다.",
+  },
+  [Language.english]: {
+    notConnectGoogle:
+      "An account is registered with this email, but Google is not linked.\nPlease log in with the existing account and link Google from the My Page.",
+    connectGoogleGuide: "Google linking procedure guide",
+    step1:
+      "Log in with the existing account, then click your name to go to My Page.",
+    step2:
+      "Find the 'Google Linking' option on My Page and proceed with the linking.",
+    step3: "Go to the Google login page and log in.",
+    step4: "Once you return to the homepage, Google linking will be completed.",
+  },
+  [Language.japanese]: {
+    notConnectGoogle:
+      "このメールアドレスで登録されたアカウントがありますが、Google連携はされていません。\n既存のアカウントでログイン後、マイページでGoogle連携を行ってください。",
+    connectGoogleGuide: "Google連携手順ガイド",
+    step1:
+      "既存のアカウントでログインした後、名前をクリックしてマイページに移動します。",
+    step2: "マイページで「Google連携」オプションを見つけて連携を進めます。",
+    step3: "Googleログインページに移動してログインします。",
+    step4: "ホームページに戻ると、Google連携が完了します。",
+  },
+};
+
+export const SelectPageCompoMenu: Record<Language, Record<string, string>> = {
+  [Language.korean]: {
+    failLoadPosts: "해당 게시글을 불러올 수 없습니다.",
+    failLoadContent: "내용을 불러올 수 없습니다.",
+    failLoadCourse: "지원과정 목록을 불러올 수 없습니다.",
+    failLoadUserInfo: "유저 정보를 불러오는데 실패했습니다.",
+    needLogin: "로그인이 필요합니다.",
+    needFile: "파일을 첨부해주세요.",
+    needPhoneNumber: "전화번호를 입력해주세요.",
+    needCourse: "지원과정을 선택해주세요.",
+    loadingCourse: "지원과정을 불러오는 중...",
+    submit: "제출",
+    inputPhoneNumber: "전화번호를 입력하세요.",
+  },
+  [Language.english]: {
+    failLoadPosts: "Unable to load the post.",
+    failLoadContent: "Unable to load the content.",
+    failLoadCourse: "Unable to load the course list.",
+    failLoadUserInfo: "Failed to load user information.",
+    needLogin: "Login is required.",
+    needFile: "Please attach a file.",
+    needPhoneNumber: "Please enter a phone number.",
+    needCourse: "Please select a course.",
+    loadingCourse: "Loading courses...",
+    submit: "Submit",
+    inputPhoneNumber: "Enter phone number.",
+  },
+  [Language.japanese]: {
+    failLoadPosts: "その投稿を読み込むことができません。",
+    failLoadContent: "内容を読み込むことができません。",
+    failLoadCourse: "サポートコースのリストを読み込むことができません。",
+    failLoadUserInfo: "ユーザー情報の読み込みに失敗しました。",
+    needLogin: "ログインが必要です。",
+    needFile: "ファイルを添付してください。",
+    needPhoneNumber: "電話番号を入力してください。",
+    needCourse: "コースを選択してください。",
+    loadingCourse: "コースを読み込んでいます...",
+    submit: "提出",
+    inputPhoneNumber: "電話番号を入力してください。",
+  },
+};
+
+export const AuthMenu: Record<Language, Record<string, string>> = {
+  [Language.korean]: {
+    LoadError: "데이터를 불러오는데 실패했습니다.",
+  },
+  [Language.english]: {
+    LoadError: "Failed to load data.",
+  },
+  [Language.japanese]: {
+    LoadError: "データの読み込みに失敗しました。",
+  },
+};
+
+export const Hamburger: Record<
+  Language,
+  { topMenu: string; subMenu: { address: string; name: string }[] }[]
+> = {
+  [Language.korean]: [
+    {
+      topMenu: "센터소개",
+      subMenu: [
+        { address: "/guidance/introduction", name: "한국어교육센터 소개" },
+        { address: "/guidance/directions", name: "오시는길" },
+        { address: "/staff-intro", name: "강사진 및 교직원 소개" },
+      ],
+    },
+    {
+      topMenu: "과정소개",
+      subMenu: [
+        { address: "/select/korean-curriculum", name: "한국어교육과정" },
+        { address: "/select/open-campus", name: "오픈캠퍼스" },
+        { address: "/board/review", name: "유학생 후기" },
+      ],
+    },
+    {
+      topMenu: "신청",
+      subMenu: [
+        { address: "/select/applied-to", name: "입학 신청" },
+        { address: "/form/counseling", name: "상담 신청" },
+        { address: "/board/application-form", name: "신청 서류" },
+        { address: "/guidance/visa", name: "비자 안내" },
+      ],
+    },
+    {
+      topMenu: "학교생활",
+      subMenu: [
+        { address: "/guidance/dormitory", name: "기숙사 안내" },
+        { address: "/guidance/facility", name: "학교 시설 안내" },
+        { address: "/board/learning-materials", name: "학습 자료 안내" },
+        { address: "/guidance/insurance", name: "건강 보험 안내" },
+      ],
+    },
+    {
+      topMenu: "알림/공지",
+      subMenu: [
+        { address: "/board/notice", name: "공지사항" },
+        { address: "/board/news", name: "한국어교육센터 알림" },
+        { address: "/board/faq", name: "FAQ" },
+      ],
+    },
   ],
-  [Language.english] : [
-
+  [Language.english]: [
+    {
+      topMenu: "Center Introduction",
+      subMenu: [
+        {
+          address: "/guidance/introduction",
+          name: "Korean Language Education Center Introduction",
+        },
+        { address: "/guidance/directions", name: "Directions" },
+        { address: "/staff-intro", name: "Faculty and Staff Introduction" },
+      ],
+    },
+    {
+      topMenu: "Course Introduction",
+      subMenu: [
+        {
+          address: "/select/korean-curriculum",
+          name: "Korean Language Curriculum",
+        },
+        { address: "/select/open-campus", name: "Open Campus" },
+        { address: "/board/review", name: "International Student Reviews" },
+      ],
+    },
+    {
+      topMenu: "Application",
+      subMenu: [
+        { address: "/select/applied-to", name: "Application for Admission" },
+        { address: "/form/counseling", name: "Counseling Application" },
+        { address: "/board/application-form", name: "Application Documents" },
+        { address: "/guidance/visa", name: "Visa Information" },
+      ],
+    },
+    {
+      topMenu: "School Life",
+      subMenu: [
+        { address: "/guidance/dormitory", name: "Dormitory Information" },
+        {
+          address: "/guidance/facility",
+          name: "School Facilities Information",
+        },
+        {
+          address: "/board/learning-materials",
+          name: "Learning Materials Information",
+        },
+        {
+          address: "/guidance/insurance",
+          name: "Health Insurance Information",
+        },
+      ],
+    },
+    {
+      topMenu: "Notifications/Announcements",
+      subMenu: [
+        { address: "/board/notice", name: "Notices" },
+        {
+          address: "/board/news",
+          name: "Korean Language Education Center Announcements",
+        },
+        { address: "/board/faq", name: "FAQ" },
+      ],
+    },
   ],
-  [Language.japanese] : [
-
+  [Language.japanese]: [
+    {
+      topMenu: "センター紹介",
+      subMenu: [
+        { address: "/guidance/introduction", name: "韓国語教育センター紹介" },
+        { address: "/guidance/directions", name: "アクセス" },
+        { address: "/staff-intro", name: "教員およびスタッフ紹介" },
+      ],
+    },
+    {
+      topMenu: "コース紹介",
+      subMenu: [
+        { address: "/select/korean-curriculum", name: "韓国語教育課程" },
+        { address: "/select/open-campus", name: "オープンキャンパス" },
+        { address: "/board/review", name: "留学生レビュー" },
+      ],
+    },
+    {
+      topMenu: "申請",
+      subMenu: [
+        { address: "/select/applied-to", name: "入学申請" },
+        { address: "/form/counseling", name: "カウンセリング申請" },
+        { address: "/board/application-form", name: "申請書類" },
+        { address: "/guidance/visa", name: "ビザ案内" },
+      ],
+    },
+    {
+      topMenu: "学校生活",
+      subMenu: [
+        { address: "/guidance/dormitory", name: "寮案内" },
+        { address: "/guidance/facility", name: "学校施設案内" },
+        { address: "/board/learning-materials", name: "学習資料案内" },
+        { address: "/guidance/insurance", name: "健康保険案内" },
+      ],
+    },
+    {
+      topMenu: "お知らせ/通知",
+      subMenu: [
+        { address: "/board/notice", name: "お知らせ" },
+        { address: "/board/news", name: "韓国語教育センターのお知らせ" },
+        { address: "/board/faq", name: "FAQ" },
+      ],
+    },
   ],
-  
-}
+};
 
-export const postLanguageList : Record<Language, { key: string; value: string }[]> = {
-  [Language.korean] :  [
+export const postLanguageList: Record<
+  Language,
+  { key: string; value: string }[]
+> = {
+  [Language.korean]: [
     { key: "korean", value: "한국어" },
     { key: "japanese", value: "일본어" },
     { key: "english", value: "영어" },
   ],
-  [Language.english] : [
-
+  [Language.english]: [
+    { key: "korean", value: "Korean" },
+    { key: "japanese", value: "Japanese" },
+    { key: "english", value: "English" },
   ],
-[Language.japanese] : [
-
-],
-
-}
+  [Language.japanese]: [
+    { key: "korean", value: "韓国語" },
+    { key: "japanese", value: "日本語" },
+    { key: "english", value: "英語" },
+  ],
+};
