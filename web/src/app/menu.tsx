@@ -138,6 +138,7 @@ export const homePage: Record<Language, Record<string, string>> = {
     download: "ダウンロード",
     "applied-to": "入学申請",
     "recruitment-guidelines": "募集要項",
+    "Application-Form": "入学申請書",
     faq: "FAQ",
     review: "留学生の声",
     footerAddress:
@@ -149,6 +150,7 @@ export const homePage: Record<Language, Record<string, string>> = {
     download: "Download",
     "applied-to": "Application for Admission",
     "recruitment-guidelines": "Admission Guidelines",
+    "Application-Form": "Application for Admission",
     faq: "FAQ",
     review: "International Student Reviews",
     footerAddress:
