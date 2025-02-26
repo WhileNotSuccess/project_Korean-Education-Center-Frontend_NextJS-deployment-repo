@@ -22,18 +22,28 @@ export default function FormComponent(props: CategoryProps) {
 
   const customFetch = useCustomFetch();
 
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+    if (name === 'phone') {
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: formatPhoneNumber(value)
+      }))
+    } else {
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: value
+      }));
+    }
+    
+    
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // 사용자가 선택한 날짜를 KST 형식으로 받기 때문에, 이를 UTC로 변환합니다.
+    
     const localDate = new Date(formData.date); 
     const utcDate = new Date(localDate.getTime());
 
@@ -42,7 +52,7 @@ export default function FormComponent(props: CategoryProps) {
       name: formData.name,
       phone: formData.phone,
       email: formData.email,
-      schedule: utcDate.toISOString(), // UTC 형식으로 변환된 날짜
+      schedule: utcDate.toISOString(),
     };
 
     try {
@@ -52,7 +62,7 @@ export default function FormComponent(props: CategoryProps) {
         body: JSON.stringify(requestData),
       });
 
-      if (response.success) {
+      if (!response.error) {
         alert(FormComponentMenu[language].applicationSuccess);
       } else {
         alert(FormComponentMenu[language].applicationfail);
@@ -63,6 +73,13 @@ export default function FormComponent(props: CategoryProps) {
     }
   };
 
+
+  const formatPhoneNumber = (value: string) => {
+    const numbers = value.replace(/\D/g, ""); 
+    if (numbers.length <= 3) return numbers;
+    if (numbers.length <= 7) return `${numbers.slice(0, 3)}-${numbers.slice(3)}`;
+    return `${numbers.slice(0, 3)}-${numbers.slice(3, 7)}-${numbers.slice(7, 11)}`;
+  };
   return (
     <div className="w-full h-screen flex flex-col items-center">
       {/* 상담 신청 제목 */}

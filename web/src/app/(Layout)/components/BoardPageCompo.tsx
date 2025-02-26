@@ -26,6 +26,7 @@ export default function  BoardPageCompo({ name }: BoardPageProps) {
   const [totalPage, setTotalPage] = useState<number>(0);
   const language: Language = (Cookies.get("language") as Language) || "korean";
   const [adminCheck, setAdminCheck] = useState<Boolean>(false);
+  const [userCheck, setUserCheck] = useState<Boolean>(false);
   const router = useRouter()
   const [inputValue, setInputValue] = useState("")
 
@@ -55,16 +56,26 @@ export default function  BoardPageCompo({ name }: BoardPageProps) {
 
 
   useEffect(()=> {
-    async function check() {
+    async function admincheck() {
       const response = await customFetch("/users");
     if(response && response.result) {
       setAdminCheck(true)
     }
     }
-    check();
+    admincheck();
     console.log(adminCheck)
   },[]);
   
+  useEffect(()=> {
+    async function usercheck() {
+      const response = await customFetch("/users/info");
+    if(response && response.id) {
+      setUserCheck(true)
+    }
+    }
+    usercheck();
+    console.log(userCheck);
+  },[]);
 
   const onPageChange = (page: number) => {
     if (page > 0 && page <= totalPage) {
@@ -133,7 +144,7 @@ export default function  BoardPageCompo({ name }: BoardPageProps) {
           </button>
         </div>
         <div className="w-3/5 flex justify-center">
-        {name === "review" || name === "faq" || adminCheck ? (
+        {(name === "review" || name === "faq") && ( adminCheck || userCheck ) ? (
         <button 
         className="w-16 bg-[#0093EE] text-white" 
         onClick={() => onWrite(name)}
