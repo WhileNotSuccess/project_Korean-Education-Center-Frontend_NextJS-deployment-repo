@@ -76,6 +76,7 @@ export default function EditorComponent(props: EditorProps) {
   },[])
 
   const submit = async () => {
+    console.log(category)
     try {
       const formData = new FormData();
       formData.append("title", title);
@@ -99,6 +100,7 @@ export default function EditorComponent(props: EditorProps) {
   };
 
   const update = async () => {
+    console.log(category)
     try {
       const formData = new FormData();
       formData.append("title", title);
@@ -171,6 +173,21 @@ export default function EditorComponent(props: EditorProps) {
               >
                 Your Email
               </label>
+            </div>
+            <div className="relative w-full">
+              <input
+                type="search"
+                id="search-dropdown"
+                className="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg rounded-s-gray-100 rounded-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
+                placeholder="Title"
+                required
+                onChange={(e) => setTitle(e.target.value)}
+                value={title}
+              />
+            </div>
+          </div>
+          {isAdmin ?
+              <div className="w-full flex justify-between border">
               <select
                 className="shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-e-0 border-gray-300 dark:border-gray-700 dark:text-white rounded-s-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
                 value={category}
@@ -187,19 +204,24 @@ export default function EditorComponent(props: EditorProps) {
                   </option>
                 ))}
               </select>
-            </div>
-            <div className="relative w-full">
-              <input
-                type="search"
-                id="search-dropdown"
-                className="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg rounded-s-gray-100 rounded-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
-                placeholder="Title"
-                required
-                onChange={(e) => setTitle(e.target.value)}
-                value={title}
-              />
-            </div>
-          </div>
+    
+          <select
+          className="border rounded-sm cursor-pointer"
+          value={postLanguage}
+          onChange={(e)=>setPostLanguage(e.target.value)}>
+          {
+            postLanguageList[language].map((item)=>{
+              return(
+                <option
+                key={item.key}
+                value={item.key}
+              >
+                {item.value}
+              </option>                
+              )
+            })
+          }
+          </select></div> : null}
         </form>
         <div className="w-full flex justify-between items-center">
         <section className="w-[50%] border">
@@ -235,7 +257,7 @@ export default function EditorComponent(props: EditorProps) {
         </ul>
         </section>
 
-        <section>
+        {/* <section>
           {isAdmin ? 
           <select
           className="border rounded-sm cursor-pointer"
@@ -254,7 +276,7 @@ export default function EditorComponent(props: EditorProps) {
             })
           }
           </select> : null}
-        </section>
+        </section> */}
         </div>
       <section>
         <Editor
