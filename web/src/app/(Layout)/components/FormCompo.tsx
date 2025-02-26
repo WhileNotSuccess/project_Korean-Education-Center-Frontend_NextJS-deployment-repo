@@ -87,7 +87,7 @@ export default function FormComponent() {
   };
 
   return (
-    <main className="w-full h-screen flex flex-col items-center">
+    <main className="w-full flex flex-col items-center">
       {/* 상담 신청 제목 */}
       <header className="w-full flex justify-center items-center font-bold text-3xl mt-12">
         {counselingForm[language]?.counseling}

@@ -19,7 +19,14 @@ type Props = {
 export default function BoardDataMapCompo (props : Props) {
   const [data, setData] = useState<BoardData[]>([])
   const customFetch = useCustomFetch()
-  const language: Language = (Cookies.get("language") as Language) || "korean";
+  const [language, setLanguage] = useState<Language>(Language.korean);
+
+  useEffect(() => {
+    const savedLanguage = Cookies.get("language") as Language;
+    if (savedLanguage) {
+      setLanguage(savedLanguage);
+    }
+  }, []);
 
   useEffect(()=>{ 
     const BoardData = async() =>{

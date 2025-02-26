@@ -1,14 +1,21 @@
 'use client'
 
 import { NeedLinkCompoMenu } from "@/app/menu";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Language } from "@/app/common/types";
 import Cookies from "js-cookie";
 
 export default function NeedLinkCompo() {
 
 
-  const language: Language = (Cookies.get('language') as Language) || 'korean';
+  const [language, setLanguage] = useState<Language>(Language.korean);
+
+  useEffect(() => {
+    const savedLanguage = Cookies.get("language") as Language;
+    if (savedLanguage) {
+      setLanguage(savedLanguage);
+    }
+  }, []);
 
   useEffect(() => {
     alert(
@@ -17,7 +24,7 @@ export default function NeedLinkCompo() {
   }, []);
 
   return (
-    <div className="w-full min-h-screen bg-gradient-to-t from-blue-100 to-blue-300 flex flex-col items-center py-12 space-y-12 overflow-y-auto">
+    <div className="w-full bg-gradient-to-t from-blue-100 to-blue-300 flex flex-col items-center py-12 space-y-12 overflow-y-auto">
       <h1 className="text-3xl font-extrabold text-white mb-6">{NeedLinkCompoMenu[language].connectGoogleGuide}</h1>
 
       <div className="flex flex-col items-center w-full max-w-2xl bg-white p-8 rounded-xl shadow-xl space-y-6">

@@ -201,7 +201,7 @@ export default function AdminComponent({ category }: AdminComponentProps) {
     );
   } else {
     return (
-      <div className="w-full h-screen flex justify-center items-center">
+      <div className="w-full flex justify-center items-center">
         <BoardPageCompo name={category} />
       </div>
     );

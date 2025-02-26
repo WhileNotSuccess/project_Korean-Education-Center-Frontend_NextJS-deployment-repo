@@ -7,7 +7,7 @@ import DashboardCompo from "../components/DashboardCompo";
 export default function Home() {
   const router = useRouter();
   return (
-    <div className="w-full h-screen">
+    <div className="w-full">
       <DashboardCompo/>      
     </div>
   );

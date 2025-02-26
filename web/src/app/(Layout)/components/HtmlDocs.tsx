@@ -101,7 +101,7 @@ export default function HtmlDocs(props: HtmlDocsProps) {
   const canEditOrDelete = isAdmin || userInfo?.name === allData.author;
 
   return (
-    <main className="w-full h-screen">
+    <main className="w-full">
       <div className="h-12"></div>
 
       <section className="w-full flex justify-center">

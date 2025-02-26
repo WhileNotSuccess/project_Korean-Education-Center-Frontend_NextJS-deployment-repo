@@ -130,7 +130,7 @@ export default function SelectTabComponent({
   };
 
   return (
-    <main className="w-full h-screen">
+    <main className="w-full">
       {/* 카테고리 제목 표시 */}
       <header className="h-12 border-b flex items-center justify-center mb-4">
         <div className="text-3xl font-bold">{selectMenu[language]?.[name]}</div>

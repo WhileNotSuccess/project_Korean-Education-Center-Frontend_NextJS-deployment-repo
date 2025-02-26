@@ -14,7 +14,7 @@ export default function SelectTabPage({ params }: SelectTabProps) {
   const categoryTab = categoryMap[category];
 
   return (
-    <div className="w-full h-screen flex justify-center items-center">
+    <div className="w-full flex justify-center items-center">
       <SelectTabComponent name={category} categoryTab={categoryTab} />
     </div>
   );

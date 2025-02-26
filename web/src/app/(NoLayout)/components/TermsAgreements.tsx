@@ -8,7 +8,14 @@ import Cookies from "js-cookie";
 
 export default function TermsAgreement() {
   const router = useRouter();
-  const language: Language = (Cookies.get("language") as Language) || "korean";
+  const [language, setLanguage] = useState<Language>(Language.korean);
+
+  useEffect(() => {
+    const savedLanguage = Cookies.get("language") as Language;
+    if (savedLanguage) {
+      setLanguage(savedLanguage);
+    }
+  }, []);
 
   const [agreements, setAgreements] = useState({
     terms: false,

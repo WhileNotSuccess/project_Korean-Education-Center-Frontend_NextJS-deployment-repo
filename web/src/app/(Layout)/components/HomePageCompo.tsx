@@ -154,7 +154,7 @@ export default function HomePageCompo() {
   };
 
   return (
-    <div className="w-full h-screen flex flex-wrap">
+    <div className="w-full flex flex-wrap">
       <div className="relative w-full h-3 max-w-[2000px] h-auto overflow-hidden shadow-lg">
         <section>
           <div
@@ -398,7 +398,7 @@ export default function HomePageCompo() {
         </div>
       </div>
 
-      <footer className="w-full h-36 bg-[#0072ba] mt-24"></footer>
+      {/* <footer className="w-full h-36 bg-[#0072ba] mt-24"></footer>
       <div className="w-full flex justify-center py-8">
         <img
           src="https://kcenter.yju.ac.kr/kr/wp-content/uploads/sites/2/2023/05/logo.png"
@@ -408,7 +408,7 @@ export default function HomePageCompo() {
           <address>{homePage[language]?.footerAddress}</address>
           <div>{homePage[language]?.footerCallEmail}</div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

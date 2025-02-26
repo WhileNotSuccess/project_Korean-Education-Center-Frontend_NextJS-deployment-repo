@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useCustomFetch from "../../lib/customFetch"; 
 import Cookies from "js-cookie"; 
 import { useRouter } from "next/navigation";
@@ -14,9 +14,16 @@ export default function RegisterCompo() {
   const [name, setName] = useState<string>("");
   const [error, setError] = useState<string>("");
   const [message, setMessage] = useState<string>("");
-  const language: Language = (Cookies.get("language") as Language) || "korean";
+  const [language, setLanguage] = useState<Language>(Language.korean);
   const router = useRouter();
   const customFetch = useCustomFetch();
+
+  useEffect(() => {
+    const savedLanguage = Cookies.get("language") as Language;
+    if (savedLanguage) {
+      setLanguage(savedLanguage);
+    }
+  }, []);
 
   const newUser = Cookies.get("new_user") === "true"; // 쿠키값이 "true"일 경우 newUser가 true가 됩니다.
 

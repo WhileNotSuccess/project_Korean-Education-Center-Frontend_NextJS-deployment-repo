@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useCustomFetch from "@/app/lib/customFetch";
 import { NameChangeModalMenu } from "@/app/menu";
 import { Language, NameChangeModalProps } from "@/app/common/types";
@@ -9,7 +9,14 @@ import Cookies from "js-cookie";
 export default function NameChangeModal({ isOpen, onClose }: NameChangeModalProps) {
   const [newName, setNewName] = useState("");
   const customFetch = useCustomFetch();
-  const language: Language = (Cookies.get('language') as Language) || 'korean';
+  const [language, setLanguage] = useState<Language>(Language.korean);
+
+  useEffect(() => {
+    const savedLanguage = Cookies.get("language") as Language;
+    if (savedLanguage) {
+      setLanguage(savedLanguage);
+    }
+  }, []);
 
 
   if (!isOpen) return null;

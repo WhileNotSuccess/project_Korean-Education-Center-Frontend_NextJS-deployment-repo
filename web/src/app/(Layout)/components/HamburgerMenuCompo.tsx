@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Cookies from "js-cookie";
 import { Language } from "@/app/common/types";
 import { Hamburger } from "@/app/menu";
@@ -9,7 +9,14 @@ import Link from "next/link";
 export default function HamburgerMenuCompo (){
   const [menuOpen, setMenuOpen] = useState(false);
   const [openSubMenu, setOpenSubMenu] = useState<number | null>(null); // 현재 열린 subMenu 인덱스
-  const language: Language = (Cookies.get("language") as Language) || "korean";
+  const [language, setLanguage] = useState<Language>(Language.korean);
+
+  useEffect(() => {
+    const savedLanguage = Cookies.get("language") as Language;
+    if (savedLanguage) {
+      setLanguage(savedLanguage);
+    }
+  }, []);
 
   const onMenuOpen = ()=>{
     setMenuOpen(!menuOpen);

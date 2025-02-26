@@ -24,11 +24,18 @@ export default function  BoardPageCompo({ name }: BoardPageProps) {
   const [nextPage, setNextPage] = useState<number>(0); // 다음 페이지
   const [prevPage, setPrevPage] = useState<number>(0); // 이전 페이지
   const [totalPage, setTotalPage] = useState<number>(0);
-  const language: Language = (Cookies.get("language") as Language) || "korean";
   const [adminCheck, setAdminCheck] = useState<Boolean>(false);
   const [userCheck, setUserCheck] = useState<Boolean>(false);
   const router = useRouter()
   const [inputValue, setInputValue] = useState("")
+  const [language, setLanguage] = useState<Language>(Language.korean);
+
+  useEffect(() => {
+    const savedLanguage = Cookies.get("language") as Language;
+    if (savedLanguage) {
+      setLanguage(savedLanguage);
+    }
+  }, []);
 
   // 게시글 불러오기 함수
   const fetchBoard = async (currentPage: number) => {
@@ -108,7 +115,7 @@ export default function  BoardPageCompo({ name }: BoardPageProps) {
   }
 
   return (
-    <div className="w-full h-screen">
+    <div className="w-full">
       <header
         className="w-full flex justify-center items-center font-bold text-3xl"
         style={{ height: "200px" }}
