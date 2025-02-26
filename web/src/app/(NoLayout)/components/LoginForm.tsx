@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import useCustomFetch from "../../lib/customFetch";
 import { useAuth } from "@/app/hook/auth";
@@ -15,7 +15,15 @@ export default function LoginForm() {
   const [error, setError] = useState<string>("");
   const router = useRouter();
   const { login } = useAuth();
-  const language : Language = (Cookies.get("language") as Language) 
+  const [language, setLanguage] = useState<Language>(Language.korean);
+
+  useEffect(() => {
+    const savedLanguage = Cookies.get("language") as Language;
+    if (savedLanguage) {
+      setLanguage(savedLanguage);
+    }
+  }, []);
+  
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 

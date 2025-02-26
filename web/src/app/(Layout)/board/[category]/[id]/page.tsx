@@ -13,7 +13,7 @@ export default function GuidancePage( {params} : GuidancePageProps ){
 
 
   return(
-    <div className="w-full h-screen flex justify-center items-center">
+    <div className="w-full flex justify-center items-center">
       <HtmlDocs id={id}/>
     </div>
   )

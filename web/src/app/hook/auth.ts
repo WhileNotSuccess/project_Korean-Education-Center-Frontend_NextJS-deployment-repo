@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { AuthMenu, serverError } from "../menu";
 import { Language } from "../common/types";
 import Cookies from "js-cookie";
+import { useEffect, useState } from "react";
 
 export const useAuth = () => {
   const {
@@ -36,7 +37,14 @@ export const useAuth = () => {
   );
   const customFetch = useCustomFetch();
   const router = useRouter();
-  const language: Language = (Cookies.get("language") as Language) || "korean";
+  const [language, setLanguage] = useState<Language>(Language.korean);
+
+  useEffect(() => {
+    const savedLanguage = Cookies.get("language") as Language;
+    if (savedLanguage) {
+      setLanguage(savedLanguage);
+    }
+  }, []);
   const login = async (
     payload: LoginBody,
     setError: (error: string) => void

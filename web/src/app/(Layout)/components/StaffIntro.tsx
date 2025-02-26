@@ -14,7 +14,14 @@ export default function StaffIntro({ name }: StaffPageProps) {
   const [teacher, setTeacher] = useState<Teacher[]>([]);
   const [staff, setStaff] = useState<Teacher[]>([]);
   const customFetch = useCustomFetch();
-  const language: Language = (Cookies.get("language") as Language) || "korean";
+  const [language, setLanguage] = useState<Language>(Language.korean);
+
+  useEffect(() => {
+    const savedLanguage = Cookies.get("language") as Language;
+    if (savedLanguage) {
+      setLanguage(savedLanguage);
+    }
+  }, []);
 
 
   useEffect(() => {
@@ -33,7 +40,7 @@ export default function StaffIntro({ name }: StaffPageProps) {
   }, []);
 
   return (
-    <div className="w-full h-screen">
+    <div className="w-full">
       <header className="h-12 border"></header>
       <section
         className="w-full flex justify-center items-center font-bold text-3xl"

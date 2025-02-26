@@ -12,11 +12,18 @@ import { SubmittedDocument } from "@/app/common/types";
 
 export default function DashboardCompo() {
   const { user } = useAuth();
-  const router = useRouter();
-  const language: Language = (Cookies.get('language') as Language) || 'korean';
+  const router = useRouter();  
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [submittedDocuments, setSubmittedDocuments] = useState<SubmittedDocument[]>([]);
   const customFetch = useCustomFetch();
+  const [language, setLanguage] = useState<Language>(Language.korean);
+
+  useEffect(() => {
+    const savedLanguage = Cookies.get("language") as Language;
+    if (savedLanguage) {
+      setLanguage(savedLanguage);
+    }
+  }, []);
 
   const googleConectHandle = () => {
     router.push(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/google/link`);
@@ -46,7 +53,7 @@ useEffect(()=>{console.log(submittedDocuments)},[submittedDocuments])
 
   return (
     
-    <div className="w-full min-h-screen flex flex-col items-center bg-gray-50 py-10">
+    <div className="w-full flex flex-col items-center bg-gray-50 py-10">
       <div className="w-full max-w-3xl bg-white p-8 rounded-lg shadow-lg space-y-6">
         <div className="flex flex-col sm:flex-row justify-between items-center mb-6">
           <div className="flex flex-col sm:flex-row items-center space-x-2 mb-4 sm:mb-0">

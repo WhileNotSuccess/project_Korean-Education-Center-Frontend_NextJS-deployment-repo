@@ -9,6 +9,7 @@ import {
   boardMenu,
   selectMenu,
   counselingForm,
+  homePage,
 } from "../menu";
 import { cookies } from "next/headers";
 import { Language } from "../common/types";
@@ -39,16 +40,10 @@ export default async function RootLayout({
   const language =
     ((await cookies()).get("language")?.value as Language) || Language.korean;
   return (
-    <div className="h-screen w-full flex flex-col">
+    <div className=" w-full flex flex-col">
       <header className="w-full min-h-15 bg-[#0093EE] flex justify-end gap-3 font-bold items-center pr-5">
         <LoginCompo/>
         <SetChangeCookieCompo/>
-        {/* <Link href={"/japan"}>
-          <img src="/images/japan.png" className="w-6 h-4"></img>
-        </Link>
-        <Link href={"/usa"}>
-          <img src="/images/usa.png" className="w-6 h-4"></img>
-        </Link> */}
       </header>
 
       <section className="w-full min-h-25 bg-[#0072BA] flex items-center pl-5 peer sm:justify-center justify-between">
@@ -139,7 +134,20 @@ export default async function RootLayout({
           </div>
         </div>
       </section>
+      <main className="grow w-full">
       {children}
+      </main>
+      <footer className="w-full h-36 bg-[#0072ba] mt-24"></footer>
+      <div className="w-full flex justify-center py-8">
+        <img
+          src="https://kcenter.yju.ac.kr/kr/wp-content/uploads/sites/2/2023/05/logo.png"
+          className="w-48"
+        />
+        <div className="hidden sm:block flex flex-col justify-center whitespace-nowrap font-bold text-sm">
+          <address>{homePage[language]?.footerAddress}</address>
+          <div>{homePage[language]?.footerCallEmail}</div>
+        </div>
+      </div>
     </div>
   );
 }
