@@ -3,6 +3,9 @@ import { default as useSWR } from "swr";
 import useCustomFetch from "../lib/customFetch";
 import { LoginBody } from "../common/types";
 import { useRouter } from "next/navigation";
+import { AuthMenu, serverError } from "../menu";
+import { Language } from "../common/types";
+import Cookies from "js-cookie";
 
 export const useAuth = () => {
   const {
@@ -22,7 +25,7 @@ export const useAuth = () => {
       });
 
       if (!response.ok) {
-        throw new Error("데이터를 불러오는데 실패했습니다.");
+        throw new Error(AuthMenu[language].LoadError);
       }
 
       return response.json();
@@ -33,6 +36,7 @@ export const useAuth = () => {
   );
   const customFetch = useCustomFetch();
   const router = useRouter();
+  const language: Language = (Cookies.get("language") as Language) || "korean";
   const login = async (
     payload: LoginBody,
     setError: (error: string) => void
@@ -49,7 +53,7 @@ export const useAuth = () => {
         router.push("/");
       }
     } catch (err) {
-      setError("서버 오류가 발생했습니다.");
+      setError(serverError[language].server);
     }
   };
 

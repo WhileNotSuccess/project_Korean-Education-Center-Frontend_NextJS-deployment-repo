@@ -16,7 +16,7 @@ type BoardPageProps = {
 };
 
 
-export default function BoardPageCompo({ name }: BoardPageProps) {
+export default function  BoardPageCompo({ name }: BoardPageProps) {
   const customFetch = useCustomFetch();
   const [searchOption, setSearchOption] = useState<string>("title");
   const [boardData, setBoardData] = useState<BoardData[]>([]);
@@ -25,6 +25,7 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
   const [prevPage, setPrevPage] = useState<number>(0); // 이전 페이지
   const [totalPage, setTotalPage] = useState<number>(0);
   const language: Language = (Cookies.get("language") as Language) || "korean";
+  const [adminCheck, setAdminCheck] = useState<Boolean>(false);
   const router = useRouter()
   const [inputValue, setInputValue] = useState("")
 
@@ -51,6 +52,19 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
   useEffect(() => {
     fetchBoard(currentPage);
   }, [currentPage]); // currentPage가 변경될 때마다 데이터를 불러옴
+
+
+  useEffect(()=> {
+    async function check() {
+      const response = await customFetch("/users");
+    if(response && response.result) {
+      setAdminCheck(true)
+    }
+    }
+    check();
+    console.log(adminCheck)
+  },[]);
+  
 
   const onPageChange = (page: number) => {
     if (page > 0 && page <= totalPage) {
@@ -119,9 +133,14 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
           </button>
         </div>
         <div className="w-3/5 flex justify-center">
-          <button className="w-16 bg-[#0093EE] text-white" onClick={()=>onWrite(name)}>
-            {boardPage[language]?.write}
-          </button>
+        {name === "review" || name === "faq" || adminCheck ? (
+        <button 
+        className="w-16 bg-[#0093EE] text-white" 
+        onClick={() => onWrite(name)}
+        >
+        {boardPage[language]?.write}
+        </button>
+          ) : null} 
         </div>
       </div>
       <div className="w-full flex flex-col items-center mb-5">

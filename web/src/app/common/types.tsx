@@ -40,7 +40,7 @@ export type ApplicationFormItemProp = {
   userEmail: string;
   course: string;
   createdDate: string;
-  isDone: number;
+  isDone: boolean;
   attachments: Array<Attachments>;
 };
 
@@ -83,4 +83,22 @@ export interface Teacher {
   position: string;
   phone: string | null;
   email: string | null;
+}
+
+export interface SubmittedDocument {
+  Id: number;
+  course: string;
+  createdDate: string;
+  isDone: boolean;
+}
+
+export interface NameChangeModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export interface UserInfo {
+  id : number,
+  name : string,
+  email : string,
 }

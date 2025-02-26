@@ -2,15 +2,15 @@
 
 import { useState } from "react";
 import useCustomFetch from "@/app/lib/customFetch";
-
-interface NameChangeModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
+import { NameChangeModalMenu } from "@/app/menu";
+import { Language, NameChangeModalProps } from "@/app/common/types";
+import Cookies from "js-cookie";
 
 export default function NameChangeModal({ isOpen, onClose }: NameChangeModalProps) {
   const [newName, setNewName] = useState("");
   const customFetch = useCustomFetch();
+  const language: Language = (Cookies.get('language') as Language) || 'korean';
+
 
   if (!isOpen) return null;
 
@@ -21,18 +21,15 @@ export default function NameChangeModal({ isOpen, onClose }: NameChangeModalProp
         body: JSON.stringify({ name: newName }),
       });
 
-      if (response && response.message === "이름을 성공적으로 변경했습니다.") {
-        console.log("이름이 성공적으로 변경되었습니다.");
-        alert("이름이 성공적으로 변경되었습니다.");
+      if (response && response.message) {
+        alert(`${NameChangeModalMenu[language].successNameChange}`);
       } else {
-        console.error("이름 변경에 실패했습니다:", response.message || "알 수 없는 오류");
-        alert(`이름 변경에 실패했습니다: ${response.message || "알 수 없는 오류"}`);
+        alert(`${NameChangeModalMenu[language].failNameChange}`);
       }
 
       onClose();
     } catch (error) {
-      console.error("이름 변경 중 오류가 발생했습니다:", error);
-      alert("이름 변경 중 오류가 발생했습니다.");
+      alert(NameChangeModalMenu[language].nameChangeError);
       onClose();  // 오류가 나도 모달은 닫아줌
     }
   };
@@ -40,12 +37,12 @@ export default function NameChangeModal({ isOpen, onClose }: NameChangeModalProp
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
       <div className="bg-white p-6 rounded-lg shadow-lg w-96">
-        <h2 className="text-lg font-semibold mb-4">이름 변경</h2>
+        <h2 className="text-lg font-semibold mb-4">{NameChangeModalMenu[language].nameChange}</h2>
         <input
           type="text"
           value={newName}
           onChange={(e) => setNewName(e.target.value)}
-          placeholder="새로운 이름 입력"
+          placeholder={NameChangeModalMenu[language].newNameInput}
           className="w-full p-2 border rounded-md mb-4"
         />
         <div className="flex justify-end gap-2 p-2 rounded-md">
@@ -53,14 +50,14 @@ export default function NameChangeModal({ isOpen, onClose }: NameChangeModalProp
             onClick={handleNameChange} 
             className="px-4 py-2 bg-blue-500 text-white rounded-md"
           >
-            저장
+            {NameChangeModalMenu[language].save}
           </button>
           
           <button
             onClick={onClose} 
             className="px-4 py-2 bg-blue-300 text-white rounded-md"
           >
-            취소
+            {NameChangeModalMenu[language].cancel}
           </button>
         </div>
       </div>

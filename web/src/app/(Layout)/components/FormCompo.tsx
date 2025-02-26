@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { counselingForm, counselingPageMenu } from '@/app/menu';
+import { counselingForm, counselingPageMenu, FormComponentMenu, serverError } from '@/app/menu';
 import Cookies from 'js-cookie';
 import { Language } from '@/app/common/types';
 import useCustomFetch from '@/app/lib/customFetch';
@@ -53,13 +53,13 @@ export default function FormComponent(props: CategoryProps) {
       });
 
       if (response.success) {
-        alert('상담 신청이 완료되었습니다.');
+        alert(FormComponentMenu[language].applicationSuccess);
       } else {
-        alert(response.message);
+        alert(FormComponentMenu[language].applicationfail);
       }
     } catch (error) {
       console.error(error);
-      alert('서버와의 연결에 문제가 발생했습니다.');
+      alert(serverError[language].server);
     }
   };
 

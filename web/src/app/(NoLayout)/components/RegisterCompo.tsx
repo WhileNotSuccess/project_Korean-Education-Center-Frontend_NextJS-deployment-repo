@@ -2,8 +2,11 @@
 
 import { useState } from "react";
 import useCustomFetch from "../../lib/customFetch"; 
-import Cookies from "js-cookie"; // js-cookie import
+import Cookies from "js-cookie"; 
 import { useRouter } from "next/navigation";
+import { RegisterCompoMenu, serverError } from "@/app/menu";
+import { Language } from "@/app/common/types";
+
 
 export default function RegisterCompo() {
   const [email, setEmail] = useState<string>("");
@@ -11,6 +14,7 @@ export default function RegisterCompo() {
   const [name, setName] = useState<string>("");
   const [error, setError] = useState<string>("");
   const [message, setMessage] = useState<string>("");
+  const language: Language = (Cookies.get("language") as Language) || "korean";
   const router = useRouter();
   const customFetch = useCustomFetch();
 
@@ -37,7 +41,7 @@ export default function RegisterCompo() {
           router.push("/");
         }
       } catch (err) {
-        setError("서버 오류가 발생했습니다.");
+        setError(serverError[language].server);
       }
     } else {
       // 일반 회원가입 로직 (new_user 쿠키가 없을 경우)
@@ -55,7 +59,7 @@ export default function RegisterCompo() {
           setMessage(data.message);
         }
       } catch (err) {
-        setError("서버 오류가 발생했습니다.");
+        setError(serverError[language].server);
       }
     }
   };
@@ -72,11 +76,11 @@ export default function RegisterCompo() {
         
         {newUser ? (
           <form onSubmit={handleSubmit} className="space-y-4 px-4 py-6">
-            <div className="text-white">한국어교육센터에서 사용할 이름을 입력해주세요.</div>
+            <div className="text-white">{RegisterCompoMenu[language].inputName}</div>
             <div className="flex flex-col space-y-2">
               <input
                 type="text"
-                placeholder="이름"
+                placeholder={RegisterCompoMenu[language].namePlaceHolder}
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 className="w-full p-3 border border-blue-500 rounded-lg text-blue-800 focus:outline-none focus:ring-2 focus:ring-white"
@@ -90,27 +94,27 @@ export default function RegisterCompo() {
             <div className="flex flex-col space-y-2">
               <input
                 type="email"
-                placeholder="이메일"
+                placeholder={RegisterCompoMenu[language].emailPlaceHolder}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full p-3 border border-blue-500 rounded-lg text-blue-800 focus:outline-none focus:ring-2 focus:ring-white"
               />
               <input
                 type="password"
-                placeholder="비밀번호"
+                placeholder={RegisterCompoMenu[language].passWordPlaceHolder}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full p-3 border border-blue-500 rounded-lg text-blue-800 focus:outline-none focus:ring-2 focus:ring-white"
               />
               <input
                 type="text"
-                placeholder="이름"
+                placeholder={RegisterCompoMenu[language].namePlaceHolder}
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 className="w-full p-3 border border-blue-500 rounded-lg text-blue-800 focus:outline-none focus:ring-2 focus:ring-white"
               />
             </div>
-            <button type="submit" className="w-full bg-blue-500 text-white p-3 rounded-lg font-semibold mt-4">회원가입</button>
+            <button type="submit" className="w-full bg-blue-500 text-white p-3 rounded-lg font-semibold mt-4">{RegisterCompoMenu[language].register}</button>
 
             <button
             type="button"

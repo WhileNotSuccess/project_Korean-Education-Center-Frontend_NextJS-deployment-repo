@@ -4,6 +4,10 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import useCustomFetch from "../../lib/customFetch";
 import { useAuth } from "@/app/hook/auth";
+import { LoginCompoMenu } from "@/app/menu";
+import { Language } from "@/app/common/types";
+import Cookies from "js-cookie";
+
 
 export default function LoginForm() {
   const [email, setEmail] = useState<string>("");
@@ -11,6 +15,7 @@ export default function LoginForm() {
   const [error, setError] = useState<string>("");
   const router = useRouter();
   const { login } = useAuth();
+  const language : Language = (Cookies.get("language") as Language) 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -37,21 +42,21 @@ export default function LoginForm() {
       <div className="relative bg-transparent  rounded-lg shadow-lg w-full max-w-md">
         <h1 className="text-3xl font-extrabold mb-6 text-blue-600">LOGIN</h1>
         <p className="text-lg mb-6 text-white whitespace-nowrap">
-          영진전문대학교 한국어교육센터 방문을 환영합니다.
+        {LoginCompoMenu[language].welcome}
         </p>
         <form onSubmit={handleSubmit} className="space-y-2">
           <div className="w-full flex justify-between space-x-4">
             <div className="w-96 flex  flex-col justify-center space-y-2">
               <input
                 type="email"
-                placeholder="Login ID"
+                placeholder={LoginCompoMenu[language].inputId}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full p-2 border border-blue-500 rounded-lg text-blue-800 focus:outline-none focus:ring-2 focus:ring-white"
               />
               <input
                 type="password"
-                placeholder="Password"
+                placeholder={LoginCompoMenu[language].inputPassWord}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full p-2 border border-blue-500 rounded-lg text-blue-800 focus:outline-none focus:ring-2 focus:ring-white"
@@ -61,10 +66,8 @@ export default function LoginForm() {
               className="w-24 h-24 bg-blue-500 text-white rounded-lg font-semibold cursor-pointer flex justify-center items-center"
               onClick={handleSubmit}
             >
-              로그인
+              {LoginCompoMenu[language].Login}
             </div>
-            {/*           <button type="submit" className="w-full bg-blue-500 text-white p-3 rounded-lg font-semibold">로그인</button>
-             */}{" "}
           </div>
         </form>
         <div className="mt-4">
@@ -77,10 +80,10 @@ export default function LoginForm() {
           </button>
           <button
             type="button"
-            onClick={() => router.push("/register")}
+            onClick={() => router.push("/agree-terms")}
             className="w-full bg-blue-500 text-white p-2 rounded-lg font-semibold mt-2"
           >
-            회원가입
+            {LoginCompoMenu[language].register}
           </button>
         </div>
         <div className="font-bold text-red-500">{error}</div>
