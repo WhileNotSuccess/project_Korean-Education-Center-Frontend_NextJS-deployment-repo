@@ -117,6 +117,14 @@ export default function SelectTabComponent({
     }
   };
 
+
+  const formatPhoneNumber = (value: string) => {
+    const numbers = value.replace(/\D/g, ""); 
+    if (numbers.length <= 3) return numbers;
+    if (numbers.length <= 7) return `${numbers.slice(0, 3)}-${numbers.slice(3)}`;
+    return `${numbers.slice(0, 3)}-${numbers.slice(3, 7)}-${numbers.slice(7, 11)}`;
+  };
+
   const handleCourseChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedCourse(e.target.value); // 지원 과정 변경
   };
@@ -209,7 +217,7 @@ export default function SelectTabComponent({
                   id="application-phone"
                   name="application-phone"
                   value={aplicationPhoneNumber}
-                  onChange={(e) => setAplicationPhoneNumber(e.target.value)}
+                  onChange={(e) => setAplicationPhoneNumber(formatPhoneNumber(e.target.value))}
                   placeholder={SelectPageCompoMenu[language].inputPhoneNumber}
                   className="pt-1 w-full h-9 border border-gray-300"
                 />

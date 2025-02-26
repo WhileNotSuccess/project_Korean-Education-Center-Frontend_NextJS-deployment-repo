@@ -16,8 +16,7 @@ type BoardPageProps = {
 };
 
 
-export default function BoardPageCompo({ name }: BoardPageProps) {
-
+export default function  BoardPageCompo({ name }: BoardPageProps) {
   const customFetch = useCustomFetch();
   const [searchOption, setSearchOption] = useState<string>("title");
   const [boardData, setBoardData] = useState<BoardData[]>([]);
@@ -25,18 +24,11 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
   const [nextPage, setNextPage] = useState<number>(0); // 다음 페이지
   const [prevPage, setPrevPage] = useState<number>(0); // 이전 페이지
   const [totalPage, setTotalPage] = useState<number>(0);
+  const language: Language = (Cookies.get("language") as Language) || "korean";
   const [adminCheck, setAdminCheck] = useState<Boolean>(false);
-
-  const router = useRouter();
-  const [inputValue, setInputValue] = useState("");
-  const [language, setLanguage] = useState<Language>(Language.korean);
-
-  useEffect(() => {
-    const savedLanguage = Cookies.get("language") as Language;
-    if (savedLanguage) {
-      setLanguage(savedLanguage);
-    }
-  }, []);
+  const [userCheck, setUserCheck] = useState<Boolean>(false);
+  const router = useRouter()
+  const [inputValue, setInputValue] = useState("")
 
   // 게시글 불러오기 함수
   const fetchBoard = async (currentPage: number) => {
@@ -64,16 +56,26 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
 
 
   useEffect(()=> {
-    async function check() {
+    async function admincheck() {
       const response = await customFetch("/users");
     if(response && response.result) {
       setAdminCheck(true)
     }
     }
-    check();
+    admincheck();
     console.log(adminCheck)
   },[]);
   
+  useEffect(()=> {
+    async function usercheck() {
+      const response = await customFetch("/users/info");
+    if(response && response.id) {
+      setUserCheck(true)
+    }
+    }
+    usercheck();
+    console.log(userCheck);
+  },[]);
 
   const onPageChange = (page: number) => {
     if (page > 0 && page <= totalPage) {
@@ -81,32 +83,29 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
     }
   };
 
-  const onWrite = (category: string) => {
-    router.push(`/post/${category}`);
-  };
+  const onWrite = (category : string)=>{
+    router.push(`/post/${category}`)
+  }
 
-  const onSearch = async (value: string) => {
-    console.log(name);
-    console.log(searchOption);
-    console.log(value);
-    try {
-      const data = await customFetch(
-        `/posts/search?limit=10&page=1&${searchOption}=${value}`,
-        {
-          method: "GET",
-        }
-      );
-      console.log(data.data);
+  const onSearch = async(value : string)=>{
+    console.log(name)
+    console.log(searchOption)
+    console.log(value)
+    try{
+      const data = await customFetch(`/posts/search?limit=10&page=1&${searchOption}=${value}`,{
+        method : "GET"
+      })
+      console.log(data.data)
       setBoardData(data.data);
       setCurrentPage(data.currentPage);
       setNextPage(data.nextPage);
       setPrevPage(data.prevPage);
       setTotalPage(data.totalPage);
-      alert(`/posts/search?limit=10&page=1&${searchOption}=${value}`);
-    } catch (error) {
-      alert("테스트 실패");
+      alert(`/posts/search?limit=10&page=1&${searchOption}=${value}`)
+    }catch(error){
+      alert("테스트 실패")
     }
-  };
+  }
 
   return (
     <div className="w-full h-screen">
@@ -123,25 +122,29 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
             value={searchOption}
             onChange={(e) => setSearchOption(e.target.value)}
           >
-            <option value="title">{boardPage[language]?.title}</option>
-            <option value="content">{boardPage[language]?.content}</option>
-            <option value="author">{boardPage[language]?.author}</option>
+            <option value="title">
+              {boardPage[language]?.title}
+            </option>
+            <option value="content">
+              {boardPage[language]?.content}
+            </option>
+            <option value="author">
+              {boardPage[language]?.author}
+            </option>
           </select>
           <input
-            onChange={(e) => setInputValue(e.target.value)}
+            onChange={(e)=>setInputValue(e.target.value)}
             className="w-60 h-8 border-2 border-black rounded pl-2 ml-2"
             placeholder="제목을 입력하세요"
           ></input>
-          <button
-            onClick={() => onSearch(inputValue)}
-            className="min-w-12 bg-[#0093EE] text-white ml-2"
-          >
+          <button 
+            onClick={()=>onSearch(inputValue)}
+            className="min-w-12 bg-[#0093EE] text-white ml-2">
             {boardPage[language]?.search}
           </button>
         </div>
         <div className="w-3/5 flex justify-center">
-
-        {name === "review" || name === "faq" || adminCheck ? (
+        {(name === "review" || name === "faq") && ( adminCheck || userCheck ) ? (
         <button 
         className="w-16 bg-[#0093EE] text-white" 
         onClick={() => onWrite(name)}
@@ -149,12 +152,12 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
         {boardPage[language]?.write}
         </button>
           ) : null} 
-
         </div>
       </div>
       <div className="w-full flex flex-col items-center mb-5">
         <div className="w-4/5 h-16 border-x-0 border-y-2 border-black mt-12 flex items-center">
-          <div className="w-24 font-bold pl-10"></div>
+          <div className="w-24 font-bold pl-10">
+          </div>
           <div className="w-2/5 font-bold flex justify-center">
             {boardPage[language]?.title}
           </div>
@@ -189,9 +192,7 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
                 {item.title}
               </Link>
               <div className="w-1/5 flex justify-center">{item.author}</div>
-              <div className="w-1/5 flex justify-center">
-                {formatDate(item.createdDate)}
-              </div>
+              <div className="w-1/5 flex justify-center">{formatDate(item.createdDate)}</div>
               <div className="w-1/5 flex justify-center">
                 {formatDate(item.updatedDate)}
               </div>
