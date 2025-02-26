@@ -1,17 +1,22 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { counselingForm, counselingPageMenu, FormComponentMenu, serverError } from '@/app/menu';
 import Cookies from 'js-cookie';
 import { Language } from '@/app/common/types';
 import useCustomFetch from '@/app/lib/customFetch';
 
-type CategoryProps = {
-  category: string;
-};
 
-export default function FormComponent(props: CategoryProps) {
-  const language: Language = (Cookies.get('language') as Language) || 'korean';
+export default function FormComponent() {
+  const [language, setLanguage] = useState<Language>(Language.korean);
+
+  useEffect(() => {
+      const savedLanguage = Cookies.get("language") as Language;
+      if (savedLanguage) {
+        setLanguage(savedLanguage);
+      }
+
+  }, [language]);
 
   const [formData, setFormData] = useState({
     phone: '',
@@ -80,11 +85,12 @@ export default function FormComponent(props: CategoryProps) {
     if (numbers.length <= 7) return `${numbers.slice(0, 3)}-${numbers.slice(3)}`;
     return `${numbers.slice(0, 3)}-${numbers.slice(3, 7)}-${numbers.slice(7, 11)}`;
   };
+
   return (
     <main className="w-full h-screen flex flex-col items-center">
       {/* 상담 신청 제목 */}
       <header className="w-full flex justify-center items-center font-bold text-3xl mt-12">
-        {counselingForm[language]?.[props.category]}
+        {counselingForm[language]?.counseling}
       </header>
 
       {/* 상담 안내글 */}
