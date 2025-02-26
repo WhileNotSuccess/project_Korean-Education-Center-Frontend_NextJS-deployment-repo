@@ -14,6 +14,7 @@ import { cookies } from "next/headers";
 import { Language } from "../common/types";
 import LoginCompo from "./components/LoginCompo";
 import HamburgerMenuCompo from "./components/HamburgerMenuCompo";
+import SetChangeCookieCompo from "./components/ChangeCookieCompo";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -41,16 +42,17 @@ export default async function RootLayout({
     <div className="h-screen w-full flex flex-col">
       <header className="w-full min-h-15 bg-[#0093EE] flex justify-end gap-3 font-bold items-center pr-5">
         <LoginCompo/>
-        <Link href={"/japan"}>
+        <SetChangeCookieCompo/>
+        {/* <Link href={"/japan"}>
           <img src="/images/japan.png" className="w-6 h-4"></img>
         </Link>
         <Link href={"/usa"}>
           <img src="/images/usa.png" className="w-6 h-4"></img>
-        </Link>
+        </Link> */}
       </header>
 
       <section className="w-full min-h-25 bg-[#0072BA] flex items-center pl-5 peer sm:justify-center justify-between">
-        <Link href={"/"} className="w-1/6 flex justify-center items-center">
+        <Link href={"/"} className="w-1/6 flex justify-center items-center pl-4 sm:pl-0">
         <img src="/images/영진로고.png" className="w-15 h-15"></img>
         <h2 className="font-bold text-white w-full whitespace-nowrap">
           영진전문대학교<br></br>

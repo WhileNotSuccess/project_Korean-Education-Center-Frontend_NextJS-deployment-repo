@@ -109,65 +109,62 @@ export default function  BoardPageCompo({ name }: BoardPageProps) {
 
   return (
     <div className="w-full h-screen">
-      <div
+      <header
         className="w-full flex justify-center items-center font-bold text-3xl"
         style={{ height: "200px" }}
       >
         {boardMenu[language]?.[name]}
-      </div>
-      <div className="w-full flex pl-40">
-        <div className="w-2/5 flex justify-evenly">
+      </header>
+      <section className="w-full flex sm:px-40 px-20">
+        <div className="w-full flex flex-col sm:flex-row sm:justify-between justify-start">
+        <div className="flex sm:flex-row sm:justify-evenly flex-col justify-evenly">
           <select
             className="w-28 h-8 border-2 border-black rounded"
             value={searchOption}
             onChange={(e) => setSearchOption(e.target.value)}
           >
-            <option value="title">
-              {boardPage[language]?.title}
-            </option>
-            <option value="content">
-              {boardPage[language]?.content}
-            </option>
-            <option value="author">
-              {boardPage[language]?.author}
-            </option>
+            <option value="title">{boardPage[language]?.title}</option>
+            <option value="content">{boardPage[language]?.content}</option>
+            <option value="author">{boardPage[language]?.author}</option>
           </select>
           <input
-            onChange={(e)=>setInputValue(e.target.value)}
-            className="w-60 h-8 border-2 border-black rounded pl-2 ml-2"
-            placeholder="제목을 입력하세요"
+            onChange={(e) => setInputValue(e.target.value)}
+            className="w-60 h-8 border-2 border-black rounded pl-2 sm:ml-2"
+            placeholder={`${boardPage[language]?.writeTitle}`}
           ></input>
-          <button 
-            onClick={()=>onSearch(inputValue)}
-            className="min-w-12 bg-[#0093EE] text-white ml-2">
+          <button
+            onClick={() => onSearch(inputValue)}
+            className="w-12 sm:w-12 px-2 bg-[#0093EE] text-white sm:ml-2"
+          >
             {boardPage[language]?.search}
           </button>
-        </div>
-        <div className="w-3/5 flex justify-center">
-        {(name === "review" || name === "faq") && ( adminCheck || userCheck ) ? (
-        <button 
-        className="w-16 bg-[#0093EE] text-white" 
-        onClick={() => onWrite(name)}
-        >
-        {boardPage[language]?.write}
-        </button>
-          ) : null} 
-        </div>
-      </div>
-      <div className="w-full flex flex-col items-center mb-5">
-        <div className="w-4/5 h-16 border-x-0 border-y-2 border-black mt-12 flex items-center">
-          <div className="w-24 font-bold pl-10">
           </div>
+          <div className="flex justify-center ml-2">
+          {(name === "review" || name === "faq") && ( adminCheck || userCheck ) ? (
+          <button
+            className="min-w-12 px-2 bg-[#0093EE] text-white"
+            onClick={() => onWrite(name)}
+          >
+            {boardPage[language]?.write}
+          </button>):
+          null}
+        </div>
+        </div>
+
+      </section>
+      <section className="w-full flex flex-col items-center mb-5">
+        <div className="w-4/5 h-16 border-x-0 border-y-2 border-black mt-12 flex items-center">
+          <div className="w-24 font-bold pl-10"></div>
           <div className="w-2/5 font-bold flex justify-center">
             {boardPage[language]?.title}
           </div>
-          <div className="w-1/5 font-bold flex justify-center">
+          <div className="w-1/5 font-bold flex justify-center sm:ml-0 ml-2 overflow-hidden text-ellipsis whitespace-nowrap">
             {boardPage[language]?.author}
           </div>
-          <div className="w-1/5 font-bold flex justify-center">
+          <div className="w-1/5 font-bold flex justify-center sm:ml-0 ml-2 overflow-hidden text-ellipsis whitespace-nowrap">
             {boardPage[language]?.createDate}
           </div>
-          <div className="w-1/5 font-bold flex justify-center">
+          <div className="w-1/5 font-bold flex justify-center sm:ml-0 ml-2 overflow-hidden text-ellipsis whitespace-nowrap">
             {boardPage[language]?.updateDate}
           </div>
         </div>
@@ -191,17 +188,19 @@ export default function  BoardPageCompo({ name }: BoardPageProps) {
               >
                 {item.title}
               </Link>
-              <div className="w-1/5 flex justify-center">{item.author}</div>
-              <div className="w-1/5 flex justify-center">{formatDate(item.createdDate)}</div>
-              <div className="w-1/5 flex justify-center">
+              <div className="w-1/5 flex justify-center overflow-hidden text-ellipsis whitespace-nowrap">{item.author}</div>
+              <div className="w-1/5 flex justify-center sm:ml-0 ml-2 overflow-hidden text-ellipsis whitespace-nowrap">
+                {formatDate(item.createdDate)}
+              </div>
+              <div className="w-1/5 flex justify-center sm:ml-0 ml-2 overflow-hidden text-ellipsis whitespace-nowrap">
                 {formatDate(item.updatedDate)}
               </div>
             </div>
           ))
-        ) : (
-          <></>
-        )}
-      </div>
+        ) : 
+          null
+        }
+      </section>
       <div className="w-full flex justify-center">
         <Pagination
           currentPage={currentPage}
