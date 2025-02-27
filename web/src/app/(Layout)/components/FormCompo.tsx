@@ -20,7 +20,7 @@ export default function FormComponent() {
     date: "",
     name: "",
   });
-  const [isDate, setIsDate] = useState(false);
+
 
   useEffect(() => {
     const savedLanguage = Cookies.get("language") as Language;
@@ -167,13 +167,11 @@ export default function FormComponent() {
             </label>
             <div className="relative"></div>
             <input 
-              lang="en"
               type="date"
               id="date"
               name="date"
               value={formData.date}
               onChange={handleChange}
-              onFocus={() => setIsDate(true)}
               required
               className="p-3 border-2 border-blue-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
               
