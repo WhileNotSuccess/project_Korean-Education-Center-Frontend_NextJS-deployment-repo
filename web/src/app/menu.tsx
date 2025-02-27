@@ -1200,3 +1200,15 @@ export const homePageTitle: Record<Language, Record<string, string>> = {
     koreanEducationCenter : "韓国語教育センター"
   },
 }
+
+export const CheckAdminAlert : Record<Language, Record<string, string>> = {
+  [Language.korean] : {
+    noPermission : "잘못된 접근입니다."
+  },
+  [Language.english] : {
+    noPermission : "This is an invalid access"
+  },
+  [Language.japanese] : {
+    noPermission : "不正なアクセスです"
+  }
+}
