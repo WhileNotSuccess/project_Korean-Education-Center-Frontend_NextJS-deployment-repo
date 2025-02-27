@@ -647,9 +647,17 @@ export const LoginCompoMenu: Record<Language, Record<string, string>> = {
   },
   [Language.japanese]: {
     Login: "ログイン",
+    register: "会員登録",
+    welcome: "ヨンジン専門大学 韓国語教育センターへようこそ。",
+    inputId: "IDを入力",
+    inputPassWord: "パスワードを入力",
   },
   [Language.english]: {
     Login: "Login",
+    register: "Sign Up",
+    welcome: "Welcome to Yeungjin College Korean Language Education Center.",
+    inputId: "Enter ID",
+    inputPassWord: "Enter Password",
   },
 };
 
@@ -831,22 +839,22 @@ export const RegisterCompoMenu: Record<Language, Record<string, string>> = {
 export const FormComponentMenu: Record<Language, Record<string, string>> = {
   [Language.korean]: {
     applicationSuccess: "상담 신청이 완료되었습니다.",
-    applicationfail: "상담 신청에 실패했습니다.",
+    applicationFail: "상담 신청에 실패했습니다.",
   },
   [Language.english]: {
     applicationSuccess: "The consultation application has been completed.",
-    applicationfail: "Failed to apply for consultation.",
+    applicationFail: "Failed to apply for consultation.",
   },
   [Language.japanese]: {
     applicationSuccess: "相談申請が完了しました。",
-    applicationfail: "相談申請に失敗しました。",
+    applicationFail: "相談申請に失敗しました。",
   },
 };
 
 export const DashboardCompoMenu: Record<Language, Record<string, string>> = {
   [Language.korean]: {
     loadingOrNotFoundUser: "로딩 중이거나 사용자 정보가 없습니다.",
-    userInfomation: "님의 정보",
+    userInformation: "님의 정보",
     nameChange: "이름 변경",
     connectGoogle: "구글 연동",
     submitDocument: "제출한 서류",
@@ -855,7 +863,7 @@ export const DashboardCompoMenu: Record<Language, Record<string, string>> = {
   },
   [Language.english]: {
     loadingOrNotFoundUser: "Loading or no user information found.",
-    userInfomation: "'s Information",
+    userInformation: "'s Information",
     nameChange: "Change Name",
     connectGoogle: "Connect Google",
     submitDocument: "Submitted Documents",
@@ -864,7 +872,7 @@ export const DashboardCompoMenu: Record<Language, Record<string, string>> = {
   },
   [Language.japanese]: {
     loadingOrNotFoundUser: "読み込み中またはユーザー情報がありません。",
-    userInfomation: "の情報",
+    userInformation: "の情報",
     nameChange: "名前変更",
     connectGoogle: "Google連携",
     submitDocument: "提出した書類",

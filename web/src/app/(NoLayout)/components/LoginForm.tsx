@@ -8,7 +8,6 @@ import { LoginCompoMenu } from "@/app/menu";
 import { Language } from "@/app/common/types";
 import Cookies from "js-cookie";
 
-
 export default function LoginForm() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -23,7 +22,7 @@ export default function LoginForm() {
       setLanguage(savedLanguage);
     }
   }, []);
-  
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -49,10 +48,10 @@ export default function LoginForm() {
       <div className="absolute inset-0 bg-black bg-opacity-50"></div>
       <section className="relative bg-transparent  rounded-lg shadow-lg w-full max-w-md">
         <header className=" mb-6">
-        <h1 className="text-3xl font-extrabold text-blue-600">LOGIN</h1>
-        <p className="text-lg mb-6 text-white whitespace-nowrap">
-        {LoginCompoMenu[language].welcome}
-        </p>
+          <h1 className="text-3xl font-extrabold text-blue-600">LOGIN</h1>
+          <p className="text-lg mb-6 text-white whitespace-nowrap">
+            {LoginCompoMenu[language].welcome}
+          </p>
         </header>
         <form onSubmit={handleSubmit} className="space-y-2">
           <div className="w-full flex justify-between space-x-4">
@@ -86,7 +85,7 @@ export default function LoginForm() {
             onClick={handleGoogleLogin}
             className="w-full bg-[#F2F2F2] rounded-lg font-semibold mt-2 flex justify-center"
           >
-            <img src="/images/logintab.png" alt="" className="" />
+            <img src="/images/loginTab.png" alt="" className="" />
           </button>
           <button
             type="button"

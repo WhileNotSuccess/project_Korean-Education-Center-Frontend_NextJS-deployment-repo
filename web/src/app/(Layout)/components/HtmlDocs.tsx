@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { useEffect, useState } from "react";
 import useCustomFetch from "@/app/lib/customFetch";
 import { useRouter } from "next/navigation";
@@ -133,7 +133,7 @@ export default function HtmlDocs(props: HtmlDocsProps) {
                 allData.documentFiles.map((item) => (
                   <div key={item.id} className="flex items-center">
                     <img
-                      src="/images/attachfile.png"
+                      src="/images/attachFile.png"
                       className="w-4 h-4 mr-2"
                     />
                     <button
@@ -193,7 +193,9 @@ export default function HtmlDocs(props: HtmlDocsProps) {
 
       <section className="w-full flex justify-center">
         <div className="w-3/5">
-          <div className="prose w-full break-words">{parser(allData.content)}</div>
+          <div className="prose w-full break-words">
+            {parser(allData.content)}
+          </div>
         </div>
       </section>
     </main>
