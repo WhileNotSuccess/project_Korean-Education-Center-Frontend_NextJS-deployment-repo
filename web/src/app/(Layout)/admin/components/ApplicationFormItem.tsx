@@ -7,7 +7,6 @@ import DeleteModal from "./DeleteModal";
 export default function ApplicationFormItem(data: ApplicationFormItemProp) {
   const customFetch = useCustomFetch();
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
-  const [modalUpdateOpen, setModalUpdateOpen] = useState<boolean>(false);
   const [modalDeleteOpen, setModalDeleteOpen] = useState<boolean>(false);
   const updateIsDone = async () => {
     const formData = new FormData();
@@ -35,7 +34,6 @@ export default function ApplicationFormItem(data: ApplicationFormItemProp) {
         <div className="w-full relative">
           <h2 className="text-blue-500 font-bold text-lg inline-block">
             {data.userName}
-            <div>email: {data.userEmail}</div>
           </h2>
           <span
             onClick={() => {
@@ -45,6 +43,7 @@ export default function ApplicationFormItem(data: ApplicationFormItemProp) {
           >
             ㅤㅤ⋮
           </span>
+
           {menuOpen && (
             <div className="absolute top-full right-0 mt-1 w-40 bg-white border rounded shadow-lg">
               <ul className="py-2 text-sm text-gray-700">
@@ -60,6 +59,9 @@ export default function ApplicationFormItem(data: ApplicationFormItemProp) {
             </div>
           )}
         </div>
+        <hr className="my-2 border-gray-300" />
+        <div>📧: {data.userEmail}</div>
+        <div>📱: {data.phoneNumber}</div>
 
         <hr className="my-2 border-gray-300" />
         <div className="space-y-2 h-40 overflow-y-auto">

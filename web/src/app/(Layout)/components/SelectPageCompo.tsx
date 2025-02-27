@@ -29,7 +29,9 @@ export default function SelectTabComponent({
   const [applicationPhoneNumber, setApplicationPhoneNumber] = useState("");
   const [selectedCourse, setSelectedCourse] = useState(""); // 기본값 설정
   const [deleteFileNames, setDeleteFileNames] = useState<Array<string>>([]); // 삭제할 파일 이름 리스트
-  const [courseOptions, setCourseOptions] = useState<Array<{ id: number, name: string }>>([]); // 지원과정 목록
+  const [courseOptions, setCourseOptions] = useState<
+    Array<{ id: number; name: string }>
+  >([]); // 지원과정 목록
   const [language, setLanguage] = useState<Language>(Language.korean);
 
   useEffect(() => {
@@ -38,7 +40,6 @@ export default function SelectTabComponent({
       setLanguage(savedLanguage);
     }
   }, []);
-
 
   useEffect(() => {
     if (categoryTab && categoryTab[language]?.[0]?.key.length > 0) {
@@ -61,16 +62,16 @@ export default function SelectTabComponent({
           console.error(SelectPageCompoMenu[language].failLoadPosts);
         }
       };
-  
+
       fetchData();
     }
-    
+
     const fetchCourseOptions = async () => {
       try {
         const data = await customFetch("/course", {
           method: "GET",
         });
-  
+
         if (data.data && data.data.length > 0) {
           setCourseOptions(data.data); // 강좌 목록 저장
           // 강좌 목록이 로드되면 첫 번째 강좌를 기본 선택으로 설정
@@ -85,11 +86,10 @@ export default function SelectTabComponent({
         setCourseOptions([]); // API 호출 실패 시 빈 배열
       }
     };
-  
+
     fetchCourseOptions();
   }, [selectedTab, name, categoryTab, selectedCourse]); // selectedCourse를 의존성 배열에 추가
-   
-  
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     if (file.length === 0) {
@@ -104,25 +104,29 @@ export default function SelectTabComponent({
         formData.append("files", file);
       });
       formData.append("course", selectedCourse); // 선택된 과정 값 전달
+      formData.append("phoneNumber", applicationPhoneNumber);
       try {
         const response = await customFormFetch("/application-form", {
           method: "POST",
           body: formData,
         });
         alert(postSuccess[language]?.appliedPost);
-        router.push("/")
+        router.push("/");
       } catch (error) {
         console.error("폼 제출 실패", error);
       }
     }
   };
 
-
   const formatPhoneNumber = (value: string) => {
-    const numbers = value.replace(/\D/g, ""); 
+    const numbers = value.replace(/\D/g, "");
     if (numbers.length <= 3) return numbers;
-    if (numbers.length <= 7) return `${numbers.slice(0, 3)}-${numbers.slice(3)}`;
-    return `${numbers.slice(0, 3)}-${numbers.slice(3, 7)}-${numbers.slice(7, 11)}`;
+    if (numbers.length <= 7)
+      return `${numbers.slice(0, 3)}-${numbers.slice(3)}`;
+    return `${numbers.slice(0, 3)}-${numbers.slice(3, 7)}-${numbers.slice(
+      7,
+      11
+    )}`;
   };
 
   const handleCourseChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -217,33 +221,34 @@ export default function SelectTabComponent({
                   id="application-phone"
                   name="application-phone"
                   value={applicationPhoneNumber}
-                  onChange={(e) => setApplicationPhoneNumber(formatPhoneNumber(e.target.value))}
+                  onChange={(e) =>
+                    setApplicationPhoneNumber(formatPhoneNumber(e.target.value))
+                  }
                   placeholder={SelectPageCompoMenu[language].inputPhoneNumber}
                   className="pt-1 w-full h-9 border border-gray-300"
                 />
               </div>
 
               <div>
-              <select
-                id="course"
-                name="course"
-                value={selectedCourse}
-                onChange={handleCourseChange}
-                className="mt-2 w-full h-10 text-base border border-gray-300 p-2"
-              >
-                {courseOptions.length > 0 ? (
-                  courseOptions.map((option) => (
-                    <option key={option.id} value={option.id}>
-                      {option.name}
+                <select
+                  id="course"
+                  name="course"
+                  value={selectedCourse}
+                  onChange={handleCourseChange}
+                  className="mt-2 w-full h-10 text-base border border-gray-300 p-2"
+                >
+                  {courseOptions.length > 0 ? (
+                    courseOptions.map((option) => (
+                      <option key={option.id} value={option.id}>
+                        {option.name}
+                      </option>
+                    ))
+                  ) : (
+                    <option value="" disabled>
+                      {SelectPageCompoMenu[language].noCourse}
                     </option>
-                  ))
-                ) : (
-                  <option value="" disabled>
-                    {SelectPageCompoMenu[language].noCourse}
-                  </option>
-                )}
-              </select>
-
+                  )}
+                </select>
               </div>
 
               <button

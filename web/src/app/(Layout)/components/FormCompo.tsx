@@ -1,55 +1,54 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { counselingForm, counselingPageMenu, FormComponentMenu, serverError } from '@/app/menu';
-import Cookies from 'js-cookie';
-import { Language } from '@/app/common/types';
-import useCustomFetch from '@/app/lib/customFetch';
-
+import { useState, useEffect } from "react";
+import {
+  counselingForm,
+  counselingPageMenu,
+  FormComponentMenu,
+  serverError,
+} from "@/app/menu";
+import Cookies from "js-cookie";
+import { Language } from "@/app/common/types";
+import useCustomFetch from "@/app/lib/customFetch";
 
 export default function FormComponent() {
   const [language, setLanguage] = useState<Language>(Language.korean);
 
   useEffect(() => {
-      const savedLanguage = Cookies.get("language") as Language;
-      if (savedLanguage) {
-        setLanguage(savedLanguage);
-      }
-
+    const savedLanguage = Cookies.get("language") as Language;
+    if (savedLanguage) {
+      setLanguage(savedLanguage);
+    }
   }, [language]);
 
   const [formData, setFormData] = useState({
-    phone: '',
-    email: '',
-    date: '', 
-    name: '',
+    phone: "",
+    email: "",
+    date: "",
+    name: "",
   });
 
   const customFetch = useCustomFetch();
 
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    if (name === 'phone') {
+    if (name === "phone") {
       setFormData((prevData) => ({
         ...prevData,
-        [name]: formatPhoneNumber(value)
-      }))
+        [name]: formatPhoneNumber(value),
+      }));
     } else {
       setFormData((prevData) => ({
         ...prevData,
-        [name]: value
+        [name]: value,
       }));
     }
-    
-    
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    
-    const localDate = new Date(formData.date); 
+    const localDate = new Date(formData.date);
     const utcDate = new Date(localDate.getTime());
 
     // 서버에 보낼 데이터를 객체로 묶음
@@ -62,13 +61,14 @@ export default function FormComponent() {
 
     try {
       console.log(requestData);
-      const response = await customFetch('/consult', {
-        method: 'POST',
+      const response = await customFetch("/consult", {
+        method: "POST",
         body: JSON.stringify(requestData),
       });
 
       if (!response.error) {
         alert(FormComponentMenu[language].applicationSuccess);
+        window.location.href = "/";
       } else {
         alert(FormComponentMenu[language].applicationFail);
       }
@@ -78,12 +78,15 @@ export default function FormComponent() {
     }
   };
 
-
   const formatPhoneNumber = (value: string) => {
-    const numbers = value.replace(/\D/g, ""); 
+    const numbers = value.replace(/\D/g, "");
     if (numbers.length <= 3) return numbers;
-    if (numbers.length <= 7) return `${numbers.slice(0, 3)}-${numbers.slice(3)}`;
-    return `${numbers.slice(0, 3)}-${numbers.slice(3, 7)}-${numbers.slice(7, 11)}`;
+    if (numbers.length <= 7)
+      return `${numbers.slice(0, 3)}-${numbers.slice(3)}`;
+    return `${numbers.slice(0, 3)}-${numbers.slice(3, 7)}-${numbers.slice(
+      7,
+      11
+    )}`;
   };
 
   return (
@@ -102,7 +105,12 @@ export default function FormComponent() {
       <section className="w-full p-8 bg-white rounded-lg shadow-lg border-2 border-blue-300 max-w-lg mx-auto">
         <form onSubmit={handleSubmit} className="flex flex-col gap-6">
           <div className="flex flex-col">
-            <label htmlFor="name" className=" text-lg font-bold mb-2 text-blue-700">{counselingPageMenu[language]["name"]}</label>
+            <label
+              htmlFor="name"
+              className=" text-lg font-bold mb-2 text-blue-700"
+            >
+              {counselingPageMenu[language]["name"]}
+            </label>
             <input
               type="text"
               id="name"
@@ -115,7 +123,12 @@ export default function FormComponent() {
           </div>
 
           <div className="flex flex-col">
-            <label htmlFor="phone" className=" text-lg font-bold mb-2 text-blue-700">{counselingPageMenu[language]["phone"]}</label>
+            <label
+              htmlFor="phone"
+              className=" text-lg font-bold mb-2 text-blue-700"
+            >
+              {counselingPageMenu[language]["phone"]}
+            </label>
             <input
               type="tel"
               id="phone"
@@ -128,7 +141,12 @@ export default function FormComponent() {
           </div>
 
           <div className="flex flex-col">
-            <label htmlFor="email" className=" text-lg font-bold mb-2 text-blue-700">{counselingPageMenu[language]["email"]}</label>
+            <label
+              htmlFor="email"
+              className=" text-lg font-bold mb-2 text-blue-700"
+            >
+              {counselingPageMenu[language]["email"]}
+            </label>
             <input
               type="email"
               id="email"
@@ -141,7 +159,12 @@ export default function FormComponent() {
           </div>
 
           <div className="flex flex-col">
-            <label htmlFor="date" className=" text-lg font-bold mb-2 text-blue-700">{counselingPageMenu[language]["date"]}</label>
+            <label
+              htmlFor="date"
+              className=" text-lg font-bold mb-2 text-blue-700"
+            >
+              {counselingPageMenu[language]["date"]}
+            </label>
             <input
               type="date"
               id="date"

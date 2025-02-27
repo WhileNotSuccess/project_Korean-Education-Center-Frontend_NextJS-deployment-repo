@@ -647,9 +647,17 @@ export const LoginCompoMenu: Record<Language, Record<string, string>> = {
   },
   [Language.japanese]: {
     Login: "ログイン",
+    register: "会員登録",
+    welcome: "ヨンジン専門大学 韓国語教育センターへようこそ。",
+    inputId: "IDを入力",
+    inputPassWord: "パスワードを入力",
   },
   [Language.english]: {
     Login: "Login",
+    register: "Sign Up",
+    welcome: "Welcome to Yeungjin College Korean Language Education Center.",
+    inputId: "Enter ID",
+    inputPassWord: "Enter Password",
   },
 };
 

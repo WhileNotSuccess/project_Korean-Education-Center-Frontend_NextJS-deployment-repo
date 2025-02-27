@@ -8,7 +8,7 @@ import {
   categoryList,
   updateSuccess,
   updateError,
-  postLanguageList
+  postLanguageList,
 } from "@/app/menu";
 import Cookies from "js-cookie";
 import useCustomFormFetch from "@/app/lib/customFormFetch";
@@ -35,9 +35,9 @@ export default function EditorComponent(props: EditorProps) {
   const customFormFetch = useCustomFormFetch();
   const customFetch = useCustomFetch();
   const [category, setCategory] = useState<string>(props.categoryName || "");
-  const router = useRouter()
-  const [postLanguage, setPostLanguage] = useState("korean")
-  const [isAdmin, setIsAdmin] = useState(false)
+  const router = useRouter();
+  const [postLanguage, setPostLanguage] = useState("korean");
+  const [isAdmin, setIsAdmin] = useState(false);
   const [language, setLanguage] = useState<Language>(Language.korean);
 
   useEffect(() => {
@@ -70,7 +70,7 @@ export default function EditorComponent(props: EditorProps) {
     oldPost();
   }, [props.id]);
 
-  useEffect(()=>{
+  useEffect(() => {
     const fetchUserInfo = async () => {
       try {
         const adminData = await customFetch("/users");
@@ -79,46 +79,53 @@ export default function EditorComponent(props: EditorProps) {
         console.error("유저 정보 불러오기 실패:", error);
       }
     };
-    fetchUserInfo()
-  },[])
+    fetchUserInfo();
+  }, []);
 
   const submit = async () => {
-    if( title === "" ){
-      alert(editorCompo[language].needInputTitle)
-    } else if( content === "") {
-      alert(editorCompo[language].needInputContent)
+    if (title === "") {
+      alert(editorCompo[language].needInputTitle);
+    } else if (content === "") {
+      alert(editorCompo[language].needInputContent);
     } else {
-    try {
-      const formData = new FormData();
-      formData.append("title", title);
-      formData.append("content", content);
-      formData.append("category", category);
-      {isAdmin ? formData.append("language", postLanguage) : formData.append("language", language)}
+      try {
+        const formData = new FormData();
+        formData.append("title", title);
+        formData.append("content", content);
+        formData.append("category", category);
+        {
+          isAdmin
+            ? formData.append("language", postLanguage)
+            : formData.append("language", language);
+        }
 
-      // 첨부파일이 있다면, FormData에 추가
-      documentFiles.forEach((file) => {
-        formData.append("files", file); // 문서 파일도 함께 전송
-      });
-      const response = await customFormFetch("/posts", {
-        method: "POST",
-        body: formData,
-      });
-      alert(postSuccess[language]?.contentPost);
-      router.back();
-    } catch (error) {
-      alert(postError[language]?.subError);
+        // 첨부파일이 있다면, FormData에 추가
+        documentFiles.forEach((file) => {
+          formData.append("files", file); // 문서 파일도 함께 전송
+        });
+        const response = await customFormFetch("/posts", {
+          method: "POST",
+          body: formData,
+        });
+        alert(postSuccess[language]?.contentPost);
+        router.back();
+      } catch (error) {
+        alert(postError[language]?.subError);
+      }
     }
   };
-}
 
   const update = async () => {
-    
     try {
       const formData = new FormData();
       formData.append("title", title);
       formData.append("content", content);
       formData.append("category", category);
-      {isAdmin ? formData.append("language", postLanguage) : formData.append("language", language)}
+      {
+        isAdmin
+          ? formData.append("language", postLanguage)
+          : formData.append("language", language);
+      }
       formData.append("deleteFilePath", JSON.stringify(deleteFileNames));
       documentFiles.forEach((file) => {
         formData.append("files", file); // 문서 파일도 함께 전송
@@ -200,8 +207,8 @@ export default function EditorComponent(props: EditorProps) {
               />
             </div>
           </div>
-          {isAdmin ?
-              <div className="w-full flex justify-between border">
+          {isAdmin ? (
+            <div className="w-full flex justify-between border">
               <select
                 className="shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-e-0 border-gray-300 dark:border-gray-700 dark:text-white rounded-s-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
                 value={category}
@@ -218,108 +225,110 @@ export default function EditorComponent(props: EditorProps) {
                   </option>
                 ))}
               </select>
-    
-          <select
-          className="border rounded-sm cursor-pointer"
-          value={postLanguage}
-          onChange={(e)=>setPostLanguage(e.target.value)}>
-          {
-            postLanguageList[language].map((item)=>{
-              return(
-                <option
-                key={item.key}
-                value={item.key}
+
+              <select
+                className="border rounded-sm cursor-pointer"
+                value={postLanguage}
+                onChange={(e) => setPostLanguage(e.target.value)}
               >
-                {item.value}
-              </option>                
-              )
-            })
-          }
-          </select></div> : null}
+                {postLanguageList[language].map((item) => {
+                  return (
+                    <option key={item.key} value={item.key}>
+                      {item.value}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+          ) : null}
         </form>
 
         <div className="w-full flex justify-between items-center">
-        <section className="w-[50%]">
-        <input
-          type="file"
-          accept=".*"
-          multiple
-          onChange={handleDocumentFileChange}
-          style={{ 
-            color: "transparent", // 텍스트 숨김
-          }}
-        />
-        <ul>
-          {documentFileNames &&
-            documentFileNames.map((fileName, index) => (
-              <div
-                key={index}
-                className={`flex justify-between items-center ${
-                  deleteFileNames.includes(fileName) ? "hidden" : ""
-                }`}
-              ><div className="flex flex-rows items-center">
-                <img src="/images/attachfile.png" className="size-4 flex justify-center items-center mr-4"/>
-                <li>
-                  {fileName.match(/^\d{8}-\d{6}_/)
-                    ? fileName.substring(16)
-                    : fileName}
-                </li>
-                </div>
-                <img
-                  src="/images/X버튼.png"
-                  className="size-4 cursor-pointer"
-                  onClick={() => addDeleteFileName(fileName)}
-                />
-              </div>
-            ))}
-        </ul>
-        </section>
+          <section className="w-[50%]">
+            <input
+              type="file"
+              accept=".*"
+              multiple
+              onChange={handleDocumentFileChange}
+              style={{
+                color: "transparent", // 텍스트 숨김
+              }}
+            />
+            <ul>
+              {documentFileNames &&
+                documentFileNames.map((fileName, index) => (
+                  <div
+                    key={index}
+                    className={`flex justify-between items-center ${
+                      deleteFileNames.includes(fileName) ? "hidden" : ""
+                    }`}
+                  >
+                    <div className="flex flex-rows items-center">
+                      <img
+                        src="/images/attachFile.png"
+                        className="size-4 flex justify-center items-center mr-4"
+                      />
+                      <li>
+                        {fileName.match(/^\d{8}-\d{6}_/)
+                          ? fileName.substring(16)
+                          : fileName}
+                      </li>
+                    </div>
+                    <img
+                      src="/images/X버튼.png"
+                      className="size-4 cursor-pointer"
+                      onClick={() => addDeleteFileName(fileName)}
+                    />
+                  </div>
+                ))}
+            </ul>
+          </section>
         </div>
-      <section>
-        <Editor
-          tinymceScriptSrc={"/tinymce/tinymce.min.js"}
-          id="tinymce-editor"
-          value={content}
-          onInit={(evt, editor) => {
-            console.log(editor.id);
-            editorRef.current = editor;
-          }}
-          init={{
-            language: "ko_KR",
-            language_url: "/tinymce/langs/ko_KR.js",
-            height: 500,
-            plugins: ["lists", "link", "image", "table"],
-            content_style: "p {margin:0}",
-            toolbar:
-              "undo redo | bold italic | alignleft aligncenter alignright | bullist numlist | forecolor backcolor | table",
-            file_picker_types: "image", // 파일 선택기에서 다룰 파일 형식
-            file_picker_callback: (cb, value, meta) => {
-              const input = fileInputRef.current;
-              input?.addEventListener("change", async (e) => {
-                const target = e.target as HTMLInputElement;
-                const imageFile = target.files ? target.files[0] : null;
-                if (imageFile) {
-                  const url = await handleFileSelect(imageFile);
-                  if (url) {
-                    setImagePath((prev) => [...prev, url]);
-                    cb(`${process.env.NEXT_PUBLIC_BACKEND_URL}/${url}`, {
-                      title: imageFile.name,
-                    });
+        <section>
+          <Editor
+            tinymceScriptSrc={"/tinymce/tinymce.min.js"}
+            id="tinymce-editor"
+            value={content}
+            onInit={(evt, editor) => {
+              console.log(editor.id);
+              editorRef.current = editor;
+            }}
+            init={{
+              language: "ko_KR",
+              language_url: "/tinymce/langs/ko_KR.js",
+              height: 500,
+              plugins: ["lists", "link", "image", "table"],
+              content_style: "p {margin:0}",
+              toolbar:
+                "undo redo | bold italic | alignleft aligncenter alignright | bullist numlist | forecolor backcolor | table",
+              file_picker_types: "image", // 파일 선택기에서 다룰 파일 형식
+              file_picker_callback: (cb, value, meta) => {
+                const input = fileInputRef.current;
+                input?.addEventListener("change", async (e) => {
+                  const target = e.target as HTMLInputElement;
+                  const imageFile = target.files ? target.files[0] : null;
+                  if (imageFile) {
+                    const url = await handleFileSelect(imageFile);
+                    if (url) {
+                      setImagePath((prev) => [...prev, url]);
+                      cb(`${process.env.NEXT_PUBLIC_BACKEND_URL}/${url}`, {
+                        title: imageFile.name,
+                      });
+                    }
                   }
-                }
-              });
-              input?.click();
-            },
-          }}
-          onEditorChange={(item) => setContent(item)}
-        />
-        <input
-          ref={fileInputRef}
-          type="file"
-          accept="image/*"
-          style={{ display: "none" }}
-          id="imageInput"
-        />
+                });
+                input?.click();
+              },
+            }}
+            onEditorChange={(item) => setContent(item)}
+          />
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            style={{ display: "none" }}
+            id="imageInput"
+          />
         </section>
         {props.id ? (
           <button

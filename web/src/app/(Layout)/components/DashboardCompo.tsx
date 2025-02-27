@@ -12,9 +12,11 @@ import { SubmittedDocument } from "@/app/common/types";
 
 export default function DashboardCompo() {
   const { user } = useAuth();
-  const router = useRouter();  
+  const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [submittedDocuments, setSubmittedDocuments] = useState<SubmittedDocument[]>([]);
+  const [submittedDocuments, setSubmittedDocuments] = useState<
+    SubmittedDocument[]
+  >([]);
   const customFetch = useCustomFetch();
   const [language, setLanguage] = useState<Language>(Language.korean);
 
@@ -46,21 +48,23 @@ export default function DashboardCompo() {
     }
   }, [user]); // user가 변경될 때마다 실행되도록
 
-useEffect(()=>{console.log(submittedDocuments)},[submittedDocuments])
+  useEffect(() => {
+    console.log(submittedDocuments);
+  }, [submittedDocuments]);
   if (!user) {
     return <div>{DashboardCompoMenu[language].loadingOrNotFoundUser}</div>;
   }
 
   return (
-    
     <div className="w-full flex flex-col items-center bg-gray-50 py-10">
       <div className="w-full max-w-3xl bg-white p-8 rounded-lg shadow-lg space-y-6">
         <div className="flex flex-col sm:flex-row justify-between items-center mb-6">
           <div className="flex flex-col sm:flex-row items-center space-x-2 mb-4 sm:mb-0">
-            <h2 className="text-2xl font-semibold">{user.name} {DashboardCompoMenu[language].userInformation}</h2>
+            <h2 className="text-2xl font-semibold">
+              {user.name} {DashboardCompoMenu[language].userInformation}
+            </h2>
           </div>
 
-          
           <div className="flex space-x-4">
             <button
               onClick={() => setIsModalOpen(true)}
@@ -78,20 +82,31 @@ useEffect(()=>{console.log(submittedDocuments)},[submittedDocuments])
         </div>
 
         <div className="space-y-4">
-          <h3 className="text-xl font-semibold">{DashboardCompoMenu[language].submitDocument}</h3>
+          <h3 className="text-xl font-semibold">
+            {DashboardCompoMenu[language].submitDocument}
+          </h3>
           <div className="space-y-2">
             {submittedDocuments.map((doc) => (
               <div key={doc.Id} className="p-3 bg-blue-50 rounded-md shadow-sm">
                 <p className="font-medium">{doc.course}</p>
-                <p className="text-sm text-gray-600">{new Date(doc.createdDate).toLocaleDateString()}</p>
-                <p className="text-sm text-gray-600">{doc.isDone ? DashboardCompoMenu[language].submitComplete : DashboardCompoMenu[language].submitIncomplete}</p>
+                <p className="text-sm text-gray-600">
+                  {new Date(doc.createdDate).toLocaleDateString()}
+                </p>
+                <p className="text-sm text-gray-600">
+                  {doc.isDone
+                    ? DashboardCompoMenu[language].submitComplete
+                    : DashboardCompoMenu[language].submitIncomplete}
+                </p>
               </div>
             ))}
           </div>
         </div>
       </div>
 
-      <NameChangeModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <NameChangeModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </div>
   );
 }

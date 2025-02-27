@@ -39,6 +39,7 @@ export type ApplicationFormItemProp = {
   userName: string;
   userEmail: string;
   course: string;
+  phoneNumber: string;
   createdDate: string;
   isDone: boolean;
   attachments: Array<Attachments>;
@@ -98,7 +99,7 @@ export interface NameChangeModalProps {
 }
 
 export interface UserInfo {
-  id : number,
-  name : string,
-  email : string,
+  id: number;
+  name: string;
+  email: string;
 }
