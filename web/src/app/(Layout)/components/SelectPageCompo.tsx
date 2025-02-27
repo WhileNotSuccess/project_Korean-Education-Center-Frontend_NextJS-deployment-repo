@@ -145,7 +145,7 @@ export default function SelectTabComponent({
           {categoryTab[language].map((item) => (
             <button
               key={item.key}
-              className={`py-2 px-4 text-base font-medium text-center border transition w-40 ${
+              className={`py-2 px-4 text-nowrap text-base font-medium text-center border transition w-40 ${
                 selectedTab === item.key
                   ? "bg-blue-500 text-white font-black"
                   : "bg-sky-500/50 text-white font-black"
@@ -170,6 +170,9 @@ export default function SelectTabComponent({
           <section className="w-3/5 p-4 border">
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
+                <label className="w-full text-xs  bg-blue-500 text-white p-2 rounded-md mb-10">
+                  {SelectPageCompoMenu[language].fileSelect}
+
                 <input
                   type="file"
                   id="file"
@@ -182,10 +185,12 @@ export default function SelectTabComponent({
                       setDeleteFileNames
                     )
                   }
-                  className="mt-2"
+                  className="hidden"
                   multiple
                 />
-                <ul>
+                </label>
+                
+                <ul className={documentFileNames.length > 0 ? "border mt-4" : ""}>
                   {documentFileNames &&
                     documentFileNames.map((fileName, index) => (
                       <div

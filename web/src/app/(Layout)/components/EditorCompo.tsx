@@ -9,6 +9,7 @@ import {
   updateSuccess,
   updateError,
   postLanguageList,
+  SelectPageCompoMenu,
 } from "@/app/menu";
 import Cookies from "js-cookie";
 import useCustomFormFetch from "@/app/lib/customFormFetch";
@@ -208,7 +209,7 @@ export default function EditorComponent(props: EditorProps) {
             </div>
           </div>
           {isAdmin ? (
-            <div className="w-full flex justify-between border">
+            <div className="w-full flex justify-between border mb-1">
               <select
                 className="shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-e-0 border-gray-300 dark:border-gray-700 dark:text-white rounded-s-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
                 value={category}
@@ -245,16 +246,18 @@ export default function EditorComponent(props: EditorProps) {
 
         <div className="w-full flex justify-between items-center">
           <section className="w-[50%]">
+            <label className="w-full text-xs  bg-blue-500 text-white p-2 rounded-md">
+            {SelectPageCompoMenu[language].fileSelect}
             <input
               type="file"
               accept=".*"
               multiple
               onChange={handleDocumentFileChange}
-              style={{
-                color: "transparent", // 텍스트 숨김
-              }}
+              className="hidden"
             />
-            <ul>
+            </label>
+            
+            <ul className={documentFileNames.length > 0 ? "border mt-4" : ""}>
               {documentFileNames &&
                 documentFileNames.map((fileName, index) => (
                   <div
@@ -284,7 +287,7 @@ export default function EditorComponent(props: EditorProps) {
             </ul>
           </section>
         </div>
-        <section>
+        <section className="mt-1.5">
           <Editor
             tinymceScriptSrc={"/tinymce/tinymce.min.js"}
             id="tinymce-editor"

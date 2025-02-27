@@ -15,14 +15,28 @@ export default function LoginForm() {
   const router = useRouter();
   const { login } = useAuth();
   const [language, setLanguage] = useState<Language>(Language.korean);
+  const customFetch = useCustomFetch();
 
   useEffect(() => {
+    async function userCheck() {
+      const response = await customFetch("/users/info");
+      if (response.id) {
+        
+        router.push("/")
+        return null
+      }
+    }
+    userCheck();
+
     const savedLanguage = Cookies.get("language") as Language;
     if (savedLanguage) {
       setLanguage(savedLanguage);
     }
+  
+    
   }, []);
 
+  
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
