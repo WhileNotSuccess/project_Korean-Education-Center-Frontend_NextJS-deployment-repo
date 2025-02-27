@@ -12,7 +12,7 @@ import { formatDate } from "@/app/common/formatDate";
 import { useRouter } from "next/navigation";
 
 type BoardPageProps = {
-  name: keyof (typeof boardMenu)["korean"];
+  name: keyof (typeof boardMenu)[Language];
 };
 
 
@@ -63,24 +63,24 @@ export default function  BoardPageCompo({ name }: BoardPageProps) {
 
 
   useEffect(()=> {
-    async function admincheck() {
+    async function adminCheck() {
       const response = await customFetch("/users");
     if(response && response.result) {
       setAdminCheck(true)
     }
     }
-    admincheck();
+    adminCheck();
     console.log(adminCheck)
   },[]);
   
   useEffect(()=> {
-    async function usercheck() {
+    async function userCheck() {
       const response = await customFetch("/users/info");
     if(response && response.id) {
       setUserCheck(true)
     }
     }
-    usercheck();
+    userCheck();
     console.log(userCheck);
   },[]);
 

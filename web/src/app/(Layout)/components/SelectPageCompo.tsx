@@ -26,7 +26,7 @@ export default function SelectTabComponent({
   const [selectedTab, setSelectedTab] = useState<string>("");
   const [file, setFile] = useState<Array<File>>([]);
   const [documentFileNames, setDocumentFileNames] = useState<Array<string>>([]); // 파일 이름 리스트
-  const [aplicationPhoneNumber, setAplicationPhoneNumber] = useState("");
+  const [applicationPhoneNumber, setApplicationPhoneNumber] = useState("");
   const [selectedCourse, setSelectedCourse] = useState(""); // 기본값 설정
   const [deleteFileNames, setDeleteFileNames] = useState<Array<string>>([]); // 삭제할 파일 이름 리스트
   const [courseOptions, setCourseOptions] = useState<Array<{ id: number, name: string }>>([]); // 지원과정 목록
@@ -42,7 +42,7 @@ export default function SelectTabComponent({
 
   useEffect(() => {
     if (categoryTab && categoryTab[language]?.[0]?.key.length > 0) {
-      // tabkeys에 값이 있을 경우에 가져옴
+      // tab keys에 값이 있을 경우에 가져옴
       setSelectedTab(categoryTab[language]?.[0]?.key); // 첫 번째 탭을 기본으로 설정
     }
   }, [categoryTab]);
@@ -94,7 +94,7 @@ export default function SelectTabComponent({
     e.preventDefault();
     if (file.length === 0) {
       alert(SelectPageCompoMenu[language].needFile);
-    } else if (aplicationPhoneNumber === "") {
+    } else if (applicationPhoneNumber === "") {
       alert(SelectPageCompoMenu[language].needPhoneNumber);
     } else if (selectedCourse === "") {
       alert(SelectPageCompoMenu[language].needCourse);
@@ -216,8 +216,8 @@ export default function SelectTabComponent({
                 <textarea
                   id="application-phone"
                   name="application-phone"
-                  value={aplicationPhoneNumber}
-                  onChange={(e) => setAplicationPhoneNumber(formatPhoneNumber(e.target.value))}
+                  value={applicationPhoneNumber}
+                  onChange={(e) => setApplicationPhoneNumber(formatPhoneNumber(e.target.value))}
                   placeholder={SelectPageCompoMenu[language].inputPhoneNumber}
                   className="pt-1 w-full h-9 border border-gray-300"
                 />

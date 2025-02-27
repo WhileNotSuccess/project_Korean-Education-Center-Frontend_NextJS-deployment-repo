@@ -70,7 +70,7 @@ export default function FormComponent() {
       if (!response.error) {
         alert(FormComponentMenu[language].applicationSuccess);
       } else {
-        alert(FormComponentMenu[language].applicationfail);
+        alert(FormComponentMenu[language].applicationFail);
       }
     } catch (error) {
       console.error(error);

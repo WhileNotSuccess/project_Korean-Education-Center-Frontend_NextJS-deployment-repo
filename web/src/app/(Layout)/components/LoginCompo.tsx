@@ -29,7 +29,7 @@ export default function LoginCompo() {
           href={"/dashboard"}
           className="text-white font-bold hover:underline"
         >
-          &nbsp;&nbsp; {user.name}님
+          &nbsp;&nbsp; {user.name}
         </Link>
       )}
     </section>

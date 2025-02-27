@@ -25,7 +25,7 @@ export default function DashboardCompo() {
     }
   }, []);
 
-  const googleConectHandle = () => {
+  const googleConnectHandle = () => {
     router.push(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/google/link`);
   };
 
@@ -57,7 +57,7 @@ useEffect(()=>{console.log(submittedDocuments)},[submittedDocuments])
       <div className="w-full max-w-3xl bg-white p-8 rounded-lg shadow-lg space-y-6">
         <div className="flex flex-col sm:flex-row justify-between items-center mb-6">
           <div className="flex flex-col sm:flex-row items-center space-x-2 mb-4 sm:mb-0">
-            <h2 className="text-2xl font-semibold">{user.name} {DashboardCompoMenu[language].userInfomation}</h2>
+            <h2 className="text-2xl font-semibold">{user.name} {DashboardCompoMenu[language].userInformation}</h2>
           </div>
 
           
@@ -69,7 +69,7 @@ useEffect(()=>{console.log(submittedDocuments)},[submittedDocuments])
               {DashboardCompoMenu[language].nameChange}
             </button>
             <button
-              onClick={() => googleConectHandle()}
+              onClick={() => googleConnectHandle()}
               className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-300 text-center"
             >
               {DashboardCompoMenu[language].connectGoogle}
