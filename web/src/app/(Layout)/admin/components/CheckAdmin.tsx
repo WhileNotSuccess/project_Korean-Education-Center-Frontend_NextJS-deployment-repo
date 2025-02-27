@@ -9,12 +9,12 @@ const CheckAdmin = () => {
   const fetch = useCustomFetch();
   useEffect(() => {
     async function check() {
-      // const response = await fetch("/users");
-      // if (response && !response.result) {
-      //   console.log(response);
-      //   alert("잘못된 접근입니다.");
-      //   router.push("/");
-      // }
+      const response = await fetch("/users");
+      if (response && !response.result) {
+        console.log(response);
+        alert("잘못된 접근입니다.");
+        router.push("/");
+      }
     }
     check();
   }, []);

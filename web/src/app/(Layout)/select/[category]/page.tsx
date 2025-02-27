@@ -1,7 +1,5 @@
 import { categoryMap } from "@/app/menu";
 import SelectTabComponent from "../../components/SelectPageCompo";
-import { Language } from "@/app/common/types";
-import Cookies from "js-cookie";
 
 type SelectTabProps = {
   params: {

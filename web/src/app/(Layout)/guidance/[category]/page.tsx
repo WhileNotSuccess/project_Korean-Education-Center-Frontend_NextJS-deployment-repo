@@ -6,7 +6,6 @@ import { Language } from "@/app/common/types"
 interface GuidancePageProps {
   params : {
   category : keyof typeof guidanceMenu[Language] // 
-  // category : string 
   }
 }
 

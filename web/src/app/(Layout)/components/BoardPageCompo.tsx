@@ -12,7 +12,7 @@ import { formatDate } from "@/app/common/formatDate";
 import { useRouter } from "next/navigation";
 
 type BoardPageProps = {
-  name: keyof (typeof boardMenu)["korean"];
+  name: keyof (typeof boardMenu)[Language];
 };
 
 export default function BoardPageCompo({ name }: BoardPageProps) {

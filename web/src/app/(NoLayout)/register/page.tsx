@@ -1,4 +1,3 @@
-// app/register/page.tsx
 import RegisterCompo from "../components/RegisterCompo";
 
 export default async function RegisterPage() {

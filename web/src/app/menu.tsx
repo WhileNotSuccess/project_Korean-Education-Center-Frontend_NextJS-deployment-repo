@@ -818,6 +818,8 @@ export const RegisterCompoMenu: Record<Language, Record<string, string>> = {
     namePlaceHolder: "이름",
     emailPlaceHolder: "이메일",
     passWordPlaceHolder: "비밀번호",
+    googleRegister : "구글 회원가입",
+    nameChange : "이름 변경"
   },
   [Language.english]: {
     inputName:
@@ -826,6 +828,8 @@ export const RegisterCompoMenu: Record<Language, Record<string, string>> = {
     namePlaceHolder: "Name",
     emailPlaceHolder: "Email",
     passWordPlaceHolder: "Password",
+    googleRegister : "Google Register",
+    nameChange : "Change Name"
   },
   [Language.japanese]: {
     inputName: "韓国語教育センターで使用する名前を入力してください。",
@@ -833,6 +837,8 @@ export const RegisterCompoMenu: Record<Language, Record<string, string>> = {
     namePlaceHolder: "名前",
     emailPlaceHolder: "メール",
     passWordPlaceHolder: "パスワード",
+    googleRegister : "Google サインアップ",
+    nameChange : "名前変更"
   },
 };
 

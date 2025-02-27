@@ -75,7 +75,7 @@ export default function RegisterCompo() {
     <main className="flex items-center justify-center min-h-screen bg-cover bg-center relative" style={{ backgroundImage: `url('/images/background.jpg')`, height: '100vh' }}>
       <div className="absolute inset-0 bg-black bg-opacity-50"></div>
       <section className="relative bg-transparent rounded-lg shadow-lg w-full max-w-md">
-        <h1 className="text-3xl font-extrabold mb-6 text-white text-center">{newUser ? "구글 회원가입" : "회원가입"}</h1>
+        <h1 className="text-3xl font-extrabold mb-6 text-white text-center">{newUser ? RegisterCompoMenu[language].googleRegister : RegisterCompoMenu[language].register}</h1>
 
         {error && <p style={{ color: "red" }} className="text-center">{error}</p>}
         {message && <p className="text-center">{message}</p>}
@@ -93,7 +93,7 @@ export default function RegisterCompo() {
                 className="w-full p-3 border border-blue-500 rounded-lg text-blue-800 focus:outline-none focus:ring-2 focus:ring-white"
               />
             </div>
-            <button type="submit" className="w-full bg-blue-500 text-white p-3 rounded-lg font-semibold mt-4">이름 변경</button>
+            <button type="submit" className="w-full bg-blue-500 text-white p-3 rounded-lg font-semibold mt-4">{RegisterCompoMenu[language].nameChange}</button>
           </form>
         ) : (
           // 일반 회원가입 폼

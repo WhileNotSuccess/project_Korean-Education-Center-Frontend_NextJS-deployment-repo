@@ -43,7 +43,7 @@ export default function SelectTabComponent({
 
   useEffect(() => {
     if (categoryTab && categoryTab[language]?.[0]?.key.length > 0) {
-      // tabKeys에 값이 있을 경우에 가져옴
+      // tab keys에 값이 있을 경우에 가져옴
       setSelectedTab(categoryTab[language]?.[0]?.key); // 첫 번째 탭을 기본으로 설정
     }
   }, [categoryTab]);
