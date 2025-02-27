@@ -37,7 +37,6 @@ export default function EditorComponent(props: EditorProps) {
   const customFetch = useCustomFetch();
   const [category, setCategory] = useState<string>(props.categoryName || "");
   const router = useRouter();
-  const [postLanguage, setPostLanguage] = useState("korean");
   const [isAdmin, setIsAdmin] = useState(false);
   const [language, setLanguage] = useState<Language>(Language.korean);
 
@@ -94,11 +93,8 @@ export default function EditorComponent(props: EditorProps) {
         formData.append("title", title);
         formData.append("content", content);
         formData.append("category", category);
-        {
-          isAdmin
-            ? formData.append("language", postLanguage)
-            : formData.append("language", language);
-        }
+        formData.append("language", language);
+
 
         // 첨부파일이 있다면, FormData에 추가
         documentFiles.forEach((file) => {
@@ -122,11 +118,8 @@ export default function EditorComponent(props: EditorProps) {
       formData.append("title", title);
       formData.append("content", content);
       formData.append("category", category);
-      {
-        isAdmin
-          ? formData.append("language", postLanguage)
-          : formData.append("language", language);
-      }
+      formData.append("language", language);
+
       formData.append("deleteFilePath", JSON.stringify(deleteFileNames));
       documentFiles.forEach((file) => {
         formData.append("files", file); // 문서 파일도 함께 전송
@@ -229,13 +222,13 @@ export default function EditorComponent(props: EditorProps) {
 
               <select
                 className="border rounded-sm cursor-pointer"
-                value={postLanguage}
-                onChange={(e) => setPostLanguage(e.target.value)}
+                value={language}
+                onChange={(e) => setLanguage(e.target.value as Language)}
               >
-                {postLanguageList[language].map((item) => {
+                {Object.values(Language).map((item) => {
                   return (
-                    <option key={item.key} value={item.key}>
-                      {item.value}
+                    <option key={item} value={item}>
+                      {item}
                     </option>
                   );
                 })}
