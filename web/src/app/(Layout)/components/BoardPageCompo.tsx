@@ -68,7 +68,6 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
       }
     }
     adminCheck();
-    console.log(adminCheck);
   }, []);
 
   useEffect(() => {
@@ -79,7 +78,6 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
       }
     }
     userCheck();
-    console.log(userCheck);
   }, []);
 
   const onPageChange = (page: number) => {

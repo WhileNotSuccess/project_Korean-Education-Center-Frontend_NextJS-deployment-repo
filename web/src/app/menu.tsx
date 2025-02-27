@@ -957,6 +957,7 @@ export const SelectPageCompoMenu: Record<Language, Record<string, string>> = {
     loadingCourse: "지원과정을 불러오는 중...",
     submit: "제출",
     inputPhoneNumber: "전화번호를 입력하세요.",
+    fileSelect : "파일 선택",
   },
   [Language.english]: {
     failLoadPosts: "Unable to load the post.",
@@ -970,6 +971,8 @@ export const SelectPageCompoMenu: Record<Language, Record<string, string>> = {
     loadingCourse: "Loading courses...",
     submit: "Submit",
     inputPhoneNumber: "Enter phone number.",
+    fileSelect : "file Select",
+
   },
   [Language.japanese]: {
     failLoadPosts: "その投稿を読み込むことができません。",
@@ -983,6 +986,8 @@ export const SelectPageCompoMenu: Record<Language, Record<string, string>> = {
     loadingCourse: "コースを読み込んでいます...",
     submit: "提出",
     inputPhoneNumber: "電話番号を入力してください。",
+    fileSelect : "ファイル選択",
+
   },
 };
 
