@@ -13,6 +13,14 @@ import useCustomFetch from "@/app/lib/customFetch";
 
 export default function FormComponent() {
   const [language, setLanguage] = useState<Language>(Language.korean);
+  const customFetch = useCustomFetch();
+  const [formData, setFormData] = useState({
+    phone: "",
+    email: "",
+    date: "",
+    name: "",
+  });
+  const [isDate, setIsDate] = useState(false);
 
   useEffect(() => {
     const savedLanguage = Cookies.get("language") as Language;
@@ -21,14 +29,6 @@ export default function FormComponent() {
     }
   }, [language]);
 
-  const [formData, setFormData] = useState({
-    phone: "",
-    email: "",
-    date: "",
-    name: "",
-  });
-
-  const customFetch = useCustomFetch();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -165,15 +165,20 @@ export default function FormComponent() {
             >
               {counselingPageMenu[language]["date"]}
             </label>
-            <input
+            <div className="relative"></div>
+            <input 
+              lang="en"
               type="date"
               id="date"
               name="date"
               value={formData.date}
               onChange={handleChange}
+              onFocus={() => setIsDate(true)}
               required
               className="p-3 border-2 border-blue-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+              
             />
+            
           </div>
 
           <button

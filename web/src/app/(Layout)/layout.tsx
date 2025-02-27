@@ -10,6 +10,7 @@ import {
   selectMenu,
   counselingForm,
   homePage,
+  homePageTitle,
 } from "../menu";
 import { cookies } from "next/headers";
 import { Language } from "../common/types";
@@ -50,8 +51,8 @@ export default async function RootLayout({
         <Link href={"/"} className="w-1/6 flex justify-center items-center pl-4 sm:pl-0">
         <img src="/images/영진로고.png" className="w-15 h-15"></img>
         <h2 className="font-bold text-white w-full whitespace-nowrap">
-          영진전문대학교<br></br>
-          한국어교육센터
+          {homePageTitle[language].yeungjin}<br></br>
+          {homePageTitle[language].koreanEducationCenter}
         </h2>
         </Link>
         <div className="hidden sm:w-full sm:h-full sm:flex sm:justify-evenly sm:text-white sm:font-bold sm:items-center sm:relative">

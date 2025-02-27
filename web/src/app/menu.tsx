@@ -1179,3 +1179,18 @@ export const postLanguageList: Record<
     { key: "english", value: "英語" },
   ],
 };
+
+export const homePageTitle: Record<Language, Record<string, string>> = {
+  [Language.korean] : {
+    yeungjin : "영진전문대학교",
+    koreanEducationCenter : "한국어교육센터"
+  },
+  [Language.english] : {
+    yeungjin : "Yeungjin University",
+    koreanEducationCenter : "Korean Education Center"
+  },
+  [Language.japanese] : {
+    yeungjin : "ヨンジン専門大学",
+    koreanEducationCenter : "韓国語教育センター"
+  },
+}
