@@ -142,7 +142,7 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
             ></input>
             <button
               onClick={() => onSearch(inputValue)}
-              className="w-12 sm:w-12 px-2 bg-[#0093EE] text-white sm:ml-2"
+              className=" px-2 bg-[#0093EE] text-white sm:ml-2"
             >
               {boardPage[language]?.search}
             </button>

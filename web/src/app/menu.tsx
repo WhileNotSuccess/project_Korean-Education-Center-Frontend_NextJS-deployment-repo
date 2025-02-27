@@ -41,7 +41,7 @@ export const smallMenu: Record<Language, Record<string, string>> = {
   [Language.japanese]: {
     centerIntro: "韓国語教育センター紹介",
     howToGetHere: "アクセス",
-    staffIntro: "講師陣および職員紹介",
+    "staff-intro": "講師陣および職員紹介",
     "korean-curriculum": "韓国語教育課程",
     "open-campus": "オープンキャンパス",
     internationalReview: "留学生の声",
@@ -52,7 +52,7 @@ export const smallMenu: Record<Language, Record<string, string>> = {
   [Language.english]: {
     centerIntro: "Korean Language Education Center Introduction",
     howToGetHere: "Directions",
-    staffIntro: "Introduction of Faculty and Staff",
+    "staff-intro": "Introduction of Faculty and Staff",
     "korean-curriculum": "Korean Language Curriculum",
     "open-campus": "Open Campus",
     internationalReview: "International Student Reviews",
@@ -449,6 +449,7 @@ export const boardPage: Record<Language, Record<string, string>> = {
     write: "作成",
     number: "番号",
     author: "作成者",
+    writeTitle: "タイトルを入力してください",
   },
   [Language.english]: {
     notice: "Notice",
@@ -460,6 +461,7 @@ export const boardPage: Record<Language, Record<string, string>> = {
     write: "Write",
     number: "Number",
     author: "Author",
+    writeTitle: "Enter a title",
   },
 };
 
