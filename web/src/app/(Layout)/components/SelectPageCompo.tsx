@@ -30,7 +30,7 @@ export default function SelectTabComponent({
   const [selectedCourse, setSelectedCourse] = useState(""); // 기본값 설정
   const [deleteFileNames, setDeleteFileNames] = useState<Array<string>>([]); // 삭제할 파일 이름 리스트
   const [courseOptions, setCourseOptions] = useState<
-    Array<{ id: number; Korean: string; English: string; Japanese: string}>
+    Array<{ id: number; korean: string; english: string; japanese: string}>
   >([]); // 지원과정 목록
   const [language, setLanguage] = useState<Language>(Language.korean);
 
@@ -243,39 +243,17 @@ export default function SelectTabComponent({
                   onChange={handleCourseChange}
                   className="mt-2 w-full h-10 text-base border border-gray-300 p-2"
                 >
-                
-                {language === "korean" as Language ? <option key={courseOptions[0].id} value={courseOptions[0].Korean}>
-                  {courseOptions[0].Korean}
-                </option> : null}
-                {language === "korean" as Language ? <option key={courseOptions[1].id} value={courseOptions[1].Korean}>
-                  {courseOptions[1].Korean}
-                </option> : null}
-
-                {language === "english" as Language ?<option key={courseOptions[0].id} value={courseOptions[0].English}>
-                  {courseOptions[0].English}
-                </option> : null}
-                {language === "english" as Language ?<option key={courseOptions[1].id} value={courseOptions[1].English}>
-                  {courseOptions[1].English}
-                </option> : null}
-
-                {language === "japanese" as Language ? <option key={courseOptions[0].id} value={courseOptions[0].Japanese}>
-                  {courseOptions[0].Japanese}
-                </option> : null}
-                {language === "japanese" as Language ? <option key={courseOptions[1].id} value={courseOptions[1].Japanese}>
-                  {courseOptions[1].Japanese}
-                </option> : null}
-
-                  {/* {courseOptions.length > 0 ? (
+                  {courseOptions.length > 0 ? (
                     courseOptions.map((option) => (
-                      <option key={option.id} value={option.Korean}>
-                        {option.name}
+                      <option key={option.id} value={option[language]}>
+                        {option[language]}
                       </option>
                     ))
                   ) : (
                     <option value="" disabled>
                       {SelectPageCompoMenu[language].noCourse}
                     </option>
-                  )} */}
+                  )}
                 </select>
               </div>
 

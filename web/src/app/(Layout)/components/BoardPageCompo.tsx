@@ -96,7 +96,7 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
     console.log(value);
     try {
       const data = await customFetch(
-        `/posts/search?limit=10&page=1&${searchOption}=${value}`,
+        `/posts/search?limit=10&page=1&category=${name}&${searchOption}=${value}`,
         {
           method: "GET",
         }
