@@ -4,6 +4,7 @@ import {
   ApplicationFormItemProp,
   Banner,
   Counseling,
+  Course,
   Teacher,
 } from "@/app/common/types";
 import useCustomFetch from "@/app/lib/customFetch";
@@ -17,6 +18,8 @@ import StaffIntro from "../../components/StaffIntro";
 import StaffComponent from "./StaffComponent";
 import StaffModal from "./StaffModal";
 import Pagination from "../../components/Pagination"; // 페이지네이션 컴포넌트
+import CourseModal from "./CourseModal";
+import CourseComponent from "./CourseComponent";
 
 type AdminComponentProps = {
   category: string;
@@ -31,6 +34,8 @@ export default function AdminComponent({ category }: AdminComponentProps) {
   const [teacher, setTeacher] = useState<Teacher[]>([]);
   const [staff, setStaff] = useState<Teacher[]>([]);
   const [staffPostModal, setStaffPostModal] = useState<boolean>(false);
+  const [course, setCourse] = useState<Course[]>([])
+  const [coursePostModal, setCoursePostModal] = useState<boolean>(false);
 
   // 페이지네이션 상태
   const [currentPage, setCurrentPage] = useState(1);
@@ -199,7 +204,46 @@ export default function AdminComponent({ category }: AdminComponentProps) {
         </div>
       </>
     );
-  } else {
+  } else if (category === "course") {
+    useEffect(() => {
+      async function getCourse() {
+        const response = await customFetch("/course");
+        setCourse(response.data);
+      }
+      getCourse();
+    }, []);
+    return (
+      <>
+        {coursePostModal && (
+          <CourseModal
+            onClose={() => {
+              setCoursePostModal(false);
+            }}
+            method="POST"
+          />
+        )}
+        <div className="flex flex-wrap">
+          <h1 className="text-3xl mb-4 font-bold text-center w-full">
+            강좌
+            <span className="p-4 text-right">
+              <button
+                onClick={() => {
+                  setCoursePostModal(true);
+                }}
+                className="text-white bg-blue-600 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5"
+              >
+                추가하기
+              </button>
+            </span>
+          </h1>
+
+          {course.map((item) => {
+            return <CourseComponent key={item.id} {...item} />;
+          })}
+        </div>
+      </>
+    );
+  }  else {
     return (
       <div className="w-full flex justify-center items-center">
         <BoardPageCompo name={category} />
