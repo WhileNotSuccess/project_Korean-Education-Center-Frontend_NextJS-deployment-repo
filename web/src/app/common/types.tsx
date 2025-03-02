@@ -103,3 +103,10 @@ export interface UserInfo {
   name: string;
   email: string;
 }
+
+export interface Course {
+  id : number;
+  korean : string;
+  japanese : string;
+  english : string;
+}
