@@ -104,6 +104,9 @@ export default function EditorComponent(props: EditorProps) {
           method: "POST",
           body: formData,
         });
+        if(!response.ok){
+          throw new Error(`HTTP Error : ${response.status}`)
+        }
         alert(postSuccess[language]?.contentPost);
         router.back();
       } catch (error) {
