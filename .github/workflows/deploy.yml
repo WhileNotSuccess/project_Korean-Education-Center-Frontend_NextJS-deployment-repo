@@ -13,7 +13,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t koreanweb ./api/
+          docker build -t koreanweb ./web/
 
       - name: Login to DockerHub
         uses: docker/login-action@v2
