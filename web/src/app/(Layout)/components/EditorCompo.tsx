@@ -95,7 +95,6 @@ export default function EditorComponent(props: EditorProps) {
         formData.append("category", category);
         formData.append("language", language);
 
-
         // 첨부파일이 있다면, FormData에 추가
         documentFiles.forEach((file) => {
           formData.append("files", file); // 문서 파일도 함께 전송
@@ -240,16 +239,16 @@ export default function EditorComponent(props: EditorProps) {
         <div className="w-full flex justify-between items-center">
           <section className="w-[50%]">
             <label className="w-full text-xs  bg-blue-500 text-white p-2 rounded-md">
-            {SelectPageCompoMenu[language].fileSelect}
-            <input
-              type="file"
-              accept=".*"
-              multiple
-              onChange={handleDocumentFileChange}
-              className="hidden"
-            />
+              {SelectPageCompoMenu[language].fileSelect}
+              <input
+                type="file"
+                accept=".*"
+                multiple
+                onChange={handleDocumentFileChange}
+                className="hidden"
+              />
             </label>
-            
+
             <ul className={documentFileNames.length > 0 ? "border mt-4" : ""}>
               {documentFileNames &&
                 documentFileNames.map((fileName, index) => (
@@ -291,6 +290,12 @@ export default function EditorComponent(props: EditorProps) {
             }}
             init={{
               language: "ko_KR",
+              relative_urls: false,
+              remove_script_host: false,
+              document_base_url: process.env.NEXT_PUBLIC_BACKEND_URL?.replace(
+                "/api",
+                ""
+              ),
               language_url: "/tinymce/langs/ko_KR.js",
               height: 500,
               plugins: ["lists", "link", "image", "table"],
