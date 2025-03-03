@@ -1,17 +1,11 @@
 import EditorComponent from "../../components/EditorCompo";
 
-interface UpdateProps {
-  params : {
-    id : string
-  }
-}
-
-export default function PostUpdateTest({params} : UpdateProps) {
-  const {id} = params
+export default async function PostUpdateTest({ params }: any) {
+  const { id } = params;
 
   return (
     <main>
-      <EditorComponent id={id}/>
+      <EditorComponent id={id} />
     </main>
   );
 }

@@ -1,13 +1,7 @@
 import AdminComponent from "../components/AdminComponent";
 import CheckAdmin from "../components/CheckAdmin";
 
-interface AdminPageProps {
-  params: {
-    category: string;
-  };
-}
-
-export default function ApplicationPage({ params }: AdminPageProps) {
+export default async function ApplicationPage({ params }: any) {
   const { category } = params;
   return (
     <div>

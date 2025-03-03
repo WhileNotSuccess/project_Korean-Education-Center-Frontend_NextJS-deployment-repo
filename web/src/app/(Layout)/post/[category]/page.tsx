@@ -1,16 +1,10 @@
 import EditorComponent from "../../components/EditorCompo";
 
-interface WriteProps{
-  params:{
-  category : string
-  }
-}
-
-export default function PostTest({params}:WriteProps) {
-  const {category} = params
+export default async function PostTest({ params }: any) {
+  const { category } = params;
   return (
     <main>
-      <EditorComponent categoryName={category}/>
+      <EditorComponent categoryName={category} />
     </main>
   );
 }

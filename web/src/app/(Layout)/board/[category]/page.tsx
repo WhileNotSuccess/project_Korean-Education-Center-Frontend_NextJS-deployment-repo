@@ -1,21 +1,13 @@
-import { boardMenu } from "@/app/menu"
-import BoardPageCompo from "../../components/BoardPageCompo"
+import { boardMenu } from "@/app/menu";
+import BoardPageCompo from "../../components/BoardPageCompo";
 import { Language } from "@/app/common/types";
 
+export default async function BoardPage({ params }: any) {
+  const { category } = params;
 
-interface BoardPageProps {
-  params : {
-  category : keyof typeof boardMenu[Language]
-  }
-}
-
-
-export default function BoardPage( {params} : BoardPageProps ){
-  const {category} = params
-
-  return(
+  return (
     <div className="w-full flex justify-center items-center">
-      <BoardPageCompo name={category}/>
+      <BoardPageCompo name={category} />
     </div>
-  )
+  );
 }

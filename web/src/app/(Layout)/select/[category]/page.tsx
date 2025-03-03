@@ -1,13 +1,7 @@
 import { categoryMap } from "@/app/menu";
 import SelectTabComponent from "../../components/SelectPageCompo";
 
-type SelectTabProps = {
-  params: {
-    category: string;
-  };
-};
-
-export default function SelectTabPage({ params }: SelectTabProps) {
+export default async function SelectTabPage({ params }: any) {
   const { category } = params;
   const categoryTab = categoryMap[category];
 

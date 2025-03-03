@@ -1,21 +1,13 @@
-import { guidanceMenu } from "@/app/menu"
-import HtmlDocs from "../../components/HtmlDocs"
-import { Language } from "@/app/common/types"
+import { guidanceMenu } from "@/app/menu";
+import HtmlDocs from "../../components/HtmlDocs";
+import { Language } from "@/app/common/types";
 
+export default async function GuidancePage({ params }: any) {
+  const { category } = params;
 
-interface GuidancePageProps {
-  params : {
-  category : keyof typeof guidanceMenu[Language] // 
-  }
-}
-
-
-export default function GuidancePage( {params} : GuidancePageProps ){
-  const {category} = params
-
-  return(
+  return (
     <div className="w-full flex justify-center items-center">
-      <HtmlDocs category={category}/>
+      <HtmlDocs category={category} />
     </div>
-  )
+  );
 }

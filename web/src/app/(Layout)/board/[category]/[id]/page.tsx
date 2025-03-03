@@ -1,20 +1,11 @@
-import HtmlDocs from "@/app/(Layout)/components/HtmlDocs"
+import HtmlDocs from "@/app/(Layout)/components/HtmlDocs";
 
+export default async function GuidancePage({ params }: any) {
+  const { id } = params;
 
-interface GuidancePageProps {
-  params : {
-    id : string
-  }
-}
-
-
-export default function GuidancePage( {params} : GuidancePageProps ){
-  const {id} = params
-
-
-  return(
+  return (
     <div className="w-full flex justify-center items-center">
-      <HtmlDocs id={id}/>
+      <HtmlDocs id={id} />
     </div>
-  )
+  );
 }
