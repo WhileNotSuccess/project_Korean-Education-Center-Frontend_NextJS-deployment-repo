@@ -39,10 +39,22 @@ export default function HomePageCompo() {
   const sliderRef = useRef<HTMLDivElement>(null); // 슬라이더 div 참조
   const [newsData, setNewsData] = useState<NewsType[]>([]);
   const [guidelinesForApplicants, setGuidelinesForApplicants] =
-    useState<Attachments>();
+    useState<Attachments>({
+      id:0,
+      fileSize:0,
+      filename:"",
+      filetype:"",
+      applicationId:0
+
+    });
   const itemRef = useRef<HTMLDivElement>(null); // 슬라이더 내부 각 div의 길이 참조용
   const [itemWidth, setItemWidth] = useState(0); // 내부 각 div 길이 변수
-  const [entranceApplication, setEntranceApplication] = useState<Applicants>();
+  const [entranceApplication, setEntranceApplication] = useState<Applicants>({
+    applicationFileName: "",
+    applicationImageName: "",
+    guidelinesForApplicantsFileName: "",
+    guidelinesForApplicantsImageName: "",
+  });
   const [language, setLanguage] = useState<Language>(Language.korean);
 
   useEffect(() => {
@@ -78,7 +90,6 @@ export default function HomePageCompo() {
         const data = await customFetch("/banners", {
           method: "GET",
         });
-
         setBanner(data.data);
       } catch (error) {
         alert(getError[language]?.bannerError);
@@ -311,13 +322,13 @@ export default function HomePageCompo() {
           </div>
           <div className="w-full flex  flex-col justify-center items-center cursor-pointer">
             <Link
-              href={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${guidelinesForApplicants?.filename}`}
+              href={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${guidelinesForApplicants.filename}`}
               className="size-12 p-2 border rounded-full bg-[#ffffff]"
             >
               <img src="images/학사모1.png" />
             </Link>
             <Link
-              href={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${guidelinesForApplicants?.filename}`}
+              href={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${guidelinesForApplicants.filename}`}
               className="text-xs text-wrap font-light text-center text-white"
             >
               {homePage[language]?.["recruitment-guidelines"]}
@@ -369,14 +380,14 @@ export default function HomePageCompo() {
             className="text-center bg-gray-100 hover:bg-gray-200 cursor-pointer p-2 text-lg rounded-lg"
             onClick={() => {
               router.push(
-                `${process.env.NEXT_PUBLIC_BACKEND_URL}/${entranceApplication?.applicationFileName}`
+                `${process.env.NEXT_PUBLIC_BACKEND_URL}/${entranceApplication.applicationFileName}`
               );
             }}
           >
             {homePage[language]?.["Application-Form"]}
           </div>
           <img
-            src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${entranceApplication?.applicationImageName}`}
+            src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${entranceApplication.applicationImageName}`}
             className="w-full h-64 object-cover mt-4"
           />
         </div>
@@ -385,14 +396,14 @@ export default function HomePageCompo() {
             className="text-center bg-gray-100 hover:bg-gray-200 cursor-pointer p-2 text-lg rounded-lg"
             onClick={() => {
               router.push(
-                `${process.env.NEXT_PUBLIC_BACKEND_URL}/${entranceApplication?.guidelinesForApplicantsFileName}`
+                `${process.env.NEXT_PUBLIC_BACKEND_URL}/${entranceApplication.guidelinesForApplicantsFileName}`
               );
             }}
           >
             {homePage[language]?.["recruitment-guidelines"]}
           </div>
           <img
-            src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${entranceApplication?.guidelinesForApplicantsImageName}`}
+            src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${entranceApplication.guidelinesForApplicantsImageName}`}
             className="w-full h-64 object-cover mt-4"
           />
         </div>

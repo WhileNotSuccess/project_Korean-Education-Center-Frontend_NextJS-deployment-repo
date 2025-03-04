@@ -42,9 +42,9 @@ export default function RegisterCompo() {
         });
 
         if (data.error) {
-          setError(data.error);
+          setError(RegisterCompoMenu[language].nameChangeError);
         } else {
-          setMessage(data.message);
+          setMessage(RegisterCompoMenu[language].nameChangeComplete);
           router.push("/");
         }
       } catch (err) {
@@ -61,9 +61,9 @@ export default function RegisterCompo() {
         });
 
         if (data.error) {
-          setError(data.error);
+          setError(RegisterCompoMenu[language].registerError);
         } else {
-          setMessage(data.message);
+          setMessage(RegisterCompoMenu[language].registerComplete);
         }
       } catch (err) {
         setError(serverError[language].server);
@@ -78,7 +78,7 @@ export default function RegisterCompo() {
         <h1 className="text-3xl font-extrabold mb-6 text-white text-center">{newUser ? RegisterCompoMenu[language].googleRegister : RegisterCompoMenu[language].register}</h1>
 
         {error && <p style={{ color: "red" }} className="text-center">{error}</p>}
-        {message && <p className="text-center">{message}</p>}
+        {message && <p className="text-center text-white">{message}</p>}
         
         
         {newUser ? (
