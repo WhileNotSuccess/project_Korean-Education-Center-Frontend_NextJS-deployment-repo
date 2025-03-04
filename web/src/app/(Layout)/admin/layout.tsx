@@ -121,14 +121,6 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                 </li>
                 <li>
                   <a
-                    href="/admin/scholarship"
-                    className="block hover:underline text-xs"
-                  >
-                    장학금 안내
-                  </a>
-                </li>
-                <li>
-                  <a
                     href="/admin/facility"
                     className="block hover:underline text-xs"
                   >

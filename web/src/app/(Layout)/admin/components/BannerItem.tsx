@@ -38,7 +38,7 @@ export default function BannerItem(props: Banner) {
             ㅤㅤ⋮
           </span>
           {menuOpen && (
-            <nav className="absolute top-full right-0 mt-1 w-40 bg-white border rounded shadow-lg">
+            <nav className="absolute top-full right-0 mt-8 w-40 bg-white border rounded shadow-lg">
               <ul className="py-2 text-sm text-gray-700">
                 <li
                   onClick={() => {
