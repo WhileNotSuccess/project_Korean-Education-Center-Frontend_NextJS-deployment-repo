@@ -104,7 +104,7 @@ export default function SelectTabComponent({
       file.forEach((file) => {
         formData.append("files", file);
       });
-      formData.append("course", selectedCourse); // 선택된 과정 값 전달
+      formData.append("courseId", selectedCourse); // 선택된 과정 값 전달
       formData.append("phoneNumber", applicationPhoneNumber);
       try {
         const response = await customFormFetch("/application-form", {
@@ -245,7 +245,7 @@ export default function SelectTabComponent({
                 >
                   {courseOptions.length > 0 ? (
                     courseOptions.map((option) => (
-                      <option key={option.id} value={option[language]}>
+                      <option key={option.id} value={option.id}>
                         {option[language]}
                       </option>
                     ))
