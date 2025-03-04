@@ -511,6 +511,7 @@ export const getError: Record<Language, Record<string, string>> = {
     newsError: "소식을 불러올 수 없습니다.",
     entranceApplicationError: "모집요강 및 입학신청를 불러올 수 없습니다.",
     searchBoardError: "검색된 게시글들을 불러올 수 없습니다.",
+    fileDownloadError : "파일을 다운로드하지 못했습니다."
   },
   [Language.japanese]: {
     staffError: "スタッフおよび職員情報を読み込めませんでした。",
@@ -520,6 +521,7 @@ export const getError: Record<Language, Record<string, string>> = {
     newsError: "お知らせを読み込むことができませんでした。",
     entranceApplicationError: "募集要項および入学申請を読み込むことができません。",
     searchBoardError: "検索結果を読み込むことができません。",
+    fileDownloadError : "ファイルをダウンロードできませんでした。"
   },
   [Language.english]: {
     staffError: "Failed to load staff and employee information.",
@@ -529,6 +531,7 @@ export const getError: Record<Language, Record<string, string>> = {
     newsError: "Failed to load the news.",
     entranceApplicationError: "Failed to load the recruitment guidelines and admission application.",
     searchBoardError: "Failed to load the search results.",
+    fileDownloadError : "The file could not be downloaded."
   },
 };
 
@@ -922,6 +925,7 @@ export const DashboardCompoMenu: Record<Language, Record<string, string>> = {
     submitDocument: "제출한 서류",
     submitComplete: "제출 완료",
     submitIncomplete: "제출 미완료",
+    attachedFile : "첨부파일"
   },
   [Language.english]: {
     loadingOrNotFoundUser: "Loading or no user information found.",
@@ -931,6 +935,7 @@ export const DashboardCompoMenu: Record<Language, Record<string, string>> = {
     submitDocument: "Submitted Documents",
     submitComplete: "Submission Complete",
     submitIncomplete: "Submission Incomplete",
+    attachedFile : "Attachment"
   },
   [Language.japanese]: {
     loadingOrNotFoundUser: "読み込み中またはユーザー情報がありません。",
@@ -940,6 +945,7 @@ export const DashboardCompoMenu: Record<Language, Record<string, string>> = {
     submitDocument: "提出した書類",
     submitComplete: "提出完了",
     submitIncomplete: "提出未完了",
+    attachedFile : "添付ファイル"
   },
 };
 

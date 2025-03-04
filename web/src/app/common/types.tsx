@@ -86,9 +86,10 @@ export interface Teacher {
 
 export interface SubmittedDocument {
   Id: number;
-  course: string;
+  korean: string;
   createdDate: string;
   isDone: boolean;
+  attachments: ApplicationAttach[]
 }
 
 export interface NameChangeModalProps {
@@ -115,4 +116,11 @@ export interface CategoryParams {
 
 export interface IdParams {
   id : string;
+}
+
+export type ApplicationAttach = {
+  id : number;
+  filename : string;
+  filetype : string;
+  fileSize : number
 }

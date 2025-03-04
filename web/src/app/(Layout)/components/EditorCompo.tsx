@@ -294,7 +294,7 @@ export default function EditorComponent(props: EditorProps) {
               language_url: "/tinymce/langs/ko_KR.js",
               height: 500,
               plugins: ["lists", "link", "image", "table"],
-              content_style: "p {margin:0}",
+              content_style: "p {margin:0} img{display:inline}",
               toolbar:
                 "undo redo | bold italic | alignleft aligncenter alignright | bullist numlist | forecolor backcolor | table",
               file_picker_types: "image", // 파일 선택기에서 다룰 파일 형식
