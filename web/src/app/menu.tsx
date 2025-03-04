@@ -257,6 +257,8 @@ export const boardMenu: Record<Language, Record<string, string>> = {
     "procedure-guide": "입학 신청의 절차 안내",
     guidelinesForApplicants: "모집요강",
     applicants: "입학신청서",
+    terms: "이용약관",
+    "privacy-policy": "개인정보처리방침",
   },
   [Language.japanese]: {
     review: "留学生の感想",
@@ -281,6 +283,8 @@ export const boardMenu: Record<Language, Record<string, string>> = {
     "procedure-guide": "入学申請手続き案内",
     guidelinesForApplicants: "募集要項",
     applicants: "入学申請書",
+    terms: "利用規約",
+    "privacy-policy": "個人情報取扱方針",
   },
   [Language.english]: {
     review: "Student Reviews",
@@ -305,6 +309,8 @@ export const boardMenu: Record<Language, Record<string, string>> = {
     "procedure-guide": "Admission Procedure Guide",
     guidelinesForApplicants: "Application Guidelines",
     applicants: "Application Form",
+    terms: "Terms of Service",
+    "privacy-policy": "Privacy Policy",
   },
 };
 
@@ -330,8 +336,8 @@ export const categoryList: Record<Language, { key: string; value: string }[]> =
       { key: "opencampus-content", value: "일정 및 내용" },
       { key: "opencampus-schedule", value: "스케쥴" },
       { key: "procedure-guide", value: "절차 안내" },
-      { key: "terms", value: "이용약관"},
-      { key: "privacy-policy", value: "개인정보처리방침"},
+      { key: "terms", value: "이용약관" },
+      { key: "privacy-policy", value: "개인정보처리방침" },
     ],
     [Language.japanese]: [
       { key: "introduction", value: "韓国語教育センター紹介" },
@@ -353,8 +359,8 @@ export const categoryList: Record<Language, { key: string; value: string }[]> =
       { key: "opencampus-content", value: "日程と内容" },
       { key: "opencampus-schedule", value: "スケジュール" },
       { key: "procedure-guide", value: "入学申請" },
-      { key: "terms", value: "利用規約"},
-      { key: "privacy-policy", value: "個人情報処理方針"},
+      { key: "terms", value: "利用規約" },
+      { key: "privacy-policy", value: "個人情報処理方針" },
     ],
     [Language.english]: [
       { key: "introduction", value: "Introduction to Korean Language Center" },
@@ -376,8 +382,8 @@ export const categoryList: Record<Language, { key: string; value: string }[]> =
       { key: "opencampus-content", value: "Schedule and Content" },
       { key: "opencampus-schedule", value: "Schedule" },
       { key: "procedure-guide", value: "Procedure Guide" },
-      { key: "terms", value: "Terms"},
-      { key: "privacy-policy", value: "Privacy Policy"},
+      { key: "terms", value: "Terms" },
+      { key: "privacy-policy", value: "Privacy Policy" },
     ],
   };
 
@@ -406,12 +412,12 @@ export const guidanceMenu: Record<Language, Record<string, string>> = {
     dormitory: "기숙사 안내",
     facility: "학교 시설 안내",
     insurance: "건강 보험 안내",
-    "korean-outline":"개요",
-    "korean-sample":"프로그램 샘플",
-    "opencampus-purpose":"목적",
-    "opencampus-content":"일정 및 내용",
-    "opencampus-schedule":"스케쥴",
-    "procedure-guide":"절차 안내"
+    "korean-outline": "개요",
+    "korean-sample": "프로그램 샘플",
+    "opencampus-purpose": "목적",
+    "opencampus-content": "일정 및 내용",
+    "opencampus-schedule": "스케쥴",
+    "procedure-guide": "절차 안내",
   },
   [Language.japanese]: {
     introduction: "韓国語教育センター紹介",
@@ -420,12 +426,12 @@ export const guidanceMenu: Record<Language, Record<string, string>> = {
     dormitory: "寮案内",
     facility: "学校施設案内",
     insurance: "健康保険案内",
-    "korean-outline":"概要",
-    "korean-sample":"プログラムサンプル",
-    "opencampus-purpose":"目的",
-    "opencampus-content":"日程と内容",
-    "opencampus-schedule":"スケジュール",
-    "procedure-guide":"入学申請"
+    "korean-outline": "概要",
+    "korean-sample": "プログラムサンプル",
+    "opencampus-purpose": "目的",
+    "opencampus-content": "日程と内容",
+    "opencampus-schedule": "スケジュール",
+    "procedure-guide": "入学申請",
   },
   [Language.english]: {
     introduction: "Introduction to Korean Language Education Center",
@@ -434,12 +440,12 @@ export const guidanceMenu: Record<Language, Record<string, string>> = {
     dormitory: "Dormitory Information",
     facility: "School Facility Guide",
     insurance: "Health Insurance Information",
-    "korean-outline":"Outline",
-    "korean-sample":"Program Sample",
-    "opencampus-purpose":"Purpose",
-    "opencampus-content":"Schedule and Content",
-    "opencampus-schedule":"Schedule",
-    "procedure-guide":"Procedure Guide"
+    "korean-outline": "Outline",
+    "korean-sample": "Program Sample",
+    "opencampus-purpose": "Purpose",
+    "opencampus-content": "Schedule and Content",
+    "opencampus-schedule": "Schedule",
+    "procedure-guide": "Procedure Guide",
   },
 };
 
@@ -518,7 +524,8 @@ export const getError: Record<Language, Record<string, string>> = {
     htmlError: "該当の投稿を読み込むことができませんでした。",
     bannerError: "バナーを読み込むことができませんでした。",
     newsError: "お知らせを読み込むことができませんでした。",
-    entranceApplicationError: "募集要項および入学申請を読み込むことができません。",
+    entranceApplicationError:
+      "募集要項および入学申請を読み込むことができません。",
     searchBoardError: "検索結果を読み込むことができません。",
   },
   [Language.english]: {
@@ -527,7 +534,8 @@ export const getError: Record<Language, Record<string, string>> = {
     htmlError: "Failed to load the specific post.",
     bannerError: "Failed to load the banner.",
     newsError: "Failed to load the news.",
-    entranceApplicationError: "Failed to load the recruitment guidelines and admission application.",
+    entranceApplicationError:
+      "Failed to load the recruitment guidelines and admission application.",
     searchBoardError: "Failed to load the search results.",
   },
 };
@@ -862,12 +870,12 @@ export const RegisterCompoMenu: Record<Language, Record<string, string>> = {
     namePlaceHolder: "이름",
     emailPlaceHolder: "이메일",
     passWordPlaceHolder: "비밀번호",
-    googleRegister : "구글 회원가입",
-    nameChange : "이름 변경",
-    registerComplete : "회원가입 완료, 이메일 인증 필요",
-    registerError : "회원가입을 할 수 없습니다.",
-    nameChangeComplete : "이름이 성공적으로 변경되었습니다.",
-    nameChangeError : "이름을 변경할 수 없습니다"
+    googleRegister: "구글 회원가입",
+    nameChange: "이름 변경",
+    registerComplete: "회원가입 완료, 이메일 인증 필요",
+    registerError: "회원가입을 할 수 없습니다.",
+    nameChangeComplete: "이름이 성공적으로 변경되었습니다.",
+    nameChangeError: "이름을 변경할 수 없습니다",
   },
   [Language.english]: {
     inputName:
@@ -876,12 +884,12 @@ export const RegisterCompoMenu: Record<Language, Record<string, string>> = {
     namePlaceHolder: "Name",
     emailPlaceHolder: "Email",
     passWordPlaceHolder: "Password",
-    googleRegister : "Google Register",
-    nameChange : "Change Name",
-    registerComplete : "Registration completed. Email verification required.",
-    registerError : "Registration is not possible.",
-    nameChangeComplete : "Your name has been successfully changed.",
-    nameChangeError : "Your name cannot be changed."
+    googleRegister: "Google Register",
+    nameChange: "Change Name",
+    registerComplete: "Registration completed. Email verification required.",
+    registerError: "Registration is not possible.",
+    nameChangeComplete: "Your name has been successfully changed.",
+    nameChangeError: "Your name cannot be changed.",
   },
   [Language.japanese]: {
     inputName: "韓国語教育センターで使用する名前を入力してください。",
@@ -889,12 +897,12 @@ export const RegisterCompoMenu: Record<Language, Record<string, string>> = {
     namePlaceHolder: "名前",
     emailPlaceHolder: "メール",
     passWordPlaceHolder: "パスワード",
-    googleRegister : "Google サインアップ",
-    nameChange : "名前変更",
-    registerComplete : "登録完了。メール認証が必要です。",
-    registerError : "登録できません。",
-    nameChangeComplete : "名前が正常に変更されました。",
-    nameChangeError : "名前を変更できません。"
+    googleRegister: "Google サインアップ",
+    nameChange: "名前変更",
+    registerComplete: "登録完了。メール認証が必要です。",
+    registerError: "登録できません。",
+    nameChangeComplete: "名前が正常に変更されました。",
+    nameChangeError: "名前を変更できません。",
   },
 };
 
@@ -1019,7 +1027,7 @@ export const SelectPageCompoMenu: Record<Language, Record<string, string>> = {
     loadingCourse: "지원과정을 불러오는 중...",
     submit: "제출",
     inputPhoneNumber: "전화번호를 입력하세요.",
-    fileSelect : "파일 선택",
+    fileSelect: "파일 선택",
   },
   [Language.english]: {
     failLoadPosts: "Unable to load the post.",
@@ -1033,8 +1041,7 @@ export const SelectPageCompoMenu: Record<Language, Record<string, string>> = {
     loadingCourse: "Loading courses...",
     submit: "Submit",
     inputPhoneNumber: "Enter phone number.",
-    fileSelect : "file Select",
-
+    fileSelect: "file Select",
   },
   [Language.japanese]: {
     failLoadPosts: "その投稿を読み込むことができません。",
@@ -1048,8 +1055,7 @@ export const SelectPageCompoMenu: Record<Language, Record<string, string>> = {
     loadingCourse: "コースを読み込んでいます...",
     submit: "提出",
     inputPhoneNumber: "電話番号を入力してください。",
-    fileSelect : "ファイル選択",
-
+    fileSelect: "ファイル選択",
   },
 };
 
@@ -1243,43 +1249,43 @@ export const postLanguageList: Record<
 };
 
 export const HomePageTitle: Record<Language, Record<string, string>> = {
-  [Language.korean] : {
-    yeungjin : "영진전문대학교",
-    koreanEducationCenter : "한국어교육센터"
+  [Language.korean]: {
+    yeungjin: "영진전문대학교",
+    koreanEducationCenter: "한국어교육센터",
   },
-  [Language.english] : {
-    yeungjin : "Yeungjin University",
-    koreanEducationCenter : "Korean Education Center"
+  [Language.english]: {
+    yeungjin: "Yeungjin University",
+    koreanEducationCenter: "Korean Education Center",
   },
-  [Language.japanese] : {
-    yeungjin : "ヨンジン専門大学",
-    koreanEducationCenter : "韓国語教育センター"
+  [Language.japanese]: {
+    yeungjin: "ヨンジン専門大学",
+    koreanEducationCenter: "韓国語教育センター",
   },
-}
+};
 
-export const CheckAdminAlert : Record<Language, Record<string, string>> = {
-  [Language.korean] : {
-    noPermission : "잘못된 접근입니다."
+export const CheckAdminAlert: Record<Language, Record<string, string>> = {
+  [Language.korean]: {
+    noPermission: "잘못된 접근입니다.",
   },
-  [Language.english] : {
-    noPermission : "This is an invalid access"
+  [Language.english]: {
+    noPermission: "This is an invalid access",
   },
-  [Language.japanese] : {
-    noPermission : "不正なアクセスです"
-  }
-}
+  [Language.japanese]: {
+    noPermission: "不正なアクセスです",
+  },
+};
 
-export const TermsOfService : Record<Language, Record<string, string>> = {
-  [Language.korean] : {
-    privacyPolicy : "개인정보처리방침",
-    terms : "이용약관"
+export const TermsOfService: Record<Language, Record<string, string>> = {
+  [Language.korean]: {
+    privacyPolicy: "개인정보처리방침",
+    terms: "이용약관",
   },
-  [Language.japanese] : {
-    privacyPolicy : "個人情報保護方針",
-    terms : "利用規約",
+  [Language.japanese]: {
+    privacyPolicy: "個人情報保護方針",
+    terms: "利用規約",
   },
-  [Language.english] : {
-    privacyPolicy : "Privacy Policy",
-    terms : "Terms and Conditions",
-  }
-}
+  [Language.english]: {
+    privacyPolicy: "Privacy Policy",
+    terms: "Terms and Conditions",
+  },
+};

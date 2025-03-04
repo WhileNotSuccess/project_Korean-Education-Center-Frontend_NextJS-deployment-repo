@@ -258,6 +258,22 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
               강좌
             </a>
           </li>
+          <li className="mb-4">
+            <a
+              href="/admin/terms"
+              className="w-full text-left text-lg text-[#0093EE]"
+            >
+              이용약관
+            </a>
+          </li>
+          <li className="mb-4">
+            <a
+              href="/admin/privacy-policy"
+              className="w-full text-left text-lg text-[#0093EE]"
+            >
+              개인정보처리방침
+            </a>
+          </li>
         </ul>
       </aside>
 
