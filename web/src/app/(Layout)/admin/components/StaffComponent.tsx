@@ -1,5 +1,5 @@
 "use client";
-import { ApplicationFormItemProp, Teacher } from "@/app/common/types";
+import { Teacher } from "@/app/common/types";
 import useCustomFetch from "@/app/lib/customFormFetch";
 import { useState } from "react";
 import DeleteModal from "./DeleteModal";

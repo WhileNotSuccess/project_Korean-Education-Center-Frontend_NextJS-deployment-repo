@@ -1,8 +1,7 @@
-import { smallMenu } from "@/app/menu";
 import StaffIntro from "../../components/StaffIntro";
-import { Language } from "@/app/common/types";
+import { CategoryParams } from "@/app/common/types";
 
-export default async function CenterIntro({ params }: any) {
+export default async function CenterIntro({ params }: { params : CategoryParams}) {
   const { category } = params;
 
   return (

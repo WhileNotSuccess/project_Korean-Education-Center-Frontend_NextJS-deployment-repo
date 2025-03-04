@@ -29,7 +29,7 @@ export default function BannerPostModal({ onClose }: ModalProps) {
     formData.append("expiredDate", inputs.expiredDate);
     formData.append("image", image);
     for (const [key, value] of formData.entries()) {
-      console.log(key, value);
+
     }
     const response = await customFetch(`/banners`, {
       method: "POST",

@@ -91,9 +91,6 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
   };
 
   const onSearch = async (value: string) => {
-    console.log(name);
-    console.log(searchOption);
-    console.log(value);
     try {
       const data = await customFetch(
         `/posts/search?limit=10&page=1&category=${name}&${searchOption}=${value}`,
@@ -101,13 +98,13 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
           method: "GET",
         }
       );
-      console.log(data.data);
+  
       setBoardData(data.data);
       setCurrentPage(data.currentPage);
       setNextPage(data.nextPage);
       setPrevPage(data.prevPage);
       setTotalPage(data.totalPage);
-      alert(`/posts/search?limit=10&page=1&${searchOption}=${value}`);
+  
     } catch (error) {
       alert("테스트 실패");
     }

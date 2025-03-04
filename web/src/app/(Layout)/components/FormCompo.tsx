@@ -60,7 +60,7 @@ export default function FormComponent() {
     };
 
     try {
-      console.log(requestData);
+
       const response = await customFetch("/consult", {
         method: "POST",
         body: JSON.stringify(requestData),

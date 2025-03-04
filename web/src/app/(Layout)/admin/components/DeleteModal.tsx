@@ -1,6 +1,6 @@
-import { Counseling } from "@/app/common/types";
+
 import useCustomFetch from "@/app/lib/customFetch";
-import { useState } from "react";
+
 import { createPortal } from "react-dom";
 
 type ModalProps = {

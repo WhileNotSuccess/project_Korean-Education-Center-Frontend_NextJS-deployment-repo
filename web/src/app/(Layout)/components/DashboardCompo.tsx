@@ -49,7 +49,7 @@ export default function DashboardCompo() {
   }, [user]); // user가 변경될 때마다 실행되도록
 
   useEffect(() => {
-    console.log(submittedDocuments);
+
   }, [submittedDocuments]);
   if (!user) {
     return <div>{DashboardCompoMenu[language].loadingOrNotFoundUser}</div>;

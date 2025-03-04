@@ -1,6 +1,4 @@
-import { guidanceMenu } from "../menu";
 
-const language = "korean";
 
 export interface HtmlDocsProps {
   id?: string;
@@ -109,4 +107,12 @@ export interface Course {
   korean : string;
   japanese : string;
   english : string;
+}
+
+export interface CategoryParams {
+  category : string;
+}
+
+export interface IdParams {
+  id : string;
 }

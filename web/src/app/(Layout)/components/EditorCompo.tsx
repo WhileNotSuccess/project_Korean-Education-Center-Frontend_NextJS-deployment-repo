@@ -8,7 +8,6 @@ import {
   categoryList,
   updateSuccess,
   updateError,
-  postLanguageList,
   SelectPageCompoMenu,
 } from "@/app/menu";
 import Cookies from "js-cookie";
@@ -58,9 +57,6 @@ export default function EditorComponent(props: EditorProps) {
         setTitle(data.data.title);
         setCategory(data.data.category);
         setDocumentFileNames(
-          data.files.map((file: ServerDocumentFile) => file.filename)
-        );
-        console.log(
           data.files.map((file: ServerDocumentFile) => file.filename)
         );
       } catch (error) {
@@ -285,7 +281,6 @@ export default function EditorComponent(props: EditorProps) {
             id="tinymce-editor"
             value={content}
             onInit={(evt, editor) => {
-              console.log(editor.id);
               editorRef.current = editor;
             }}
             init={{

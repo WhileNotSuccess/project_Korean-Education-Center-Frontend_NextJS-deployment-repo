@@ -142,7 +142,7 @@ export default function HomePageCompo() {
   }, [itemWidth]);
 
   const onScrollLeft = () => {
-    console.log(itemRef.current);
+
     if (sliderRef.current) {
       const slider = sliderRef.current;
       if (slider.scrollLeft <= 0) {
@@ -249,7 +249,7 @@ export default function HomePageCompo() {
           </section>
         </div>
         {/* 빠른서비스 및 서류 다운하는 탭*/}
-        <aside className="hidden sm:fixed sm:w-24 sm:min-h-[80%] sm:right-0 sm:top-24 sm:border sm:bg-blue-500/80 sm:rounded-l-xl sm:flex sm:flex-col sm:justify-evenly sm:py-2">
+        <aside className="hidden sm:fixed sm:w-24 sm:min-h-[80%] sm:right-0 sm:top-24 sm:border sm:bg-blue-500/80 sm:rounded-l-xl sm:flex sm:flex-col sm:justify-evenly sm:py-2 z-50">
           <div className="w-full flex  flex-col justify-center items-center cursor-pointer">
             <Link
               href={"/guidance/introduction"}

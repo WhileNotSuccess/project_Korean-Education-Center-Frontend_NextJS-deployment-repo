@@ -14,7 +14,6 @@ import ApplicationFormItem from "./ApplicationFormItem";
 import BoardPageCompo from "../../components/BoardPageCompo";
 import BannerItem from "./BannerItem";
 import BannerPostModal from "./BannerPostModal";
-import StaffIntro from "../../components/StaffIntro";
 import StaffComponent from "./StaffComponent";
 import StaffModal from "./StaffModal";
 import Pagination from "../../components/Pagination"; // 페이지네이션 컴포넌트
@@ -74,7 +73,6 @@ export default function AdminComponent({ category }: AdminComponentProps) {
       const response = await customFetch(`/application-form?limit=10&page=${page}&ignore=true`,{
         method : "GET"
       });
-      console.log(response)
       setApplications(response.data);
       setCurrentPage(response.currentPage); // 현재 페이지 번호
       setTotalPages(response.totalPage); // 전체 페이지 수

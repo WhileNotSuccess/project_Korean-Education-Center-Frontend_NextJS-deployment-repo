@@ -1,4 +1,4 @@
-import { Language, MenuType } from "./common/types";
+import { Language } from "./common/types";
 
 export const menu: Record<Language, Record<string, string>> = {
   // 예시메뉴
