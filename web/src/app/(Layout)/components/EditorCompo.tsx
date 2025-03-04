@@ -72,7 +72,8 @@ export default function EditorComponent(props: EditorProps) {
         const adminData = await customFetch("/users");
         setIsAdmin(adminData.result);
       } catch (error) {
-        console.error("유저 정보 불러오기 실패:", error);
+        alert("로그인이 필요합니다");
+        router.back();
       }
     };
     fetchUserInfo();

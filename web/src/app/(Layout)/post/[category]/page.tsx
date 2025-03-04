@@ -1,8 +1,13 @@
-import { CategoryParams } from "@/app/common/types";
 import EditorComponent from "../../components/EditorCompo";
 
-export default async function PostTest({ params }: { params : CategoryParams}) {
-  const { category } = params;
+type Props = {
+  params: Promise<any>
+}
+
+export default async function PostTest({ params }: Props) {
+  const resolvedParams = await params;
+
+  const { category } = resolvedParams;
   return (
     <main>
       <EditorComponent categoryName={category} />

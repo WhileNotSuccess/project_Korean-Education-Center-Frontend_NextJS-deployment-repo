@@ -1,9 +1,9 @@
 import { categoryMap } from "@/app/menu";
 import SelectTabComponent from "../../components/SelectPageCompo";
-import { CategoryParams } from "@/app/common/types";
+
 
 type Props = {
-  params: Promise<CategoryParams>;
+  params: Promise<any>;
 };
 
 export default async function SelectTabPage({ params }: Props) {

@@ -1,8 +1,8 @@
 import StaffIntro from "../../components/StaffIntro";
-import { CategoryParams } from "@/app/common/types";
+
 
 type Props = {
-  params : Promise<CategoryParams>
+  params : Promise<any>
 }
 
 
