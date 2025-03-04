@@ -146,7 +146,7 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
             {adminCheck ||
             ((name === "review" || name === "faq") && userCheck) ? (
               <button
-                className="min-w-12 px-2 bg-[#0093EE] text-white"
+                className=" px-2 bg-[#0093EE] text-white"
                 onClick={() => onWrite(name)}
               >
                 {boardPage[language]?.write}
@@ -156,7 +156,7 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
         </div>
       </section>
       <section className="w-full flex flex-col items-center mb-5">
-        <div className="w-4/5 h-16 border-x-0 border-y-2 border-black mt-12 flex items-center">
+        <div className="w-4/5 h-16 border-x-0 border-y-2 border-t-[#4171b4] mt-12 flex items-center">
           <div className="w-24 font-bold pl-10"></div>
           <div className="w-2/5 font-bold flex justify-center">
             {boardPage[language]?.title}
@@ -175,7 +175,7 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
           ? boardData.map((item, index) => (
               <div
                 key={index}
-                className="w-4/5 h-12 border-b-2 border-black flex items-center"
+                className="w-4/5 h-12 border-b-2 border-[#e5e7eb] flex items-center"
               >
                 {name === "notice" ? (
                   <div className="w-20 border rounded-sm flex justify-center items-center">

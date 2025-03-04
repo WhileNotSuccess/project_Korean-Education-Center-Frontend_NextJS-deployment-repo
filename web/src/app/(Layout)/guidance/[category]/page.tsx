@@ -1,8 +1,14 @@
 import HtmlDocs from "../../components/HtmlDocs";
 import { CategoryParams } from "@/app/common/types";
 
-export default async function GuidancePage({ params }: {params : CategoryParams}) {
-  const { category } = params;
+type Props = {
+  params: Promise<CategoryParams>
+}
+
+export default async function GuidancePage({ params }: Props) {
+  const resolvedParams = await params;
+
+  const { category } = resolvedParams;
 
   return (
     <div className="w-full flex justify-center items-center">
