@@ -1,8 +1,8 @@
 import HtmlDocs from "../../components/HtmlDocs";
-import { CategoryParams } from "@/app/common/types";
+
 
 type Props = {
-  params: Promise<CategoryParams>
+  params: Promise<any>
 }
 
 export default async function GuidancePage({ params }: Props) {

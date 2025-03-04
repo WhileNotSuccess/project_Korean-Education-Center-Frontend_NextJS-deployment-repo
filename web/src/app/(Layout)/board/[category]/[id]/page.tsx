@@ -1,8 +1,8 @@
 import HtmlDocs from "@/app/(Layout)/components/HtmlDocs";
-import { IdParams } from "@/app/common/types";
+
 
 type Props = {
-  params: Promise<IdParams>
+  params: Promise<any>
 }
 
 export default async function GuidancePage({ params } : Props) {
