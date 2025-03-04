@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import NameChangeModal from "../components/NameChangeModal";
 import { useRouter } from "next/navigation";
 import useCustomFetch from "@/app/lib/customFetch";
-import { DashboardCompoMenu } from "@/app/menu";
+import { DashboardCompoMenu, getError } from "@/app/menu";
 import { Language } from "@/app/common/types";
 import Cookies from "js-cookie";
 import { SubmittedDocument } from "@/app/common/types";
@@ -19,6 +19,7 @@ export default function DashboardCompo() {
   >([]);
   const customFetch = useCustomFetch();
   const [language, setLanguage] = useState<Language>(Language.korean);
+  const [menuOpen, setMenuOpen] = useState<{ [key: number]: boolean }>({});
 
   useEffect(() => {
     const savedLanguage = Cookies.get("language") as Language;
@@ -40,6 +41,7 @@ export default function DashboardCompo() {
         });
 
         if (response && response.data) {
+          console.log(response.data)
           setSubmittedDocuments(response.data);
         }
       }
@@ -48,12 +50,30 @@ export default function DashboardCompo() {
     }
   }, [user]); // user가 변경될 때마다 실행되도록
 
+  const toggleMenu = (id: number) => {
+    setMenuOpen((prev) => ({
+      ...prev,
+      [id]: !prev[id], // 특정 문서의 상태만 토글
+    }));
+  };
+
+  const fileDownload = async(filename : string)=>{
+    try{
+      router.push(`${process.env.NEXT_PUBLIC_BACKEND_URL}/attachments/${filename}`)
+    }catch(error){
+      alert(getError[language].fileDownloadError)
+
+    }
+  }
+
   useEffect(() => {
 
   }, [submittedDocuments]);
   if (!user) {
     return <div>{DashboardCompoMenu[language].loadingOrNotFoundUser}</div>;
   }
+
+
 
   return (
     <div className="w-full flex flex-col items-center bg-gray-50 py-10">
@@ -87,16 +107,48 @@ export default function DashboardCompo() {
           </h3>
           <div className="space-y-2">
             {submittedDocuments.map((doc) => (
-              <div key={doc.Id} className="p-3 bg-blue-50 rounded-md shadow-sm">
-                <p className="font-medium">{doc.course}</p>
-                <p className="text-sm text-gray-600">
-                  {new Date(doc.createdDate).toLocaleDateString()}
-                </p>
-                <p className="text-sm text-gray-600">
-                  {doc.isDone
-                    ? DashboardCompoMenu[language].submitComplete
-                    : DashboardCompoMenu[language].submitIncomplete}
-                </p>
+              <div
+                key={doc.Id}
+                className="relative p-3 bg-blue-50 rounded-md shadow-sm flex justify-between"
+              >
+                <div>
+                  <p className="font-medium">{doc.korean}</p>
+                  <p className="text-sm text-gray-600">
+                    {new Date(doc.createdDate).toLocaleDateString()}
+                  </p>
+                </div>
+
+                <div className="relative">
+                  <div className="font-medium">
+                    <div className="flex items-center">
+                      <div className="w-20 flex justify-between">
+                        <div>{DashboardCompoMenu[language].attachedFile}</div>
+                        <div
+                          className="cursor-pointer"
+                          onClick={() => toggleMenu(doc.Id)}
+                        >
+                          ⋮
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {menuOpen[doc.Id] && (
+                    <nav className="absolute top-1/2 right-0 mt-2 w-40 bg-white border rounded shadow-lg z-10">
+                      <ul className="py-2 text-sm text-gray-700">
+                        {doc.attachments?.map((item) => (
+                          <li
+                            key={item.filename}
+                            onClick={()=>fileDownload(item.filename)}
+                            className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                          >
+                            {item.filename.substring(16)}
+                          </li>
+                        ))}
+                      </ul>
+                    </nav>
+                  )}
+                </div>
               </div>
             ))}
           </div>
