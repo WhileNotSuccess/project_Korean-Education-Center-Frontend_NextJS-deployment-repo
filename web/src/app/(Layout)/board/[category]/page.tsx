@@ -1,8 +1,7 @@
-import { boardMenu } from "@/app/menu";
 import BoardPageCompo from "../../components/BoardPageCompo";
-import { Language } from "@/app/common/types";
+import { CategoryParams } from "@/app/common/types";
 
-export default async function BoardPage({ params }: any) {
+export default async function BoardPage({ params }: {params : CategoryParams}) {
   const { category } = params;
 
   return (

@@ -1,6 +1,7 @@
 import HtmlDocs from "@/app/(Layout)/components/HtmlDocs";
+import { IdParams } from "@/app/common/types";
 
-export default async function GuidancePage({ params }: any) {
+export default async function GuidancePage({ params }:  {params : IdParams}) {
   const { id } = params;
 
   return (

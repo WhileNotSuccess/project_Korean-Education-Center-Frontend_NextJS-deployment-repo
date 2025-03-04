@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import useCustomFetch from "@/app/lib/customFetch";
 import { CheckAdminAlert } from "@/app/menu";

@@ -1,8 +1,6 @@
 import FormComponent from "../../components/FormCompo";
 
 
-
-
 export default function FormPage() {
 
   return (

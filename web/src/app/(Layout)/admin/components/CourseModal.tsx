@@ -1,4 +1,4 @@
-import {Course, Teacher } from "@/app/common/types";
+import {Course} from "@/app/common/types";
 import useCustomFetch from "@/app/lib/customFetch";
 import { useState } from "react";
 import { createPortal } from "react-dom";

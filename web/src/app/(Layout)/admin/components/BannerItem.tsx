@@ -1,8 +1,6 @@
 import { Banner } from "@/app/common/types";
-import useCustomFetch from "@/app/lib/customFetch";
 import { useState } from "react";
 import DeleteModal from "./DeleteModal";
-import { formatDateWithTime } from "@/app/common/formatDateWithTime";
 import { formatDate } from "@/app/common/formatDate";
 
 export default function BannerItem(props: Banner) {

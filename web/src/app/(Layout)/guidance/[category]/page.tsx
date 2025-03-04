@@ -1,8 +1,7 @@
-import { guidanceMenu } from "@/app/menu";
 import HtmlDocs from "../../components/HtmlDocs";
-import { Language } from "@/app/common/types";
+import { CategoryParams } from "@/app/common/types";
 
-export default async function GuidancePage({ params }: any) {
+export default async function GuidancePage({ params }: {params : CategoryParams}) {
   const { category } = params;
 
   return (
