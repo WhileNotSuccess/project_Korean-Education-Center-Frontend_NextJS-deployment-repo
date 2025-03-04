@@ -10,7 +10,8 @@ import {
   selectMenu,
   counselingForm,
   homePage,
-  homePageTitle,
+  HomePageTitle,
+  TermsOfService,
 } from "../menu";
 import { cookies } from "next/headers";
 import { Language } from "../common/types";
@@ -54,8 +55,8 @@ export default async function RootLayout({
         <Link href={"/"} className="w-1/6 flex justify-center items-center pl-4 sm:pl-0">
         <img src="/images/영진로고.png" className="w-15 h-15"></img>
         <h2 className="font-bold text-white w-full whitespace-nowrap">
-          {homePageTitle[language].yeungjin}<br></br>
-          {homePageTitle[language].koreanEducationCenter}
+          {HomePageTitle[language].yeungjin}<br></br>
+          {HomePageTitle[language].koreanEducationCenter}
         </h2>
         </Link>
         <div className="hidden sm:w-full sm:h-full sm:flex sm:justify-evenly sm:text-white sm:font-bold sm:items-center sm:relative">
@@ -141,7 +142,26 @@ export default async function RootLayout({
       <main className="grow w-full">
       {children}
       </main>
-      <footer className="w-full h-36 bg-[#0072ba] mt-24"></footer>
+      <footer className="w-full h-36 bg-[#0072ba] mt-24 relative">
+        <div className="absolute bottom-2 right-4 text-white font-bold">
+          <div className="text-center">
+            <Link
+              href="/guidance/terms"
+              className="mr-4 hover:underline"
+            >
+              {TermsOfService[language].terms}
+            </Link>
+            <Link
+              href="/guidance/privacy-policy"
+              className="hover:underline"
+            >
+              {TermsOfService[language].privacyPolicy}
+            </Link>
+          </div>
+        </div>
+      </footer>
+
+
       <div className="w-full flex justify-center py-8">
         <img
           src="https://kcenter.yju.ac.kr/kr/wp-content/uploads/sites/2/2023/05/logo.png"

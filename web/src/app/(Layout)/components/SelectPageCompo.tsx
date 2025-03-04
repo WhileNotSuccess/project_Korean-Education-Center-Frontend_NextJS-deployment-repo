@@ -33,7 +33,7 @@ export default function SelectTabComponent({
     Array<{ id: number; korean: string; english: string; japanese: string}>
   >([]); // 지원과정 목록
   const [language, setLanguage] = useState<Language>(Language.korean);
-
+  const [userCheck, setUserCheck] = useState<boolean>(false);
   useEffect(() => {
     const savedLanguage = Cookies.get("language") as Language;
     if (savedLanguage) {
@@ -73,7 +73,6 @@ export default function SelectTabComponent({
         });
 
         if (data.data && data.data.length > 0) {
-          console.log(data.data[0].Japanese)
           setCourseOptions(data.data); // 강좌 목록 저장
           // 강좌 목록이 로드되면 첫 번째 강좌를 기본 선택으로 설정
           if (!selectedCourse && data.data.length > 0) {
@@ -134,6 +133,21 @@ export default function SelectTabComponent({
     setSelectedCourse(e.target.value); // 지원 과정 변경
   };
 
+  useEffect(() => {
+    async function userCheck() {
+      const response = await customFetch("/users/info");
+      if (response && response.id) {
+        setUserCheck(true);
+      }else if (selectedTab === "upload-documents") 
+      {
+        alert(SelectPageCompoMenu[language].needLogin)
+        router.push("/login")
+      }
+    }
+    userCheck();
+     
+  }, [selectedTab]);
+
   return (
     <main className="w-full">
       {/* 카테고리 제목 표시 */}
@@ -167,7 +181,7 @@ export default function SelectTabComponent({
               ? parser(content)
               : SelectPageCompoMenu[language].failLoadContent}
           </article>
-        ) : (
+        ) :
           <section className="w-3/5 p-4 border">
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
@@ -265,7 +279,9 @@ export default function SelectTabComponent({
               </button>
             </form>
           </section>
-        )}
+     
+        
+        }
       </section>
     </main>
   );

@@ -326,6 +326,8 @@ export const categoryList: Record<Language, { key: string; value: string }[]> =
       { key: "opencampus-content", value: "일정 및 내용" },
       { key: "opencampus-schedule", value: "스케쥴" },
       { key: "procedure-guide", value: "절차 안내" },
+      { key: "terms", value: "이용약관"},
+      { key: "privacy-policy", value: "개인정보처리방침"},
     ],
     [Language.japanese]: [
       { key: "introduction", value: "韓国語教育センター紹介" },
@@ -343,6 +345,8 @@ export const categoryList: Record<Language, { key: string; value: string }[]> =
       { key: "korean-outline", value: "概要" },
       { key: "korean-sample", value: "プログラムサンプル" },
       { key: "applied-to", value: "入学申請" },
+      { key: "terms", value: "利用規約"},
+      { key: "privacy-policy", value: "個人情報処理方針"},
     ],
     [Language.english]: [
       { key: "introduction", value: "Introduction to Korean Language Center" },
@@ -360,6 +364,8 @@ export const categoryList: Record<Language, { key: string; value: string }[]> =
       { key: "korean-outline", value: "Overview" },
       { key: "korean-sample", value: "Program Sample" },
       { key: "applied-to", value: "Application" },
+      { key: "terms", value: "Terms"},
+      { key: "privacy-policy", value: "Privacy Policy"},
     ],
   };
 
@@ -1188,7 +1194,7 @@ export const postLanguageList: Record<
   ],
 };
 
-export const homePageTitle: Record<Language, Record<string, string>> = {
+export const HomePageTitle: Record<Language, Record<string, string>> = {
   [Language.korean] : {
     yeungjin : "영진전문대학교",
     koreanEducationCenter : "한국어교육센터"
@@ -1212,5 +1218,20 @@ export const CheckAdminAlert : Record<Language, Record<string, string>> = {
   },
   [Language.japanese] : {
     noPermission : "不正なアクセスです"
+  }
+}
+
+export const TermsOfService : Record<Language, Record<string, string>> = {
+  [Language.korean] : {
+    privacyPolicy : "개인정보처리방침",
+    terms : "이용약관"
+  },
+  [Language.japanese] : {
+    privacyPolicy : "個人情報保護方針",
+    terms : "利用規約",
+  },
+  [Language.english] : {
+    privacyPolicy : "Privacy Policy",
+    terms : "Terms and Conditions",
   }
 }
