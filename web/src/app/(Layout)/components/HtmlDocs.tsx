@@ -101,7 +101,7 @@ export default function HtmlDocs(props: HtmlDocsProps) {
   };
 
   const canEditOrDelete = isAdmin || userInfo?.id === allData.userId;
-  console.log(userInfo?.id, allData.userId);
+
   return (
     <main className="w-full">
       <div className="h-12"></div>

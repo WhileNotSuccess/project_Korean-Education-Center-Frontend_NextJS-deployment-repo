@@ -40,12 +40,11 @@ export default function HomePageCompo() {
   const [newsData, setNewsData] = useState<NewsType[]>([]);
   const [guidelinesForApplicants, setGuidelinesForApplicants] =
     useState<Attachments>({
-      id:0,
-      fileSize:0,
-      filename:"",
-      filetype:"",
-      applicationId:0
-
+      id: 0,
+      fileSize: 0,
+      filename: "",
+      filetype: "",
+      applicationId: 0,
     });
   const itemRef = useRef<HTMLDivElement>(null); // 슬라이더 내부 각 div의 길이 참조용
   const [itemWidth, setItemWidth] = useState(0); // 내부 각 div 길이 변수
@@ -142,7 +141,6 @@ export default function HomePageCompo() {
   }, [itemWidth]);
 
   const onScrollLeft = () => {
-
     if (sliderRef.current) {
       const slider = sliderRef.current;
       if (slider.scrollLeft <= 0) {
@@ -311,7 +309,7 @@ export default function HomePageCompo() {
               href={"/select/applied-to"}
               className="size-12 p-2 border rounded-full bg-[#ffffff]"
             >
-              <img src="images/문서1.png" />
+              <img src="images/document1.png" />
             </Link>
             <Link
               href={"/select/applied-to"}
@@ -325,7 +323,7 @@ export default function HomePageCompo() {
               href={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${guidelinesForApplicants.filename}`}
               className="size-12 p-2 border rounded-full bg-[#ffffff]"
             >
-              <img src="images/학사모1.png" />
+              <img src="images/graduationcap.png" />
             </Link>
             <Link
               href={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${guidelinesForApplicants.filename}`}
