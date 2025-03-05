@@ -109,6 +109,11 @@ export default function EditorComponent(props: EditorProps) {
   };
 
   const update = async () => {
+    if (title === "") {
+      alert(editorCompo[language].needInputTitle);
+    } else if (content === "") {
+      alert(editorCompo[language].needInputContent);
+    } else {
     try {
       const formData = new FormData();
       formData.append("title", title);
@@ -129,6 +134,7 @@ export default function EditorComponent(props: EditorProps) {
     } catch (error) {
       alert(updateError[language]?.update);
     }
+  }
   };
 
   const handleFileSelect = async (file: File) => {
