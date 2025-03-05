@@ -36,6 +36,7 @@ export default function DashboardCompo() {
   // 조건부로 early return 하기 전에 useEffect는 항상 호출될 수 있도록 수정
   useEffect(() => {
     if (user) {
+      setIsLink(user.isLinked)
       async function fetchSubmittedDocuments() {
         const response = await customFetch("/application-form/user", {
           method: "GET",
@@ -50,15 +51,7 @@ export default function DashboardCompo() {
     }
   }, [user]); // user가 변경될 때마다 실행되도록
 
-  useEffect(()=>{
-    async function userCheck() {
-      const response = await customFetch("/users/info", {
-        method: "GET",
-      })
-      setIsLink(response.isLinked)
-    }
-    userCheck()
-  },[])
+
 
   const toggleMenu = (id: number) => {
     setMenuOpen((prev) => ({

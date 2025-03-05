@@ -19,6 +19,7 @@ import {
   guidanceMenu,
 } from "../../menu";
 import MapCompo from "./MapCompo";
+import { useAuth } from "@/app/hook/auth";
 
 export default function HtmlDocs(props: HtmlDocsProps) {
   const [allData, setAllData] = useState({
@@ -35,6 +36,7 @@ export default function HtmlDocs(props: HtmlDocsProps) {
   const [isAdmin, setIsAdmin] = useState(false);
   const customFetch = useCustomFetch();
   const router = useRouter();
+  const { user } = useAuth();
   const [language, setLanguage] = useState<Language>(Language.korean);
 
   useEffect(() => {
@@ -69,9 +71,9 @@ export default function HtmlDocs(props: HtmlDocsProps) {
 
     const fetchUserInfo = async () => {
       try {
-        const userData = await customFetch("/users/info");
-        setUserInfo(userData);
-
+        if (user) {
+        setUserInfo(user);
+        }
         const adminData = await customFetch("/users");
         setIsAdmin(adminData.result);
       } catch (error) {

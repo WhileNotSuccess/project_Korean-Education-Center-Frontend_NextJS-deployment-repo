@@ -875,7 +875,7 @@ export const RegisterCompoMenu: Record<Language, Record<string, string>> = {
     passWordPlaceHolder: "비밀번호",
     googleRegister: "구글 회원가입",
     nameChange: "이름 변경",
-    registerComplete: "회원가입 완료, 이메일 인증 필요",
+    registerComplete: "이메일 인증이 필요합니다. 이메일을 확인해주세요.",
     registerError: "회원가입을 할 수 없습니다.",
     nameChangeComplete: "이름이 성공적으로 변경되었습니다.",
     nameChangeError: "이름을 변경할 수 없습니다",
@@ -889,7 +889,7 @@ export const RegisterCompoMenu: Record<Language, Record<string, string>> = {
     passWordPlaceHolder: "Password",
     googleRegister: "Google Register",
     nameChange: "Change Name",
-    registerComplete: "Registration completed. Email verification required.",
+    registerComplete: "Email verification is required. Please check your email.",
     registerError: "Registration is not possible.",
     nameChangeComplete: "Your name has been successfully changed.",
     nameChangeError: "Your name cannot be changed.",
@@ -902,7 +902,7 @@ export const RegisterCompoMenu: Record<Language, Record<string, string>> = {
     passWordPlaceHolder: "パスワード",
     googleRegister: "Google サインアップ",
     nameChange: "名前変更",
-    registerComplete: "登録完了。メール認証が必要です。",
+    registerComplete: "メール認証が必要です。メールをご確認ください。",
     registerError: "登録できません。",
     nameChangeComplete: "名前が正常に変更されました。",
     nameChangeError: "名前を変更できません。",
@@ -1295,3 +1295,15 @@ export const TermsOfService: Record<Language, Record<string, string>> = {
     terms: "Terms and Conditions",
   },
 };
+
+export const AlertModalMenu : Record<Language, Record<string, string>> = {
+  [Language.korean] : {
+    close : "닫기"
+  },
+  [Language.english] : {
+    close : "close"
+  },
+  [Language.japanese] : {
+    close : "閉じる"
+  }
+}

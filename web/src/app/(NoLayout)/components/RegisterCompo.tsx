@@ -6,6 +6,7 @@ import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import { RegisterCompoMenu, serverError } from "@/app/menu";
 import { Language } from "@/app/common/types";
+import AlertModal from "./AlertModal";
 
 
 export default function RegisterCompo() {
@@ -15,6 +16,7 @@ export default function RegisterCompo() {
   const [error, setError] = useState<string>("");
   const [message, setMessage] = useState<string>("");
   const [language, setLanguage] = useState<Language>(Language.korean);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const router = useRouter();
   const customFetch = useCustomFetch();
 
@@ -64,6 +66,7 @@ export default function RegisterCompo() {
           setError(RegisterCompoMenu[language].registerError);
         } else {
           setMessage(RegisterCompoMenu[language].registerComplete);
+          setIsOpen(true)
         }
       } catch (err) {
         setError(serverError[language].server);
@@ -77,8 +80,12 @@ export default function RegisterCompo() {
       <section className="relative bg-transparent rounded-lg shadow-lg w-full max-w-md">
         <h1 className="text-3xl font-extrabold mb-6 text-white text-center">{newUser ? RegisterCompoMenu[language].googleRegister : RegisterCompoMenu[language].register}</h1>
 
-        {error && <p style={{ color: "red" }} className="text-center">{error}</p>}
-        {message && <p className="text-center text-white">{message}</p>}
+        {error && <p style={{ color: "red" }} className="text-center text-xl font-bold">{error}</p>}
+        {message && < AlertModal 
+          message={message}
+          isOpen={isOpen}
+          onClose={()=> setIsOpen(false)}
+          />}
         
         
         {newUser ? (
