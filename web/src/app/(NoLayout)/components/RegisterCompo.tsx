@@ -66,6 +66,7 @@ export default function RegisterCompo() {
           setError(RegisterCompoMenu[language].registerError);
         } else {
           setMessage(RegisterCompoMenu[language].registerComplete);
+          setIsOpen(true)
         }
       } catch (err) {
         setError(serverError[language].server);
