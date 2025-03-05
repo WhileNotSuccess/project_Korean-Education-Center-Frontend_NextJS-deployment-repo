@@ -769,10 +769,10 @@ export const TermsAgreementMenu: Record<Language, Record<string, string>> = {
   [Language.english]: {
     MainTermOfUse: "Terms Agreement",
     TermOfUse: "Agreement to Terms of Use (Required)",
-    TermOfUseContent: `I agree to the following terms to use the educational services of [Youngjin University].
+    TermOfUseContent: `I agree to the following terms to use the educational services of [Yeungjin University].
 
 1. Purpose of the Terms of Use
-These terms and conditions govern the use of educational services provided by [Youngjin University] (hereinafter referred to as "Youngjin University").
+These terms and conditions govern the use of educational services provided by [Yeungjin University] (hereinafter referred to as "Yeungjin University").
 
 2. Obligations of the User
 The user must not infringe on the rights of others while using the school's educational services and must comply with the school's rules and guidelines.
@@ -791,7 +791,7 @@ The school may terminate the agreement if the student violates the terms or uses
     informationConsent: "Agreement to Privacy Policy (Required)",
     informationConsentContext: `Privacy Policy Agreement
 
-[Youngjin University] (hereinafter referred to as "Youngjin University") takes the protection of student personal information very seriously and implements the following privacy policy. I agree to this privacy policy.
+[Yeungjin University] (hereinafter referred to as "Yeungjin University") takes the protection of student personal information very seriously and implements the following privacy policy. I agree to this privacy policy.
 
 1. Information Collected
 The school collects student information such as name, date of birth, contact details, email address, and academic records.
@@ -818,10 +818,10 @@ The school may change the privacy policy at any time, and changes will be announ
   [Language.japanese]: {
     MainTermOfUse: "利用規約同意",
     TermOfUse: "利用規約同意（必須）",
-    TermOfUseContent: `私は[Youngjin University]の教育サービスを利用するために、以下の規約に同意します。
+    TermOfUseContent: `私は[Yeungjin University]の教育サービスを利用するために、以下の規約に同意します。
 
 1. 利用規約の目的
-本規約は、[Youngjin University]（以下「Youngjin University」）が提供する教育サービスの利用に関する事項を規定することを目的とします。
+本規約は、[Yeungjin University]（以下「Yeungjin University」）が提供する教育サービスの利用に関する事項を規定することを目的とします。
 
 2. 利用者の義務
 利用者は、学校の教育サービスを利用する際、他人の権利を侵害せず、学校の規則と指針を遵守しなければなりません。
@@ -840,7 +840,7 @@ The school may change the privacy policy at any time, and changes will be announ
     informationConsent: "個人情報保護方針同意（必須）",
     informationConsentContext: `個人情報保護方針同意書
 
-[Youngjin University]（以下「Youngjin University」）は、学生の個人情報の保護を非常に重要視しており、以下の個人情報保護方針を実施しています。本方針に同意します。
+[Yeungjin University]（以下「Yeungjin University」）は、学生の個人情報の保護を非常に重要視しており、以下の個人情報保護方針を実施しています。本方針に同意します。
 
 1. 収集する個人情報
 学校は、学生の名前、生年月日、連絡先、メールアドレス、学籍情報などを収集します。

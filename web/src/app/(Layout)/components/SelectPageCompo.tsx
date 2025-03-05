@@ -153,7 +153,7 @@ export default function SelectTabComponent({
     <main className="w-full">
       {/* 카테고리 제목 표시 */}
       <header className="h-12 border-b flex items-center justify-center mb-4">
-        <div className="text-3xl font-bold">{selectMenu[language]?.[name]}</div>
+        <div className="text-3xl font-bold">{selectMenu[language]?.[name]}</div>  
       </header>
       <div className="w-3/5 mx-auto">
         {/* 탭 메뉴 */}
@@ -161,7 +161,7 @@ export default function SelectTabComponent({
           {categoryTab[language].map((item) => (
             <button
               key={item.key}
-              className={`py-2 px-4 text-nowrap text-base font-medium text-center border transition w-40 ${
+              className={`py-2 px-4 text-nowrap text-base font-medium text-center border transition w-40 flex-grow ${
                 selectedTab === item.key
                   ? "bg-blue-500 text-white font-black"
                   : "bg-sky-500/50 text-white font-black"
