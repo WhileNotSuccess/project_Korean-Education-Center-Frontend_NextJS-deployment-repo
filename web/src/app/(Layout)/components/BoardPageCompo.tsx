@@ -10,6 +10,7 @@ import Cookies from "js-cookie";
 import { BoardData, Language } from "@/app/common/types";
 import { formatDate } from "@/app/common/formatDate";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/app/hook/auth";
 
 type BoardPageProps = {
   name: keyof (typeof boardMenu)[Language];
@@ -17,6 +18,7 @@ type BoardPageProps = {
 
 export default function BoardPageCompo({ name }: BoardPageProps) {
   const customFetch = useCustomFetch();
+  const { user } = useAuth();
   const [searchOption, setSearchOption] = useState<string>("title");
   const [boardData, setBoardData] = useState<BoardData[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1); // 현재 페이지
@@ -28,7 +30,7 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
   const router = useRouter();
   const [inputValue, setInputValue] = useState("");
   const [language, setLanguage] = useState<Language>(Language.korean);
-
+  
   useEffect(() => {
     const savedLanguage = Cookies.get("language") as Language;
     if (savedLanguage) {
@@ -72,8 +74,8 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
 
   useEffect(() => {
     async function userCheck() {
-      const response = await customFetch("/users/info");
-      if (response && response.id) {
+
+      if (user) {
         setUserCheck(true);
       }
     }

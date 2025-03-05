@@ -8,19 +8,21 @@ import { LoginCompoMenu } from "@/app/menu";
 import { Language } from "@/app/common/types";
 import Cookies from "js-cookie";
 
+
 export default function LoginForm() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string>("");
   const router = useRouter();
+  const { user } = useAuth();
   const { login } = useAuth();
   const [language, setLanguage] = useState<Language>(Language.korean);
-  const customFetch = useCustomFetch();
+
 
   useEffect(() => {
     async function userCheck() {
-      const response = await customFetch("/users/info");
-      if (response.id) {
+
+      if (user) {
         
         router.push("/")
         return null

@@ -9,6 +9,7 @@ import { Language } from "@/app/common/types";
 import Cookies from "js-cookie";
 import { handleFileChange, addDeleteFileName } from "../../common/formFile";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/app/hook/auth";
 
 type SelectTabProps = {
   categoryTab: Record<Language, { key: string; value: string }[]>; // 세부 카테고리
@@ -22,6 +23,7 @@ export default function SelectTabComponent({
   const customFetch = useCustomFetch();
   const customFormFetch = useCustomFormFetch();
   const router = useRouter();
+  const { user } = useAuth();
   const [content, setContent] = useState<string>(" ");
   const [selectedTab, setSelectedTab] = useState<string>("");
   const [file, setFile] = useState<Array<File>>([]);
@@ -135,8 +137,7 @@ export default function SelectTabComponent({
 
   useEffect(() => {
     async function userCheck() {
-      const response = await customFetch("/users/info");
-      if (response && response.id) {
+      if (user) {
         setUserCheck(true);
       }else if (selectedTab === "upload-documents") 
       {
