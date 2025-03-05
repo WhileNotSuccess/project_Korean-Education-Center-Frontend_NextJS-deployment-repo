@@ -1307,3 +1307,15 @@ export const AlertModalMenu : Record<Language, Record<string, string>> = {
     close : "閉じる"
   }
 }
+
+export const CheckUserAlert: Record<Language, Record<string, string>> = {
+  [Language.korean]: {
+    noPermission: "잘못된 접근입니다.",
+  },
+  [Language.english]: {
+    noPermission: "This is an invalid access",
+  },
+  [Language.japanese]: {
+    noPermission: "不正なアクセスです",
+  },
+};
