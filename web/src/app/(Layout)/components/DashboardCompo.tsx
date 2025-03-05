@@ -127,12 +127,10 @@ export default function DashboardCompo() {
                 <div className="relative">
                   <div className="font-medium">
                     <div className="flex items-center">
-                      <div className="w-20 flex justify-between">
+                      <div className="w-20 flex justify-between cursor-pointer"
+                      onClick={() => toggleMenu(doc.Id)}>
                         <div>{DashboardCompoMenu[language].attachedFile}</div>
-                        <div
-                          className="cursor-pointer"
-                          onClick={() => toggleMenu(doc.Id)}
-                        >
+                        <div>
                           ⋮
                         </div>
                       </div>
@@ -146,8 +144,7 @@ export default function DashboardCompo() {
                           <li
                             key={item.filename}
                             onClick={()=>fileDownload(item.filename)}
-                            className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                          >
+                            className="px-4 py-2 hover:bg-gray-100 cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap"                          >
                             {item.filename.substring(16)}
                           </li>
                         ))}

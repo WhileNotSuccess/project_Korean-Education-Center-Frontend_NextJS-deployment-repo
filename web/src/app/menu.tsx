@@ -21,7 +21,7 @@ export const menu: Record<Language, Record<string, string>> = {
     curriculum: "Curriculum",
     application: "Application",
     schoolLife: "School Life",
-    notification: "Notification/Announcement",
+    notification: "Notification/Announcement",  
   },
 };
 
@@ -44,7 +44,7 @@ export const smallMenu: Record<Language, Record<string, string>> = {
     "staff-intro": "講師陣および職員紹介",
     "korean-curriculum": "韓国語教育課程",
     "open-campus": "オープンキャンパス",
-    internationalReview: "留学生の声",
+    internationalReview: "留学生の感想",
     dormitory: "寮案内",
     facility: "学校施設案内",
     "applied-to": "入学申請",
@@ -144,7 +144,7 @@ export const homePage: Record<Language, Record<string, string>> = {
     "recruitment-guidelines": "募集要項",
     "Application-Form": "入学申請書",
     faq: "FAQ",
-    review: "留学生の声",
+    review: "留学生の感想",
     footerAddress:
       "41527 大邱広域市 北区 復県路 35 (復県2洞 218) 永進専門大学 韓国語教育センター",
     footerCallEmail: "代表電話 : +82-53-940-5632 メール : intl@yju.ac.kr",

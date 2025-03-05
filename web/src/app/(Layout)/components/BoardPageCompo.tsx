@@ -180,7 +180,7 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
                 className="w-4/5 h-12 border-b-2 border-[#e5e7eb] flex items-center"
               >
                 {name === "notice" ? (
-                  <div className="w-20 border rounded-sm flex justify-center items-center">
+                  <div className="w-20 border rounded-sm flex justify-center items-center text-white bg-[#0093EE] font-semibold">
                     {boardPage[language]?.notice}
                   </div>
                 ) : (

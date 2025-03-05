@@ -52,7 +52,7 @@ export default async function RootLayout({
         <SetChangeCookieCompo />
       </header>
 
-      <section className="w-full min-h-25 bg-[#0072BA] flex items-center pl-5 peer sm:justify-center justify-between">
+      <section className="w-full min-h-25 bg-[#0072BA] flex items-center pl-5 peer xl:justify-center justify-between">
         <Link
           href={"/"}
           className="w-1/6 flex justify-center items-center pl-4 sm:pl-0"
@@ -64,7 +64,7 @@ export default async function RootLayout({
             {HomePageTitle[language].koreanEducationCenter}
           </h2>
         </Link>
-        <div className="hidden sm:w-full sm:h-full sm:flex sm:justify-evenly sm:text-white sm:font-bold sm:items-center sm:relative">
+        <div className="hidden xl:w-full xl:h-full xl:flex xl:justify-evenly xl:text-white xl:font-bold xl:items-center xl:relative">
           <div className="w-1/5 flex justify-center cursor-pointer">
             {menu[language]?.introduce}
           </div>
@@ -84,7 +84,7 @@ export default async function RootLayout({
         <HamburgerMenuCompo />
       </section>
       <section
-        className="hidden sm:hidden sm:peer-hover:block sm:hover:block sm:w-full sm:min-h-52 sm:z-50 sm:bg-white sm:absolute sm:z-40"
+        className="hidden xl:hidden xl:peer-hover:block xl:hover:block xl:w-full xl:min-h-52 xl:z-50 xl:bg-white xl:absolute xl:z-40"
         style={{ top: "86px" }}
       >
         <div className="min-h-52 flex flex-row w-full">
@@ -93,19 +93,19 @@ export default async function RootLayout({
             <div className="w-1/5 h-52 flex flex-col items-center border-r">
               <Link
                 href={`/guidance/introduction`}
-                className="p-2 text-sm font-bold"
+                className="p-2 text-sm font-bold text-center"
               >
                 {smallMenu[language]?.centerIntro}
               </Link>
               <Link
                 href={"/guidance/directions"}
-                className="p-2 text-sm font-bold"
+                className="p-2 text-sm font-bold text-center"
               >
                 {smallMenu[language]?.howToGetHere}
               </Link>
               <Link
                 href={"/staff/staff-intro"}
-                className="p-2 text-sm font-bold"
+                className="p-2 text-sm font-bold text-center"
               >
                 {smallMenu[language]?.["staff-intro"]}
               </Link>
@@ -113,74 +113,74 @@ export default async function RootLayout({
             <div className="w-1/5 h-52 flex flex-col items-center border-r">
               <Link
                 href={"/select/korean-curriculum"}
-                className="p-2 text-sm font-bold"
+                className="p-2 text-sm font-bold text-center"
               >
                 {smallMenu[language]?.["korean-curriculum"]}
               </Link>
               <Link
                 href={"/select/open-campus"}
-                className="p-2 text-sm font-bold"
+                className="p-2 text-sm font-bold text-center"
               >
                 {smallMenu[language]?.["open-campus"]}
               </Link>
-              <Link href={"/board/review"} className="p-2 text-sm font-bold">
+              <Link href={"/board/review"} className="p-2 text-sm font-bold text-center">
                 {boardMenu[language]?.review}
               </Link>
             </div>
             <div className="w-1/5 h-52 flex flex-col items-center border-r">
               <Link
                 href={"/select/applied-to"}
-                className="p-2 text-sm font-bold"
+                className="p-2 text-sm font-bold text-center"
               >
                 {smallMenu[language]?.["applied-to"]}
               </Link>
-              <Link href={"/form/counseling"} className="p-2 text-sm font-bold">
+              <Link href={"/form/counseling"} className="p-2 text-sm font-bold text-center">
                 {counselingForm[language]?.["counseling"]}
               </Link>
               <Link
                 href={"/board/application-form"}
-                className="p-2 text-sm font-bold"
+                className="p-2 text-sm font-bold text-center"
               >
                 {boardMenu[language]?.["application-form"]}
               </Link>
-              <Link href={"/guidance/visa"} className="p-2 text-sm font-bold">
+              <Link href={"/guidance/visa"} className="p-2 text-sm font-bold text-center">
                 {guidanceMenu[language]?.visa}
               </Link>
             </div>
             <div className="w-1/5 h-52 flex flex-col items-center border-r">
               <Link
                 href={"/guidance/dormitory"}
-                className="p-2 text-sm font-bold"
+                className="p-2 text-sm font-bold text-center"
               >
                 {smallMenu[language]?.dormitory}
               </Link>
               <Link
                 href={"/guidance/facility"}
-                className="p-2 text-sm font-bold"
+                className="p-2 text-sm font-bold text-center"
               >
                 {smallMenu[language]?.facility}
               </Link>
               <Link
                 href={"/board/learning-materials"}
-                className="p-2 text-sm font-bold"
+                className="p-2 text-sm font-bold text-center"
               >
                 {boardMenu[language]?.["learning-materials"]}
               </Link>
               <Link
                 href={"/guidance/insurance"}
-                className="p-2 text-sm font-bold"
+                className="p-2 text-sm font-bold text-center"
               >
                 {guidanceMenu[language]?.insurance}
               </Link>
             </div>
             <div className="w-1/5 h-52 flex flex-col items-center">
-              <Link href={"/board/notice"} className="p-2 text-sm font-bold">
+              <Link href={"/board/notice"} className="p-2 text-sm font-bold text-center">
                 {boardMenu[language]?.notice}
               </Link>
-              <Link href={"/board/news"} className="p-2 text-sm font-bold">
+              <Link href={"/board/news"} className="p-2 text-sm font-bold text-center">
                 {boardMenu[language]?.news}
               </Link>
-              <Link href={"/board/faq"} className="p-2 text-sm font-bold">
+              <Link href={"/board/faq"} className="p-2 text-sm font-bold text-center">
                 {boardMenu[language]?.faq}
               </Link>
             </div>
