@@ -28,6 +28,7 @@ export default function HtmlDocs(props: HtmlDocsProps) {
     guidanceId: "",
     author: "",
     createdDate: "",
+    userId: 0,
   });
 
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
@@ -58,6 +59,7 @@ export default function HtmlDocs(props: HtmlDocsProps) {
           guidanceId: data.data.Id,
           author: data.data.author,
           createdDate: data.data.createdDate,
+          userId: data.data.userId,
         });
       } catch (error) {
         alert(getError[language]?.htmlError);
@@ -98,8 +100,8 @@ export default function HtmlDocs(props: HtmlDocsProps) {
     }
   };
 
-  const canEditOrDelete = isAdmin || userInfo?.name === allData.author;
-
+  const canEditOrDelete = isAdmin || userInfo?.id === allData.userId;
+  console.log(userInfo?.id, allData.userId);
   return (
     <main className="w-full">
       <div className="h-12"></div>
