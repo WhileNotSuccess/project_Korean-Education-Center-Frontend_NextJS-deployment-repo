@@ -267,7 +267,7 @@ export default function EditorComponent(props: EditorProps) {
                       </li>
                     </div>
                     <img
-                      src="/images/X버튼.png"
+                      src="/images/xbutton.png"
                       className="size-4 cursor-pointer"
                       onClick={() => addDeleteFileName(fileName)}
                     />
