@@ -17,6 +17,7 @@ export default function DashboardCompo() {
   const [submittedDocuments, setSubmittedDocuments] = useState<
     SubmittedDocument[]
   >([]);
+  const [isLink, setIsLink] = useState<boolean>(false);
   const customFetch = useCustomFetch();
   const [language, setLanguage] = useState<Language>(Language.korean);
   const [menuOpen, setMenuOpen] = useState<{ [key: number]: boolean }>({});
@@ -41,7 +42,6 @@ export default function DashboardCompo() {
         });
 
         if (response && response.data) {
-          console.log(response.data)
           setSubmittedDocuments(response.data);
         }
       }
@@ -49,6 +49,16 @@ export default function DashboardCompo() {
       fetchSubmittedDocuments();
     }
   }, [user]); // user가 변경될 때마다 실행되도록
+
+  useEffect(()=>{
+    async function userCheck() {
+      const response = await customFetch("/users/info", {
+        method: "GET",
+      })
+      setIsLink(response.isLinked)
+    }
+    userCheck()
+  },[])
 
   const toggleMenu = (id: number) => {
     setMenuOpen((prev) => ({
@@ -92,12 +102,15 @@ export default function DashboardCompo() {
             >
               {DashboardCompoMenu[language].nameChange}
             </button>
+            
+            {!isLink ? 
             <button
               onClick={() => googleConnectHandle()}
               className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-300 text-center"
             >
               {DashboardCompoMenu[language].connectGoogle}
-            </button>
+            </button> 
+            : null}
           </div>
         </div>
 
