@@ -247,7 +247,7 @@ export default function HomePageCompo() {
           </section>
         </div>
         {/* 빠른서비스 및 서류 다운하는 탭*/}
-        <aside className="hidden sm:fixed sm:w-24 sm:min-h-[80%] sm:right-0 sm:top-24 sm:border sm:bg-blue-500/80 sm:rounded-l-xl sm:flex sm:flex-col sm:justify-evenly sm:py-2 z-50">
+        <aside className="hidden xl:fixed xl:w-24 xl:min-h-[80%] xl:right-0 xl:top-24 xl:border xl:bg-blue-500/80 xl:rounded-l-xl xl:flex xl:flex-col xl:justify-evenly xl:py-2 z-50">
           <div className="w-full flex  flex-col justify-center items-center cursor-pointer">
             <Link
               href={"/guidance/introduction"}

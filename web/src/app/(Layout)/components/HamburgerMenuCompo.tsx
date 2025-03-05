@@ -28,7 +28,7 @@ export default function HamburgerMenuCompo (){
 
   return (
     <nav>
-      <div className="sm:hidden w-full flex justify-end px-4" onClick={onMenuOpen}>
+      <div className="xl:hidden w-full flex justify-end px-4" onClick={onMenuOpen}>
         <img src="/images/hamburger.png" className="size-8 cursor-pointer"/>
       </div>
 
