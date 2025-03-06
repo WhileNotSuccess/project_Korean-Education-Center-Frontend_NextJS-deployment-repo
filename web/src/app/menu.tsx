@@ -227,7 +227,7 @@ export const koreancurriculumList: Record<
     { key: "korean-sample", value: "プログラムサンプル" },
   ],
   [Language.english]: [
-    { key: "korean-outline", value: "Outline" },
+    { key: "korean-outline", value: "Overview of Korean Language Program" },
     { key: "korean-sample", value: "Program Sample" },
   ],
 };
@@ -377,7 +377,7 @@ export const categoryList: Record<Language, { key: string; value: string }[]> =
       { key: "faq", value: "FAQ" },
       { key: "korean-outline", value: "Overview" },
       { key: "korean-sample", value: "Program Sample" },
-      { key: "applied-to", value: "Application" },
+      { key: "applied-to", value: "Application for Admission" },
       { key: "opencampus-purpose", value: "Purpose" },
       { key: "opencampus-content", value: "Schedule and Content" },
       { key: "opencampus-schedule", value: "Schedule" },
@@ -440,7 +440,7 @@ export const guidanceMenu: Record<Language, Record<string, string>> = {
     dormitory: "Dormitory Information",
     facility: "School Facility Guide",
     insurance: "Health Insurance Information",
-    "korean-outline": "Outline",
+    "korean-outline": "Overview of Korean Language Program",
     "korean-sample": "Program Sample",
     "opencampus-purpose": "Purpose",
     "opencampus-content": "Schedule and Content",
