@@ -51,20 +51,20 @@ export default function ManagementCookieCompo(){
 return(
   <div className="flex justify-between">
 {language !== "japanese"? 
-        <img src="https://kcenter.yju.ac.kr/kr/wp-content/uploads/sites/2/elementor/thumbs/icon_japan-q7f9galj4ssfjegoxfg6mnc9bkh8p7nrwk7v8n74qw.png" 
+        <img src="/images/japan.png" 
            className="w-6 h-4 mr-4 cursor-pointer" 
            onClick={()=>SetChangeCookie(Language.japanese)}>
         </img>   : 
-        <img src="https://kcenter.yju.ac.kr/jp/wp-content/uploads/sites/4/elementor/thumbs/icon_korean-q7f9pdpd7587rp9jvcucqcso1noz3vqd5j8u8xq4lk.png" 
+        <img src="/images/korean.png" 
            className="w-6 h-4 mr-4 cursor-pointer" 
            onClick={()=>SetChangeCookie(Language.korean)}>
         </img>}
 {language !== "english"? 
-        <img src="https://kcenter.yju.ac.kr/jp/wp-content/uploads/sites/4/elementor/thumbs/icon_english-q7f9qkxxxivelriquvj6x1vvddruxyi0nh96bny0nc.png" 
+        <img src="/images/usa.png" 
            className="w-6 h-4 mr-4 cursor-pointer" 
            onClick={()=>SetChangeCookie(Language.english)}>
         </img>   : 
-        <img src="https://kcenter.yju.ac.kr/jp/wp-content/uploads/sites/4/elementor/thumbs/icon_korean-q7f9pdpd7587rp9jvcucqcso1noz3vqd5j8u8xq4lk.png" 
+        <img src="/images/korean.png" 
            className="w-6 h-4 mr-4 cursor-pointer" 
            onClick={()=>SetChangeCookie(Language.korean)}>
         </img>}   

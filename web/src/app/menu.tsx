@@ -265,7 +265,7 @@ export const boardMenu: Record<Language, Record<string, string>> = {
     "application-form": "申請書類",
     "learning-materials": "学習資料案内",
     notice: "お知らせ",
-    news: "韓国語教育センターからのお知らせ",
+    news: "韓国語教育センターのお知らせ",
     faq: "FAQ",
     introduction: "韓国語教育センター紹介",
     directions: "アクセス",
@@ -350,7 +350,7 @@ export const categoryList: Record<Language, { key: string; value: string }[]> =
       { key: "application-form", value: "申請書類" },
       { key: "learning-materials", value: "学習資料案内" },
       { key: "notice", value: "お知らせ" },
-      { key: "news", value: "韓国語教育センターからのお知らせ" },
+      { key: "news", value: "韓国語教育センターのお知らせ" },
       { key: "faq", value: "FAQ" },
       { key: "korean-outline", value: "概要" },
       { key: "korean-sample", value: "プログラムサンプル" },
@@ -1193,7 +1193,7 @@ export const Hamburger: Record<
       subMenu: [
         { address: "/guidance/introduction", name: "韓国語教育センター紹介" },
         { address: "/guidance/directions", name: "アクセス" },
-        { address: "/staff-intro", name: "教員およびスタッフ紹介" },
+        { address: "/staff-intro", name: "講師陣および職員紹介" },
       ],
     },
     {
@@ -1201,14 +1201,14 @@ export const Hamburger: Record<
       subMenu: [
         { address: "/select/korean-curriculum", name: "韓国語教育課程" },
         { address: "/select/open-campus", name: "オープンキャンパス" },
-        { address: "/board/review", name: "留学生レビュー" },
+        { address: "/board/review", name: "留学生の感想" },
       ],
     },
     {
       topMenu: "申請",
       subMenu: [
         { address: "/select/applied-to", name: "入学申請" },
-        { address: "/form/counseling", name: "カウンセリング申請" },
+        { address: "/form/counseling", name: "カウンセリング申し込み" },
         { address: "/board/application-form", name: "申請書類" },
         { address: "/guidance/visa", name: "ビザ案内" },
       ],
