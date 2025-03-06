@@ -203,8 +203,8 @@ export default async function RootLayout({
 
       <div className="w-full flex justify-center py-8">
         <img
-          src="https://kcenter.yju.ac.kr/kr/wp-content/uploads/sites/2/2023/05/logo.png"
-          className="w-48"
+          src="/images/yeungjinLogo.svg"
+          className="w-48 mr-4"
         />
         <div className="hidden sm:block flex flex-col justify-center whitespace-nowrap font-bold text-sm">
           <address>{homePage[language]?.footerAddress}</address>
