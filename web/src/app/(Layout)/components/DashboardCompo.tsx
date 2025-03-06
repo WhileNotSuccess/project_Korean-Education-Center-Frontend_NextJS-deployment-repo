@@ -36,7 +36,7 @@ export default function DashboardCompo() {
   // 조건부로 early return 하기 전에 useEffect는 항상 호출될 수 있도록 수정
   useEffect(() => {
     if (user) {
-      setIsLink(user.isLinked)
+      setIsLink(user.isLinked);
       async function fetchSubmittedDocuments() {
         const response = await customFetch("/application-form/user", {
           method: "GET",
@@ -51,8 +51,6 @@ export default function DashboardCompo() {
     }
   }, [user]); // user가 변경될 때마다 실행되도록
 
-
-
   const toggleMenu = (id: number) => {
     setMenuOpen((prev) => ({
       ...prev,
@@ -60,23 +58,20 @@ export default function DashboardCompo() {
     }));
   };
 
-  const fileDownload = async(filename : string)=>{
-    try{
-      router.push(`${process.env.NEXT_PUBLIC_BACKEND_URL}/attachments/${filename}`)
-    }catch(error){
-      alert(getError[language].fileDownloadError)
-
+  const fileDownload = async (filename: string) => {
+    try {
+      router.push(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/attachments/${filename}`
+      );
+    } catch (error) {
+      alert(getError[language].fileDownloadError);
     }
-  }
+  };
 
-  useEffect(() => {
-
-  }, [submittedDocuments]);
+  useEffect(() => {}, [submittedDocuments]);
   if (!user) {
     return <div>{DashboardCompoMenu[language].loadingOrNotFoundUser}</div>;
   }
-
-
 
   return (
     <div className="w-full flex flex-col items-center bg-gray-50 py-10">
@@ -95,15 +90,15 @@ export default function DashboardCompo() {
             >
               {DashboardCompoMenu[language].nameChange}
             </button>
-            
-            {!isLink ? 
-            <button
-              onClick={() => googleConnectHandle()}
-              className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-300 text-center"
-            >
-              {DashboardCompoMenu[language].connectGoogle}
-            </button> 
-            : null}
+
+            {!isLink ? (
+              <button
+                onClick={() => googleConnectHandle()}
+                className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-300 text-center"
+              >
+                {DashboardCompoMenu[language].connectGoogle}
+              </button>
+            ) : null}
           </div>
         </div>
 
@@ -118,7 +113,7 @@ export default function DashboardCompo() {
                 className="relative p-3 bg-blue-50 rounded-md shadow-sm flex justify-between"
               >
                 <div>
-                  <p className="font-medium">{doc.korean}</p>
+                  <p className="font-medium">{doc[language]}</p>
                   <p className="text-sm text-gray-600">
                     {new Date(doc.createdDate).toLocaleDateString()}
                   </p>
@@ -127,12 +122,12 @@ export default function DashboardCompo() {
                 <div className="relative">
                   <div className="font-medium">
                     <div className="flex items-center">
-                      <div className="w-20 flex justify-between cursor-pointer"
-                      onClick={() => toggleMenu(doc.Id)}>
+                      <div
+                        className="w-20 flex justify-between cursor-pointer"
+                        onClick={() => toggleMenu(doc.Id)}
+                      >
                         <div>{DashboardCompoMenu[language].attachedFile}</div>
-                        <div>
-                          ⋮
-                        </div>
+                        <div>⋮</div>
                       </div>
                     </div>
                   </div>
@@ -143,8 +138,9 @@ export default function DashboardCompo() {
                         {doc.attachments?.map((item) => (
                           <li
                             key={item.filename}
-                            onClick={()=>fileDownload(item.filename)}
-                            className="px-4 py-2 hover:bg-gray-100 cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap"                          >
+                            onClick={() => fileDownload(item.filename)}
+                            className="px-4 py-2 hover:bg-gray-100 cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap"
+                          >
                             {item.filename.substring(16)}
                           </li>
                         ))}

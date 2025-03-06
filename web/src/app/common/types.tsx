@@ -1,5 +1,3 @@
-
-
 export interface HtmlDocsProps {
   id?: string;
   category?: string;
@@ -87,9 +85,11 @@ export interface Teacher {
 export interface SubmittedDocument {
   Id: number;
   korean: string;
+  english: string;
+  japanese: string;
   createdDate: string;
   isDone: boolean;
-  attachments: ApplicationAttach[]
+  attachments: ApplicationAttach[];
 }
 
 export interface NameChangeModalProps {
@@ -104,23 +104,23 @@ export interface UserInfo {
 }
 
 export interface Course {
-  id : number;
-  korean : string;
-  japanese : string;
-  english : string;
+  id: number;
+  korean: string;
+  japanese: string;
+  english: string;
 }
 
 export interface CategoryParams {
-  category : string;
+  category: string;
 }
 
 export interface IdParams {
-  id : string;
+  id: string;
 }
 
 export type ApplicationAttach = {
-  id : number;
-  filename : string;
-  filetype : string;
-  fileSize : number
-}
+  id: number;
+  filename: string;
+  filetype: string;
+  fileSize: number;
+};
