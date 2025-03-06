@@ -6,9 +6,22 @@ import { Language } from "../../common/types";
 import { useRouter } from "next/navigation";
 
 
-export default function SetChangeCookieCompo(){
+export default function ManagementCookieCompo(){
   const [language, setLanguage] = useState<Language>(Language.korean);
   const router = useRouter()
+
+  useEffect(() => {
+    const currentLanguage = Cookies.get("language");
+    if (!currentLanguage) {
+      Cookies.set("language", "korean", {
+        expires: 30, // 30일 동안 유지
+        path: "/", // 모든 경로
+        domain: process.env.NEXT_PUBLIC_COOKIE_DOMAIN, // 백엔드로 쿠키를 보내기 위한 설정
+        sameSite: "none", // 백엔드로 쿠키를 보내기 위한 설정
+        secure: true, // 백엔드로 쿠키를 보내기 위한 설정
+      });
+    }
+  }, []);
 
   useEffect(() => {
       const savedLanguage = Cookies.get("language") as Language;
