@@ -36,6 +36,11 @@ export const metadata: Metadata = {
   icons: {
     icon: "/images/logo.svg",
   },
+  openGraph : {
+    images: {
+      url : "/images/yjulogo.png"
+    }
+  }
 };
 
 export default async function RootLayout({
