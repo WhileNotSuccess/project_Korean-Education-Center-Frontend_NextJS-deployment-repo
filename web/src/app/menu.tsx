@@ -1087,7 +1087,7 @@ export const Hamburger: Record<
       subMenu: [
         { address: "/guidance/introduction", name: "한국어교육센터 소개" },
         { address: "/guidance/directions", name: "오시는길" },
-        { address: "/staff-intro", name: "강사진 및 교직원 소개" },
+        { address: "/staff/staff-intro", name: "강사진 및 교직원 소개" },
       ],
     },
     {
@@ -1134,7 +1134,7 @@ export const Hamburger: Record<
           name: "Korean Language Education Center Introduction",
         },
         { address: "/guidance/directions", name: "Directions" },
-        { address: "/staff-intro", name: "Faculty and Staff Introduction" },
+        { address: "/staff/staff-intro", name: "Faculty and Staff Introduction" },
       ],
     },
     {
@@ -1193,7 +1193,7 @@ export const Hamburger: Record<
       subMenu: [
         { address: "/guidance/introduction", name: "韓国語教育センター紹介" },
         { address: "/guidance/directions", name: "アクセス" },
-        { address: "/staff-intro", name: "講師陣および職員紹介" },
+        { address: "/staff/staff-intro", name: "講師陣および職員紹介" },
       ],
     },
     {
