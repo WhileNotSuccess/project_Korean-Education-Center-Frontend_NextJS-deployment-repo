@@ -17,7 +17,7 @@ import { cookies } from "next/headers";
 import { Language } from "../common/types";
 import LoginCompo from "./components/LoginCompo";
 import HamburgerMenuCompo from "./components/HamburgerMenuCompo";
-import SetChangeCookieCompo from "./components/ChangeCookieCompo";
+import ManagementCookieCompo from "./components/ManagementCookieCompo";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -49,7 +49,7 @@ export default async function RootLayout({
     <div className=" w-full flex flex-col">
       <header className="w-full min-h-15 bg-[#0093EE] flex justify-end gap-3 font-bold items-center pr-5">
         <LoginCompo />
-        <SetChangeCookieCompo />
+        <ManagementCookieCompo />
       </header>
 
       <section className="w-full min-h-25 bg-[#0072BA] flex items-center pl-5 peer xl:justify-center justify-between">

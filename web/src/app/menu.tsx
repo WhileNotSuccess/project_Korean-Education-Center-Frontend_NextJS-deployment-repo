@@ -287,7 +287,7 @@ export const boardMenu: Record<Language, Record<string, string>> = {
     "privacy-policy": "個人情報取扱方針",
   },
   [Language.english]: {
-    review: "Student Reviews",
+    review: "International Student Reviews",
     "application-form": "Application Form",
     "learning-materials": "Learning Materials Guide",
     notice: "Notice",
@@ -369,7 +369,7 @@ export const categoryList: Record<Language, { key: string; value: string }[]> =
       { key: "dormitory", value: "Dormitory Information" },
       { key: "facility", value: "School Facilities Guide" },
       { key: "insurance", value: "Health Insurance Information" },
-      { key: "review", value: "Student Reviews" },
+      { key: "review", value: "International Student Reviews" },
       { key: "application-form", value: "Application Form" },
       { key: "learning-materials", value: "Learning Materials Guide" },
       { key: "notice", value: "Notice" },
