@@ -211,8 +211,8 @@ export default async function RootLayout({
           src="/images/yeungjinLogo.svg"
           className="w-48 mr-4"
         />
-        <div className="hidden sm:block flex flex-col justify-center whitespace-nowrap font-bold text-sm">
-          <address>{homePage[language]?.footerAddress}</address>
+        <div className="hidden sm:block flex flex-col justify-center whitespace-nowrap font-semibold text-sm">
+          <address className="not-italic">{homePage[language]?.footerAddress}</address>
           <div>{homePage[language]?.footerCallEmail}</div>
         </div>
       </div>
