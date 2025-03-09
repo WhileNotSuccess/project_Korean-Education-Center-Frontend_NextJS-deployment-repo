@@ -37,9 +37,15 @@ export const metadata: Metadata = {
     icon: "/images/logo.svg",
   },
   openGraph : {
-    images: {
-      url : "/images/yjulogo.png"
-    }
+    url : "https://kcenter.yju.ac.kr",
+    type : "website",
+    images:[
+      {
+        url:"https://kcenter.yju.ac.kr/images/yeungjinLogoOpenGraph.png",
+        width : "1200",
+        height : "630"
+      }
+    ]
   }
 };
 
