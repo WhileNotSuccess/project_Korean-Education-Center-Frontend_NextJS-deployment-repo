@@ -257,8 +257,6 @@ export const boardMenu: Record<Language, Record<string, string>> = {
     "procedure-guide": "입학 신청의 절차 안내",
     guidelinesForApplicants: "모집요강",
     applicants: "입학신청서",
-    terms: "이용약관",
-    "privacy-policy": "개인정보처리방침",
   },
   [Language.japanese]: {
     review: "留学生の感想",
@@ -283,8 +281,6 @@ export const boardMenu: Record<Language, Record<string, string>> = {
     "procedure-guide": "入学申請手続き案内",
     guidelinesForApplicants: "募集要項",
     applicants: "入学申請書",
-    terms: "利用規約",
-    "privacy-policy": "個人情報取扱方針",
   },
   [Language.english]: {
     review: "International Student Reviews",
@@ -309,8 +305,6 @@ export const boardMenu: Record<Language, Record<string, string>> = {
     "procedure-guide": "Admission Procedure Guide",
     guidelinesForApplicants: "Application Guidelines",
     applicants: "Application Form",
-    terms: "Terms of Service",
-    "privacy-policy": "Privacy Policy",
   },
 };
 
@@ -336,8 +330,6 @@ export const categoryList: Record<Language, { key: string; value: string }[]> =
       { key: "opencampus-content", value: "일정 및 내용" },
       { key: "opencampus-schedule", value: "스케쥴" },
       { key: "procedure-guide", value: "절차 안내" },
-      { key: "terms", value: "이용약관" },
-      { key: "privacy-policy", value: "개인정보처리방침" },
     ],
     [Language.japanese]: [
       { key: "introduction", value: "韓国語教育センター紹介" },
@@ -359,8 +351,6 @@ export const categoryList: Record<Language, { key: string; value: string }[]> =
       { key: "opencampus-content", value: "日程と内容" },
       { key: "opencampus-schedule", value: "スケジュール" },
       { key: "procedure-guide", value: "入学申請" },
-      { key: "terms", value: "利用規約" },
-      { key: "privacy-policy", value: "個人情報処理方針" },
     ],
     [Language.english]: [
       { key: "introduction", value: "Introduction to Korean Language Center" },
@@ -382,8 +372,6 @@ export const categoryList: Record<Language, { key: string; value: string }[]> =
       { key: "opencampus-content", value: "Schedule and Content" },
       { key: "opencampus-schedule", value: "Schedule" },
       { key: "procedure-guide", value: "Procedure Guide" },
-      { key: "terms", value: "Terms" },
-      { key: "privacy-policy", value: "Privacy Policy" },
     ],
   };
 
