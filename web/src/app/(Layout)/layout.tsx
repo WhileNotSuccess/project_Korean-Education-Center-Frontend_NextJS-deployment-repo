@@ -201,14 +201,35 @@ export default async function RootLayout({
       <main className="grow w-full">{children}</main>
       <footer className="w-full h-36 bg-[#0072ba] mt-24 relative">
         <div className="absolute bottom-2 right-4 text-white font-bold">
-          <div className="text-center">
-            <Link href="/guidance/terms" className="mr-4 hover:underline">
+          {language === Language.english ? (  
+            <div className="text-center">
+            <Link href="/terms-en" className="mr-4 hover:underline">
               {TermsOfService[language].terms}
             </Link>
-            <Link href="/guidance/privacy-policy" className="hover:underline">
+            <Link href="/privacy-policy-en" className="hover:underline">
               {TermsOfService[language].privacyPolicy}
             </Link>
           </div>
+          ) : language === Language.japanese ? (
+            <div className="text-center">
+            <Link href="/terms-jp" className="mr-4 hover:underline">
+              {TermsOfService[language].terms}
+            </Link>
+            <Link href="/privacy-policy-jp" className="hover:underline">
+              {TermsOfService[language].privacyPolicy}
+            </Link>
+            </div>
+          ) : (
+            <div className="text-center">
+            <Link href="/terms-ko" className="mr-4 hover:underline">
+              {TermsOfService[language].terms}
+            </Link>
+            <Link href="/privacy-policy-ko" className="hover:underline">
+              {TermsOfService[language].privacyPolicy}
+            </Link>
+            </div>
+          )
+          }
         </div>
       </footer>
 
