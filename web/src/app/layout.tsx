@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Noto_Sans_JP, Golos_Text } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import { cookies } from "next/headers";
+import { Language } from "./common/types";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,11 +37,26 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+const notoSansJP = Noto_Sans_JP({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  display: "swap",
+});
+
+const golosText = Golos_Text({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  display: "swap",
+});
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+    const language =
+      ((await cookies()).get("language")?.value as Language) || Language.korean;
+
   return (
     <html lang="en">
       <head>
@@ -48,7 +65,7 @@ export default function RootLayout({
           content="UBZqAVSxRMQx-RNTswQfq-ltiQ-8EjrzkNLyld0_SP8"
         />
       </head>
-      <body>{children}</body>
+      <body className={`${language==="japanese"? notoSansJP.className : golosText.className}`}>{children}</body>
       <GoogleAnalytics gaId="G-QQMJV8S2V0" />
     </html>
   );

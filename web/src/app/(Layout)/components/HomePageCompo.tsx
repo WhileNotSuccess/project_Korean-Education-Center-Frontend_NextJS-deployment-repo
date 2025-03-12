@@ -162,6 +162,14 @@ export default function HomePageCompo() {
     }
   };
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % banner.length);
+    }, 5000); 
+  
+    return () => clearInterval(interval); 
+  }, [banner.length]); 
+
   return (
     <div className="w-full flex flex-wrap">
       <div className="relative w-full h-3 max-w-[2000px] h-auto overflow-hidden shadow-lg">
