@@ -61,11 +61,11 @@ return(
         </img>}
 {language !== "english"? 
         <img src="/images/usa.png" 
-           className="w-6 h-4 mr-4 cursor-pointer" 
+           className="w-6 h-4 cursor-pointer" 
            onClick={()=>SetChangeCookie(Language.english)}>
         </img>   : 
         <img src="/images/korean.png" 
-           className="w-6 h-4 mr-4 cursor-pointer" 
+           className="w-6 h-4 cursor-pointer" 
            onClick={()=>SetChangeCookie(Language.korean)}>
         </img>}   
   </div>

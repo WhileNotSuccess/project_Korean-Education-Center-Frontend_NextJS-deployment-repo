@@ -18,6 +18,7 @@ import { Language } from "../common/types";
 import LoginCompo from "./components/LoginCompo";
 import HamburgerMenuCompo from "./components/HamburgerMenuCompo";
 import ManagementCookieCompo from "./components/ManagementCookieCompo";
+import Image from "next/image";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -58,140 +59,152 @@ export default async function RootLayout({
     ((await cookies()).get("language")?.value as Language) || Language.korean;
   return (
     <div className=" w-full flex flex-col">
-      <header className="w-full min-h-15 bg-[#0093EE] flex justify-end gap-3 font-bold items-center pr-5">
+      <header className="w-full min-h-15 bg-[#095a93] flex justify-center xl:justify-between gap-3 font-bold items-center p-4">
+      <Link
+          href={"/"}
+          className="flex justify-center items-center pl-4 sm:pl-0"
+        >
+          <Image 
+          alt="영진전문대 로고"
+          src="/images/yeungjinLogoOpenGraph.png"
+          width={40}
+          height={40}
+          />
+          <div className="flex items-end">
+          <h2 className="font-bold text-white w-full whitespace-nowrap text-2xl ml-2">
+            {HomePageTitle[language].yeungjin}
+          </h2>
+          <h6 className="font-bold text-white w-full whitespace-nowrap text-sm ml-2">
+            {HomePageTitle[language].koreanEducationCenter}
+          </h6>
+          </div>
+        </Link>
+        <div className="hidden xl:flex xl:justify-evenly xl:items-center">
+        <div className="xl:mr-4">
         <LoginCompo />
+        </div>
         <ManagementCookieCompo />
+        </div>
       </header>
 
-      <section className="w-full min-h-25 bg-[#0072BA] flex items-center pl-5 peer xl:justify-center justify-between">
-        <Link
-          href={"/"}
-          className="w-1/6 flex justify-center items-center pl-4 sm:pl-0"
-        >
-          <img src="/images/yjulogo.png" className="w-15 h-15"></img>
-          <h2 className="font-bold text-white w-full whitespace-nowrap">
-            {HomePageTitle[language].yeungjin}
-            <br></br>
-            {HomePageTitle[language].koreanEducationCenter}
-          </h2>
-        </Link>
-        <div className="hidden xl:w-full xl:h-full xl:flex xl:justify-evenly xl:text-white xl:font-bold xl:items-center xl:relative">
-          <div className="w-1/5 flex justify-center cursor-pointer">
+      <section className="relative z-52 w-full min-h-12 bg-[#143c64] bg-opacity-[88%] flex items-center peer xl:justify-center justify-between">
+
+        <div className="hidden xl:w-full xl:h-full xl:flex xl:justify-center xl:text-white xl:font-bold xl:items-center xl:relative">
+          <div className="w-32 flex justify-center cursor-pointer">
             {menu[language]?.introduce}
           </div>
-          <div className="w-1/5 flex justify-center cursor-pointer">
+          <div className="w-32 flex justify-center cursor-pointer">
             {menu[language]?.curriculum}
           </div>
-          <div className="w-1/5 flex justify-center cursor-pointer">
+          <div className="w-32 flex justify-center cursor-pointer">
             {menu[language]?.application}
           </div>
-          <div className="w-1/5 flex justify-center cursor-pointer">
+          <div className="w-32 flex justify-center cursor-pointer">
             {menu[language]?.schoolLife}
           </div>
-          <div className="w-1/5 flex justify-center cursor-pointer">
+          <div className="w-32 flex justify-center cursor-pointer">
             {menu[language]?.notification}
           </div>
         </div>
         <HamburgerMenuCompo />
       </section>
       <section
-        className="hidden xl:hidden xl:peer-hover:block xl:hover:block xl:w-full xl:min-h-52 xl:z-50 xl:bg-white xl:absolute xl:z-40"
-        style={{ top: "86px" }}
+        className="hidden xl:hidden xl:peer-hover:block xl:hover:block xl:w-full xl:min-h-52 xl:z-50 xl:bg-[#143c64] xl:bg-opacity-[88%] xl:absolute xl:z-40"
+        style={{ top: "120px" }}
       >
-        <div className="min-h-52 flex flex-row w-full">
-          <div className="ml-5 h-full w-1/6"></div>
-          <div className="w-full h-[100%] flex justify-evenly">
-            <div className="w-1/5 h-52 flex flex-col items-center border-r">
+        <div className="min-h-52 flex flex-row w-full border-t-2 border-[#728aa2] border-opacity-[50%]">
+          <div className="w-full h-[100%] flex justify-center">
+            <div className="w-32 h-52 flex flex-col items-center">
               <Link
                 href={`/guidance/introduction`}
-                className="p-2 text-sm font-bold text-center"
+                className="p-2 text-xs font-bold text-center text-white"
               >
                 {smallMenu[language]?.centerIntro}
               </Link>
               <Link
                 href={"/guidance/directions"}
-                className="p-2 text-sm font-bold text-center"
+                className="p-2 text-xs font-bold text-center text-white"
               >
                 {smallMenu[language]?.howToGetHere}
               </Link>
               <Link
                 href={"/staff/staff-intro"}
-                className="p-2 text-sm font-bold text-center"
+                className="p-2 text-xs font-bold text-center text-white"
               >
                 {smallMenu[language]?.["staff-intro"]}
               </Link>
             </div>
-            <div className="w-1/5 h-52 flex flex-col items-center border-r">
+            <div className="w-32 h-52 flex flex-col items-center">
               <Link
                 href={"/select/korean-curriculum"}
-                className="p-2 text-sm font-bold text-center"
+                className="p-2 text-xs font-bold text-center text-white"
               >
                 {smallMenu[language]?.["korean-curriculum"]}
               </Link>
               <Link
                 href={"/select/open-campus"}
-                className="p-2 text-sm font-bold text-center"
+                className="p-2 text-xs font-bold text-center text-white"
               >
                 {smallMenu[language]?.["open-campus"]}
               </Link>
-              <Link href={"/board/review"} className="p-2 text-sm font-bold text-center">
+              <Link href={"/board/review"} className="p-2 text-xs font-bold text-center text-white">
                 {boardMenu[language]?.review}
               </Link>
             </div>
-            <div className="w-1/5 h-52 flex flex-col items-center border-r">
+            <div className="w-32 h-52 flex flex-col items-center">
               <Link
                 href={"/select/applied-to"}
-                className="p-2 text-sm font-bold text-center"
+                className="p-2 text-xs font-bold text-center text-white"
               >
                 {smallMenu[language]?.["applied-to"]}
               </Link>
-              <Link href={"/form/counseling"} className="p-2 text-sm font-bold text-center">
+              <Link href={"/form/counseling"} className="p-2 text-xs font-bold text-center text-white">
                 {counselingForm[language]?.["counseling"]}
               </Link>
               <Link
                 href={"/board/application-form"}
-                className="p-2 text-sm font-bold text-center"
+                className="p-2 text-xs font-bold text-center text-white"
               >
                 {boardMenu[language]?.["application-form"]}
               </Link>
-              <Link href={"/guidance/visa"} className="p-2 text-sm font-bold text-center">
+              <Link href={"/guidance/visa"} className="p-2 text-xs font-bold text-center text-white">
                 {guidanceMenu[language]?.visa}
               </Link>
             </div>
-            <div className="w-1/5 h-52 flex flex-col items-center border-r">
+            <div className="w-32 h-52 flex flex-col items-center">
               <Link
                 href={"/guidance/dormitory"}
-                className="p-2 text-sm font-bold text-center"
+                className="p-2 text-xs font-bold text-center text-white"
               >
                 {smallMenu[language]?.dormitory}
               </Link>
               <Link
                 href={"/guidance/facility"}
-                className="p-2 text-sm font-bold text-center"
+                className="p-2 text-xs font-bold text-center text-white"
               >
                 {smallMenu[language]?.facility}
               </Link>
               <Link
                 href={"/board/learning-materials"}
-                className="p-2 text-sm font-bold text-center"
+                className="p-2 text-xs font-bold text-center text-white"
               >
                 {boardMenu[language]?.["learning-materials"]}
               </Link>
               <Link
                 href={"/guidance/insurance"}
-                className="p-2 text-sm font-bold text-center"
+                className="p-2 text-xs font-bold text-center text-white"
               >
                 {guidanceMenu[language]?.insurance}
               </Link>
             </div>
-            <div className="w-1/5 h-52 flex flex-col items-center">
-              <Link href={"/board/notice"} className="p-2 text-sm font-bold text-center">
+            <div className="w-32 h-52 flex flex-col items-center">
+              <Link href={"/board/notice"} className="p-2 text-xs font-bold text-center text-white">
                 {boardMenu[language]?.notice}
               </Link>
-              <Link href={"/board/news"} className="p-2 text-sm font-bold text-center">
+              <Link href={"/board/news"} className="p-2 text-xs font-bold text-center text-white">
                 {boardMenu[language]?.news}
               </Link>
-              <Link href={"/board/faq"} className="p-2 text-sm font-bold text-center">
+              <Link href={"/board/faq"} className="p-2 text-xs font-bold text-center text-white">
                 {boardMenu[language]?.faq}
               </Link>
             </div>
