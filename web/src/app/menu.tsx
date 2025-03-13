@@ -10,27 +10,27 @@ export const menu: Record<Language, Record<string, string>> = {
     notification: "알림/공지",
   },
   [Language.japanese]: {
-    introduce: "センター紹介",
+    introduce: "紹介",
     curriculum: "コース紹介",
     application: "申請",
     schoolLife: "学校生活",
     notification: "お知らせ/通知",
   },
   [Language.english]: {
-    introduce: "Center Introduction",
+    introduce: "Introduction",
     curriculum: "Curriculum",
     application: "Application",
     schoolLife: "School Life",
-    notification: "Notification/Announcement",  
+    notification: "Notification",  
   },
 };
 
 export const smallMenu: Record<Language, Record<string, string>> = {
   // 예시메뉴
   [Language.korean]: {
-    centerIntro: "한국어교육센터 소개",
+    centerIntro: "한국어교육센터",
     howToGetHere: "오시는길",
-    "staff-intro": "강사진 및 교직원 소개",
+    "staff-intro": "교직원",
     "korean-curriculum": "한국어교육과정",
     "open-campus": "오픈캠퍼스",
     internationalReview: "유학생 후기",
@@ -39,9 +39,9 @@ export const smallMenu: Record<Language, Record<string, string>> = {
     "applied-to": "입학 신청",
   },
   [Language.japanese]: {
-    centerIntro: "韓国語教育センター紹介",
+    centerIntro: "韓国語教育センター",
     howToGetHere: "アクセス",
-    "staff-intro": "講師陣および職員紹介",
+    "staff-intro": "教職員",
     "korean-curriculum": "韓国語教育課程",
     "open-campus": "オープンキャンパス",
     internationalReview: "留学生の感想",
@@ -50,9 +50,9 @@ export const smallMenu: Record<Language, Record<string, string>> = {
     "applied-to": "入学申請",
   },
   [Language.english]: {
-    centerIntro: "Korean Language Education Center Introduction",
+    centerIntro: "Korean Education Center",
     howToGetHere: "Directions",
-    "staff-intro": "Introduction of Faculty and Staff",
+    "staff-intro": "Faculty and Staff",
     "korean-curriculum": "Korean Language Curriculum",
     "open-campus": "Open Campus",
     internationalReview: "International Student Reviews",
@@ -63,7 +63,7 @@ export const smallMenu: Record<Language, Record<string, string>> = {
 };
 
 export const staffPage: Record<Language, Record<string, string>> = {
-  // 강사진 및 교직원 소개 페이지
+  // 직원 소개 페이지
   [Language.korean]: {
     faculty: "강사진 소개",
     staff: "교직원 소개",
@@ -138,7 +138,7 @@ export const homePage: Record<Language, Record<string, string>> = {
     footerCallEmail: "대표전화 : +82-53-940-5632 이메일 : intl@yju.ac.kr",
   },
   [Language.japanese]: {
-    notice: "お知らせ",
+    notice: "通知",
     download: "ダウンロード",
     "applied-to": "入学申請",
     "recruitment-guidelines": "募集要項",
@@ -262,10 +262,10 @@ export const boardMenu: Record<Language, Record<string, string>> = {
     review: "留学生の感想",
     "application-form": "申請書類",
     "learning-materials": "学習資料案内",
-    notice: "お知らせ",
-    news: "韓国語教育センターのお知らせ",
+    notice: "通知",
+    news: "お知らせ",
     faq: "FAQ",
-    introduction: "韓国語教育センター紹介",
+    introduction: "韓国語教育センター",
     directions: "アクセス",
     visa: "ビザ案内",
     dormitory: "寮案内",
@@ -287,9 +287,9 @@ export const boardMenu: Record<Language, Record<string, string>> = {
     "application-form": "Application Form",
     "learning-materials": "Learning Materials Guide",
     notice: "Notice",
-    news: "Korean Language Center News",
+    news: "Center News",
     faq: "FAQ",
-    introduction: "Introduction to Korean Language Center",
+    introduction: "Korean Education Center",
     directions: "Directions",
     visa: "Visa Information",
     dormitory: "Dormitory Information",
@@ -311,7 +311,7 @@ export const boardMenu: Record<Language, Record<string, string>> = {
 export const categoryList: Record<Language, { key: string; value: string }[]> =
   {
     [Language.korean]: [
-      { key: "introduction", value: "한국어교육센터 소개" },
+      { key: "introduction", value: "한국어교육센터" },
       { key: "directions", value: "오시는 길" },
       { key: "visa", value: "비자 안내" },
       { key: "dormitory", value: "기숙사 안내" },
@@ -332,7 +332,7 @@ export const categoryList: Record<Language, { key: string; value: string }[]> =
       { key: "procedure-guide", value: "절차 안내" },
     ],
     [Language.japanese]: [
-      { key: "introduction", value: "韓国語教育センター紹介" },
+      { key: "introduction", value: "韓国語教育センター" },
       { key: "directions", value: "アクセス" },
       { key: "visa", value: "ビザ案内" },
       { key: "dormitory", value: "寮案内" },
@@ -341,8 +341,8 @@ export const categoryList: Record<Language, { key: string; value: string }[]> =
       { key: "review", value: "留学生の感想" },
       { key: "application-form", value: "申請書類" },
       { key: "learning-materials", value: "学習資料案内" },
-      { key: "notice", value: "お知らせ" },
-      { key: "news", value: "韓国語教育センターのお知らせ" },
+      { key: "notice", value: "通知" },
+      { key: "news", value: "お知らせ" },
       { key: "faq", value: "FAQ" },
       { key: "korean-outline", value: "概要" },
       { key: "korean-sample", value: "プログラムサンプル" },
@@ -353,7 +353,7 @@ export const categoryList: Record<Language, { key: string; value: string }[]> =
       { key: "procedure-guide", value: "入学申請" },
     ],
     [Language.english]: [
-      { key: "introduction", value: "Introduction to Korean Language Center" },
+      { key: "introduction", value: "Korean Education Center" },
       { key: "directions", value: "Directions" },
       { key: "visa", value: "Visa Information" },
       { key: "dormitory", value: "Dormitory Information" },
@@ -394,7 +394,7 @@ export const paginationPage: Record<Language, Record<string, string>> = {
 export const guidanceMenu: Record<Language, Record<string, string>> = {
   // 문서페이지 메뉴
   [Language.korean]: {
-    introduction: "한국어교육센터 소개",
+    introduction: "한국어교육센터",
     directions: "오시는 길",
     visa: "비자 안내",
     dormitory: "기숙사 안내",
@@ -408,7 +408,7 @@ export const guidanceMenu: Record<Language, Record<string, string>> = {
     "procedure-guide": "절차 안내",
   },
   [Language.japanese]: {
-    introduction: "韓国語教育センター紹介",
+    introduction: "韓国語教育センター",
     directions: "アクセス",
     visa: "ビザ案内",
     dormitory: "寮案内",
@@ -422,7 +422,7 @@ export const guidanceMenu: Record<Language, Record<string, string>> = {
     "procedure-guide": "入学申請",
   },
   [Language.english]: {
-    introduction: "Introduction to Korean Language Education Center",
+    introduction: "Korean Education Center",
     directions: "Directions",
     visa: "Visa Information",
     dormitory: "Dormitory Information",
@@ -470,7 +470,7 @@ export const boardPage: Record<Language, Record<string, string>> = {
     writeTitle: "제목을 입력하세요",
   },
   [Language.japanese]: {
-    notice: "お知らせ",
+    notice: "通知",
     title: "タイトル",
     content: "内容",
     createDate: "作成日",
@@ -498,7 +498,7 @@ export const boardPage: Record<Language, Record<string, string>> = {
 export const getError: Record<Language, Record<string, string>> = {
   // get요청에 실패했을때의 메뉴들
   [Language.korean]: {
-    staffError: "강사진 및 교직원 정보를 불러오지 못했습니다.",
+    staffError: "교직원 정보를 불러오지 못했습니다.",
     boardError: "게시글들을 불러올 수 없습니다.",
     htmlError: "해당 게시글을 불러올 수 없습니다.",
     bannerError: "배너를 불러올 수 없습니다.",
@@ -508,7 +508,7 @@ export const getError: Record<Language, Record<string, string>> = {
     fileDownloadError : "파일을 다운로드하지 못했습니다."
   },
   [Language.japanese]: {
-    staffError: "スタッフおよび職員情報を読み込めませんでした。",
+    staffError: "教職員の情報を読み込めませんでした。",
     boardError: "投稿を読み込むことができませんでした。",
     htmlError: "該当の投稿を読み込むことができませんでした。",
     bannerError: "バナーを読み込むことができませんでした。",
@@ -1073,9 +1073,9 @@ export const Hamburger: Record<
     {
       topMenu: "센터소개",
       subMenu: [
-        { address: "/guidance/introduction", name: "한국어교육센터 소개" },
+        { address: "/guidance/introduction", name: "한국어교육센터" },
         { address: "/guidance/directions", name: "오시는길" },
-        { address: "/staff/staff-intro", name: "강사진 및 교직원 소개" },
+        { address: "/staff/staff-intro", name: "교직원" },
       ],
     },
     {
@@ -1119,7 +1119,7 @@ export const Hamburger: Record<
       subMenu: [
         {
           address: "/guidance/introduction",
-          name: "Korean Language Education Center Introduction",
+          name: "Korean Education Center",
         },
         { address: "/guidance/directions", name: "Directions" },
         { address: "/staff/staff-intro", name: "Faculty and Staff Introduction" },
@@ -1177,11 +1177,11 @@ export const Hamburger: Record<
   ],
   [Language.japanese]: [
     {
-      topMenu: "センター紹介",
+      topMenu: "紹介",
       subMenu: [
-        { address: "/guidance/introduction", name: "韓国語教育センター紹介" },
+        { address: "/guidance/introduction", name: "韓国語教育センター" },
         { address: "/guidance/directions", name: "アクセス" },
-        { address: "/staff/staff-intro", name: "講師陣および職員紹介" },
+        { address: "/staff/staff-intro", name: "教職員" },
       ],
     },
     {
@@ -1213,8 +1213,8 @@ export const Hamburger: Record<
     {
       topMenu: "お知らせ/通知",
       subMenu: [
-        { address: "/board/notice", name: "お知らせ" },
-        { address: "/board/news", name: "韓国語教育センターのお知らせ" },
+        { address: "/board/notice", name: "通知" },
+        { address: "/board/news", name: "お知らせ" },
         { address: "/board/faq", name: "FAQ" },
       ],
     },
