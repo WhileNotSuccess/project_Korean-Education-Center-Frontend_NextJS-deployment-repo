@@ -247,11 +247,13 @@ export default async function RootLayout({
       </footer>
 
       <div className="w-full flex justify-center py-8">
-        <img
+        <Image
+          alt="영진전문대 푸터 로고"
           src="/images/yeungjinLogo.svg"
-          className="w-48 mr-4"
+          width={200}
+          height={100}
         />
-        <div className="hidden sm:block flex flex-col justify-center whitespace-nowrap font-semibold text-sm">
+        <div className="hidden sm:block flex flex-col justify-center whitespace-nowrap font-semibold text-sm sm:ml-5">
           <address className="not-italic">{homePage[language]?.footerAddress}</address>
           <div>{homePage[language]?.footerCallEmail}</div>
         </div>

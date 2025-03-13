@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { RegisterCompoMenu, serverError } from "@/app/menu";
 import { Language } from "@/app/common/types";
 import AlertModal from "./AlertModal";
+import Image from "next/image";
 
 export default function RegisterCompo() {
   const [email, setEmail] = useState<string>("");
@@ -161,7 +162,12 @@ export default function RegisterCompo() {
               onClick={handleGoogleRegister}
               className="w-full bg-[#F2F2F2] rounded-lg font-semibold mt-2 flex justify-center"
             >
-              <img src="/images/signup.png" alt="" className="border-none" />
+              <Image 
+              src="/images/signup.png" 
+              alt="구글로그인 회원가입 버튼"
+              width={200}
+              height={40} 
+              className="border-none" />
             </button>
           </form>
         )}

@@ -4,6 +4,7 @@ import useCustomFetch from "@/app/lib/customFetch";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import parser from "html-react-parser";
+import Image from "next/image";
 import {
   HtmlDocsProps,
   Language,
@@ -123,11 +124,19 @@ export default function HtmlDocs(props: HtmlDocsProps) {
             </div>
 
             <section className="text-sm mt-2 border-b-2 pb-2 flex items-center">
-              <img src="/images/author.png" className="w-4 h-4 mr-2" />
+              <Image
+              alt="작성자 아이콘" 
+              src="/images/author.png"
+              width={15}
+              height={15} 
+                />
               <div>{allData.author}</div>
-              <img
+              <Image
+                alt="작성일 아이콘"
                 src="/images/createdDate.png"
-                className="w-4 h-4 ml-4 mr-2"
+                width={15}
+                height={15}
+                className="ml-4 mr-2"
               />
               <div>{allData.createdDate.substring(0, 10)}</div>
             </section>
@@ -136,9 +145,12 @@ export default function HtmlDocs(props: HtmlDocsProps) {
               {allData.documentFiles.length > 0 ? (
                 allData.documentFiles.map((item) => (
                   <div key={item.id} className="flex items-center">
-                    <img
+                    <Image
+                      alt="첨부파일 아이콘"
                       src="/images/attachFile.png"
-                      className="w-4 h-4 mr-2"
+                      className="mr-2"
+                      width={15}
+                      height={15}
                     />
                     <button
                       onClick={() =>
