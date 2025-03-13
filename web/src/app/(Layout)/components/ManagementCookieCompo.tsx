@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import { Language } from "../../common/types";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 
 export default function ManagementCookieCompo(){
@@ -51,23 +52,39 @@ export default function ManagementCookieCompo(){
 return(
   <div className="flex justify-between">
 {language !== "japanese"? 
-        <img src="/images/japan.png" 
-           className="w-6 h-4 mr-4 cursor-pointer" 
-           onClick={()=>SetChangeCookie(Language.japanese)}>
-        </img>   : 
-        <img src="/images/korean.png" 
-           className="w-6 h-4 mr-4 cursor-pointer" 
-           onClick={()=>SetChangeCookie(Language.korean)}>
-        </img>}
+        <Image
+          alt="일본 국기" 
+          src="/images/japan.png" 
+          className="mr-4 cursor-pointer"
+          width={25}
+          height={10} 
+          onClick={()=>SetChangeCookie(Language.japanese)}>
+        </Image>   : 
+        <Image
+          alt="한국 국기"
+          src="/images/korean.png" 
+          className="w-6 h-4 mr-4 cursor-pointer"
+          width={10}
+          height={10} 
+          onClick={()=>SetChangeCookie(Language.korean)}>
+        </Image>}
 {language !== "english"? 
-        <img src="/images/usa.png" 
-           className="w-6 h-4 cursor-pointer" 
-           onClick={()=>SetChangeCookie(Language.english)}>
-        </img>   : 
-        <img src="/images/korean.png" 
-           className="w-6 h-4 cursor-pointer" 
-           onClick={()=>SetChangeCookie(Language.korean)}>
-        </img>}   
+        <Image
+          alt="미국 국기" 
+          src="/images/usa.png" 
+          className="w-6 h-4 cursor-pointer"
+          width={10}
+          height={10} 
+          onClick={()=>SetChangeCookie(Language.english)}>
+        </Image>   : 
+        <Image
+          alt="한국 국기" 
+          src="/images/korean.png" 
+          className="w-6 h-4 cursor-pointer"
+          width={10}
+          height={10} 
+          onClick={()=>SetChangeCookie(Language.korean)}>
+        </Image>}   
   </div>
 )
 

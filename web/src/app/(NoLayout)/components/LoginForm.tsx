@@ -7,6 +7,7 @@ import { useAuth } from "@/app/hook/auth";
 import { LoginCompoMenu } from "@/app/menu";
 import { Language } from "@/app/common/types";
 import Cookies from "js-cookie";
+import Image from "next/image";
 
 
 export default function LoginForm() {
@@ -101,7 +102,12 @@ export default function LoginForm() {
             onClick={handleGoogleLogin}
             className="w-full bg-[#F2F2F2] rounded-lg font-semibold mt-2 flex justify-center"
           >
-            <img src="/images/loginTab.png" alt="" className="" />
+            <Image 
+            src="/images/loginTab.png" 
+            alt=""
+            width={200}
+            height={40} 
+            className="" />
           </button>
           <button
             type="button"

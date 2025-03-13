@@ -5,6 +5,7 @@ import useCustomFetch from "@/app/lib/customFetch";
 import { useEffect, useState } from "react";
 import { staffPage, getError, smallMenu } from "@/app/menu";
 import Cookies from "js-cookie";
+import Image from "next/image";
 
 type StaffPageProps = {
   name: keyof (typeof smallMenu)[Language];
@@ -93,11 +94,22 @@ export default function StaffIntro({ name }: StaffPageProps) {
                 <div className=" flex flex-col justify-center">
                   <div className="h-8 ml-2">{item.position}</div>
                   <div className="h-8 ml-2 font-bold flex flex-row items-center">
-                    <img src="/images/telephone.png" className="h-4 w-4 mr-2" />{" "}
+                    <Image
+                    alt="전화기 아이콘" 
+                    src="/images/telephone.png"
+                    width={15}
+                    height={15} 
+                    className="mr-2" />{" "}
                     {item.phone}
                   </div>
                   <div className="h-8 ml-2 font-bold flex flex-row items-center overflow-hidden">
-                    <img src="/images/mail.png" className="h-4 w-4 mr-2" />
+                    <Image
+                    alt="이메일 아이콘" 
+                    src="/images/mail.png" 
+                    className="mr-2" 
+                    width={15}
+                    height={15}
+                    />
                     {item.email}
                   </div>
                 </div>
