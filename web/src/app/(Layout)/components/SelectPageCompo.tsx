@@ -10,6 +10,7 @@ import Cookies from "js-cookie";
 import { handleFileChange, addDeleteFileName } from "../../common/formFile";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/app/hook/auth";
+import Image from "next/image";
 
 type SelectTabProps = {
   categoryTab: Record<Language, { key: string; value: string }[]>; // 세부 카테고리
@@ -220,9 +221,12 @@ export default function SelectTabComponent({
                             ? fileName.substring(16)
                             : fileName}
                         </li>
-                        <img
-                          src="/images/X버튼.png"
-                          className="size-4 cursor-pointer"
+                        <Image
+                          alt="첨부파일 지우는 버튼"
+                          src="/images/xbutton.png"
+                          width={15}
+                          height={15}
+                          className="cursor-pointer"
                           onClick={() =>
                             addDeleteFileName(
                               fileName,
