@@ -15,6 +15,7 @@ import useCustomFormFetch from "@/app/lib/customFormFetch";
 import { Language, ServerDocumentFile } from "@/app/common/types";
 import useCustomFetch from "@/app/lib/customFetch";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 type EditorProps = {
   id?: string;
@@ -262,8 +263,11 @@ export default function EditorComponent(props: EditorProps) {
                     }`}
                   >
                     <div className="flex flex-rows items-center">
-                      <img
+                      <Image
                         src="/images/attachFile.png"
+                        alt=""
+                        width={96}
+                        height={96}
                         className="size-4 flex justify-center items-center mr-4"
                       />
                       <li>
@@ -272,8 +276,11 @@ export default function EditorComponent(props: EditorProps) {
                           : fileName}
                       </li>
                     </div>
-                    <img
+                    <Image
                       src="/images/xbutton.png"
+                      alt=""
+                      width={96}
+                      height={96}
                       className="size-4 cursor-pointer"
                       onClick={() => addDeleteFileName(fileName)}
                     />

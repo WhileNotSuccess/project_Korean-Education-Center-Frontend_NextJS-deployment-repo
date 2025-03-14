@@ -32,7 +32,7 @@ export const useAuth = () => {
       return response.json();
     },
     {
-      refreshInterval: 60000 * 5,
+      refreshInterval: 60000 * 30,
     }
   );
   const customFetch = useCustomFetch();

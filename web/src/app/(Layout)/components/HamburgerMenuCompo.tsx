@@ -5,6 +5,7 @@ import Cookies from "js-cookie";
 import { Language } from "@/app/common/types";
 import { Hamburger } from "@/app/menu";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function HamburgerMenuCompo (){
   const [menuOpen, setMenuOpen] = useState(false);
@@ -29,13 +30,25 @@ export default function HamburgerMenuCompo (){
   return (
     <nav className="xl:hidden">
       <div className="xl:hidden w-full flex justify-end px-4" onClick={onMenuOpen}>
-        <img src="/images/hamburger.png" className="size-8 cursor-pointer"/>
+        <Image 
+        src="/images/hamburger.png" 
+        alt="햄버거 메뉴"
+        className="size-8 cursor-pointer"
+        width={64}
+        height={64}
+        />
       </div>
 
       {menuOpen && (
         <aside className="absolute z-50 bg-white flex flex-col top-0 right-0 overflow-y-scroll shadow-md border-2">
           <div className="w-full flex justify-end p-4">
-            <img src="/images/close.png" className="size-8 cursor-pointer" onClick={onMenuOpen}/>  
+            <Image 
+            src="/images/close.png" 
+            alt="닫기"
+            width={64}
+            height={64}
+            className="size-8 cursor-pointer" 
+            onClick={onMenuOpen}/>  
           </div>
           <ul>
           {Hamburger[language].map((item, index) => (

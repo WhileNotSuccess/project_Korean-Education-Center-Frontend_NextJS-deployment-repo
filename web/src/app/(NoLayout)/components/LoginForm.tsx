@@ -50,6 +50,12 @@ export default function LoginForm() {
     await login(payload, setError);
   };
 
+  const handleKeydown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      handleSubmit(e);
+    }
+  }
+
   const handleGoogleLogin = () => {
     window.location.href = `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/google/login`;
   };
@@ -78,6 +84,7 @@ export default function LoginForm() {
                 placeholder={LoginCompoMenu[language].inputId}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                onKeyDown={handleKeydown}
                 className="w-full p-2 border border-blue-500 rounded-lg text-blue-800 focus:outline-none focus:ring-2 focus:ring-white"
               />
               <input
@@ -85,6 +92,7 @@ export default function LoginForm() {
                 placeholder={LoginCompoMenu[language].inputPassWord}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                onKeyDown={handleKeydown}
                 className="w-full p-2 border border-blue-500 rounded-lg text-blue-800 focus:outline-none focus:ring-2 focus:ring-white"
               />
             </div>

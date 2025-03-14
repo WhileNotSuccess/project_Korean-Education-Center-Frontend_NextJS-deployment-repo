@@ -241,7 +241,7 @@ export const boardMenu: Record<Language, Record<string, string>> = {
     notice: "공지사항",
     news: "한국어교육센터 알림",
     faq: "FAQ",
-    introduction: "한국어 교육센터 소개",
+    introduction: "한국어교육센터 소개",
     directions: "오시는 길",
     visa: "비자 안내",
     dormitory: "기숙사 안내",
@@ -363,7 +363,7 @@ export const categoryList: Record<Language, { key: string; value: string }[]> =
       { key: "application-form", value: "Application Form" },
       { key: "learning-materials", value: "Learning Materials Guide" },
       { key: "notice", value: "Notice" },
-      { key: "news", value: "Korean Language Center News" },
+      { key: "news", value: "Korean Education Center News" },
       { key: "faq", value: "FAQ" },
       { key: "korean-outline", value: "Overview" },
       { key: "korean-sample", value: "Program Sample" },
@@ -698,7 +698,7 @@ export const LoginCompoMenu: Record<Language, Record<string, string>> = {
   [Language.english]: {
     Login: "Login",
     register: "Sign Up",
-    welcome: "Welcome to Yeungjin College Korean Language Education Center.",
+    welcome: "Welcome to Yeungjin College Korean Education Center.",
     inputId: "Enter ID",
     inputPassWord: "Enter Password",
   },
@@ -1164,12 +1164,12 @@ export const Hamburger: Record<
       ],
     },
     {
-      topMenu: "Notifications/Announcements",
+      topMenu: "Notification",
       subMenu: [
         { address: "/board/notice", name: "Notices" },
         {
           address: "/board/news",
-          name: "Korean Language Education Center Announcements",
+          name: "Center News",
         },
         { address: "/board/faq", name: "FAQ" },
       ],
