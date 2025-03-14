@@ -9,6 +9,7 @@ import { formatDate } from "@/app/common/formatDate";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import BoardDataMapCompo from "./BoardDataMapCompo";
+import Image from "next/image";
 
 interface BannerType {
   expiredData: string;
@@ -179,10 +180,14 @@ export default function HomePageCompo() {
             style={{ transform: `translateX(-${currentIndex * 100}%)` }}
           >
             {banner.map((banner, index) => (
-              <img
+              <Image
                 key={index}
                 src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${banner.image}`}
+                alt="배너 이미지"
                 className="h-auto max-w-full cursor-pointer"
+                unoptimized={true}
+                width={2000}
+                height={300}
                 onClick={() => onGoUrl(banner.url)}
               />
             ))}
@@ -207,8 +212,11 @@ export default function HomePageCompo() {
               <h1 className="text-2xl font-bold p-2">
                 {homePage[language]?.notice}
               </h1>
-              <img
-                src="images/add_button.png"
+              <Image
+                src="/images/add_button.png"
+                alt="추가 버튼"
+                width={96}
+                height={96}
                 className="w-8 cursor-pointer"
                 onClick={() => onGoBoard("notice")}
               />
@@ -225,8 +233,11 @@ export default function HomePageCompo() {
                 <h1 className="text-2xl font-bold p-2">
                   {homePage[language]?.review}
                 </h1>
-                <img
-                  src="images/add_button.png"
+                <Image
+                  src="/images/add_button.png"
+                  alt="추가 버튼"
+                  width={96}
+                  height={96}
                   className="w-8 cursor-pointer"
                   onClick={() => onGoBoard("review")}
                 />
@@ -242,8 +253,11 @@ export default function HomePageCompo() {
                 <h1 className="text-2xl font-bold p-2">
                   {homePage[language]?.faq}
                 </h1>
-                <img
-                  src="images/add_button.png"
+                <Image
+                  src="/images/add_button.png"
+                  alt="추가 버튼"
+                  width={96}
+                  height={96}
                   className="w-8 cursor-pointer"
                   onClick={() => onGoBoard("faq")}
                 />
@@ -261,7 +275,12 @@ export default function HomePageCompo() {
               href={"/guidance/introduction"}
               className="size-12 p-2 border rounded-full bg-[#ffffff]"
             >
-              <img src="images/home.png" />
+              <Image 
+              src="/images/home.png"
+              alt="홈"
+              width={64}
+              height={64}
+              />
             </Link>
             <Link
               href={"/guidance/introduction"}
@@ -275,7 +294,13 @@ export default function HomePageCompo() {
               href={"/board/faq"}
               className="size-12 p-2 border rounded-full bg-[#ffffff]"
             >
-              <img src="images/faq.png" />
+              <Image 
+              src="/images/faq.png" 
+              alt="faq"
+              width={64}
+              height={64}
+              />
+            
             </Link>
             <Link
               href={"/board/faq"}
@@ -289,7 +314,12 @@ export default function HomePageCompo() {
               href={"/board/review"}
               className="size-12 p-2 border rounded-full bg-[#ffffff]"
             >
-              <img src="images/review.png" />
+              <Image 
+              src="/images/review.png"
+              alt=""
+              width={64}
+              height={64}
+               />
             </Link>
             <Link
               href={"/board/review"}
@@ -303,7 +333,12 @@ export default function HomePageCompo() {
               href={"/board/news"}
               className="size-12 p-2 border rounded-full bg-[#ffffff]"
             >
-              <img src="images/light.png" />
+              <Image 
+              src="/images/light.png"
+              alt="전구"
+              width={64}
+              height={64}
+              />
             </Link>
             <Link
               href={"/board/news"}
@@ -317,7 +352,12 @@ export default function HomePageCompo() {
               href={"/select/applied-to"}
               className="size-12 p-2 border rounded-full bg-[#ffffff]"
             >
-              <img src="images/document1.png" />
+              <Image 
+              src="/images/document1.png"
+              alt=""
+              width={64}
+              height={64}
+               />
             </Link>
             <Link
               href={"/select/applied-to"}
@@ -331,7 +371,12 @@ export default function HomePageCompo() {
               href={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${guidelinesForApplicants.filename}`}
               className="size-12 p-2 border rounded-full bg-[#ffffff]"
             >
-              <img src="images/graduationcap.png" />
+              <Image 
+              src="/images/graduationcap.png" 
+              alt="학사모"
+              width={64}
+              height={64}
+              />
             </Link>
             <Link
               href={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${guidelinesForApplicants.filename}`}
@@ -359,9 +404,13 @@ export default function HomePageCompo() {
                     ref={index === 0 ? itemRef : null}
                     className="w-64 flex flex-col items-center"
                   >
-                    <img
+                    <Image
                       src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${item.image}`}
+                      alt="알림 이미지"
+                      width={2000}
+                      height={300}
                       className="w-full h-40 object-cover rounded-lg pointer-events-none"
+                      unoptimized={true}
                     />
                     <p className="text-center mt-2">{item.title}</p>
                   </article>
@@ -371,10 +420,22 @@ export default function HomePageCompo() {
           </div>
           <div className="w-48 flex justify-between items-center">
             <div onClick={onScrollLeft}>
-              <img src="/images/left.png" className="size-8 cursor-pointer" />
+              <Image 
+              src="/images/left.png"
+              alt="왼쪽 화살표" 
+              className="size-8 cursor-pointer" 
+              width={96}
+              height={96}
+              />
             </div>
             <div onClick={onScrollRight}>
-              <img src="/images/right.png" className="size-8 cursor-pointer" />
+              <Image 
+              src="/images/right.png"
+              alt="오른쪽 화살표"
+               className="size-8 cursor-pointer"
+               width={96}
+               height={96}
+               />
             </div>
           </div>
         </div>
@@ -392,8 +453,12 @@ export default function HomePageCompo() {
           >
             {homePage[language]?.["Application-Form"]}
           </div>
-          <img
+          <Image
             src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${entranceApplication.applicationImageName}`}
+            alt=""
+            width={2000}
+            height={300}
+            unoptimized={true}
             className="w-full h-64 object-cover mt-4"
           />
         </div>
@@ -408,8 +473,12 @@ export default function HomePageCompo() {
           >
             {homePage[language]?.["recruitment-guidelines"]}
           </div>
-          <img
+          <Image
             src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${entranceApplication.guidelinesForApplicantsImageName}`}
+            alt=""
+            width={2000}
+            height={300}
+            unoptimized={true}
             className="w-full h-64 object-cover mt-4"
           />
         </div>
