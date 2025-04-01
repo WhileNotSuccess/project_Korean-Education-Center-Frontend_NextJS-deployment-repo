@@ -159,7 +159,13 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
       </section>
       <section className="w-full flex flex-col items-center mb-5">
         <div className="w-4/5 h-16 border-x-0 border-y-2 border-t-[#4171b4] mt-12 flex sm:items-center items-center justify-between">
-          <div className="w-2/5 font-bold flex justify-center">
+          {name==="notice" ?
+          <div className="w-20"></div>
+          :
+          null
+        }
+
+          <div className="w-2/5 font-bold flex justify-center ml-4">
             {boardPage[language]?.title}
           </div>
           <div className="sm:w-1/5 sm:font-bold sm:flex sm:justify-center sm:ml-0 ml-2 sm:overflow-hidden sm:text-ellipsis sm:whitespace-nowrap hidden sm:block">

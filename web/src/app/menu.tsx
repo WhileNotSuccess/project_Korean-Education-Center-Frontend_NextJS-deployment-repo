@@ -135,7 +135,7 @@ export const homePage: Record<Language, Record<string, string>> = {
     review: "유학생 후기",
     footerAddress:
       "41527 대구광역시 북구 복현로 35 (복현2동 218) 영진전문대학교 한국어교육센터",
-    footerCallEmail: "대표전화 : +82-53-940-5632 이메일 : intl@yju.ac.kr",
+    footerCallEmail: "대표전화 : +82-53-940-5768 이메일 : intl@yju.ac.kr",
   },
   [Language.japanese]: {
     notice: "通知",
@@ -147,7 +147,7 @@ export const homePage: Record<Language, Record<string, string>> = {
     review: "留学生の感想",
     footerAddress:
       "41527 大邱広域市 北区 復県路 35 (復県2洞 218) 永進専門大学 韓国語教育センター",
-    footerCallEmail: "代表電話 : +82-53-940-5632 メール : intl@yju.ac.kr",
+    footerCallEmail: "代表電話 : +82-53-940-5768 メール : intl@yju.ac.kr",
   },
   [Language.english]: {
     notice: "Notice",
@@ -159,7 +159,7 @@ export const homePage: Record<Language, Record<string, string>> = {
     review: "International Student Reviews",
     footerAddress:
       "41527 35 Bokhyeon-ro, Buk-gu, Daegu, Korea Yeungjin College Korean Language Education Center",
-    footerCallEmail: "Phone: +82-53-940-5632 Email: intl@yju.ac.kr",
+    footerCallEmail: "Phone: +82-53-940-5768 Email: intl@yju.ac.kr",
   },
 };
 
