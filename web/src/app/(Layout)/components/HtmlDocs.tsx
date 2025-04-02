@@ -208,8 +208,9 @@ export default function HtmlDocs(props: HtmlDocsProps) {
       )}
 
       <section className="w-full flex justify-center">
-        <div className="w-3/5 min-h-dvh">
+        <div className="w-4/5 min-h-dvh">
           <div className="prose w-full break-words">
+            <br/>
             {parser(allData.content)}
           </div>
         </div>

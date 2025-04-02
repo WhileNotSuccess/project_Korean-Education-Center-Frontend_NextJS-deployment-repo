@@ -101,8 +101,12 @@ export default function EditorComponent(props: EditorProps) {
           method: "POST",
           body: formData,
         });
-        alert(postSuccess[language]?.contentPost);
-        router.back();
+        if (response.ok) {
+          alert(postSuccess[language]?.contentPost);
+          router.back();
+        } else {
+          alert(postError[language]?.subError);}
+        
       } catch (error) {
         alert(postError[language]?.subError);
       }
@@ -130,8 +134,11 @@ export default function EditorComponent(props: EditorProps) {
         method: "PATCH",
         body: formData,
       });
-      alert(updateSuccess[language]?.updatePost);
-      router.back();
+      if (response.ok) {
+        alert(updateSuccess[language]?.updatePost);
+        router.back();
+      }
+      
     } catch (error) {
       alert(updateError[language]?.update);
     }
