@@ -21,7 +21,7 @@ export const menu: Record<Language, Record<string, string>> = {
     curriculum: "Curriculum",
     application: "Application",
     schoolLife: "School Life",
-    notification: "Notification",  
+    notification: "Notification",
   },
 };
 
@@ -126,6 +126,7 @@ export const editorCompo: Record<Language, Record<string, string>> = {
 
 export const homePage: Record<Language, Record<string, string>> = {
   [Language.korean]: {
+    overview: "학사일정",
     notice: "공지사항",
     download: "다운로드",
     "applied-to": "입학신청",
@@ -138,6 +139,7 @@ export const homePage: Record<Language, Record<string, string>> = {
     footerCallEmail: "대표전화 : +82-53-940-5768 이메일 : intl@yju.ac.kr",
   },
   [Language.japanese]: {
+    overview: "学年度カレンダー",
     notice: "通知",
     download: "ダウンロード",
     "applied-to": "入学申請",
@@ -150,6 +152,7 @@ export const homePage: Record<Language, Record<string, string>> = {
     footerCallEmail: "代表電話 : +82-53-940-5768 メール : intl@yju.ac.kr",
   },
   [Language.english]: {
+    overview: "Academic Calendar",
     notice: "Notice",
     download: "Download",
     "applied-to": "Application for Admission",
@@ -505,7 +508,7 @@ export const getError: Record<Language, Record<string, string>> = {
     newsError: "소식을 불러올 수 없습니다.",
     entranceApplicationError: "모집요강 및 입학신청를 불러올 수 없습니다.",
     searchBoardError: "검색된 게시글들을 불러올 수 없습니다.",
-    fileDownloadError : "파일을 다운로드하지 못했습니다."
+    fileDownloadError: "파일을 다운로드하지 못했습니다.",
   },
   [Language.japanese]: {
     staffError: "教職員の情報を読み込めませんでした。",
@@ -516,7 +519,7 @@ export const getError: Record<Language, Record<string, string>> = {
     entranceApplicationError:
       "募集要項および入学申請を読み込むことができません。",
     searchBoardError: "検索結果を読み込むことができません。",
-    fileDownloadError : "ファイルをダウンロードできませんでした。"
+    fileDownloadError: "ファイルをダウンロードできませんでした。",
   },
   [Language.english]: {
     staffError: "Failed to load staff and employee information.",
@@ -527,7 +530,7 @@ export const getError: Record<Language, Record<string, string>> = {
     entranceApplicationError:
       "Failed to load the recruitment guidelines and admission application.",
     searchBoardError: "Failed to load the search results.",
-    fileDownloadError : "The file could not be downloaded."
+    fileDownloadError: "The file could not be downloaded.",
   },
 };
 
@@ -877,7 +880,8 @@ export const RegisterCompoMenu: Record<Language, Record<string, string>> = {
     passWordPlaceHolder: "Password",
     googleRegister: "Google Register",
     nameChange: "Change Name",
-    registerComplete: "Email verification is required. Please check your email.",
+    registerComplete:
+      "Email verification is required. Please check your email.",
     registerError: "Registration is not possible.",
     nameChangeComplete: "Your name has been successfully changed.",
     nameChangeError: "Your name cannot be changed.",
@@ -921,7 +925,7 @@ export const DashboardCompoMenu: Record<Language, Record<string, string>> = {
     submitDocument: "제출한 서류",
     submitComplete: "제출 완료",
     submitIncomplete: "제출 미완료",
-    attachedFile : "첨부파일"
+    attachedFile: "첨부파일",
   },
   [Language.english]: {
     loadingOrNotFoundUser: "Loading or no user information found.",
@@ -931,7 +935,7 @@ export const DashboardCompoMenu: Record<Language, Record<string, string>> = {
     submitDocument: "Submitted Documents",
     submitComplete: "Submission Complete",
     submitIncomplete: "Submission Incomplete",
-    attachedFile : "Attachment"
+    attachedFile: "Attachment",
   },
   [Language.japanese]: {
     loadingOrNotFoundUser: "読み込み中またはユーザー情報がありません。",
@@ -941,7 +945,7 @@ export const DashboardCompoMenu: Record<Language, Record<string, string>> = {
     submitDocument: "提出した書類",
     submitComplete: "提出完了",
     submitIncomplete: "提出未完了",
-    attachedFile : "添付ファイル"
+    attachedFile: "添付ファイル",
   },
 };
 
@@ -1122,7 +1126,10 @@ export const Hamburger: Record<
           name: "Korean Education Center",
         },
         { address: "/guidance/directions", name: "Directions" },
-        { address: "/staff/staff-intro", name: "Faculty and Staff Introduction" },
+        {
+          address: "/staff/staff-intro",
+          name: "Faculty and Staff Introduction",
+        },
       ],
     },
     {
@@ -1284,17 +1291,17 @@ export const TermsOfService: Record<Language, Record<string, string>> = {
   },
 };
 
-export const AlertModalMenu : Record<Language, Record<string, string>> = {
-  [Language.korean] : {
-    close : "닫기"
+export const AlertModalMenu: Record<Language, Record<string, string>> = {
+  [Language.korean]: {
+    close: "닫기",
   },
-  [Language.english] : {
-    close : "close"
+  [Language.english]: {
+    close: "close",
   },
-  [Language.japanese] : {
-    close : "閉じる"
-  }
-}
+  [Language.japanese]: {
+    close: "閉じる",
+  },
+};
 
 export const CheckUserAlert: Record<Language, Record<string, string>> = {
   [Language.korean]: {
