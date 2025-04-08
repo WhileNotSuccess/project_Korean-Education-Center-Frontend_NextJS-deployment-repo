@@ -626,7 +626,7 @@ export const applicationList: Record<
     { key: "upload-documents", value: "서류 업로드" },
   ],
   [Language.japanese]: [
-    { key: "procedure-guide", value: "手続きガイド" },
+    { key: "procedure-guide", value: "入学申請手続きに関して" },
     { key: "upload-documents", value: "書類アップロード" },
   ],
   [Language.english]: [
@@ -654,7 +654,7 @@ export const counselingPageMenu: Record<Language, Record<string, string>> = {
     save: "저장",
   },
   [Language.japanese]: {
-    "counseling-guide": `カウンセリングの営業時間は、韓国標準時間(KST)で\n平日午前9時～午後6時、\n週末午前9時～午後5時です。`,
+    "counseling-guide": `カウンセリング申し込みを入学相談のお申込みに変換 入学相談が可能な時間は、韓国標準時間(KST)で平日午前9時~午後6時です。`,
     name: "名前",
     phone: "携帯番号",
     email: "メール",
