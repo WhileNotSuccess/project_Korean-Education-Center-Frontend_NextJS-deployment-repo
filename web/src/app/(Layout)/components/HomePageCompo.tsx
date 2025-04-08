@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import BoardDataMapCompo from "./BoardDataMapCompo";
 import Image from "next/image";
+import HomePageOverview from "./HomePageOverview";
 
 interface BannerType {
   expiredData: string;
@@ -166,10 +167,10 @@ export default function HomePageCompo() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % banner.length);
-    }, 5000); 
-  
-    return () => clearInterval(interval); 
-  }, [banner.length]); 
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [banner.length]);
 
   return (
     <div className="w-full flex flex-wrap">
@@ -204,6 +205,12 @@ export default function HomePageCompo() {
             ))}
           </div>
         </section>
+      </div>
+      <div className="w-full mt-12 flex flex-col justify-center items-center">
+        <h1 className="text-2xl font-bold mb-6">
+          {homePage[language]?.overview}
+        </h1>
+        <HomePageOverview />
       </div>
       <div className="w-full mt-12 flex flex-col justify-center items-center sm:flex-row sm:items-stretch">
         <section>
@@ -275,12 +282,7 @@ export default function HomePageCompo() {
               href={"/guidance/introduction"}
               className="size-12 p-2 border rounded-full bg-[#ffffff]"
             >
-              <Image 
-              src="/images/home.png"
-              alt="홈"
-              width={64}
-              height={64}
-              />
+              <Image src="/images/home.png" alt="홈" width={64} height={64} />
             </Link>
             <Link
               href={"/guidance/introduction"}
@@ -294,13 +296,7 @@ export default function HomePageCompo() {
               href={"/board/faq"}
               className="size-12 p-2 border rounded-full bg-[#ffffff]"
             >
-              <Image 
-              src="/images/faq.png" 
-              alt="faq"
-              width={64}
-              height={64}
-              />
-            
+              <Image src="/images/faq.png" alt="faq" width={64} height={64} />
             </Link>
             <Link
               href={"/board/faq"}
@@ -314,12 +310,7 @@ export default function HomePageCompo() {
               href={"/board/review"}
               className="size-12 p-2 border rounded-full bg-[#ffffff]"
             >
-              <Image 
-              src="/images/review.png"
-              alt=""
-              width={64}
-              height={64}
-               />
+              <Image src="/images/review.png" alt="" width={64} height={64} />
             </Link>
             <Link
               href={"/board/review"}
@@ -333,11 +324,11 @@ export default function HomePageCompo() {
               href={"/board/news"}
               className="size-12 p-2 border rounded-full bg-[#ffffff]"
             >
-              <Image 
-              src="/images/light.png"
-              alt="전구"
-              width={64}
-              height={64}
+              <Image
+                src="/images/light.png"
+                alt="전구"
+                width={64}
+                height={64}
               />
             </Link>
             <Link
@@ -352,12 +343,12 @@ export default function HomePageCompo() {
               href={"/select/applied-to"}
               className="size-12 p-2 border rounded-full bg-[#ffffff]"
             >
-              <Image 
-              src="/images/document1.png"
-              alt=""
-              width={64}
-              height={64}
-               />
+              <Image
+                src="/images/document1.png"
+                alt=""
+                width={64}
+                height={64}
+              />
             </Link>
             <Link
               href={"/select/applied-to"}
@@ -371,11 +362,11 @@ export default function HomePageCompo() {
               href={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${guidelinesForApplicants.filename}`}
               className="size-12 p-2 border rounded-full bg-[#ffffff]"
             >
-              <Image 
-              src="/images/graduationcap.png" 
-              alt="학사모"
-              width={64}
-              height={64}
+              <Image
+                src="/images/graduationcap.png"
+                alt="학사모"
+                width={64}
+                height={64}
               />
             </Link>
             <Link
@@ -420,22 +411,22 @@ export default function HomePageCompo() {
           </div>
           <div className="w-48 flex justify-between items-center">
             <div onClick={onScrollLeft}>
-              <Image 
-              src="/images/left.png"
-              alt="왼쪽 화살표" 
-              className="size-8 cursor-pointer" 
-              width={96}
-              height={96}
+              <Image
+                src="/images/left.png"
+                alt="왼쪽 화살표"
+                className="size-8 cursor-pointer"
+                width={96}
+                height={96}
               />
             </div>
             <div onClick={onScrollRight}>
-              <Image 
-              src="/images/right.png"
-              alt="오른쪽 화살표"
-               className="size-8 cursor-pointer"
-               width={96}
-               height={96}
-               />
+              <Image
+                src="/images/right.png"
+                alt="오른쪽 화살표"
+                className="size-8 cursor-pointer"
+                width={96}
+                height={96}
+              />
             </div>
           </div>
         </div>
