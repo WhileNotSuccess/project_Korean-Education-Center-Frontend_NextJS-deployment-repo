@@ -41,9 +41,9 @@ export default function DashboardCompo() {
         const response = await customFetch("/application-form/user", {
           method: "GET",
         });
-
-        if (response && response.data) {
-          setSubmittedDocuments(response.data);
+        const data = await response.json()
+        if (data && data.data) {
+          setSubmittedDocuments(data.data);
         }
       }
 

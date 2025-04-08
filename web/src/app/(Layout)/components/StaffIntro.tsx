@@ -28,9 +28,10 @@ export default function StaffIntro({ name }: StaffPageProps) {
   useEffect(() => {
     const staffData = async () => {
       try {
-        const data = await customFetch("/staff", {
+        const response = await customFetch("/staff", {
           method: "GET",
         });
+        const data = await response.json()
         setTeacher(data.teacher);
         setStaff(data.staff);
       } catch (error) {

@@ -66,18 +66,21 @@ export default function HomePageCompo() {
   useEffect(() => {
     const newsData = async () => {
       try {
-        const data = await customFetch("/posts/card/slide", {
+        const response = await customFetch("/posts/card/slide", {
           method: "GET",
         });
+        const data = await response.json()
         setNewsData(data.data);
-        const guidelinesForApplicants = await customFetch(
+        const res = await customFetch(
           "/posts?category=guidelinesForApplicants",
           {
             method: "GET",
           }
         );
+        const guidelinesForApplicants = await res.json()
         setGuidelinesForApplicants(guidelinesForApplicants.files[0]);
-      } catch (error) {
+      } 
+      catch (error) {
         alert(getError[language]?.newsError);
       }
     };
@@ -87,11 +90,13 @@ export default function HomePageCompo() {
   useEffect(() => {
     const bannerData = async () => {
       try {
-        const data = await customFetch("/banners", {
+        const response = await customFetch("/banners", {
           method: "GET",
         });
+        const data = await response.json()
         setBanner(data.data);
-      } catch (error) {
+      } 
+      catch (error) {
         alert(getError[language]?.bannerError);
       }
     };
@@ -102,11 +107,13 @@ export default function HomePageCompo() {
     // 모집요강 및 입학신청서를 불러오는 함수수
     const entranceApplicationData = async () => {
       try {
-        const data = await customFetch("/posts/main/applicants", {
+        const response = await customFetch("/posts/main/applicants", {
           method: "GET",
         });
+        const data = await response.json()
         setEntranceApplication(data);
-      } catch (error) {
+      } 
+      catch (error) {
         alert(getError[language].entranceApplicationError);
       }
     };

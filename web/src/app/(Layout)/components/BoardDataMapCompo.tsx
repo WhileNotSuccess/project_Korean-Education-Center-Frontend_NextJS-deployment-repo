@@ -34,7 +34,8 @@ export default function BoardDataMapCompo (props : Props) {
         const response = await customFetch(`/posts/${props.category}?limit=${props.limit}`,{
           method : "GET"
         })
-        setData(response.data)
+        const data = await response.json()
+        setData(data.data)
       }catch(error){
         alert(getError[language]?.boardError)
       }
