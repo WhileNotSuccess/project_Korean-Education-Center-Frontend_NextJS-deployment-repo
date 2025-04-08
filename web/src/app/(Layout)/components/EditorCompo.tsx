@@ -105,8 +105,9 @@ export default function EditorComponent(props: EditorProps) {
           alert(postSuccess[language]?.contentPost);
           router.back();
         } else {
-          alert(postError[language]?.subError);}
-        
+          alert(postError[language]?.subError);
+        }
+
       } catch (error) {
         alert(postError[language]?.subError);
       }
@@ -119,30 +120,30 @@ export default function EditorComponent(props: EditorProps) {
     } else if (content === "") {
       alert(editorCompo[language].needInputContent);
     } else {
-    try {
-      const formData = new FormData();
-      formData.append("title", title);
-      formData.append("content", content);
-      formData.append("category", category);
-      formData.append("language", language);
+      try {
+        const formData = new FormData();
+        formData.append("title", title);
+        formData.append("content", content);
+        formData.append("category", category);
+        formData.append("language", language);
 
-      formData.append("deleteFilePath", JSON.stringify(deleteFileNames));
-      documentFiles.forEach((file) => {
-        formData.append("files", file); // 문서 파일도 함께 전송
-      });
-      const response = await customFormFetch(`/posts/${props.id}`, {
-        method: "PATCH",
-        body: formData,
-      });
-      if (response.ok) {
-        alert(updateSuccess[language]?.updatePost);
-        router.back();
+        formData.append("deleteFilePath", JSON.stringify(deleteFileNames));
+        documentFiles.forEach((file) => {
+          formData.append("files", file); // 문서 파일도 함께 전송
+        });
+        const response = await customFormFetch(`/posts/${props.id}`, {
+          method: "PATCH",
+          body: formData,
+        });
+        if (response.ok) {
+          alert(updateSuccess[language]?.updatePost);
+          router.back();
+        }
+
+      } catch (error) {
+        alert(updateError[language]?.update);
       }
-      
-    } catch (error) {
-      alert(updateError[language]?.update);
     }
-  }
   };
 
   const handleFileSelect = async (file: File) => {
@@ -188,7 +189,7 @@ export default function EditorComponent(props: EditorProps) {
 
   return (
     <main className="w-full flex justify-center">
-      <section style={{ width: "60%" }} className="mt-4">
+      <section style={{ width: "80%" }} className="mt-4">
         <form>
           <div className="flex">
             <div>
@@ -265,9 +266,8 @@ export default function EditorComponent(props: EditorProps) {
                 documentFileNames.map((fileName, index) => (
                   <div
                     key={index}
-                    className={`flex justify-between items-center ${
-                      deleteFileNames.includes(fileName) ? "hidden" : ""
-                    }`}
+                    className={`flex justify-between items-center ${deleteFileNames.includes(fileName) ? "hidden" : ""
+                      }`}
                   >
                     <div className="flex flex-rows items-center">
                       <Image
@@ -313,7 +313,7 @@ export default function EditorComponent(props: EditorProps) {
                 ""
               ),
               language_url: "/tinymce/langs/ko_KR.js",
-              height: 500,
+              height: 800,
               plugins: ["lists", "link", "image", "table"],
               content_style: "p {margin:0} img{display:inline}",
               toolbar:
