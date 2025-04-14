@@ -12,7 +12,7 @@ const useCustomFetch = () => {
 
     const response = await fetch(`${baseURL}${endpoint}`, mergedOptions);
 
-    return response.json(); // 이 함수에서 응답을 json형태로 변환해주기 때문에 다른곳에서 다시 json형태로 변환 안해줘도 됨
+    return response; // 이 함수에서 응답을 json형태로 변환해주기 때문에 다른곳에서 다시 json형태로 변환 안해줘도 됨
     // response.json()함수를 다른곳에서 쓰면 not a function에러가 뜸
   };
 

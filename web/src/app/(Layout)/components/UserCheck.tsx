@@ -18,7 +18,8 @@ export default function UserCheck() {
             
           async function check() {
                 const response = await fetch("/users/info");
-                if (response && !response.id) {
+                const data = await response.json()
+                if (data && !data.id) {
           
                   alert(CheckUserAlert[savedLanguage].noPermission);
                   router.push("/");

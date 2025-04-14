@@ -27,8 +27,8 @@ export default function NameChangeModal({ isOpen, onClose }: NameChangeModalProp
         method: "PATCH",
         body: JSON.stringify({ name: newName }),
       });
-
-      if (response && response.message) {
+      const data = await response.json()
+      if (data && data.message) {
         alert(`${NameChangeModalMenu[language].successNameChange}`);
       } else {
         alert(`${NameChangeModalMenu[language].failNameChange}`);

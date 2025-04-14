@@ -51,9 +51,10 @@ export default function EditorComponent(props: EditorProps) {
     const oldPost = async () => {
       if (!props.id) return;
       try {
-        const data = await customFetch(`/posts?id=${props.id}`, {
+        const response = await customFetch(`/posts?id=${props.id}`, {
           method: "GET",
         });
+        const data = await response.json()
         setContent(data.data.content);
         setTitle(data.data.title);
         setCategory(data.data.category);
@@ -70,7 +71,8 @@ export default function EditorComponent(props: EditorProps) {
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const adminData = await customFetch("/users");
+        const response = await customFetch("/users");
+        const adminData = await response.json()
         setIsAdmin(adminData.result);
       } catch (error) {
         alert("로그인이 필요합니다");

@@ -37,16 +37,16 @@ export default function RegisterCompo() {
 
     if (newUser) {
       try {
-        const data = await customFetch("/users/name", {
+        const response = await customFetch("/users/name", {
           method: "PATCH",
           body: JSON.stringify({ name }),
         });
-
-        if (data.error) {
-          setError(RegisterCompoMenu[language].nameChangeError);
-        } else {
+        const data = await response.json()
+        if (data.ok) {
           setMessage(RegisterCompoMenu[language].nameChangeComplete);
           router.push("/");
+        } else {
+          setError(RegisterCompoMenu[language].nameChangeError);
         }
       } catch (err) {
         setError(serverError[language].server);
@@ -56,15 +56,15 @@ export default function RegisterCompo() {
       const payload = { email, password, name };
 
       try {
-        const data = await customFetch("/auth/register", {
+        const response = await customFetch("/auth/register", {
           method: "POST",
           body: JSON.stringify(payload),
         });
-
+        const data = await response.json()
         if (data.error) {
-          setError(RegisterCompoMenu[language].registerError);
+          window.location.href = "/";          
         } else {
-          window.location.href = "/";
+          setError(RegisterCompoMenu[language].registerError);          
           // setMessage(RegisterCompoMenu[language].registerComplete);
           // setIsOpen(true);
         }

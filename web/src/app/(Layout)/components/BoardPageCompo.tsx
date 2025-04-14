@@ -41,12 +41,13 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
   // 게시글 불러오기 함수
   const fetchBoard = async (currentPage: number) => {
     try {
-      const data = await customFetch(
+      const response = await customFetch(
         `/posts/${name}?limit=10&page=${currentPage}`,
         {
           method: "GET",
         }
       );
+      const data = await response.json()
       setBoardData(data.data);
       setCurrentPage(data.currentPage);
       setNextPage(data.nextPage);
@@ -65,7 +66,8 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
   useEffect(() => {
     async function adminCheck() {
       const response = await customFetch("/users");
-      if (response && response.result) {
+      const data = await response.json()
+      if (data && data.result) {
         setAdminCheck(true);
       }
     }
@@ -94,13 +96,13 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
 
   const onSearch = async (value: string) => {
     try {
-      const data = await customFetch(
+      const response = await customFetch(
         `/posts/search?limit=10&page=1&category=${name}&${searchOption}=${value}`,
         {
           method: "GET",
         }
       );
-  
+      const data = await response.json()
       setBoardData(data.data);
       setCurrentPage(data.currentPage);
       setNextPage(data.nextPage);

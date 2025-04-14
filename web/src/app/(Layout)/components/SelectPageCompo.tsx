@@ -56,9 +56,10 @@ export default function SelectTabComponent({
     if (selectedTab && selectedTab !== "upload-documents") {
       const fetchData = async () => {
         try {
-          const data = await customFetch(`/posts?category=${selectedTab}`, {
+          const response = await customFetch(`/posts?category=${selectedTab}`, {
             method: "GET",
           });
+          const data = await response.json()
           setContent(data.data.content);
         } catch (error) {
           alert(SelectPageCompoMenu[language].failLoadPosts);
@@ -71,10 +72,10 @@ export default function SelectTabComponent({
 
     const fetchCourseOptions = async () => {
       try {
-        const data = await customFetch("/course", {
+        const response = await customFetch("/course", {
           method: "GET",
         });
-
+        const data = await response.json()
         if (data.data && data.data.length > 0) {
           setCourseOptions(data.data); // 강좌 목록 저장
           // 강좌 목록이 로드되면 첫 번째 강좌를 기본 선택으로 설정

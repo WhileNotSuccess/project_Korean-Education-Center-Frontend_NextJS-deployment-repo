@@ -53,8 +53,8 @@ export default function HtmlDocs(props: HtmlDocsProps) {
         const endpoint = props.id
           ? `/posts?id=${props.id}`
           : `/posts?category=${props.category}`;
-        const data = await customFetch(endpoint, { method: "GET" });
-
+        const response = await customFetch(endpoint, { method: "GET" });
+        const data = await response.json()
         setAllData({
           content: data.data.content,
           title: data.data.title,
@@ -75,7 +75,8 @@ export default function HtmlDocs(props: HtmlDocsProps) {
         if (user) {
         setUserInfo(user);
         }
-        const adminData = await customFetch("/users");
+        const response = await customFetch("/users");
+        const adminData = await response.json()
         setIsAdmin(adminData.result);
       } catch (error) {
         console.error("유저 정보 불러오기 실패:", error);

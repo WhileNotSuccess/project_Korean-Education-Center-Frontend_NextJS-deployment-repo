@@ -48,7 +48,8 @@ export default function AdminComponent({ category }: AdminComponentProps) {
     useEffect(() => {
       async function getCounseling() {
         const response = await customFetch("/consult");
-        setCounselingList(response.data);
+        const data = await response.json()
+        setCounselingList(data.data);
       }
       getCounseling();
     }, []);
@@ -73,11 +74,12 @@ export default function AdminComponent({ category }: AdminComponentProps) {
       const response = await customFetch(`/application-form?limit=10&page=${page}&ignore=true`,{
         method : "GET"
       });
-      setApplications(response.data);
-      setCurrentPage(response.currentPage); // 현재 페이지 번호
-      setTotalPages(response.totalPage); // 전체 페이지 수
-      setPrevPage(response.prevPage); // 이전 페이지 번호
-      setNextPage(response.nextPage); // 다음 페이지 번호
+      const data = await response.json()
+      setApplications(data.data);
+      setCurrentPage(data.currentPage); // 현재 페이지 번호
+      setTotalPages(data.totalPage); // 전체 페이지 수
+      setPrevPage(data.prevPage); // 이전 페이지 번호
+      setNextPage(data.nextPage); // 다음 페이지 번호
       setLoading(false);
     };
 
@@ -124,7 +126,8 @@ export default function AdminComponent({ category }: AdminComponentProps) {
     useEffect(() => {
       async function getBanners() {
         const response = await customFetch("/banners?ignore=true");
-        setBanners(response.data);
+        const data = await response.json()
+        setBanners(data.data);
       }
       getBanners();
     }, []);
@@ -163,8 +166,9 @@ export default function AdminComponent({ category }: AdminComponentProps) {
     useEffect(() => {
       async function getStaff() {
         const response = await customFetch("/staff");
-        setTeacher(response.teacher);
-        setStaff(response.staff);
+        const data = await response.json()
+        setTeacher(data.teacher);
+        setStaff(data.staff);
       }
       getStaff();
     }, []);
@@ -206,7 +210,8 @@ export default function AdminComponent({ category }: AdminComponentProps) {
     useEffect(() => {
       async function getCourse() {
         const response = await customFetch("/course");
-        setCourse(response.data);
+        const data = await response.json()
+        setCourse(data.data);
       }
       getCourse();
     }, []);

@@ -17,7 +17,8 @@ const CheckAdmin = () => {
    
     async function check() {
       const response = await fetch("/users");
-      if (response && !response.result) {
+      const data = await response.json()
+      if (data && !data.result) {
 
         alert(CheckAdminAlert[savedLanguage].noPermission);
         router.push("/");
