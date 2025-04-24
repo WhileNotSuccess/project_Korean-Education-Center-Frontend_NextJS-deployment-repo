@@ -56,6 +56,7 @@ export default function HomePageCompo() {
     guidelinesForApplicantsImageName: "",
   });
   const [language, setLanguage] = useState<Language>(Language.korean);
+  const [overviewId, setOverviewId] = useState("")
 
   useEffect(() => {
     const savedLanguage = Cookies.get("language") as Language;
@@ -63,6 +64,22 @@ export default function HomePageCompo() {
       setLanguage(savedLanguage);
     }
   }, []);
+  
+  useEffect(()=>{
+    const overview = async () =>{
+      try{
+        const response = await customFetch("/posts?category=korean-sample",{
+          method : "GET"
+        })
+        const data = await response.json()
+        setOverviewId(data.data.id)
+      }catch{
+        alert(getError[language].htmlError)
+      }
+    }
+    overview()
+  },[])
+
   useEffect(() => {
     const newsData = async () => {
       try {
@@ -231,7 +248,7 @@ export default function HomePageCompo() {
             <div className="flex flex-col px-2">
             <article className="w-full flex flex-1 justify-between items-center border-b p-4">
           <Link
-            href="https://kcenter.yju.ac.kr/board/korean-sample/13"
+            href={`https://kcenter.yju.ac.kr/board/korean-sample/${overviewId}`}
             className="w-[70%] overflow-hidden text-ellipsis whitespace-nowrap font-semibold text-lg"
             >
               {homePage[language].overview}
