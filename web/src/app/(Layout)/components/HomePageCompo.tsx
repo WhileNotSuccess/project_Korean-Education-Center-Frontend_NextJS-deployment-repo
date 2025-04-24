@@ -10,7 +10,6 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import BoardDataMapCompo from "./BoardDataMapCompo";
 import Image from "next/image";
-import HomePageOverview from "./HomePageOverview";
 
 interface BannerType {
   expiredData: string;
@@ -213,12 +212,6 @@ export default function HomePageCompo() {
           </div>
         </section>
       </div>
-      <div className="w-full mt-12 flex flex-col justify-center items-center">
-        <h1 className="text-2xl font-bold mb-6">
-          {homePage[language]?.overview}
-        </h1>
-        <HomePageOverview />
-      </div>
       <div className="w-full mt-12 flex flex-col justify-center items-center sm:flex-row sm:items-stretch">
         <section>
           <div className="w-96 border sm:mr-4 sm:mb-0 mb-4 flex flex-col">
@@ -236,7 +229,15 @@ export default function HomePageCompo() {
               />
             </header>
             <div className="flex flex-col px-2">
-              <BoardDataMapCompo category={"notice"} limit={8} />
+            <article className="w-full flex flex-1 justify-between items-center border-b p-4">
+          <Link
+            href="https://kcenter.yju.ac.kr/board/korean-sample/13"
+            className="w-[70%] overflow-hidden text-ellipsis whitespace-nowrap font-semibold text-lg"
+            >
+              {homePage[language].overview}
+          </Link>
+      </article>
+              <BoardDataMapCompo category={"notice"} limit={7} />
             </div>
           </div>
         </section>
