@@ -50,11 +50,11 @@ export const useAuth = () => {
     setError: (error: string) => void
   ) => {
     try {
-      const data = await customFetch("/auth/login", {
+      const response = await customFetch("/auth/login", {
         method: "POST",
         body: JSON.stringify(payload),
       });
-
+      const data = await response.json();
       if (data.error) {
         setError(data.message);
       } else {
