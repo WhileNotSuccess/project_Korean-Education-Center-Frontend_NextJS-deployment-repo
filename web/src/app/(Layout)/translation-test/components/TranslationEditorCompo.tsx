@@ -8,12 +8,14 @@ import {
 import TranslationModal from "./TranslationModal";
 import useCustomFormFetch from "@/app/lib/customFormFetch";
 import TranslationUpdateModal from "./TranslationUpdateModal";
+import LoadingModal from "./LoadingModal";
 
 export default function TranslationEditorComponent() {
   const editorRef = useRef<any>(null); // tinymce를 직접 조작하는
   const [content, setContent] = useState<string>("");
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [title, setTitle] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const customFormFetch = useCustomFormFetch();
   const [result, setResult] = useState({
@@ -50,6 +52,7 @@ export default function TranslationEditorComponent() {
       alert(editorCompo['korean'].needInputContent);
     } else {
       try {
+        setIsLoading(true)
         const response = await fetch('http://localhost:5000/translate',
           {
             method:'POST',
@@ -68,6 +71,7 @@ export default function TranslationEditorComponent() {
           ja:body.translated_html_ja
         })
         setIsModalOpen(true)
+        setIsLoading(false)
       } catch (error) {
         alert(postError['korean']?.subError);
       }
@@ -77,6 +81,7 @@ export default function TranslationEditorComponent() {
 
   return (
     <main className="w-full flex justify-center">
+      {isLoading && <LoadingModal/>}
       {(enUpdate || jaUpdate) && (
   <TranslationUpdateModal
     onClose={() => {
