@@ -157,7 +157,7 @@ export default function SelectTabComponent({
       <header className="h-12 border-b flex items-center justify-center mb-4">
         <div className="text-3xl font-bold">{selectMenu[language]?.[name]}</div>  
       </header>
-      <div className="w-3/5 mx-auto">
+      <div className="w-full px-4 xl:w-3/5 mx-auto">
         {/* 탭 메뉴 */}
         <nav className="flex justify-center gap-1 p-4">
           {categoryTab[language].map((item) => (
@@ -179,13 +179,13 @@ export default function SelectTabComponent({
       {/* 내용 표시 */}
       <section className="w-full flex justify-center mt-8">
         {selectedTab !== "upload-documents" ? (
-          <article className="w-3/5 p-4">
+          <article className="w-5/6 2xl:w-3/5 px-4">
             {typeof content === "string"
               ? parser(content)
               : SelectPageCompoMenu[language].failLoadContent}
           </article>
         ) :
-          <section className="w-3/5 p-4 border">
+          <section className="w-5/6 2xl:w-3/5 border">
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label className="w-full text-xs  bg-blue-500 text-white p-2 rounded-md mb-10">

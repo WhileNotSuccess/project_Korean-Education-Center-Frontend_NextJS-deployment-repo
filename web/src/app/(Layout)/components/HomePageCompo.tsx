@@ -198,7 +198,7 @@ export default function HomePageCompo() {
   return (
     <div className="w-full flex flex-wrap">
       <div className="relative w-full h-3 max-w-[2000px] h-auto overflow-hidden shadow-lg">
-        <section>
+        <section className="hidden sm:block">
           <div
             className="h-full w-full object-contain flex transition-transform duration-700 ease-in-out "
             style={{ transform: `translateX(-${currentIndex * 100}%)` }}
@@ -229,9 +229,9 @@ export default function HomePageCompo() {
           </div>
         </section>
       </div>
-      <div className="w-full mt-12 flex flex-col justify-center items-center sm:flex-row sm:items-stretch">
-        <section>
-          <div className="w-96 border sm:mr-4 sm:mb-0 mb-4 flex flex-col">
+      <div className="w-full mt-12 flex flex-col justify-center items-center lg:flex-row lg:items-stretch">
+        <section className="xl:w-96 w-full xl:mr-4">
+          <div className="w-full border  sm:mb-0 mb-4 flex flex-col">
             <header className="flex justify-between items-center px-4">
               <h1 className="text-2xl font-bold p-2">
                 {homePage[language]?.notice}
@@ -253,12 +253,12 @@ export default function HomePageCompo() {
             >
               {homePage[language].overview}
           </Link>
-      </article>
+            </article>
               <BoardDataMapCompo category={"notice"} limit={7} />
             </div>
           </div>
         </section>
-        <div className="w-96  flex flex-col justify-between">
+        <div className="xl:w-96 w-full flex flex-col justify-between">
           <section>
             <div className="w-full   border">
               <header className="flex justify-between items-center px-4">
@@ -280,7 +280,7 @@ export default function HomePageCompo() {
             </div>
           </section>
           <section>
-            <div className="w-full mt-4 border">
+            <div className="xl:w-96 w-full mt-4 border">
               <header className="flex justify-between items-center px-4">
                 <h1 className="text-2xl font-bold p-2">
                   {homePage[language]?.faq}
@@ -307,7 +307,7 @@ export default function HomePageCompo() {
               href={"/guidance/introduction"}
               className="size-12 p-2 border rounded-full bg-[#ffffff]"
             >
-              <Image src="/images/home.png" alt="홈" width={64} height={64} />
+              <Image src="/images/introduction.png" alt="홈" width={64} height={64} />
             </Link>
             <Link
               href={"/guidance/introduction"}
@@ -458,14 +458,15 @@ export default function HomePageCompo() {
       </article>
 
       <div className="w-full flex justify-center items-center gap-12 mt-12">
-        <div className="flex flex-col w-64">
-          <div
-            className="text-center bg-gray-100 hover:bg-gray-200 cursor-pointer p-2 text-lg rounded-lg"
+        <div className="flex flex-col w-64 cursor-pointer"
             onClick={() => {
               router.push(
                 `${process.env.NEXT_PUBLIC_BACKEND_URL}/${entranceApplication.applicationFileName}`
               );
-            }}
+            }}        
+        >
+          <div
+            className="text-center bg-gray-100 hover:bg-gray-200 p-2 text-lg rounded-lg"
           >
             {homePage[language]?.["Application-Form"]}
           </div>
@@ -478,14 +479,15 @@ export default function HomePageCompo() {
             className="w-full h-64 object-cover mt-4"
           />
         </div>
-        <div className="flex flex-col w-64">
-          <div
-            className="text-center bg-gray-100 hover:bg-gray-200 cursor-pointer p-2 text-lg rounded-lg"
+        <div className="flex flex-col w-64 cursor-pointer"
             onClick={() => {
               router.push(
                 `${process.env.NEXT_PUBLIC_BACKEND_URL}/${entranceApplication.guidelinesForApplicantsFileName}`
               );
-            }}
+            }}        
+        >
+          <div
+            className="text-center bg-gray-100 hover:bg-gray-200 p-2 text-lg rounded-lg"
           >
             {homePage[language]?.["recruitment-guidelines"]}
           </div>

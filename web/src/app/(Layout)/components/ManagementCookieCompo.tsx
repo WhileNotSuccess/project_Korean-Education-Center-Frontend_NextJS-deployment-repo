@@ -40,13 +40,18 @@ export default function ManagementCookieCompo(){
         sameSite: "none", // 백엔드로 쿠키를 보내기 위한 설정
         secure: true, // 백엔드로 쿠키를 보내기 위한 설정
       });
-      if (window.location.pathname.startsWith("/board") && /\d+$/.test(window.location.pathname.split("/").pop() || "")) {
-        router.push("/");
+      if (window.location.pathname.startsWith("/board") && /\d+$/.test(window.location.pathname.split("/").pop() || "")) { 
+        // 주소가 '/board'로 시작하면서 뒤에 숫자가 1개 이상인 주소의 마지막요소 (숫자)를 가져오는 코드
+        const pathName = window.location.pathname.split("/").filter(Boolean)[1]
+        // 주소를 /로 나누고 ["", "board", "faq", "123"] 형태인 배열의 빈문자열을 제거하고 2번째 인덱스를 가져오는 코드
+        // ["board", "faq", "123"] 인 배열에서 2번째 인덱스인 "faq"를 추출해 리다이렉트 시킴
+        window.location.href = `/board/${pathName}`
+        // router.push("/주소") 형태로 작성하면 서버에 새로운 페이지에 대한 요청을 보내는것이 아닌 부드럽게 이동만 해서
+        // 쿠키값을반영하지 못한다. window.location.href는 서버로 새로 요청을 보내기 때문에 쿠키 값을 잘 반영한다.
       } else {
         window.location.reload();
       }
     setLanguage(language)
-
 };
 
 return(
