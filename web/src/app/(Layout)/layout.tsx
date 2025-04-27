@@ -87,7 +87,8 @@ export default async function RootLayout({
         </div>
       </header>
 
-      <section className="relative z-52 w-full min-h-12 bg-[#143c64] bg-opacity-[88%] flex items-center peer xl:justify-center justify-between">
+      <section className="relative z-52 w-full min-h-12 bg-[#143c64] bg-opacity-[88%] 
+      flex xl:items-center peer xl:justify-center xl:justify-between justify-end items-center">
 
         <div className="hidden xl:w-full xl:h-full xl:flex xl:justify-center xl:text-white xl:font-bold xl:items-center xl:relative">
           <div className="w-32 flex justify-center cursor-pointer">

@@ -20,7 +20,7 @@ export default function MapCompo() {
         const container = document.getElementById("map");
         const options = {
           center: new window.kakao.maps.LatLng(
-            35.89624247445099,
+            35.89534247445099,
             128.62269497391293
           ), // 기본 중심 좌표 설정
           level: 3,
@@ -28,8 +28,9 @@ export default function MapCompo() {
         const mapInstance = new window.kakao.maps.Map(container, options);
 
         // 마커 위치 설정
+        // 권기현 주석 : 분명 기본 중심 좌표를 변경했는데 왜 마커 위치가 달라지지 않는지 궁금합니다
         const markerPosition = new window.kakao.maps.LatLng(
-          35.89624247445099,
+          35.89624247445099, 
           128.62269497391293
         ); // 마커 위치
         const markerInstance = new window.kakao.maps.Marker({
