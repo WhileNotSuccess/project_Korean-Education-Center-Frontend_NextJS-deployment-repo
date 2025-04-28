@@ -36,7 +36,7 @@ export default function CounselingItemUpdateModal({
       }),
     });
 
-    if (response) {
+    if (response.ok) {
       window.location.href = location.href;
     }
   };

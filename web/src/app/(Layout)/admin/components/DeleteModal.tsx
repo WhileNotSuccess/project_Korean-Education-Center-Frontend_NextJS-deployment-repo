@@ -17,7 +17,7 @@ export default function DeleteModal({ onClose, id, target }: ModalProps) {
       method: "DELETE",
     });
 
-    if (response) {
+    if (response.ok) {
       window.location.href = location.href;
     }
   };

@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import useCustomFetch from "../../lib/customFetch";
 import { useAuth } from "@/app/hook/auth";
 import { LoginCompoMenu } from "@/app/menu";
 import { Language } from "@/app/common/types";

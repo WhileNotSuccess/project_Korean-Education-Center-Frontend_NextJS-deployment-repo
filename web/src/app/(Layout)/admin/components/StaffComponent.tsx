@@ -1,12 +1,10 @@
 "use client";
 import { Teacher } from "@/app/common/types";
-import useCustomFetch from "@/app/lib/customFormFetch";
 import { useState } from "react";
 import DeleteModal from "./DeleteModal";
 import StaffModal from "./StaffModal";
 
 export default function StaffComponent(item: Teacher) {
-  const customFetch = useCustomFetch();
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const [modalUpdateOpen, setModalUpdateOpen] = useState<boolean>(false);
   const [modalDeleteOpen, setModalDeleteOpen] = useState<boolean>(false);

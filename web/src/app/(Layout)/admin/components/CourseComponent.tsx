@@ -1,12 +1,10 @@
 "use client";
 import {Course } from "@/app/common/types";
-import useCustomFetch from "@/app/lib/customFormFetch";
 import { useState } from "react";
 import DeleteModal from "./DeleteModal";
 import CourseModal from "./CourseModal";
 
 export default function CourseComponent(item: Course) {
-  const customFetch = useCustomFetch();
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const [modalUpdateOpen, setModalUpdateOpen] = useState<boolean>(false);
   const [modalDeleteOpen, setModalDeleteOpen] = useState<boolean>(false);
