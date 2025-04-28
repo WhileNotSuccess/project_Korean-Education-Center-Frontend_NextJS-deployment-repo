@@ -15,7 +15,7 @@ export default function ApplicationFormItem(data: ApplicationFormItemProp) {
       method: "PATCH",
       body: formData,
     });
-    if (response) {
+    if (response.ok) {
       window.location.href = location.href;
     }
   };

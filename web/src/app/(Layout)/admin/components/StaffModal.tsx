@@ -38,7 +38,7 @@ export default function StaffModal({ onClose, data, method }: ModalProps) {
       }
     );
 
-    if (response) {
+    if (response.ok) {
       window.location.href = location.href;
     }
   };

@@ -36,7 +36,7 @@ export default function CourseModal({ onClose, data, method }: ModalProps) {
       }
     );
 
-    if (response) {
+    if (response.ok) {
       window.location.href = location.href;
     }
   };

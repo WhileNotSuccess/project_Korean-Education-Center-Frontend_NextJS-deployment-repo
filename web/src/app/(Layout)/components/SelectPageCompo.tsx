@@ -110,7 +110,7 @@ export default function SelectTabComponent({
       formData.append("courseId", selectedCourse); // 선택된 과정 값 전달
       formData.append("phoneNumber", applicationPhoneNumber);
       try {
-        const response = await customFormFetch("/application-form", {
+        await customFormFetch("/application-form", {
           method: "POST",
           body: formData,
         });

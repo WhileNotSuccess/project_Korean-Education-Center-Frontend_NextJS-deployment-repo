@@ -15,7 +15,7 @@ export default function CounselingItem(props: Counseling) {
       method: "PATCH",
       body: JSON.stringify({ isDone: !props.isDone }),
     });
-    if (response) {
+    if (response.ok) {
       window.location.href = location.href;
     }
   };

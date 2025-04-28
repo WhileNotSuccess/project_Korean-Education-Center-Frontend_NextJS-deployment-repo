@@ -41,8 +41,7 @@ export default function RegisterCompo() {
           method: "PATCH",
           body: JSON.stringify({ name }),
         });
-        const data = await response.json()
-        if (data.ok) {
+        if (response.ok) {
           setMessage(RegisterCompoMenu[language].nameChangeComplete);
           router.push("/");
         } else {
@@ -60,8 +59,7 @@ export default function RegisterCompo() {
           method: "POST",
           body: JSON.stringify(payload),
         });
-        const data = await response.json()
-        if (data.error) {
+        if (response.ok) {
           window.location.href = "/";          
         } else {
           setError(RegisterCompoMenu[language].registerError);          

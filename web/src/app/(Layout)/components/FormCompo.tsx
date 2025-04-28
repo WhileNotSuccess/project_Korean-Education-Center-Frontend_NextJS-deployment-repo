@@ -65,7 +65,7 @@ export default function FormComponent() {
         method: "POST",
         body: JSON.stringify(requestData),
       });
-      console.log(response)
+    
       if (response.ok) {
         alert(FormComponentMenu[language].applicationSuccess);
         window.location.href = "/";

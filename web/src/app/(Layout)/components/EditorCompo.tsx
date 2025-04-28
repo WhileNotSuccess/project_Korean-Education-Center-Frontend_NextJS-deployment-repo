@@ -160,7 +160,8 @@ export default function EditorComponent(props: EditorProps) {
           method: "POST",
           body: formData,
         });
-        const imageUrl = decodeURIComponent(data.url);
+        const body = await data.json()
+        const imageUrl = decodeURIComponent(body.url);
         return imageUrl;
       } catch (error) {
         alert(postError[language]?.imgError);

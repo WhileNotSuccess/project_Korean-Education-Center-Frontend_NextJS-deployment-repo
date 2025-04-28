@@ -36,7 +36,7 @@ export default function BannerPostModal({ onClose }: ModalProps) {
       body: formData,
     });
 
-    if (response) {
+    if (response.ok) {
       window.location.href = location.href;
     }
   };

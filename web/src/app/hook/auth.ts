@@ -55,10 +55,10 @@ export const useAuth = () => {
         body: JSON.stringify(payload),
       });
       const data = await response.json();
-      if (data.error) {
-        setError(data.message);
-      } else {
+      if (response.ok) {
         router.push("/");
+      } else {
+        setError(data.message);
       }
     } catch (err) {
       setError(serverError[language].server);
