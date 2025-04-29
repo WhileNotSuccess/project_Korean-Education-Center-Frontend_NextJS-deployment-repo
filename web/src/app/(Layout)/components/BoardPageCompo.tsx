@@ -122,42 +122,41 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
       >
         {boardMenu[language]?.[name]}
       </header>
-      <section className="w-full flex sm:px-40 px-20">
-        <div className="w-full flex flex-col sm:flex-row sm:justify-between justify-start">
-          <div className="flex sm:flex-row sm:justify-evenly flex-col justify-evenly">
-            <select
-              className="w-28 h-8 border-2 border-black rounded"
-              value={searchOption}
-              onChange={(e) => setSearchOption(e.target.value)}
-            >
-              <option value="title">{boardPage[language]?.title}</option>
-              <option value="content">{boardPage[language]?.content}</option>
-              <option value="author">{boardPage[language]?.author}</option>
-            </select>
-            <input
-              onChange={(e) => setInputValue(e.target.value)}
-              className="w-60 h-8 border-2 border-black rounded pl-2 sm:ml-2"
-              placeholder={`${boardPage[language]?.writeTitle}`}
-            ></input>
-            <button
-              onClick={() => onSearch(inputValue)}
-              className=" px-2 bg-[#0093EE] text-white sm:ml-2 max-w-20"
-            >
-              {boardPage[language]?.search}
-            </button>
-          </div>
-          <div className="flex justify-center ml-2">
-            {adminCheck ||
-            ((name === "review" || name === "faq") && userCheck) ? (
-              <button
-                className=" px-2 bg-[#0093EE] text-white"
-                onClick={() => onWrite(name)}
-              >
-                {boardPage[language]?.write}
-              </button>
-            ) : null}
-          </div>
-        </div>
+      <section className="w-full flex justify-center">
+      <div className="w-[80%] xl:w-[50%] flex flex-wrap sm:flex-nowrap gap-2 border-2 border-black p-2">
+        <select
+          className="rounded w-full sm:w-auto"
+          value={searchOption}
+          onChange={(e) => setSearchOption(e.target.value)}
+        >
+          <option value="title">{boardPage[language]?.title}</option>
+          <option value="content">{boardPage[language]?.content}</option>
+          <option value="author">{boardPage[language]?.author}</option>
+        </select>
+
+        <input
+          onChange={(e) => setInputValue(e.target.value)}
+          className="rounded w-full flex-1"
+          placeholder={`${boardPage[language]?.writeTitle}`}
+        />
+
+        <button
+          onClick={() => onSearch(inputValue)}
+          className="bg-[#0093EE] text-white whitespace-nowrap px-2 w-full sm:w-auto"
+        >
+          {boardPage[language]?.search}
+        </button>
+
+        {(adminCheck || ((name === "review" || name === "faq") && userCheck)) && (
+          <button
+            className="px-2 bg-[#0093EE] text-white w-full sm:w-auto"
+            onClick={() => onWrite(name)}
+          >
+            {boardPage[language]?.write}
+          </button>
+        )}
+      </div>
+
       </section>
       <section className="w-full flex flex-col items-center mb-5">
         <div className="w-4/5 h-16 border-x-0 border-y-2 border-t-[#4171b4] mt-12 flex sm:items-center items-center justify-between">

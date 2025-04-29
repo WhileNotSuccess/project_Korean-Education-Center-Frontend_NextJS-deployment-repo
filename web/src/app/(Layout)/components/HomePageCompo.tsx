@@ -259,46 +259,48 @@ export default function HomePageCompo() {
           </div>
         </section>
         <div className="xl:w-96 w-full flex flex-col justify-between">
-          <section>
-            <div className="w-full   border">
-              <header className="flex justify-between items-center px-4">
-                <h1 className="text-2xl font-bold p-2">
-                  {homePage[language]?.review}
-                </h1>
-                <Image
-                  src="/images/add_button.png"
-                  alt="추가 버튼"
-                  width={96}
-                  height={96}
-                  className="w-8 cursor-pointer"
-                  onClick={() => onGoBoard("review")}
-                />
-              </header>
-              <div className="flex flex-col px-2">
-                <BoardDataMapCompo category={"review"} limit={3} />
+          <div className="xl:w-96 w-full">
+            <section>
+              <div className="w-full   border">
+                <header className="flex justify-between items-center px-4">
+                  <h1 className="text-2xl font-bold p-2">
+                    {homePage[language]?.review}
+                  </h1>
+                  <Image
+                    src="/images/add_button.png"
+                    alt="추가 버튼"
+                    width={96}
+                    height={96}
+                    className="w-8 cursor-pointer"
+                    onClick={() => onGoBoard("review")}
+                  />
+                </header>
+                <div className="flex flex-col px-2">
+                  <BoardDataMapCompo category={"review"} limit={3} />
+                </div>
               </div>
-            </div>
-          </section>
-          <section>
-            <div className="xl:w-96 w-full mt-4 border">
-              <header className="flex justify-between items-center px-4">
-                <h1 className="text-2xl font-bold p-2">
-                  {homePage[language]?.faq}
-                </h1>
-                <Image
-                  src="/images/add_button.png"
-                  alt="추가 버튼"
-                  width={96}
-                  height={96}
-                  className="w-8 cursor-pointer"
-                  onClick={() => onGoBoard("faq")}
-                />
-              </header>
-              <div className="flex flex-col px-2">
-                <BoardDataMapCompo category={"faq"} limit={3} />
+            </section>
+            <section>
+              <div className="xl:w-96 w-full mt-4 border">
+                <header className="flex justify-between items-center px-4">
+                  <h1 className="text-2xl font-bold p-2">
+                    {homePage[language]?.faq}
+                  </h1>
+                  <Image
+                    src="/images/add_button.png"
+                    alt="추가 버튼"
+                    width={96}
+                    height={96}
+                    className="w-8 cursor-pointer"
+                    onClick={() => onGoBoard("faq")}
+                  />
+                </header>
+                <div className="flex flex-col px-2">
+                  <BoardDataMapCompo category={"faq"} limit={3} />
+                </div>
               </div>
-            </div>
-          </section>
+            </section>
+          </div>
         </div>
         {/* 빠른서비스 및 서류 다운하는 탭*/}
         <aside className="hidden xl:fixed xl:w-24 xl:min-h-[80%] xl:right-0 xl:top-24 xl:border xl:bg-blue-500/80 xl:rounded-l-xl xl:flex xl:flex-col xl:justify-evenly xl:py-2 z-50">
