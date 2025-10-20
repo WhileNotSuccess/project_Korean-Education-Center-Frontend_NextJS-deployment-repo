@@ -37,14 +37,14 @@ export const metadata: Metadata = {
   icons: {
     icon: "/images/logo.svg",
   },
-  openGraph : {
-    url : "https://kcenter.yju.ac.kr",
-    type : "website",
-    images:[
+  openGraph: {
+    url: "https://kcenter.yju.ac.kr",
+    type: "website",
+    images: [
       {
-        url:"https://kcenter.yju.ac.kr/images/yeungjinLogoOpenGraph.png",
-        width : "1200",
-        height : "630"
+        url: "https://kcenter.yju.ac.kr/images/yeungjinLogoOpenGraph.png",
+        width: "1200",
+        height: "630"
       }
     ]
   }
@@ -60,30 +60,30 @@ export default async function RootLayout({
   return (
     <div className=" w-full flex flex-col">
       <header className="w-full min-h-15 bg-[#095a93] flex justify-center xl:justify-between gap-3 font-bold items-center p-4">
-      <Link
+        <Link
           href={"/"}
           className="flex justify-center items-center pl-4 sm:pl-0"
         >
-          <Image 
-          alt="영진전문대 로고"
-          src="/images/yeungjinLogoOpenGraph.png"
-          width={40}
-          height={40}
+          <Image
+            alt="영진전문대 로고"
+            src="/images/yeungjinLogoOpenGraph.png"
+            width={40}
+            height={40}
           />
           <div className="flex items-end">
-          <h2 className="font-bold text-white w-full whitespace-nowrap text-2xl ml-2">
-            {HomePageTitle[language].yeungjin}
-          </h2>
-          <h6 className="font-bold text-white w-full whitespace-nowrap text-sm ml-2">
-            {HomePageTitle[language].koreanEducationCenter}
-          </h6>
+            <h2 className="font-bold text-white w-full whitespace-nowrap text-2xl ml-2">
+              {HomePageTitle[language].yeungjin}
+            </h2>
+            <h6 className="font-bold text-white w-full whitespace-nowrap text-sm ml-2">
+              {HomePageTitle[language].koreanEducationCenter}
+            </h6>
           </div>
         </Link>
         <div className="hidden xl:flex xl:justify-evenly xl:items-center">
-        <div className="xl:mr-4">
-        <LoginCompo />
-        </div>
-        <ManagementCookieCompo />
+          <div className="xl:mr-4">
+            <LoginCompo />
+          </div>
+          <ManagementCookieCompo />
         </div>
       </header>
 
@@ -108,7 +108,7 @@ export default async function RootLayout({
           </div>
         </div>
         <div className="ml-4 xl:hidden">
-        <LoginCompo />
+          <LoginCompo />
         </div>
         <HamburgerMenuCompo />
       </section>
@@ -218,32 +218,32 @@ export default async function RootLayout({
       <main className="grow w-full">{children}</main>
       <footer className="w-full h-36 bg-[#0072ba] mt-24 relative">
         <div className="absolute bottom-2 right-4 text-white font-bold">
-          {language === Language.english ? (  
+          {language === Language.english ? (
             <div className="text-center">
-            <Link href="/terms-en" className="mr-4 hover:underline">
-              {TermsOfService[language].terms}
-            </Link>
-            <Link href="/privacy-policy-en" className="hover:underline">
-              {TermsOfService[language].privacyPolicy}
-            </Link>
-          </div>
+              <Link href="/terms-en" className="mr-4 hover:underline">
+                {TermsOfService[language].terms}
+              </Link>
+              <Link href="http://www.yju.ac.kr/kr/4410/subview..do" className="hover:underline">
+                {TermsOfService[language].privacyPolicy}
+              </Link>
+            </div>
           ) : language === Language.japanese ? (
             <div className="text-center">
-            <Link href="/terms-jp" className="mr-4 hover:underline">
-              {TermsOfService[language].terms}
-            </Link>
-            <Link href="/privacy-policy-jp" className="hover:underline">
-              {TermsOfService[language].privacyPolicy}
-            </Link>
+              <Link href="/terms-jp" className="mr-4 hover:underline">
+                {TermsOfService[language].terms}
+              </Link>
+              <Link href="http://www.yju.ac.kr/kr/4410/subview..do" className="hover:underline">
+                {TermsOfService[language].privacyPolicy}
+              </Link>
             </div>
           ) : (
             <div className="text-center">
-            <Link href="/terms-ko" className="mr-4 hover:underline">
-              {TermsOfService[language].terms}
-            </Link>
-            <Link href="/privacy-policy-ko" className="hover:underline">
-              {TermsOfService[language].privacyPolicy}
-            </Link>
+              <Link href="/terms-ko" className="mr-4 hover:underline">
+                {TermsOfService[language].terms}
+              </Link>
+              <Link href="http://www.yju.ac.kr/kr/4410/subview..do" className="hover:underline">
+                {TermsOfService[language].privacyPolicy}
+              </Link>
             </div>
           )
           }
