@@ -9,7 +9,6 @@ import {
 } from "@/app/common/types";
 import useCustomFetch from "@/app/lib/customFetch";
 import { useEffect, useState } from "react";
-import CounselingItem from "./CounselingItem";
 import ApplicationFormItem from "./ApplicationFormItem";
 import BoardPageCompo from "../../components/BoardPageCompo";
 import BannerItem from "./BannerItem";
@@ -19,6 +18,7 @@ import StaffModal from "./StaffModal";
 import Pagination from "../../components/Pagination"; // 페이지네이션 컴포넌트
 import CourseModal from "./CourseModal";
 import CourseComponent from "./CourseComponent";
+import CounselingItem from "./CounselingItem";
 
 type AdminComponentProps = {
   category: string;

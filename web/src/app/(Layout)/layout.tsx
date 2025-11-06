@@ -8,14 +8,12 @@ import {
   smallMenu,
   boardMenu,
   selectMenu,
-  counselingForm,
   homePage,
   HomePageTitle,
   TermsOfService,
 } from "../menu";
 import { cookies } from "next/headers";
 import { Language } from "../common/types";
-import LoginCompo from "./components/LoginCompo";
 import HamburgerMenuCompo from "./components/HamburgerMenuCompo";
 import ManagementCookieCompo from "./components/ManagementCookieCompo";
 import Image from "next/image";
@@ -80,15 +78,12 @@ export default async function RootLayout({
           </div>
         </Link>
         <div className="hidden xl:flex xl:justify-evenly xl:items-center">
-          <div className="xl:mr-4">
-            <LoginCompo />
-          </div>
           <ManagementCookieCompo />
         </div>
       </header>
 
       <section className="relative z-52 w-full min-h-12 bg-[#143c64] bg-opacity-[88%] 
-      flex xl:items-center peer xl:justify-center xl:justify-between justify-between items-center">
+      flex xl:items-center peer xl:justify-between justify-between items-center">
 
         <div className="hidden xl:w-full xl:h-full xl:flex xl:justify-center xl:text-white xl:font-bold xl:items-center xl:relative">
           <div className="w-32 flex justify-center cursor-pointer">
@@ -107,13 +102,10 @@ export default async function RootLayout({
             {menu[language]?.notification}
           </div>
         </div>
-        <div className="ml-4 xl:hidden">
-          <LoginCompo />
-        </div>
         <HamburgerMenuCompo />
       </section>
       <section
-        className="hidden xl:hidden xl:peer-hover:block xl:hover:block xl:w-full xl:min-h-52 xl:z-50 xl:bg-[#143c64] xl:bg-opacity-[88%] xl:absolute xl:z-40"
+        className="hidden xl:hidden xl:peer-hover:block xl:hover:block xl:w-full xl:min-h-52 xl:bg-[#143c64] xl:bg-opacity-[88%] xl:absolute xl:z-40"
         style={{ top: "120px" }}
       >
         <div className="min-h-52 flex flex-row w-full border-t-2 border-[#728aa2] border-opacity-[50%]">
@@ -161,9 +153,6 @@ export default async function RootLayout({
                 className="p-2 text-xs font-bold text-center text-white"
               >
                 {smallMenu[language]?.["applied-to"]}
-              </Link>
-              <Link href={"/form/counseling"} className="p-2 text-xs font-bold text-center text-white">
-                {counselingForm[language]?.["counseling"]}
               </Link>
               <Link
                 href={"/board/application-form"}
@@ -257,7 +246,7 @@ export default async function RootLayout({
           width={200}
           height={100}
         />
-        <div className="hidden sm:block flex flex-col justify-center whitespace-nowrap font-semibold text-sm sm:ml-5">
+        <div className="sm:block flex flex-col justify-center whitespace-nowrap font-semibold text-sm sm:ml-5">
           <address className="not-italic">{homePage[language]?.footerAddress}</address>
           <div>{homePage[language]?.footerCallEmail}</div>
         </div>

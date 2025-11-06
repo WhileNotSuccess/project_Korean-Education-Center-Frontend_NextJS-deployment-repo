@@ -34,8 +34,6 @@ export default function LoginForm() {
     if (savedLanguage) {
       setLanguage(savedLanguage);
     }
-  
-    
   }, []);
 
   
@@ -54,10 +52,6 @@ export default function LoginForm() {
       handleSubmit(e);
     }
   }
-
-  const handleGoogleLogin = () => {
-    window.location.href = `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/google/login`;
-  };
 
   return (
     <main
@@ -103,27 +97,6 @@ export default function LoginForm() {
             </div>
           </div>
         </form>
-        <section className="mt-4">
-          <button
-            type="button"
-            onClick={handleGoogleLogin}
-            className="w-full bg-[#F2F2F2] rounded-lg font-semibold mt-2 flex justify-center"
-          >
-            <Image 
-            src="/images/loginTab.png" 
-            alt=""
-            width={200}
-            height={40} 
-            className="" />
-          </button>
-          <button
-            type="button"
-            onClick={() => router.push("/agree-terms")}
-            className="w-full bg-blue-500 text-white p-2 rounded-lg font-semibold mt-2"
-          >
-            {LoginCompoMenu[language].register}
-          </button>
-        </section>
         <div className="font-bold text-red-500">{error}</div>
       </section>
     </main>

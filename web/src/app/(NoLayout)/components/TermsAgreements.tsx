@@ -31,8 +31,7 @@ export default function TermsAgreement() {
   const allChecked = agreements.terms && agreements.privacy;
 
   const handleSubmit = () => {
-    if (!allChecked) return;
-    router.push("/register");
+    
   };
 
   return (
