@@ -1,3 +1,6 @@
+// [(layout)/layout]
+// 헤더 및 네비게이션, 푸터를 렌더링하는 레이아웃 컴포넌트
+
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -57,6 +60,8 @@ export default async function RootLayout({
     ((await cookies()).get("language")?.value as Language) || Language.korean;
   return (
     <div className=" w-full flex flex-col">
+      
+      {/* 헤더 */}
       <header className="w-full min-h-15 bg-[#095a93] flex justify-center xl:justify-between gap-3 font-bold items-center p-4">
         <Link
           href={"/"}
@@ -82,6 +87,7 @@ export default async function RootLayout({
         </div>
       </header>
 
+      {/* 네비게이션 */}
       <section className="relative z-52 w-full min-h-12 bg-[#143c64] bg-opacity-[88%] 
       flex xl:items-center peer xl:justify-between justify-between items-center">
 
@@ -104,6 +110,8 @@ export default async function RootLayout({
         </div>
         <HamburgerMenuCompo />
       </section>
+
+      {/* 하위 메뉴 */}
       <section
         className="hidden xl:hidden xl:peer-hover:block xl:hover:block xl:w-full xl:min-h-52 xl:bg-[#143c64] xl:bg-opacity-[88%] xl:absolute xl:z-40"
         style={{ top: "120px" }}
@@ -149,16 +157,10 @@ export default async function RootLayout({
             </div>
             <div className="w-32 h-52 flex flex-col items-center">
               <Link
-                href={"/select/applied-to"}
+                href={"/guidance/procedure-guide"}
                 className="p-2 text-xs font-bold text-center text-white"
               >
-                {smallMenu[language]?.["applied-to"]}
-              </Link>
-              <Link
-                href={"/board/application-form"}
-                className="p-2 text-xs font-bold text-center text-white"
-              >
-                {boardMenu[language]?.["application-form"]}
+                {guidanceMenu[language]?.["procedure-guide"]}
               </Link>
               <Link href={"/guidance/visa"} className="p-2 text-xs font-bold text-center text-white">
                 {guidanceMenu[language]?.visa}
@@ -204,7 +206,11 @@ export default async function RootLayout({
           </div>
         </div>
       </section>
+
+      {/* 메인 콘텐츠 위치 */}
       <main className="grow w-full">{children}</main>
+
+      {/* 푸터 */}
       <footer className="w-full h-36 bg-[#0072ba] mt-24 relative">
         <div className="absolute bottom-2 right-4 text-white font-bold">
           {language === Language.english ? (

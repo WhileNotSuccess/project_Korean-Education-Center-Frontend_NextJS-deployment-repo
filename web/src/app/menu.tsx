@@ -36,7 +36,7 @@ export const smallMenu: Record<Language, Record<string, string>> = {
     internationalReview: "유학생 후기",
     dormitory: "기숙사 안내",
     facility: "학교 시설 안내",
-    "applied-to": "입학 신청",
+    "procedure-guide": "입학 신청",
   },
   [Language.japanese]: {
     centerIntro: "韓国語教育センター",
@@ -47,7 +47,7 @@ export const smallMenu: Record<Language, Record<string, string>> = {
     internationalReview: "留学生の感想",
     dormitory: "寮案内",
     facility: "学校施設案内",
-    "applied-to": "入学申請",
+    "procedure-guide": "入学申請",
   },
   [Language.english]: {
     centerIntro: "Korean Education Center",
@@ -58,7 +58,7 @@ export const smallMenu: Record<Language, Record<string, string>> = {
     internationalReview: "International Student Reviews",
     dormitory: "Dormitory Guide",
     facility: "School Facility Guide",
-    "applied-to": "Application for Admission",
+    "procedure-guide": "Application for Admission",
   },
 };
 
@@ -129,9 +129,8 @@ export const homePage: Record<Language, Record<string, string>> = {
     overview: "학사일정",
     notice: "공지사항",
     download: "다운로드",
-    "applied-to": "입학신청",
+    "procedure-guide": "입학신청",
     "recruitment-guidelines": "모집요강",
-    "Application-Form": "입학신청서",
     faq: "FAQ",
     review: "유학생 후기",
     footerAddress:
@@ -142,7 +141,7 @@ export const homePage: Record<Language, Record<string, string>> = {
     overview: "学年度カレンダー",
     notice: "通知",
     download: "ダウンロード",
-    "applied-to": "入学申請",
+    "procedure-guide": "入学申請",
     "recruitment-guidelines": "募集要項",
     "Application-Form": "入学申請書",
     faq: "FAQ",
@@ -155,7 +154,7 @@ export const homePage: Record<Language, Record<string, string>> = {
     overview: "Academic Calendar",
     notice: "Notice",
     download: "Download",
-    "applied-to": "Application for Admission",
+    "procedure-guide": "Application for Admission",
     "recruitment-guidelines": "Admission Guidelines",
     "Application-Form": "Application for Admission",
     faq: "FAQ",
@@ -328,11 +327,10 @@ export const categoryList: Record<Language, { key: string; value: string }[]> =
       { key: "faq", value: "FAQ" },
       { key: "korean-outline", value: "개요" },
       { key: "korean-sample", value: "프로그램 샘플" },
-      { key: "applied-to", value: "입학 신청" },
       { key: "opencampus-purpose", value: "목적" },
       { key: "opencampus-content", value: "일정 및 내용" },
       { key: "opencampus-schedule", value: "스케쥴" },
-      { key: "procedure-guide", value: "절차 안내" },
+      { key: "procedure-guide", value: "입학 신청" },
     ],
     [Language.japanese]: [
       { key: "introduction", value: "韓国語教育センター" },
@@ -349,7 +347,6 @@ export const categoryList: Record<Language, { key: string; value: string }[]> =
       { key: "faq", value: "FAQ" },
       { key: "korean-outline", value: "概要" },
       { key: "korean-sample", value: "プログラムサンプル" },
-      { key: "applied-to", value: "入学申請" },
       { key: "opencampus-purpose", value: "目的" },
       { key: "opencampus-content", value: "日程と内容" },
       { key: "opencampus-schedule", value: "スケジュール" },
@@ -370,11 +367,10 @@ export const categoryList: Record<Language, { key: string; value: string }[]> =
       { key: "faq", value: "FAQ" },
       { key: "korean-outline", value: "Overview" },
       { key: "korean-sample", value: "Program Sample" },
-      { key: "applied-to", value: "Application for Admission" },
       { key: "opencampus-purpose", value: "Purpose" },
       { key: "opencampus-content", value: "Schedule and Content" },
       { key: "opencampus-schedule", value: "Schedule" },
-      { key: "procedure-guide", value: "Procedure Guide" },
+      { key: "procedure-guide", value: "Application for Admission" },
     ],
   };
 
@@ -408,7 +404,7 @@ export const guidanceMenu: Record<Language, Record<string, string>> = {
     "opencampus-purpose": "목적",
     "opencampus-content": "일정 및 내용",
     "opencampus-schedule": "스케쥴",
-    "procedure-guide": "절차 안내",
+    "procedure-guide": "입학 신청",
   },
   [Language.japanese]: {
     introduction: "韓国語教育センター",
@@ -436,7 +432,7 @@ export const guidanceMenu: Record<Language, Record<string, string>> = {
     "opencampus-purpose": "Purpose",
     "opencampus-content": "Schedule and Content",
     "opencampus-schedule": "Schedule",
-    "procedure-guide": "Procedure Guide",
+    "procedure-guide": "Application for admission",
   },
 };
 
@@ -444,17 +440,14 @@ export const selectMenu: Record<Language, Record<string, string>> = {
   [Language.korean]: {
     "korean-curriculum": "한국어교육과정",
     "open-campus": "오픈캠퍼스",
-    "applied-to": "입학신청",
   },
   [Language.japanese]: {
     "korean-curriculum": "韓国語教育課程",
     "open-campus": "オープンキャンパス",
-    "applied-to": "入学申請",
   },
   [Language.english]: {
     "korean-curriculum": "Korean Language Curriculum",
     "open-campus": "Open Campus",
-    "applied-to": "Admission Application",
   },
 };
 
@@ -622,7 +615,7 @@ export const applicationList: Record<
   { key: string; value: string }[]
 > = {
   [Language.korean]: [
-    { key: "procedure-guide", value: "절차 안내" },
+    { key: "procedure-guide", value: "입학 신청 안내" },
     { key: "upload-documents", value: "서류 업로드" },
   ],
   [Language.japanese]: [
@@ -641,7 +634,6 @@ export const categoryMap: Record<
 > = {
   "korean-curriculum": koreancurriculumList,
   "open-campus": opencampusList,
-  "applied-to": applicationList,
 };
 
 export const counselingPageMenu: Record<Language, Record<string, string>> = {
@@ -1093,7 +1085,7 @@ export const Hamburger: Record<
     {
       topMenu: "신청",
       subMenu: [
-        { address: "/select/applied-to", name: "입학 신청" },
+        { address: "/guidance/procedure-guide", name: "입학 신청" },
         { address: "/form/counseling", name: "상담 신청" },
         { address: "/board/application-form", name: "신청 서류" },
         { address: "/guidance/visa", name: "비자 안내" },
@@ -1146,7 +1138,7 @@ export const Hamburger: Record<
     {
       topMenu: "Application",
       subMenu: [
-        { address: "/select/applied-to", name: "Application for Admission" },
+        { address: "/guidance/procedure-guide", name: "Application for Admission" },
         { address: "/form/counseling", name: "Counseling Application" },
         { address: "/board/application-form", name: "Application Documents" },
         { address: "/guidance/visa", name: "Visa Information" },
@@ -1202,7 +1194,7 @@ export const Hamburger: Record<
     {
       topMenu: "申請",
       subMenu: [
-        { address: "/select/applied-to", name: "入学申請" },
+        { address: "/guidance/procedure-guide", name: "入学申請" },
         { address: "/form/counseling", name: "カウンセリング申し込み" },
         { address: "/board/application-form", name: "申請書類" },
         { address: "/guidance/visa", name: "ビザ案内" },

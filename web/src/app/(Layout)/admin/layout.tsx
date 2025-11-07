@@ -34,14 +34,6 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                 </li>
                 <li>
                   <a
-                    href="/admin/application-form"
-                    className="block hover:underline text-xs"
-                  >
-                    신청 서류
-                  </a>
-                </li>
-                <li>
-                  <a
                     href="/admin/learning-materials"
                     className="block hover:underline text-xs"
                   >
@@ -181,37 +173,6 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                     className="block hover:underline text-xs"
                   >
                     입학신청 절차안내
-                  </a>
-                </li>
-              </ul>
-            )}
-          </li>
-
-          <li className="mb-4">
-            <button
-              onClick={() => {
-                toggleSubMenu(3);
-              }}
-              className="w-full text-left text-lg text-[#0093EE]"
-            >
-              신청/파일 확인
-            </button>
-            {open === 3 && (
-              <ul className="ml-4 mt-2">
-                <li>
-                  <a
-                    href="/admin/counseling"
-                    className="block hover:underline text-xs"
-                  >
-                    상담 신청 확인
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="/admin/applications"
-                    className="block hover:underline text-xs"
-                  >
-                    서류확인
                   </a>
                 </li>
               </ul>
