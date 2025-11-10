@@ -13,15 +13,6 @@ export enum Language {
   japanese = "japanese",
 }
 
-export type Counseling = {
-  email: string;
-  id: number;
-  isDone: number;
-  phone: string;
-  schedule: string;
-  name: string;
-};
-
 export type Attachments = {
   id: number;
   fileSize: number;

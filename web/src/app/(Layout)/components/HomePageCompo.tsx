@@ -367,7 +367,7 @@ export default function HomePageCompo() {
           </div>
           <div className="w-full flex  flex-col justify-center items-center cursor-pointer">
             <Link
-              href={"/select/applied-to"}
+              href={"/guidance/procedure-guide"}
               className="size-12 p-2 border rounded-full bg-[#ffffff]"
             >
               <Image
@@ -378,10 +378,10 @@ export default function HomePageCompo() {
               />
             </Link>
             <Link
-              href={"/select/applied-to"}
+              href={"/guidance/procedure-guide"}
               className="text-xs text-wrap font-light text-center text-white"
             >
-              {homePage[language]?.["applied-to"]}
+              {homePage[language]?.["procedure-guide"]}
             </Link>
           </div>
           <div className="w-full flex  flex-col justify-center items-center cursor-pointer">

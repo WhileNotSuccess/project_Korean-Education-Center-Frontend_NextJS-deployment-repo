@@ -3,13 +3,11 @@
 import {
   ApplicationFormItemProp,
   Banner,
-  Counseling,
   Course,
   Teacher,
 } from "@/app/common/types";
 import useCustomFetch from "@/app/lib/customFetch";
 import { useEffect, useState } from "react";
-import CounselingItem from "./CounselingItem";
 import ApplicationFormItem from "./ApplicationFormItem";
 import BoardPageCompo from "../../components/BoardPageCompo";
 import BannerItem from "./BannerItem";
@@ -26,7 +24,6 @@ type AdminComponentProps = {
 
 export default function AdminComponent({ category }: AdminComponentProps) {
   const customFetch = useCustomFetch();
-  const [counselingList, setCounselingList] = useState<Counseling[]>([]);
   const [applications, setApplications] = useState<ApplicationFormItemProp[]>([]);
   const [bannerPostModal, setBannerPostModal] = useState<boolean>(false);
   const [banners, setBanners] = useState<Banner[]>([]);
@@ -43,31 +40,7 @@ export default function AdminComponent({ category }: AdminComponentProps) {
   const [nextPage, setNextPage] = useState<number>(0);
   const [loading, setLoading] = useState(false);
 
-  // 상담 신청 처리
-  if (category === "counseling") {
-    useEffect(() => {
-      async function getCounseling() {
-        const response = await customFetch("/consult");
-        const data = await response.json()
-        setCounselingList(data.data);
-      }
-      getCounseling();
-    }, []);
-    return (
-      <>
-        <h1 className="text-3xl mb-4 font-bold text-center">상담 신청 확인</h1>
-        <div className="flex flex-row flex-wrap ">
-          {counselingList.map((item) => {
-            return (
-              <div key={item.id}>
-                <CounselingItem {...item} />
-              </div>
-            );
-          })}
-        </div>
-      </>
-    );
-  } else if (category === "applications") {
+    if (category === "applications") {
     // 신청서 리스트를 받아오는 함수
     const getApplications = async (page: number) => {
       setLoading(true);
@@ -81,6 +54,7 @@ export default function AdminComponent({ category }: AdminComponentProps) {
       setPrevPage(data.prevPage); // 이전 페이지 번호
       setNextPage(data.nextPage); // 다음 페이지 번호
       setLoading(false);
+      console.log(data);
     };
 
     // 초기 데이터 요청 (첫 페이지)

@@ -1,4 +1,3 @@
-import { Counseling } from "@/app/common/types";
 import useCustomFetch from "@/app/lib/customFormFetch";
 
 import { url } from "inspector";
