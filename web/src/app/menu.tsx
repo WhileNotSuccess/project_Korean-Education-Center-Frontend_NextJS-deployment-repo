@@ -131,6 +131,10 @@ export const homePage: Record<Language, Record<string, string>> = {
     download: "다운로드",
     "procedure-guide": "입학신청",
     "recruitment-guidelines": "모집요강",
+    "Application-Form": "입학신청서",
+    certified: "교육국제화역량 인증제(IEQAS) 학위과정/어학연수과정 동시 인증 대학",
+    introduction: "영진전문대학교 한국어교육센터는 2021년 3월 설립 이후, 한국어와 한국 문화의 매력을 널리 전파하는 선도적인 교육 기관으로 성장하고 있습니다. 한국어교육센터는 영진전문대학교 내 부설 기관으로 운영되며, 실용적이고 차별화된 한국어 교육과 한국 생활 및 학업에 필요한 세심한 학생지원 서비스를 제공합니다.",
+    program: "우리 학교는 외국인 학습자를 위한 체계적인 한국어 교육 프로그램을 운영하고 있습니다. 한국에서의 진학·취업·비즈니스를 준비하거나 한국어를 집중적으로 배우고 싶은 분들에게 적합한 과정으로, 수준별(1~6급) 수업을 통해 기초부터 고급까지 단계적으로 학습할 수 있습니다. 정규 학기제로 운영되어 꾸준한 학습 환경을 제공하며, 실제 생활에서 바로 활용할 수 있는 실용 한국어 중심으로 수업이 진행됩니다.",
     faq: "FAQ",
     review: "유학생 후기",
     footerAddress:
@@ -144,6 +148,9 @@ export const homePage: Record<Language, Record<string, string>> = {
     "procedure-guide": "入学申請",
     "recruitment-guidelines": "募集要項",
     "Application-Form": "入学申請書",
+    certified: "IEQAS（教育国際化能力認証制度）学位課程・語学研修課程 同時認証大学",
+    introduction: "2021年3月の設立以来、永進大学韓国語教育センターは、韓国語と韓国文化の魅力を広める先駆的な教育機関として成長してきました。永進大学の附属機関として運営されている韓国語教育センターは、韓国での生活と学びに必要な詳細な学生サポートサービスとともに、実践的で特徴的な韓国語教育を提供しています。",
+    program: "本校では、外国人学習者のための体系的な韓国語教育プログラムを提供しています。 韓国での進学・就職・ビジネスを目指す方、または集中して韓国語を学習したい方に最適な課程で、1級から6級までのレベル別クラスを通して基礎から上級まで段階的に学ぶことができます。 学期制で計画的に学習でき、日常生活でそのまま使える実用的な韓国語を中心に授業が行われます。",
     faq: "FAQ",
     review: "留学生の感想",
     footerAddress:
@@ -157,6 +164,9 @@ export const homePage: Record<Language, Record<string, string>> = {
     "procedure-guide": "Application for Admission",
     "recruitment-guidelines": "Admission Guidelines",
     "Application-Form": "Application for Admission",
+    certified: "A university simultaneously certified for both IEQAS Degree Programs and Language Training Programs",
+    introduction: "Since its establishment in March 2021, the Yeungjin University Korean Language Education Center has been growing as a leading educational institution that promotes the charm of the Korean language and culture. Operated as an affiliated institution within Yeungjin University, the Korean Language Education Center provides practical and distinctive Korean language education along with detailed student support services essential for living and studying in Korea.",
+    program: "Our school offers a structured Korean language program designed for international learners. It is ideal for those preparing for academic studies, employment, or business in Korea, as well as learners who wish to study Korean intensively. Through level-based classes (from Level 1 to Level 6), students can progress systematically from beginner to advanced Korean. The program follows a regular academic schedule and focuses on practical, real-life Korean that students can use immediately in daily situations.",
     faq: "FAQ",
     review: "International Student Reviews",
     footerAddress:
