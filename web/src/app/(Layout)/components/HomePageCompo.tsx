@@ -233,22 +233,27 @@ export default function HomePageCompo() {
 
   return (
     <div className="w-full flex flex-wrap">
-
       <div className="relative w-full max-w-[2000px] h-[calc(100vh-60px)] overflow-hidden shadow-lg">
-        <section className="hidden sm:block">
+        <section className="hidden sm:block h-full">
+
+          {/* 배너 슬라이드 영역 */}
           <div
-            className="h-full w-full flex transition-transform duration-700 ease-in-out"
+            className="flex h-full w-full transition-transform duration-700 ease-in-out"
             style={{ transform: `translateX(-${currentIndex * 100}%)` }}
           >
             {banner.map((banner, index) => (
-              <div key={index} className="relative min-w-full h-full">
+              <div
+                key={index}
+                className="relative min-w-full h-full"
+              >
                 <Image
                   src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${banner.image}`}
-                  className="object-cover rounded-b-lg"
                   alt="배너 이미지"
                   fill
+                  sizes="100vw"
+                  className="object-cover rounded-b-lg cursor-pointer"
                   unoptimized
-                  onClick={() => onGoUrl(banner.url)}
+                  // onClick={() => onGoUrl(banner.url)}
                 />
               </div>
             ))}
@@ -292,7 +297,6 @@ export default function HomePageCompo() {
           </div>
         </section>
       </div>
-
       {/* 공지사항 및 유학생 후기, F&Q 컨테이너 */}
       <div className="w-full mt-16 mb-28 justify-end items-center lg:flex-row lg:items-stretch grid grid-cols-2">
         <div className="p-20 w-full flex flex-col">
@@ -477,12 +481,17 @@ export default function HomePageCompo() {
                   key={item.id}
                   className="flex justify-between items-center py-5 border-b border-gray-200 hover:bg-gray-50 transition-colors cursor-pointer"
                 >
-                  <h3 className="text-base font-medium text-gray-800">
-                    {item.title}
-                  </h3>
-                  <span className="text-sm text-gray-500 whitespace-nowrap ml-4">
-                    {item.updatedDate.slice(0, 10) || item.createdDate.slice(0, 10)}
-                  </span>
+                  <Link
+                    className="flex justify-between items-center w-full"
+                    href={`/board/notice/${item.id}`}
+                  >
+                    <h3 className="text-base font-medium text-gray-800">
+                      {item.title}
+                    </h3>
+                    <span className="text-sm text-gray-500 whitespace-nowrap ml-4">
+                      {item.updatedDate.slice(0, 10) || item.createdDate.slice(0, 10)}
+                    </span>
+                  </Link>
                 </div>
               ))}
             </>
@@ -497,79 +506,79 @@ export default function HomePageCompo() {
             {boardMenu[language]?.news}
           </div>
           {loading ? (
-      // 스켈레톤 로딩
-      <div className="relative w-[71%] overflow-hidden mt-4">
-        <div className="flex gap-4">
-          {[...Array(4)].map((_, index) => (
-            <div key={index} className="w-64 flex flex-col animate-pulse">
-              {/* 이미지 스켈레톤 */}
-              <div className="w-full h-40 bg-gray-200 rounded-md"></div>
-              {/* 제목 스켈레톤 */}
-              <div className="mt-2 space-y-2">
-                <div className="h-4 bg-gray-200 rounded w-full"></div>
-                <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+            // 스켈레톤 로딩
+            <div className="relative w-[71%] overflow-hidden mt-4">
+              <div className="flex gap-4">
+                {[...Array(4)].map((_, index) => (
+                  <div key={index} className="w-64 flex flex-col animate-pulse">
+                    {/* 이미지 스켈레톤 */}
+                    <div className="w-full h-40 bg-gray-200 rounded-md"></div>
+                    {/* 제목 스켈레톤 */}
+                    <div className="mt-2 space-y-2">
+                      <div className="h-4 bg-gray-200 rounded w-full"></div>
+                      <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
-          ))}
+          ) : (
+            <div
+              ref={sliderRef}
+              className="relative w-[71%] overflow-hidden cursor-pointer active:cursor-grabbing mt-4 scroll-smooth"
+            >
+              <div className="flex gap-4 w-max">
+                {newsData.map((item, index) => (
+                  <Link href={`/board/news/${item.id}`} key={index}>
+                    <article
+                      ref={index === 0 ? itemRef : null}
+                      className="w-64 flex flex-col items-center">
+                    
+                      <Image
+                        src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${item.image}`}
+                        alt="알림 이미지"
+                        width={2000}
+                        height={300}
+                        className="w-full h-40 object-cover rounded-md pointer-events-none"
+                        unoptimized
+                      />
+                    <p className="text-left text-sm mt-2 line-clamp-2">{item.title}</p>
+                    {/* 영어 제목이 표시 될 경우 너무 긴 경우가 있어서 2줄까지만 보여주기 */}
+                    </article>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+          
+          {/* 화살표 버튼 */}
+          <div className="w-48 flex justify-between items-center mt-4">
+            <div 
+              onClick={loading ? undefined : onScrollLeft}
+              className={loading ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
+            >
+              <Image
+                src="/images/left.png"
+                alt="왼쪽 화살표"
+                className="size-8"
+                width={96}
+                height={96}
+              />
+            </div>
+            <div 
+              onClick={loading ? undefined : onScrollRight}
+              className={loading ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
+            >
+              <Image
+                src="/images/right.png"
+                alt="오른쪽 화살표"
+                className="size-8"
+                width={96}
+                height={96}
+              />
+            </div>
+          </div>
         </div>
-      </div>
-    ) : (
-      <div
-        ref={sliderRef}
-        className="relative w-[71%] overflow-hidden cursor-pointer active:cursor-grabbing mt-4 scroll-smooth"
-      >
-        <div className="flex gap-4 w-max">
-          {newsData.map((item, index) => (
-            <Link href={`/board/news/${item.id}`} key={index}>
-              <article
-                ref={index === 0 ? itemRef : null}
-                className="w-64 flex flex-col items-center">
-              
-                <Image
-                  src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${item.image}`}
-                  alt="알림 이미지"
-                  width={2000}
-                  height={300}
-                  className="w-full h-40 object-cover rounded-md pointer-events-none"
-                  unoptimized
-                />
-               <p className="text-left text-sm mt-2 line-clamp-2">{item.title}</p>
-               {/* 영어 제목이 표시 될 경우 너무 긴 경우가 있어서 2줄까지만 보여주기 */}
-              </article>
-            </Link>
-          ))}
-        </div>
-      </div>
-    )}
-    
-    {/* 화살표 버튼 */}
-    <div className="w-48 flex justify-between items-center mt-4">
-      <div 
-        onClick={loading ? undefined : onScrollLeft}
-        className={loading ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
-      >
-        <Image
-          src="/images/left.png"
-          alt="왼쪽 화살표"
-          className="size-8"
-          width={96}
-          height={96}
-        />
-      </div>
-      <div 
-        onClick={loading ? undefined : onScrollRight}
-        className={loading ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
-      >
-        <Image
-          src="/images/right.png"
-          alt="오른쪽 화살표"
-          className="size-8"
-          width={96}
-          height={96}
-        />
-      </div>
-    </div>
-  </div>
       </article>
     </div>
   );
