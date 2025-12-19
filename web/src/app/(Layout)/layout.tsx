@@ -59,10 +59,10 @@ export default async function RootLayout({
     ((await cookies()).get("language")?.value as Language) || Language.korean;
 
   return (
-    <div className="w-full flex flex-col">
+    <div className="w-full flex flex-col overflow-x-hidden">
       
       {/* 헤더 */}
-      <header className="w-full min-h-[10px] max-h-[14px] lg:max-h-[60px] h-auto bg-white text-black flex justify-between gap-3 items-center p-4">
+      <header className="w-full min-h-[10px] max-h-[14px] lg:max-h-[60px] h-auto bg-white text-black flex justify-between gap-3 items-center py-6 lg:p-4">
         <Link
           href={"/"}
           className="flex justify-center items-center pl-4 sm:pl-0 w-auto"
@@ -195,7 +195,7 @@ export default async function RootLayout({
       <main className="grow w-full">{children}</main>
 
       {/* 푸터 */}
-      <footer className="w-full mt-36 px-20 py-6">
+      <footer className="w-full mt-36 px-4 lg:px-20 py-6">
         <div className="flex justify-end mb-3">
           <div className="text-sm">
             {language === Language.english ? (
@@ -246,11 +246,12 @@ export default async function RootLayout({
               src="/images/yeungjinLogo.svg"
               width={170}
               height={85}
+              className="hidden lg:flex"
             />
           </div>
 
           {/* 주소 */}
-          <div className="text-right text-sm whitespace-nowrap">
+          <div className="text-right text-xs w-4/5 lg:w-full lg:text-sm break-words">
             <address className="not-italic">
               {homePage[language]?.footerAddress}
             </address>

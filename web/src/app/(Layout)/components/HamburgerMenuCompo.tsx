@@ -1,3 +1,4 @@
+// 모바일 전용 햄버거 메뉴(네비게이션 대신)
 'use client'
 
 import { useEffect, useState } from "react"
@@ -29,54 +30,62 @@ export default function HamburgerMenuCompo (){
 
   return (
     <nav className="xl:hidden">
-      <div className="xl:hidden w-full flex justify-end px-4" onClick={onMenuOpen}>
-        <Image 
-        src="/images/hamburger.png" 
-        alt="햄버거 메뉴"
-        className="size-8 cursor-pointer"
-        width={64}
-        height={64}
+      {/* 햄버거 버튼 */}
+      <div className="w-full flex justify-end px-4 py-2" onClick={onMenuOpen}>
+        <Image
+          src="/images/hamburger.png"
+          alt="햄버거 메뉴"
+          width={32}
+          height={32}
+          className="size-6"
         />
       </div>
 
       {menuOpen && (
-        <aside className="absolute z-50 bg-white flex flex-col top-0 right-0 overflow-y-scroll shadow-md border-2">
+        <aside className="absolute z-50 top-0 right-0 w-64 h-screen bg-white shadow-2xl border-l border-gray-200 overflow-y-auto transition-all duration-300">
+          {/* 닫기 버튼 */}
           <div className="w-full flex justify-end p-4">
-            <Image 
-            src="/images/close.png" 
-            alt="닫기"
-            width={64}
-            height={64}
-            className="size-8 cursor-pointer" 
-            onClick={onMenuOpen}/>  
+            <Image
+              src="/images/close.png"
+              alt="닫기"
+              width={32}
+              height={32}
+              className="cursor-pointer"
+              onClick={onMenuOpen}
+            />
           </div>
-          <ul>
-          {Hamburger[language].map((item, index) => (
-            <div key={index} className="border-b">
-              <div 
-                className="px-4 py-2 font-bold text-lg text-center flex justify-between items-center cursor-pointer" 
-                onClick={() => toggleSubMenu(index)}
-              >
-                {item.topMenu}
-                <span>{openSubMenu === index ? "▲" : "▼"}</span>
-              </div>
-              <div 
-                className={`flex flex-col transition-all overflow-hidden ${
-                  openSubMenu === index ? "max-h-40 opacity-100" : "max-h-0 opacity-0"
-                }`}
-              >
-                {item.subMenu.map((subItem, subIndex) => (
-                  <Link
-                   key={subIndex}
-                    href={subItem.address} 
-                    className="px-6 py-2 bg-gray-100 hover:bg-gray-200 transition"
-                  >
-                    {subItem.name}
-                  </Link>
-                ))}
-              </div>
-            </div>
-          ))}
+
+          {/* 메뉴 리스트 */}
+          <ul className="flex flex-col gap-1 px-2">
+            {Hamburger[language].map((item, index) => (
+              <li key={index} className="border-b border-gray-200">
+                {/* 상위 메뉴 */}
+                <div
+                  className="flex justify-between items-center px-4 py-3 font-semibold text-lg text-gray-800 hover:bg-gray-100 rounded-lg cursor-pointer transition-all"
+                  onClick={() => toggleSubMenu(index)}
+                >
+                  {item.topMenu}
+                  <span className="text-sm">{openSubMenu === index ? "▲" : "▼"}</span>
+                </div>
+
+                {/* 하위 메뉴 */}
+                <div
+                  className={`flex flex-col overflow-hidden transition-all duration-300 ${
+                    openSubMenu === index ? "max-h-96 opacity-100 mt-1" : "max-h-0 opacity-0"
+                  }`}
+                >
+                  {item.subMenu.map((subItem, subIndex) => (
+                    <Link
+                      key={subIndex}
+                      href={subItem.address}
+                      className="px-6 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-700 rounded-md transition"
+                    >
+                      {subItem.name}
+                    </Link>
+                  ))}
+                </div>
+              </li>
+            ))}
           </ul>
         </aside>
       )}

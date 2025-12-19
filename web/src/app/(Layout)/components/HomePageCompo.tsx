@@ -11,6 +11,7 @@ import useCustomFetch from "@/app/lib/customFetch";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
+import BoardDataMapCompo from "./BoardDataMapCompo";
 
 interface BannerType {
   expiredData: string;
@@ -233,12 +234,12 @@ export default function HomePageCompo() {
 
   return (
     <div className="w-full flex flex-wrap">
-      <div className="relative w-full max-w-[2000px] h-[calc(100vh-60px)] overflow-hidden shadow-lg">
-        <section className="hidden sm:block h-full">
+      <div className="relative w-full h-[220px] lg:max-w-[2000px] lg:h-[calc(100vh-60px)] overflow-hidden lg:shadow-lg">
+        <section className="h-full">
 
           {/* 배너 슬라이드 영역 */}
           <div
-            className="flex h-full w-full transition-transform duration-700 ease-in-out"
+            className="hidden lg:flex h-full w-full transition-transform duration-700 ease-in-out"
             style={{ transform: `translateX(-${currentIndex * 100}%)` }}
           >
             {banner.map((banner, index) => (
@@ -260,31 +261,33 @@ export default function HomePageCompo() {
           </div>
 
           {/* 배너 위 텍스트/로고 오버레이 */}
-          <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center px-4 bg-black/20 rounded-b-lg">
-            <div className="flex flex-col items-center text-center text-white">
+          <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center px-4 lg:bg-black/20 rounded-b-lg">
+            <div className="flex flex-col items-start lg:items-center lg:text-white">
               {/* 로고 */}
               <Image
                 src="/images/yeungjinLogoOpenGraph.png"
                 alt="Yeungjin Logo"
                 width={120}
                 height={120}
-                className="mb-16"
+                className="w-20 h-20 lg:w-32 lg:h-32 mt-10 lg:mt-0 mb-4 lg:mb-6"
+                priority
               />
               {/* 텍스트들 */}
-              <p className="text-xl sm:text-2xl mb-2">
+              <p className="text-2xl font-semibold lg:text-3xl mb-1 lg:mb-2">
                 Yeungjin University
               </p>
-              <h1 className="text-3xl sm:text-5xl font-semibold leading-tight mb-8">
+              <h1 className="text-2xl lg:text-5xl font-semibold leading-tight mb-1 lg:mb-8">
                 Korean Education Center
               </h1>
-              <p className="text-xs sm:text-sm">
+              {/* IEQSA 설명 */}
+              <p className="text-xs lg:text-lg">
                 {homePage[language]?.certified}
               </p>
             </div>
           </div>
 
           {/* 배너 아래 동그라미 */}
-          <div className="absolute z-10 bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
+          <div className="hidden lg:flex absolute z-10 bottom-4 left-1/2 -translate-x-1/2 space-x-2">
             {banner.map((_, index) => (
               <button
                 key={index}
@@ -297,26 +300,26 @@ export default function HomePageCompo() {
           </div>
         </section>
       </div>
+
       {/* 공지사항 및 유학생 후기, F&Q 컨테이너 */}
-      <div className="w-full mt-16 mb-28 justify-end items-center lg:flex-row lg:items-stretch grid grid-cols-2">
-        <div className="p-20 w-full flex flex-col">
-          <h2 className="lg:text-2xl mb-4">About us</h2>
-          <p className="mb-10 leading-relaxed text-sm">
+      <div className="w-full mt-14 lg:mt-16 mb-16 lg:mb-28 max-w-6xl mx-auto px-4 md:px-8 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+        <div className="hidden lg:flex w-full flex-col p-2 lg:p-0">
+          <h2 className="text-xl lg:text-3xl mb-4">About us</h2>
+          <p className="mb-8 leading-relaxed text-sm">
             {homePage[language]?.["introduction"]}
           </p>
           <Link 
             href="/guidance/introduction"
-            className="text-center w-[180px] rounded-full border border-1 border-[#0D578D] text-[#0D578D] px-8 py-4 mx-auto hover:bg-[#0D578D] hover:text-white hover:scale-105 transition" 
+            className="mb-10 lg:mb-0 text-center w-[180px] rounded-full border border-1 border-[#0D578D] text-[#0D578D] px-8 py-4 mx-auto hover:bg-[#0D578D] hover:text-white hover:scale-105 transition" 
           >
             More about us
           </Link>
         </div>
 
-        <section className="w-[26rem] grid grid-cols-1 sm:grid-cols-2 items-center justify-end justify-self-center">
-
+        <section className="w-full lg:mt-6 max-w-fit grid grid-cols-2 gap-4 items-end justify-self-center lg:justify-self-end">
           {/* 입학신청서 다운로드 */}
           <div
-            className="relative w-48 aspect-square rounded-md shadow-lg overflow-hidden cursor-pointer group justify-end items-end"
+            className="relative w-full lg:w-48 aspect-square rounded-md shadow-lg overflow-hidden cursor-pointer group justify-end items-end"
             onClick={() => {
               router.push(
                 `${process.env.NEXT_PUBLIC_BACKEND_URL}/${entranceApplication.applicationFileName}`
@@ -329,18 +332,18 @@ export default function HomePageCompo() {
               width={2000}
               height={300}
               unoptimized 
-              className="object-cover transition group-hover:scale-105"
+              className="w-full h-full object-cover transition group-hover:scale-105"
               priority
             />
             <div className="absolute inset-0 bg-black/50" />
-            <div className="absolute bottom-2 left-2 text-white text-md p-2">
+            <div className="absolute bottom-2 left-2 text-white text-xs sm:text-sm md:text-md p-2">
               입학신청서
             </div>
           </div>
 
           {/* 모집요강 다운로드 */}
           <div
-            className="relative w-48 aspect-square rounded-md shadow-lg overflow-hidden cursor-pointer group"
+            className="relative w-full lg:w-48 aspect-square rounded-md shadow-lg overflow-hidden cursor-pointer group"
             onClick={() => {
               router.push(
                 `${process.env.NEXT_PUBLIC_BACKEND_URL}/${entranceApplication.guidelinesForApplicantsFileName}`
@@ -353,18 +356,18 @@ export default function HomePageCompo() {
               width={2000}
               height={300}
               unoptimized
-              className="object-cover transition group-hover:scale-105"
+              className="w-full h-full object-cover transition group-hover:scale-105"
               priority
             />
             <div className="absolute inset-0 bg-black/50" />
-            <div className="absolute bottom-2 left-2 text-white text-md p-2">
+            <div className="absolute bottom-2 left-2 text-white text-xs sm:text-sm md:text-md p-2">
               {homePage[language]?.["recruitment-guidelines"]}
             </div>
           </div>
 
           {/* 공지사항 */}
           <div
-            className="relative w-48 aspect-square rounded-md shadow-lg overflow-hidden cursor-pointer group"
+            className="relative w-full lg:w-48 aspect-square rounded-md shadow-lg overflow-hidden cursor-pointer group"
             onClick={() => onGoBoard("notice")}
           >
             <Image
@@ -375,14 +378,14 @@ export default function HomePageCompo() {
               priority
             />
             <div className="absolute inset-0 bg-black/50" />
-            <div className="absolute bottom-2 left-2 text-white text-md p-2">
+            <div className="absolute bottom-2 left-2 text-white text-xs sm:text-sm md:text-md p-2">
               공지사항 &gt;
             </div>
           </div>
 
           {/* 알림 */}
           <div
-            className="relative w-48 aspect-square rounded-md shadow-lg overflow-hidden cursor-pointer group"
+            className="relative w-full lg:w-48 aspect-square rounded-md shadow-lg overflow-hidden cursor-pointer group"
             onClick={() => onGoBoard("notice")}
           >
             <Image
@@ -393,7 +396,7 @@ export default function HomePageCompo() {
               priority
             />
             <div className="absolute inset-0 bg-black/50" />
-            <div className="absolute bottom-2 left-2 text-white text-md p-2">
+            <div className="absolute bottom-2 left-2 text-white text-xs sm:text-sm md:text-md p-2">
               교육센터 알림 &gt;
             </div>
           </div>
@@ -401,7 +404,7 @@ export default function HomePageCompo() {
       </div>
 
       {/* Our Programs 부분 */}
-      <div className="w-full relative xl:mb-60">
+      <div className="hidden lg:block w-full relative xl:mb-56">
         {/* 파란 배경 */}
         <div className="w-full bg-[#227DC0]">
           <div className="max-w-6xl mx-auto flex flex-col xl:flex-row items-stretch py-10 px-10 gap-8">
@@ -446,7 +449,7 @@ export default function HomePageCompo() {
       {/* 공지사항 */}
       <article className="w-full max-w-5xl mx-auto px-4 mb-10">
         <div className="flex justify-between items-center border-b-2 border-gray-300 pb-4 mb-4">
-          <h2 className="text-2xl font-semibold">{boardMenu[language]?.notice}</h2>
+          <h2 className="text-xl lg:text-2xl font-semibold">{boardMenu[language]?.notice}</h2>
           <Link 
             href={'/board/notice'}
             className="text-3xl font-light hover:rotate-45 transition-transform duration-300">
@@ -475,26 +478,7 @@ export default function HomePageCompo() {
             </>
           ) : (
             // 공지사항 데이터 표시 
-            <>
-              {notice.map((item) => (
-                <div
-                  key={item.id}
-                  className="flex justify-between items-center py-5 border-b border-gray-200 hover:bg-gray-50 transition-colors cursor-pointer"
-                >
-                  <Link
-                    className="flex justify-between items-center w-full"
-                    href={`/board/notice/${item.id}`}
-                  >
-                    <h3 className="text-base font-medium text-gray-800">
-                      {item.title}
-                    </h3>
-                    <span className="text-sm text-gray-500 whitespace-nowrap ml-4">
-                      {item.updatedDate.slice(0, 10) || item.createdDate.slice(0, 10)}
-                    </span>
-                  </Link>
-                </div>
-              ))}
-            </>
+            <BoardDataMapCompo category={"notice"} limit={7} />
           )}
         </div>
       </article>
@@ -502,7 +486,7 @@ export default function HomePageCompo() {
       {/* 한국어 교육센터 알림 */}
       <article className="w-full flex justify-center items-center">
         <div className="min-w-[75%] flex flex-col items-center justify-center mt-12 px-4">
-          <div className="w-[80%] font-semibold text-2xl mb-4">
+          <div className="w-full lg:w-[80%] font-semibold text-xl lg:text-2xl mb-4">
             {boardMenu[language]?.news}
           </div>
           {loading ? (
@@ -525,7 +509,7 @@ export default function HomePageCompo() {
           ) : (
             <div
               ref={sliderRef}
-              className="relative w-[71%] overflow-hidden cursor-pointer active:cursor-grabbing mt-4 scroll-smooth"
+              className="relative w-full lg:w-[71%] overflow-hidden cursor-pointer active:cursor-grabbing scroll-smooth"
             >
               <div className="flex gap-4 w-max">
                 {newsData.map((item, index) => (

@@ -910,8 +910,6 @@ export const Hamburger: Record<
       topMenu: "신청",
       subMenu: [
         { address: "/guidance/procedure-guide", name: "입학 신청" },
-        { address: "/form/counseling", name: "상담 신청" },
-        { address: "/board/application-form", name: "신청 서류" },
         { address: "/guidance/visa", name: "비자 안내" },
       ],
     },
