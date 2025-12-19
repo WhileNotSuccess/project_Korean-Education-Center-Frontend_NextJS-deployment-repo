@@ -10,7 +10,6 @@ import {
   menu,
   smallMenu,
   boardMenu,
-  selectMenu,
   homePage,
   HomePageTitle,
   TermsOfService,
@@ -58,205 +57,208 @@ export default async function RootLayout({
 }>) {
   const language =
     ((await cookies()).get("language")?.value as Language) || Language.korean;
+
   return (
-    <div className=" w-full flex flex-col">
+    <div className="w-full flex flex-col overflow-x-hidden">
       
       {/* 헤더 */}
-      <header className="w-full min-h-15 bg-[#095a93] flex justify-center xl:justify-between gap-3 font-bold items-center p-4">
+      <header className="w-full min-h-[10px] max-h-[14px] lg:max-h-[60px] h-auto bg-white text-black flex justify-between gap-3 items-center py-6 lg:p-4">
         <Link
           href={"/"}
-          className="flex justify-center items-center pl-4 sm:pl-0"
+          className="flex justify-center items-center pl-4 sm:pl-0 w-auto"
         >
           <Image
             alt="영진전문대 로고"
-            src="/images/yeungjinLogoOpenGraph.png"
-            width={40}
-            height={40}
+            src={`/images/yeungjinLogo.svg`}
+            width={120}
+            height={120}
+            className="w-[90px] h-auto lg:w-[160px] flex-shrink-0 mr-2"
           />
-          <div className="flex items-end">
-            <h2 className="font-bold text-white w-full whitespace-nowrap text-2xl ml-2">
-              {HomePageTitle[language].yeungjin}
-            </h2>
-            <h6 className="font-bold text-white w-full whitespace-nowrap text-sm ml-2">
-              {HomePageTitle[language].koreanEducationCenter}
-            </h6>
-          </div>
+
+          <div className="mx-4 w-[1.5px] h-[20px] bg-black flex-shrink-0" />
+
+          <h6 className="font-semibold text-sm lg:font-medium whitespace-nowrap lg:text-lg mx-2">
+            {HomePageTitle[language].koreanEducationCenter}
+          </h6>
         </Link>
-        <div className="hidden xl:flex xl:justify-evenly xl:items-center">
+
+        {/* 네비게이션 */}
+        <div className="relative h-14 hidden xl:flex items-center w-full justify-center">
+          
+          {/* 상위 메뉴 */}
+          <section className="z-50 flex justify-center items-center h-full">
+            <div className={`flex ${
+                language === 'english' 
+                  ? 'gap-12 text-sm' 
+                  : 'gap-20 text-base'
+            }`}>
+                {/* 센터소개 */}
+                <div className="cursor-pointer hover:scale-105 transition group/intro relative h-14 flex items-center">
+                  {menu[language]?.introduce}
+                  
+                  <div className="absolute top-14 left-1/2 -translate-x-1/2 bg-white shadow-md opacity-0 invisible group-hover/intro:visible group-hover/intro:opacity-100 transition-opacity duration-200 py-4 px-6 rounded-md whitespace-nowrap text-center">
+                    <Link href="/guidance/introduction" className="block py-2 hover:text-gray-600 hover:scale-105 transition text-sm">
+                      {smallMenu[language]?.centerIntro}
+                    </Link>
+                    <Link href="/guidance/directions" className="block py-2 hover:text-gray-600 hover:scale-105 transition text-sm">
+                      {smallMenu[language]?.howToGetHere}
+                    </Link>
+                    <Link href="/staff/staff-intro" className="block py-2 hover:text-gray-600 hover:scale-105 transition text-sm">
+                      {smallMenu[language]?.["staff-intro"]}
+                    </Link>
+                  </div>
+                </div>
+
+                {/* 과정소개 */}
+                <div className="cursor-pointer hover:scale-105 transition group/curriculum relative h-14 flex items-center">
+                  {menu[language]?.curriculum}
+                  
+                  <div className="absolute top-14 left-1/2 -translate-x-1/2 bg-white shadow-md opacity-0 invisible group-hover/curriculum:visible group-hover/curriculum:opacity-100 transition-opacity duration-200 py-4 px-6 rounded-md whitespace-nowrap text-center">
+                    <Link href="/select/korean-curriculum" className="block py-2 hover:text-gray-600 hover:scale-105 transition text-sm">
+                      {smallMenu[language]?.["korean-curriculum"]}
+                    </Link>
+                    <Link href="/select/open-campus" className="block py-2 hover:text-gray-600 hover:scale-105 transition text-sm">
+                      {smallMenu[language]?.["open-campus"]}
+                    </Link>
+                    <Link href="/board/review" className="block py-2 hover:text-gray-600 hover:scale-105 transition text-sm">
+                      {boardMenu[language]?.review}
+                    </Link>
+                  </div>
+                </div>
+
+                {/* 입학신청 */}
+                <div className="cursor-pointer hover:scale-105 transition group/application relative h-14 flex items-center">
+                  {menu[language]?.application}
+                                    
+                  <div className="absolute top-14 left-1/2 -translate-x-1/2 bg-white shadow-md opacity-0 invisible group-hover/application:visible group-hover/application:opacity-100 transition-opacity duration-200 py-4 px-6 rounded-md whitespace-nowrap text-center">
+                    <Link href="/guidance/procedure-guide" className="block py-2 hover:text-gray-600 hover:scale-105 transition text-sm">
+                      {guidanceMenu[language]?.["procedure-guide"]}
+                    </Link>
+                    <Link href="/guidance/visa" className="block py-2 hover:text-gray-600 hover:scale-105 transition text-sm">
+                      {guidanceMenu[language]?.visa}
+                    </Link>
+                  </div>
+                </div>
+
+                {/* 학교생활 */}
+                <div className="cursor-pointer hover:scale-105 transition group/school relative h-14 flex items-center">
+                  {menu[language]?.schoolLife}
+                                    
+                  <div className="absolute top-14 left-1/2 -translate-x-1/2 bg-white shadow-md opacity-0 invisible group-hover/school:visible group-hover/school:opacity-100 transition-opacity duration-200 py-4 px-6 rounded-md whitespace-nowrap text-center">
+                    <Link href="/guidance/dormitory" className="block py-2 hover:text-gray-600 hover:scale-105 transition text-sm">
+                      {smallMenu[language]?.dormitory}
+                    </Link>
+                    <Link href="/guidance/facility" className="block py-2 hover:text-gray-600 hover:scale-105 transition text-sm">
+                      {smallMenu[language]?.facility}
+                    </Link>
+                    <Link href="/board/learning-materials" className="block py-2 hover:text-gray-600 hover:scale-105 transition text-sm">
+                      {boardMenu[language]?.["learning-materials"]}
+                    </Link>
+                    <Link href="/guidance/insurance" className="block py-2 hover:text-gray-600 hover:scale-105 transition text-sm">
+                      {guidanceMenu[language]?.insurance}
+                    </Link>
+                  </div>
+                </div>
+
+                {/* 알림/공지 */}
+                <div className="cursor-pointer hover:scale-105 transition group/notification relative h-14 flex items-center">
+                  {menu[language]?.notification}
+                  
+                  <div className="absolute top-14 left-1/2 -translate-x-1/2 bg-white shadow-md opacity-0 invisible group-hover/notification:visible group-hover/notification:opacity-100 transition-opacity duration-200 py-4 px-6 rounded-md whitespace-nowrap text-center">
+                    <Link href="/board/notice" className="block py-2 hover:text-gray-600 hover:scale-105 transition text-sm">
+                      {boardMenu[language]?.notice}
+                    </Link>
+                    <Link href="/board/news" className="block py-2 hover:text-gray-600 hover:scale-105 transition text-sm">
+                      {boardMenu[language]?.news}
+                    </Link>
+                    <Link href="/board/faq" className="block py-2 hover:text-gray-600 hover:scale-105 transition text-sm">
+                      {boardMenu[language]?.faq}
+                    </Link>
+                  </div>
+                </div>
+            </div>
+          </section>
+        </div>
+      
+        {/* 모바일 전용 햄버거 */}
+        <div className="flex xl:hidden">
+          <HamburgerMenuCompo />
+        </div>
+
+        {/* 언어 변경 컴포넌트 */}
+        <div className="hidden xl:flex xl:justify-evenly xl:items-center xl:mr-6">
           <ManagementCookieCompo />
         </div>
       </header>
-
-      {/* 네비게이션 */}
-      <section className="relative z-52 w-full min-h-12 bg-[#143c64] bg-opacity-[88%] 
-      flex xl:items-center peer xl:justify-between justify-between items-center">
-
-        <div className="hidden xl:w-full xl:h-full xl:flex xl:justify-center xl:text-white xl:font-bold xl:items-center xl:relative">
-          <div className="w-32 flex justify-center cursor-pointer">
-            {menu[language]?.introduce}
-          </div>
-          <div className="w-32 flex justify-center cursor-pointer">
-            {menu[language]?.curriculum}
-          </div>
-          <div className="w-32 flex justify-center cursor-pointer">
-            {menu[language]?.application}
-          </div>
-          <div className="w-32 flex justify-center cursor-pointer">
-            {menu[language]?.schoolLife}
-          </div>
-          <div className="w-32 flex justify-center cursor-pointer">
-            {menu[language]?.notification}
-          </div>
-        </div>
-        <HamburgerMenuCompo />
-      </section>
-
-      {/* 하위 메뉴 */}
-      <section
-        className="hidden xl:hidden xl:peer-hover:block xl:hover:block xl:w-full xl:min-h-52 xl:bg-[#143c64] xl:bg-opacity-[88%] xl:absolute xl:z-40"
-        style={{ top: "120px" }}
-      >
-        <div className="min-h-52 flex flex-row w-full border-t-2 border-[#728aa2] border-opacity-[50%]">
-          <div className="w-full h-[100%] flex justify-center">
-            <div className="w-32 h-52 flex flex-col items-center">
-              <Link
-                href={`/guidance/introduction`}
-                className="p-2 text-xs font-bold text-center text-white"
-              >
-                {smallMenu[language]?.centerIntro}
-              </Link>
-              <Link
-                href={"/guidance/directions"}
-                className="p-2 text-xs font-bold text-center text-white"
-              >
-                {smallMenu[language]?.howToGetHere}
-              </Link>
-              <Link
-                href={"/staff/staff-intro"}
-                className="p-2 text-xs font-bold text-center text-white"
-              >
-                {smallMenu[language]?.["staff-intro"]}
-              </Link>
-            </div>
-            <div className="w-32 h-52 flex flex-col items-center">
-              <Link
-                href={"/select/korean-curriculum"}
-                className="p-2 text-xs font-bold text-center text-white"
-              >
-                {smallMenu[language]?.["korean-curriculum"]}
-              </Link>
-              <Link
-                href={"/select/open-campus"}
-                className="p-2 text-xs font-bold text-center text-white"
-              >
-                {smallMenu[language]?.["open-campus"]}
-              </Link>
-              <Link href={"/board/review"} className="p-2 text-xs font-bold text-center text-white">
-                {boardMenu[language]?.review}
-              </Link>
-            </div>
-            <div className="w-32 h-52 flex flex-col items-center">
-              <Link
-                href={"/guidance/procedure-guide"}
-                className="p-2 text-xs font-bold text-center text-white"
-              >
-                {guidanceMenu[language]?.["procedure-guide"]}
-              </Link>
-              <Link href={"/guidance/visa"} className="p-2 text-xs font-bold text-center text-white">
-                {guidanceMenu[language]?.visa}
-              </Link>
-            </div>
-            <div className="w-32 h-52 flex flex-col items-center">
-              <Link
-                href={"/guidance/dormitory"}
-                className="p-2 text-xs font-bold text-center text-white"
-              >
-                {smallMenu[language]?.dormitory}
-              </Link>
-              <Link
-                href={"/guidance/facility"}
-                className="p-2 text-xs font-bold text-center text-white"
-              >
-                {smallMenu[language]?.facility}
-              </Link>
-              <Link
-                href={"/board/learning-materials"}
-                className="p-2 text-xs font-bold text-center text-white"
-              >
-                {boardMenu[language]?.["learning-materials"]}
-              </Link>
-              <Link
-                href={"/guidance/insurance"}
-                className="p-2 text-xs font-bold text-center text-white"
-              >
-                {guidanceMenu[language]?.insurance}
-              </Link>
-            </div>
-            <div className="w-32 h-52 flex flex-col items-center">
-              <Link href={"/board/notice"} className="p-2 text-xs font-bold text-center text-white">
-                {boardMenu[language]?.notice}
-              </Link>
-              <Link href={"/board/news"} className="p-2 text-xs font-bold text-center text-white">
-                {boardMenu[language]?.news}
-              </Link>
-              <Link href={"/board/faq"} className="p-2 text-xs font-bold text-center text-white">
-                {boardMenu[language]?.faq}
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
+      
       {/* 메인 콘텐츠 위치 */}
       <main className="grow w-full">{children}</main>
 
       {/* 푸터 */}
-      <footer className="w-full h-36 bg-[#0072ba] mt-24 relative">
-        <div className="absolute bottom-2 right-4 text-white font-bold">
-          {language === Language.english ? (
-            <div className="text-center">
-              <Link href="/terms-en" className="mr-4 hover:underline">
-                {TermsOfService[language].terms}
-              </Link>
-              <Link href="http://www.yju.ac.kr/kr/4410/subview..do" className="hover:underline">
-                {TermsOfService[language].privacyPolicy}
-              </Link>
-            </div>
-          ) : language === Language.japanese ? (
-            <div className="text-center">
-              <Link href="/terms-jp" className="mr-4 hover:underline">
-                {TermsOfService[language].terms}
-              </Link>
-              <Link href="http://www.yju.ac.kr/kr/4410/subview..do" className="hover:underline">
-                {TermsOfService[language].privacyPolicy}
-              </Link>
-            </div>
-          ) : (
-            <div className="text-center">
-              <Link href="/terms-ko" className="mr-4 hover:underline">
-                {TermsOfService[language].terms}
-              </Link>
-              <Link href="http://www.yju.ac.kr/kr/4410/subview..do" className="hover:underline">
-                {TermsOfService[language].privacyPolicy}
-              </Link>
-            </div>
-          )
-          }
+      <footer className="w-full mt-36 px-4 lg:px-20 py-6">
+        <div className="flex justify-end mb-3">
+          <div className="text-sm">
+            {language === Language.english ? (
+              <>
+                <Link href="/terms-en" className="mr-4 hover:underline">
+                  {TermsOfService[language].terms}
+                </Link>
+                <Link
+                  href="http://www.yju.ac.kr/kr/4410/subview..do"
+                  className="hover:underline"
+                >
+                  {TermsOfService[language].privacyPolicy}
+                </Link>
+              </>
+            ) : language === Language.japanese ? (
+              <>
+                <Link href="/terms-jp" className="mr-4 hover:underline">
+                  {TermsOfService[language].terms}
+                </Link>
+                <Link
+                  href="http://www.yju.ac.kr/kr/4410/subview..do"
+                  className="hover:underline"
+                >
+                  {TermsOfService[language].privacyPolicy}
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link href="/terms-ko" className="mr-4 hover:underline">
+                  {TermsOfService[language].terms}
+                </Link>
+                <Link
+                  href="http://www.yju.ac.kr/kr/4410/subview..do"
+                  className="hover:underline"
+                >
+                  {TermsOfService[language].privacyPolicy}
+                </Link>
+              </>
+            )}
+          </div>
+        </div>
+
+        <div className="flex items-center justify-between">
+          {/* 로고 */}
+          <div>
+            <Image
+              alt="영진전문대 푸터 로고"
+              src="/images/yeungjinLogo.svg"
+              width={170}
+              height={85}
+              className="hidden lg:flex"
+            />
+          </div>
+
+          {/* 주소 */}
+          <div className="text-right text-xs w-4/5 lg:w-full lg:text-sm break-words">
+            <address className="not-italic">
+              {homePage[language]?.footerAddress}
+            </address>
+            <div>{homePage[language]?.footerCallEmail}</div>
+          </div>
         </div>
       </footer>
-
-      <div className="w-full flex justify-center py-8">
-        <Image
-          alt="영진전문대 푸터 로고"
-          src="/images/yeungjinLogo.svg"
-          width={200}
-          height={100}
-        />
-        <div className="sm:block flex flex-col justify-center whitespace-nowrap font-semibold text-sm sm:ml-5">
-          <address className="not-italic">{homePage[language]?.footerAddress}</address>
-          <div>{homePage[language]?.footerCallEmail}</div>
-        </div>
-      </div>
     </div>
-  );
+  ); 
 }

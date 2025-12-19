@@ -1,15 +1,17 @@
+// [(layout)/components/HomePageCompo.tsx]
+// 홈 화면 컴포넌트
+
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { homePage, guidanceMenu, boardMenu, getError } from "@/app/menu";
-import { Attachments, BoardData, Language } from "@/app/common/types";
+import { homePage, boardMenu, getError } from "@/app/menu";
+import { Attachments, Language } from "@/app/common/types";
 import Cookies from "js-cookie";
 import useCustomFetch from "@/app/lib/customFetch";
-import { formatDate } from "@/app/common/formatDate";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import BoardDataMapCompo from "./BoardDataMapCompo";
 import Image from "next/image";
+import BoardDataMapCompo from "./BoardDataMapCompo";
 
 interface BannerType {
   expiredData: string;
@@ -23,6 +25,8 @@ interface NewsType {
   id: number;
   image: string;
   title: string;
+  createdDate: string;
+  updatedDate: string;
 }
 
 interface Applicants {
@@ -32,13 +36,24 @@ interface Applicants {
   guidelinesForApplicantsImageName: string;
 }
 
+interface NoticeType {
+  id: number;
+  title: string;
+  content: string;
+  createdDate: string;
+  updatedDate: string;
+  language: string;
+}
+
 export default function HomePageCompo() {
   const [banner, setBanner] = useState<BannerType[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const customFetch = useCustomFetch();
   const router = useRouter();
   const sliderRef = useRef<HTMLDivElement>(null); // 슬라이더 div 참조
-  const [newsData, setNewsData] = useState<NewsType[]>([]);
+  const [notice, setNotice] = useState<NoticeType[]>([]);
+  const [newsData, setNewsData] = useState<NewsType[]>([]); // 알림
+  const [loading, setLoading] = useState<boolean>(false);
   const [guidelinesForApplicants, setGuidelinesForApplicants] =
     useState<Attachments>({
       id: 0,
@@ -82,6 +97,7 @@ export default function HomePageCompo() {
 
   useEffect(() => {
     const newsData = async () => {
+      setLoading(true)
       try {
         const response = await customFetch("/posts/card/slide", {
           method: "GET",
@@ -99,6 +115,8 @@ export default function HomePageCompo() {
       } 
       catch (error) {
         alert(getError[language]?.newsError);
+      } finally {
+        setLoading(false);
       }
     };
     newsData();
@@ -121,7 +139,7 @@ export default function HomePageCompo() {
   }, []);
 
   useEffect(() => {
-    // 모집요강 및 입학신청서를 불러오는 함수수
+    // 모집요강 및 입학신청서를 불러오는 함수
     const entranceApplicationData = async () => {
       try {
         const response = await customFetch("/posts/main/applicants", {
@@ -135,6 +153,25 @@ export default function HomePageCompo() {
       }
     };
     entranceApplicationData();
+  }, []);
+
+  useEffect(() => {  // 공지사항을 불러오는 함수
+    const noticeData = async () => {
+      setLoading(true)
+      try {
+        const response = await customFetch("/posts/notice?limit=10&page=1", {
+          method: "GET",
+        });
+        const data = await response.json()
+        setNotice(data.data);
+      } 
+      catch (error) {
+        alert(getError[language]?.newsError);
+      } finally {
+        setLoading(false)
+      }
+    };
+    noticeData();
   }, []);
 
   const onGoBoard = async (category: string) => {
@@ -197,260 +234,329 @@ export default function HomePageCompo() {
 
   return (
     <div className="w-full flex flex-wrap">
-      <div className="relative w-full h-3 max-w-[2000px] h-auto overflow-hidden shadow-lg">
-        <section className="hidden sm:block">
+      <div className="relative w-full h-[220px] lg:max-w-[2000px] lg:h-[calc(100vh-60px)] overflow-hidden lg:shadow-lg">
+        <section className="h-full">
+
+          {/* 배너 슬라이드 영역 */}
           <div
-            className="h-full w-full object-contain flex transition-transform duration-700 ease-in-out "
+            className="hidden lg:flex h-full w-full transition-transform duration-700 ease-in-out"
             style={{ transform: `translateX(-${currentIndex * 100}%)` }}
           >
             {banner.map((banner, index) => (
-              <Image
+              <div
                 key={index}
-                src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${banner.image}`}
-                alt="배너 이미지"
-                className="h-auto max-w-full cursor-pointer"
-                unoptimized={true}
-                width={2000}
-                height={300}
-                onClick={() => onGoUrl(banner.url)}
-              />
+                className="relative min-w-full h-full"
+              >
+                <Image
+                  src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${banner.image}`}
+                  alt="배너 이미지"
+                  fill
+                  sizes="100vw"
+                  className="object-cover rounded-b-lg cursor-pointer"
+                  unoptimized
+                  // onClick={() => onGoUrl(banner.url)}
+                />
+              </div>
             ))}
           </div>
-          <div className="absolute z-10 bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+
+          {/* 배너 위 텍스트/로고 오버레이 */}
+          <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center px-4 lg:bg-black/20 rounded-b-lg">
+            <div className="flex flex-col items-start lg:items-center lg:text-white">
+              {/* 로고 */}
+              <Image
+                src="/images/yeungjinLogoOpenGraph.png"
+                alt="Yeungjin Logo"
+                width={120}
+                height={120}
+                className="w-20 h-20 lg:w-32 lg:h-32 mt-10 lg:mt-0 mb-4 lg:mb-6"
+                priority
+              />
+              {/* 텍스트들 */}
+              <p className="text-2xl font-semibold lg:text-3xl mb-1 lg:mb-2">
+                Yeungjin University
+              </p>
+              <h1 className="text-2xl lg:text-5xl font-semibold leading-tight mb-1 lg:mb-8">
+                Korean Education Center
+              </h1>
+              {/* IEQSA 설명 */}
+              <p className="text-xs lg:text-lg">
+                {homePage[language]?.certified}
+              </p>
+            </div>
+          </div>
+
+          {/* 배너 아래 동그라미 */}
+          <div className="hidden lg:flex absolute z-10 bottom-4 left-1/2 -translate-x-1/2 space-x-2">
             {banner.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentIndex(index)}
-                className={`w-3 h-3 rounded-full ${
-                  currentIndex === index ? "bg-blue-500" : "bg-gray-300"
+                className={`w-2 h-2 rounded-full ${
+                  currentIndex === index ? "bg-gray-500" : "border border-gray-500"
                 }`}
-              ></button>
+              />
             ))}
           </div>
         </section>
       </div>
-      <div className="w-full mt-12 flex flex-col justify-center items-center lg:flex-row lg:items-stretch">
-        <section className="xl:w-96 w-full xl:mr-4">
-          <div className="w-full border  sm:mb-0 mb-4 flex flex-col">
-            <header className="flex justify-between items-center px-4">
-              <h1 className="text-2xl font-bold p-2">
-                {homePage[language]?.notice}
-              </h1>
-              <Image
-                src="/images/add_button.png"
-                alt="추가 버튼"
-                width={96}
-                height={96}
-                className="w-8 cursor-pointer"
-                onClick={() => onGoBoard("notice")}
-              />
-            </header>
-            <div className="flex flex-col px-2">
-            <article className="w-full flex flex-1 justify-between items-center border-b p-4">
-          <Link
-            href={`https://kcenter.yju.ac.kr/board/korean-sample/${overviewId}`}
-            className="w-[70%] overflow-hidden text-ellipsis whitespace-nowrap font-semibold text-lg"
-            >
-              {homePage[language].overview}
+
+      {/* 공지사항 및 유학생 후기, F&Q 컨테이너 */}
+      <div className="w-full mt-14 lg:mt-16 mb-16 lg:mb-28 max-w-6xl mx-auto px-4 md:px-8 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+        <div className="hidden lg:flex w-full flex-col p-2 lg:p-0">
+          <h2 className="text-xl lg:text-3xl mb-4">About us</h2>
+          <p className="mb-8 leading-relaxed text-sm">
+            {homePage[language]?.["introduction"]}
+          </p>
+          <Link 
+            href="/guidance/introduction"
+            className="mb-10 lg:mb-0 text-center w-[180px] rounded-full border border-1 border-[#0D578D] text-[#0D578D] px-8 py-4 mx-auto hover:bg-[#0D578D] hover:text-white hover:scale-105 transition" 
+          >
+            More about us
           </Link>
-            </article>
-              <BoardDataMapCompo category={"notice"} limit={7} />
+        </div>
+
+        <section className="w-full lg:mt-6 max-w-fit grid grid-cols-2 gap-4 items-end justify-self-center lg:justify-self-end">
+          {/* 입학신청서 다운로드 */}
+          <div
+            className="relative w-full lg:w-48 aspect-square rounded-md shadow-lg overflow-hidden cursor-pointer group justify-end items-end"
+            onClick={() => {
+              router.push(
+                `${process.env.NEXT_PUBLIC_BACKEND_URL}/${entranceApplication.applicationFileName}`
+              );
+            }}
+          >
+            <Image
+              src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${entranceApplication.applicationImageName}`}
+              alt="입학신청서 다운로드 버튼"
+              width={2000}
+              height={300}
+              unoptimized 
+              className="w-full h-full object-cover transition group-hover:scale-105"
+              priority
+            />
+            <div className="absolute inset-0 bg-black/50" />
+            <div className="absolute bottom-2 left-2 text-white text-xs sm:text-sm md:text-md p-2">
+              {homePage[language]?.["Application-Form"]}
+            </div>
+          </div>
+
+          {/* 모집요강 다운로드 */}
+          <div
+            className="relative w-full lg:w-48 aspect-square rounded-md shadow-lg overflow-hidden cursor-pointer group"
+            onClick={() => {
+              router.push(
+                `${process.env.NEXT_PUBLIC_BACKEND_URL}/${entranceApplication.guidelinesForApplicantsFileName}`
+              );
+            }}
+          >
+            <Image
+              src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${entranceApplication.guidelinesForApplicantsImageName}`}
+              alt="모집요강 다운로드 버튼"
+              width={2000}
+              height={300}
+              unoptimized
+              className="w-full h-full object-cover transition group-hover:scale-105"
+              priority
+            />
+            <div className="absolute inset-0 bg-black/50" />
+            <div className="absolute bottom-2 left-2 text-white text-xs sm:text-sm md:text-md p-2">
+              {homePage[language]?.["recruitment-guidelines"]}
+            </div>
+          </div>
+
+          {/* 공지사항 */}
+          <div
+            className="relative w-full lg:w-48 aspect-square rounded-md shadow-lg overflow-hidden cursor-pointer group"
+            onClick={() => onGoBoard("notice")}
+          >
+            <Image
+              src="/images/main_notice.png"
+              alt="공지사항 바로가기 버튼"
+              fill
+              className="object-cover transition group-hover:scale-105"
+              priority
+            />
+            <div className="absolute inset-0 bg-black/50" />
+            <div className="absolute bottom-2 left-2 text-white text-xs sm:text-sm md:text-md p-2">
+              공지사항 &gt;
+            </div>
+          </div>
+
+          {/* 알림 */}
+          <div
+            className="relative w-full lg:w-48 aspect-square rounded-md shadow-lg overflow-hidden cursor-pointer group"
+            onClick={() => onGoBoard("notice")}
+          >
+            <Image
+              src="/images/main_notice.png"
+              alt="교육센터 알림 바로가기 버튼"
+              fill
+              className="object-cover transition group-hover:scale-105"
+              priority
+            />
+            <div className="absolute inset-0 bg-black/50" />
+            <div className="absolute bottom-2 left-2 text-white text-xs sm:text-sm md:text-md p-2">
+              교육센터 알림 &gt;
             </div>
           </div>
         </section>
-        <div className="xl:w-96 w-full flex flex-col justify-between">
-          <div className="xl:w-96 w-full">
-            <section>
-              <div className="w-full   border">
-                <header className="flex justify-between items-center px-4">
-                  <h1 className="text-2xl font-bold p-2">
-                    {homePage[language]?.review}
-                  </h1>
-                  <Image
-                    src="/images/add_button.png"
-                    alt="추가 버튼"
-                    width={96}
-                    height={96}
-                    className="w-8 cursor-pointer"
-                    onClick={() => onGoBoard("review")}
-                  />
-                </header>
-                <div className="flex flex-col px-2">
-                  <BoardDataMapCompo category={"review"} limit={3} />
-                </div>
-              </div>
-            </section>
-            <section>
-              <div className="xl:w-96 w-full mt-4 border">
-                <header className="flex justify-between items-center px-4">
-                  <h1 className="text-2xl font-bold p-2">
-                    {homePage[language]?.faq}
-                  </h1>
-                  <Image
-                    src="/images/add_button.png"
-                    alt="추가 버튼"
-                    width={96}
-                    height={96}
-                    className="w-8 cursor-pointer"
-                    onClick={() => onGoBoard("faq")}
-                  />
-                </header>
-                <div className="flex flex-col px-2">
-                  <BoardDataMapCompo category={"faq"} limit={3} />
-                </div>
-              </div>
-            </section>
+      </div>
+
+      {/* Our Programs 부분 */}
+      <div className="hidden lg:block w-full relative xl:mb-56">
+        {/* 파란 배경 */}
+        <div className="w-full bg-[#227DC0]">
+          <div className="max-w-6xl mx-auto flex flex-col xl:flex-row items-stretch py-10 px-10 gap-8">
+            {/* 텍스트 */}
+            <div className="flex-1 text-white">
+              <h2 className="text-2xl mb-4">Our Programs</h2>
+              <p className="leading-relaxed text-sm">
+                {homePage[language]?.program}
+              </p>
+            </div>
+
+            {/* 오른쪽 빈 공간(이미지 들어가야 함) */}
+            <div className="flex-1"></div>
           </div>
         </div>
-        {/* 빠른서비스 및 서류 다운하는 탭*/}
-        <aside className="hidden xl:fixed xl:w-24 xl:min-h-[80%] xl:right-0 xl:top-24 xl:border xl:bg-blue-500/80 xl:rounded-l-xl xl:flex xl:flex-col xl:justify-evenly xl:py-2 z-50">
-          <div className="w-full flex  flex-col justify-center items-center cursor-pointer">
-            <Link
-              href={"/guidance/introduction"}
-              className="size-12 p-2 border rounded-full bg-[#ffffff]"
-            >
-              <Image src="/images/introduction.png" alt="홈" width={64} height={64} />
-            </Link>
-            <Link
-              href={"/guidance/introduction"}
-              className="text-xs text-wrap font-light text-center text-white"
-            >
-              {guidanceMenu[language]?.introduction}
-            </Link>
-          </div>
-          <div className="w-full flex  flex-col justify-center items-center cursor-pointer">
-            <Link
-              href={"/board/faq"}
-              className="size-12 p-2 border rounded-full bg-[#ffffff]"
-            >
-              <Image src="/images/faq.png" alt="faq" width={64} height={64} />
-            </Link>
-            <Link
-              href={"/board/faq"}
-              className="text-xs text-wrap font-light text-center text-white"
-            >
-              {boardMenu[language]?.faq}
-            </Link>
-          </div>
-          <div className="w-full flex  flex-col justify-center items-center cursor-pointer">
-            <Link
-              href={"/board/review"}
-              className="size-12 p-2 border rounded-full bg-[#ffffff]"
-            >
-              <Image src="/images/review.png" alt="" width={64} height={64} />
-            </Link>
-            <Link
-              href={"/board/review"}
-              className="text-xs text-wrap font-light text-center text-white"
-            >
-              {boardMenu[language]?.review}
-            </Link>
-          </div>
-          <div className="w-full flex  flex-col justify-center items-center cursor-pointer">
-            <Link
-              href={"/board/news"}
-              className="size-12 p-2 border rounded-full bg-[#ffffff]"
-            >
-              <Image
-                src="/images/light.png"
-                alt="전구"
-                width={64}
-                height={64}
-              />
-            </Link>
-            <Link
-              href={"/board/news"}
-              className="text-xs text-wrap font-light text-center text-white"
-            >
-              {boardMenu[language]?.news}
-            </Link>
-          </div>
-          <div className="w-full flex  flex-col justify-center items-center cursor-pointer">
-            <Link
-              href={"/guidance/procedure-guide"}
-              className="size-12 p-2 border rounded-full bg-[#ffffff]"
-            >
-              <Image
-                src="/images/document1.png"
-                alt=""
-                width={64}
-                height={64}
-              />
-            </Link>
-            <Link
-              href={"/guidance/procedure-guide"}
-              className="text-xs text-wrap font-light text-center text-white"
-            >
-              {homePage[language]?.["procedure-guide"]}
-            </Link>
-          </div>
-          <div className="w-full flex  flex-col justify-center items-center cursor-pointer">
-            <Link
-              href={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${guidelinesForApplicants.filename}`}
-              className="size-12 p-2 border rounded-full bg-[#ffffff]"
-            >
-              <Image
-                src="/images/graduationcap.png"
-                alt="학사모"
-                width={64}
-                height={64}
-              />
-            </Link>
-            <Link
-              href={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${guidelinesForApplicants.filename}`}
-              className="text-xs text-wrap font-light text-center text-white"
-            >
-              {homePage[language]?.["recruitment-guidelines"]}
-            </Link>
-          </div>
-        </aside>
-      </div>
-      {/* 클릭후 드래그로 움직이는 소식 탭 */}
-      <article className="w-full flex justify-center items-center">
-        <div className="min-w-[75%] flex flex-col items-center justify-center mt-12">
-          <div className="w-[80%] font-bold text-2xl">
-            {boardMenu[language]?.news}
-          </div>
-          <div
-            ref={sliderRef}
-            className="relative w-[71%] overflow-hidden cursor-pointer active:cursor-grabbing mt-4 scroll-smooth"
-          >
-            <div className="flex gap-4 w-max">
-              {newsData.map((item, index) => (
-                <Link href={`/board/news/${item.id}`} key={index}>
-                  <article
-                    ref={index === 0 ? itemRef : null}
-                    className="w-64 flex flex-col items-center"
-                  >
-                    <Image
-                      src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${item.image}`}
-                      alt="알림 이미지"
-                      width={2000}
-                      height={300}
-                      className="w-full h-40 object-cover rounded-lg pointer-events-none"
-                      unoptimized={true}
-                    />
-                    <p className="text-center mt-2">{item.title}</p>
-                  </article>
-                </Link>
-              ))}
+
+        {/* 이미지 위치 */}
+        <div className="absolute top-10 right-0 xl:right-24 w-full max-w-md px-10 xl:px-0">
+          <div className="relative group w-full cursor-pointer">
+            <Image
+              src="/images/main_campus.png"
+              width={200}
+              height={170}
+              alt="글로벌 캠퍼스 전경"
+              className="w-full h-auto object-cover shadow-2xl transition-all duration-300 rounded-sm"
+            />
+            
+            {/* 호버 오버레이 */}
+            <div className="absolute inset-0 rounded-sm bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center text-white">
+              <p className="text-lg mb-1">Welcome to</p>
+              <p className="text-2xl mb-12">Yeungjin University</p>
+              <Link 
+                href='/select/korean-curriculum'
+                className="px-6 py-3 text-md bg-[#227DC0] hover:bg-[#1a6399] rounded-full text-white font-medium transition-all duration-200 hover:scale-105">
+                Learn more
+              </Link>
             </div>
           </div>
-          <div className="w-48 flex justify-between items-center">
-            <div onClick={onScrollLeft}>
+        </div>
+      </div>
+
+      {/* 공지사항 */}
+      <article className="w-full max-w-5xl mx-auto px-4 mb-10">
+        <div className="flex justify-between items-center border-b-2 border-gray-300 pb-4 mb-4">
+          <h2 className="text-xl lg:text-2xl font-semibold">{boardMenu[language]?.notice}</h2>
+          <Link 
+            href={'/board/notice'}
+            className="text-3xl font-light hover:rotate-45 transition-transform duration-300">
+            +
+          </Link>
+        </div>
+
+        {/* 공지사항 목록 */}
+        <div className="mb-6">
+          {loading ? (
+            // 스켈레톤 로딩
+            <>
+              {[...Array(5)].map((_, index) => (
+                <div
+                  key={index}
+                  className="flex justify-between items-center py-5 border-b border-gray-200 animate-pulse"
+                >
+                  <div className="flex-1">
+                    <div className="h-5 bg-gray-200 rounded w-3/4"></div>
+                  </div>
+                  <div className="ml-4">
+                    <div className="h-4 bg-gray-200 rounded w-24"></div>
+                  </div>
+                </div>
+              ))}
+            </>
+          ) : (
+            // 공지사항 데이터 표시 
+            <BoardDataMapCompo category={"notice"} limit={7} />
+          )}
+        </div>
+      </article>
+
+      {/* 한국어 교육센터 알림 */}
+      <article className="w-full flex justify-center items-center">
+        <div className="min-w-[75%] flex flex-col items-center justify-center mt-12 px-4">
+          <div className="w-full lg:w-[80%] font-semibold text-xl lg:text-2xl mb-4">
+            {boardMenu[language]?.news}
+          </div>
+          {loading ? (
+            // 스켈레톤 로딩
+            <div className="relative w-[71%] overflow-hidden mt-4">
+              <div className="flex gap-4">
+                {[...Array(4)].map((_, index) => (
+                  <div key={index} className="w-64 flex flex-col animate-pulse">
+                    {/* 이미지 스켈레톤 */}
+                    <div className="w-full h-40 bg-gray-200 rounded-md"></div>
+                    {/* 제목 스켈레톤 */}
+                    <div className="mt-2 space-y-2">
+                      <div className="h-4 bg-gray-200 rounded w-full"></div>
+                      <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div
+              ref={sliderRef}
+              className="relative w-full lg:w-[71%] overflow-hidden cursor-pointer active:cursor-grabbing scroll-smooth"
+            >
+              <div className="flex gap-4 w-max">
+                {newsData.map((item, index) => (
+                  <Link href={`/board/news/${item.id}`} key={index}>
+                    <article
+                      ref={index === 0 ? itemRef : null}
+                      className="w-64 flex flex-col items-center">
+                    
+                      <Image
+                        src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${item.image}`}
+                        alt="알림 이미지"
+                        width={2000}
+                        height={300}
+                        className="w-full h-40 object-cover rounded-md pointer-events-none"
+                        unoptimized
+                      />
+                    <p className="text-left text-sm mt-2 line-clamp-2">{item.title}</p>
+                    {/* 영어 제목이 표시 될 경우 너무 긴 경우가 있어서 2줄까지만 보여주기 */}
+                    </article>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+          
+          {/* 화살표 버튼 */}
+          <div className="w-48 flex justify-between items-center mt-4">
+            <div 
+              onClick={loading ? undefined : onScrollLeft}
+              className={loading ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
+            >
               <Image
                 src="/images/left.png"
                 alt="왼쪽 화살표"
-                className="size-8 cursor-pointer"
+                className="size-8"
                 width={96}
                 height={96}
               />
             </div>
-            <div onClick={onScrollRight}>
+            <div 
+              onClick={loading ? undefined : onScrollRight}
+              className={loading ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
+            >
               <Image
                 src="/images/right.png"
                 alt="오른쪽 화살표"
-                className="size-8 cursor-pointer"
+                className="size-8"
                 width={96}
                 height={96}
               />
@@ -458,51 +564,6 @@ export default function HomePageCompo() {
           </div>
         </div>
       </article>
-
-      <div className="w-full flex justify-center items-center gap-12 mt-12">
-        <div className="flex flex-col w-64 cursor-pointer"
-            onClick={() => {
-              router.push(
-                `${process.env.NEXT_PUBLIC_BACKEND_URL}/${entranceApplication.applicationFileName}`
-              );
-            }}        
-        >
-          <div
-            className="text-center bg-gray-100 hover:bg-gray-200 p-2 text-lg rounded-lg"
-          >
-            {homePage[language]?.["Application-Form"]}
-          </div>
-          <Image
-            src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${entranceApplication.applicationImageName}`}
-            alt=""
-            width={2000}
-            height={300}
-            unoptimized={true}
-            className="w-full h-64 object-cover mt-4"
-          />
-        </div>
-        <div className="flex flex-col w-64 cursor-pointer"
-            onClick={() => {
-              router.push(
-                `${process.env.NEXT_PUBLIC_BACKEND_URL}/${entranceApplication.guidelinesForApplicantsFileName}`
-              );
-            }}        
-        >
-          <div
-            className="text-center bg-gray-100 hover:bg-gray-200 p-2 text-lg rounded-lg"
-          >
-            {homePage[language]?.["recruitment-guidelines"]}
-          </div>
-          <Image
-            src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${entranceApplication.guidelinesForApplicantsImageName}`}
-            alt=""
-            width={2000}
-            height={300}
-            unoptimized={true}
-            className="w-full h-64 object-cover mt-4"
-          />
-        </div>
-      </div>
     </div>
   );
 }
