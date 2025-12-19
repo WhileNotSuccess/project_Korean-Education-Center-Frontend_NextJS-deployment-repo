@@ -337,7 +337,7 @@ export default function HomePageCompo() {
             />
             <div className="absolute inset-0 bg-black/50" />
             <div className="absolute bottom-2 left-2 text-white text-xs sm:text-sm md:text-md p-2">
-              입학신청서
+              {homePage[language]?.["Application-Form"]}
             </div>
           </div>
 
