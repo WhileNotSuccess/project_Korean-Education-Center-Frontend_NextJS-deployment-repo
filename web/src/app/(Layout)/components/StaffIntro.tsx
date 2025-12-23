@@ -24,7 +24,6 @@ export default function StaffIntro({ name }: StaffPageProps) {
     }
   }, []);
 
-
   useEffect(() => {
     const staffData = async () => {
       try {
@@ -39,87 +38,95 @@ export default function StaffIntro({ name }: StaffPageProps) {
       }
     };
     staffData();
-  }, []);
+  }, [language]);
 
   return (
     <div className="w-full">
-      <header className="h-12 border"></header>
-      <section
-        className="w-full flex justify-center items-center font-bold text-3xl"
-        style={{ height: "200px" }}
-      >
+
+      {/* 페이지 헤더 */}
+      <header className="h-12 border-b"></header>
+
+      {/* 타이틀 */}
+      <section 
+        className="w-full flex justify-center items-center font-bold lg:text-3xl h-[200px]">
         {smallMenu[language]?.[name]}
       </section>
-      
+
+      {/* 강사진 */}
       <section className="w-full">
-      <div className="w-full h-24 flex items-center justify-center">
-        <div className=" h-14 text-2xl font-bold w-4/5 border-b-2  border-[#0072BA] text-[#0093EE]">
-          {staffPage[language]?.faculty}
+        <div className="w-full flex justify-center mb-6">
+          <div className="w-4/5 border-b border-gray-300 pb-2 text-xl lg:text-2xl">
+            {staffPage[language]?.faculty}
+          </div>
         </div>
-      </div>
-      <div className="w-full flex items-center justify-center">
-        <ul className="w-4/5 flex flex-wrap justify-evenly mt-4">
-          {teacher.map((item) => {
-            return (
+
+        <div className="w-full flex justify-center">
+          <ul className="w-4/5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-8">
+            {teacher.map((item) => (
               <li
                 key={item.id}
-                className="w-64 h-24 border-2 border-[#A6CAEC] mb-4 text-[#0093EE]"
+                className="text-[#0072BA] border-t-2 border-b-2 border-[#0072BA] px-4 py-3"
               >
-                <div className="font-bold border-b-2 border-[#0072BA] pl-2 h-8 flex flex-col justify-center">
-                  {item.name}
+                <div className="text-sm">강사</div>
+                <div className="font-bold text-md mt-1">{item.name}</div>
+                <div className="text-sm text-gray-700 mt-1">
+                  한국어 교육센터
                 </div>
-                <div className="ml-2">강사</div>
               </li>
-            );
-          })}
-        </ul>
-      </div>
-      </section>
-    <section className="w-full mt-6">
-      <div className="w-full h-24 flex items-center justify-center">
-        <div className=" h-14 text-2xl font-bold w-4/5 border-b-2  border-[#0072BA] text-[#0093EE]">
-          {staffPage[language]?.staff}
+            ))}
+          </ul>
         </div>
-      </div>
-      <div className="w-full flex items-center justify-center">
-        <ul className="w-4/5 flex flex-wrap justify-evenly mt-4">
-          {staff.map((item) => {
-            return (
+      </section>
+
+      {/* 직원 */}
+      <section className="w-full mt-16">
+        <div className="w-full flex justify-center mb-6">
+          <div className="w-4/5 border-b border-gray-300 pb-2 text-xl lg:text-2xl">
+            {staffPage[language]?.staff}
+          </div>
+        </div>
+
+        <div className="w-full flex justify-center">
+          <ul className="w-4/5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-8">
+            {staff.map((item) => (
               <li
                 key={item.id}
-                className="w-52 h-40 border-2 border-[#A6CAEC] mb-4 text-[#0093EE]"
+                className="border border-[#A6CAEC] text-[#0072BA]"
               >
-                <div className="border-b-2 border-[#0072BA] font-bold h-8 flex flex-col justify-center pl-2">
+                <div className="border-b border-[#0072BA] px-3 py-2 font-bold">
                   {item.name}
                 </div>
-                <div className=" flex flex-col justify-center">
-                  <div className="h-8 ml-2">{item.position}</div>
-                  <div className="h-8 ml-2 font-bold flex flex-row items-center">
+
+                <div className="px-3 py-3 text-sm space-y-2">
+                  <div>{item.position}</div>
+
+                  <div className="flex items-center font-bold">
                     <Image
-                    alt="전화기 아이콘" 
-                    src="/images/telephone.png"
-                    width={15}
-                    height={15} 
-                    className="mr-2" />{" "}
+                      alt="전화기 아이콘"
+                      src="/images/telephone.png"
+                      width={15}
+                      height={15}
+                      className="mr-2"
+                    />
                     {item.phone}
                   </div>
-                  <div className="h-8 ml-2 font-bold flex flex-row items-center overflow-hidden">
+
+                  <div className="flex items-center font-bold break-all">
                     <Image
-                    alt="이메일 아이콘" 
-                    src="/images/mail.png" 
-                    className="mr-2" 
-                    width={15}
-                    height={15}
+                      alt="이메일 아이콘"
+                      src="/images/mail.png"
+                      width={15}
+                      height={15}
+                      className="mr-2"
                     />
                     {item.email}
                   </div>
                 </div>
               </li>
-            );
-          })}
-        </ul>
-      </div>
+            ))}
+          </ul>
+        </div>
       </section>
-  </div>
+    </div>
   );
 }
