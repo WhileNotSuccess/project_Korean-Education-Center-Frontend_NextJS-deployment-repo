@@ -17,6 +17,7 @@ export default function StaffIntro({ name }: StaffPageProps) {
   const [staff, setStaff] = useState<Teacher[]>([]);
   const customFetch = useCustomFetch();
   const [language, setLanguage] = useState<Language>(Language.korean);
+  const [loading, setLoading] = useState(true);
 
   // 언어 별 강사 및 교직원 직책 번역
   const teacherLabel =
@@ -57,6 +58,7 @@ export default function StaffIntro({ name }: StaffPageProps) {
   useEffect(() => {
     const staffData = async () => {
       try {
+        setLoading(true);
         const response = await customFetch("/staff", {
           method: "GET",
         });
@@ -65,10 +67,30 @@ export default function StaffIntro({ name }: StaffPageProps) {
         setStaff(data.staff);
       } catch (error) {
         alert(getError[language]?.staffError);
+      } finally {
+        setLoading(false);
       }
     };
     staffData();
-  }, []);
+  }, [language]);
+
+  // 데이터 로딩 중 화면 공백을 방지하기 위한 스켈레톤 UI
+  function StaffSkeleton({ count = 6 }: { count?: number }) {
+    return (
+      <>
+        {Array.from({ length: count }).map((_, i) => (
+          <li
+            key={i}
+            className="border-b border-gray-200 pb-6 animate-pulse"
+          >  {/* animate-pulse = 깜빡거리면서 동적으로 보이게 */}
+            <div className="h-4 w-20 bg-gray-300 rounded mb-2" />
+            <div className="h-5 w-32 bg-gray-300 rounded mb-3" />
+            <div className="h-4 w-40 bg-gray-300 rounded" />
+          </li>
+        ))}
+      </>
+    );
+  }
 
   return (
     <div className="w-full">
@@ -86,27 +108,31 @@ export default function StaffIntro({ name }: StaffPageProps) {
 
         <div className="w-full flex justify-center">
           <ul className="w-4/5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-10">
-            {teacher.map((item) => (
-              <li
-                key={item.id}
-                className="border-b border-[#0072BA]/50 pb-5"
-              >
-                {/* 직책 */}
-                <div className="text-md text-gray-700">
-                  {teacherLabel}
-                </div>
+            {loading ? (
+              <StaffSkeleton count={6} />
+            ) : (
+              teacher.map((item) => (
+                <li
+                  key={item.id}
+                  className="border-b border-[#0072BA]/50 pb-5"
+                >
+                  {/* 직책 */}
+                  <div className="text-md text-gray-700">
+                    {teacherLabel}
+                  </div>
 
-                {/* 이름 */}
-                <div className="font-bold text-lg text-[#005999] mt-2">
-                  {item.name}
-                </div>
+                  {/* 이름 */}
+                  <div className="font-bold text-lg text-[#005999] mt-2">
+                    {item.name}
+                  </div>
 
-                {/* 소속 */}
-                <div className="text-md text-gray-700 mt-1">
-                  {staffPage[language]?.dept}
-                </div>
-              </li>
-            ))}
+                  {/* 소속 */}
+                  <div className="text-md text-gray-700 mt-1">
+                    {staffPage[language]?.dept}
+                  </div>
+                </li>
+              ))
+            )}
           </ul>
         </div>
       </section>
@@ -121,51 +147,55 @@ export default function StaffIntro({ name }: StaffPageProps) {
 
         <div className="w-full flex justify-center">
           <ul className="w-4/5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-10">
-            {staff.map((item) => (
-              <li
-                key={item.id}
-                className="border-b border-[#0072BA]/50 pb-6"
-              >
-                {/* 직책 */}
-                <div className="text-md text-gray-700">
-                  {positionLabelMap[language]?.[item.position] ?? item.position}
-                </div>
+            {loading ? (
+              <StaffSkeleton count={6} />
+            ) : (
+              staff.map((item) => (
+                <li
+                  key={item.id}
+                  className="border-b border-[#0072BA]/50 pb-6"
+                >
+                  {/* 직책 */}
+                  <div className="text-md text-gray-700">
+                    {positionLabelMap[language]?.[item.position] ?? item.position}
+                  </div>
 
-                {/* 이름 */}
-                <div className="font-bold text-lg text-[#005999] mt-1">
-                  {item.name}
-                </div>
+                  {/* 이름 */}
+                  <div className="font-bold text-lg text-[#005999] mt-1">
+                    {item.name}
+                  </div>
 
-                {/* 연락처 */}
-                <div className="mt-3 space-y-2 text-md text-gray-700">
-                  {item.phone && (
-                    <div className="flex items-center">
-                      <Image
-                        alt="전화기 아이콘"
-                        src="/images/telephone.png"
-                        width={14}
-                        height={14}
-                        className="mr-2 opacity-70"
-                      />
-                      {item.phone}
-                    </div>
-                  )}
+                  {/* 연락처 */}
+                  <div className="mt-3 space-y-2 text-md text-gray-700">
+                    {item.phone && (
+                      <div className="flex items-center">
+                        <Image
+                          alt="전화기 아이콘"
+                          src="/images/telephone.png"
+                          width={14}
+                          height={14}
+                          className="mr-2 opacity-70"
+                        />
+                        {item.phone}
+                      </div>
+                    )}
 
-                  {item.email && (
-                    <div className="flex items-center break-all">
-                      <Image
-                        alt="이메일 아이콘"
-                        src="/images/mail.png"
-                        width={14}
-                        height={14}
-                        className="mr-2 opacity-70"
-                      />
-                      {item.email}
-                    </div>
-                  )}
-                </div>
-              </li>
-            ))}
+                    {item.email && (
+                      <div className="flex items-center break-all">
+                        <Image
+                          alt="이메일 아이콘"
+                          src="/images/mail.png"
+                          width={14}
+                          height={14}
+                          className="mr-2 opacity-70"
+                        />
+                        {item.email}
+                      </div>
+                    )}
+                  </div>
+                </li>
+              ))
+            )}
           </ul>
         </div>
       </section>
