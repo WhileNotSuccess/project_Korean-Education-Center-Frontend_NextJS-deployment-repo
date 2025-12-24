@@ -67,14 +67,17 @@ export const staffPage: Record<Language, Record<string, string>> = {
   [Language.korean]: {
     faculty: "강사진 소개",
     staff: "교직원 소개",
+    dept: "한국어 교육센터"
   },
   [Language.japanese]: {
     faculty: "講師紹介",
     staff: "職員紹介",
+    dept: "韓国語教育センター"
   },
   [Language.english]: {
     faculty: "Faculty Introduction",
     staff: "Staff Introduction",
+    dept: "Korean Education Center"
   },
 };
 

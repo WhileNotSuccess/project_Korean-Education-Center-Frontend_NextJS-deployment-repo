@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { staffPage, getError, smallMenu } from "@/app/menu";
 import Cookies from "js-cookie";
 import Image from "next/image";
+import SubtitleHeader from "./SubtitleHeader";
 
 type StaffPageProps = {
   name: keyof (typeof smallMenu)[Language];
@@ -16,6 +17,35 @@ export default function StaffIntro({ name }: StaffPageProps) {
   const [staff, setStaff] = useState<Teacher[]>([]);
   const customFetch = useCustomFetch();
   const [language, setLanguage] = useState<Language>(Language.korean);
+
+  // 언어 별 강사 및 교직원 직책 번역
+  const teacherLabel =
+    language === Language.korean
+      ? "강사"
+      : language === Language.english
+      ? "Teacher"
+      : "講師";
+
+  const positionLabelMap: Record<Language, Record<string, string>> = {
+    korean: {
+      원장: "원장",
+      교수: "교수",
+      직원: "직원",
+      조교: "조교",
+    },
+    english: {
+      원장: "Director",
+      교수: "Professor",
+      직원: "Staff",
+      조교: "Teaching Assistant",
+    },
+    japanese: {
+      원장: "センター長",
+      교수: "教授",
+      직원: "職員",
+      조교: "助教",
+    },
+  };
 
   useEffect(() => {
     const savedLanguage = Cookies.get("language") as Language;
@@ -38,39 +68,42 @@ export default function StaffIntro({ name }: StaffPageProps) {
       }
     };
     staffData();
-  }, [language]);
+  }, []);
 
   return (
     <div className="w-full">
 
-      {/* 페이지 헤더 */}
-      <header className="h-12 border-b"></header>
-
       {/* 타이틀 */}
-      <section 
-        className="w-full flex justify-center items-center font-bold lg:text-3xl h-[200px]">
-        {smallMenu[language]?.[name]}
-      </section>
+      <SubtitleHeader title={smallMenu[language]?.[name]} />
 
       {/* 강사진 */}
       <section className="w-full">
         <div className="w-full flex justify-center mb-6">
-          <div className="w-4/5 border-b border-gray-300 pb-2 text-xl lg:text-2xl">
+          <div className="w-4/5 border-b border-gray-300 pb-2 text-xl lg:text-2xl font-medium">
             {staffPage[language]?.faculty}
           </div>
         </div>
 
         <div className="w-full flex justify-center">
-          <ul className="w-4/5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-8">
+          <ul className="w-4/5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-10">
             {teacher.map((item) => (
               <li
                 key={item.id}
-                className="text-[#0072BA] border-t-2 border-b-2 border-[#0072BA] px-4 py-3"
+                className="border-b border-[#0072BA]/50 pb-5"
               >
-                <div className="text-sm">강사</div>
-                <div className="font-bold text-md mt-1">{item.name}</div>
-                <div className="text-sm text-gray-700 mt-1">
-                  한국어 교육센터
+                {/* 직책 */}
+                <div className="text-md text-gray-700">
+                  {teacherLabel}
+                </div>
+
+                {/* 이름 */}
+                <div className="font-bold text-lg text-[#005999] mt-2">
+                  {item.name}
+                </div>
+
+                {/* 소속 */}
+                <div className="text-md text-gray-700 mt-1">
+                  {staffPage[language]?.dept}
                 </div>
               </li>
             ))}
@@ -79,48 +112,57 @@ export default function StaffIntro({ name }: StaffPageProps) {
       </section>
 
       {/* 직원 */}
-      <section className="w-full mt-16">
+      <section className="w-full mt-20">
         <div className="w-full flex justify-center mb-6">
-          <div className="w-4/5 border-b border-gray-300 pb-2 text-xl lg:text-2xl">
+          <div className="w-4/5 border-b border-gray-300 pb-2 text-xl lg:text-2xl font-medium">
             {staffPage[language]?.staff}
           </div>
         </div>
 
         <div className="w-full flex justify-center">
-          <ul className="w-4/5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-8">
+          <ul className="w-4/5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-10">
             {staff.map((item) => (
               <li
                 key={item.id}
-                className="border border-[#A6CAEC] text-[#0072BA]"
+                className="border-b border-[#0072BA]/50 pb-6"
               >
-                <div className="border-b border-[#0072BA] px-3 py-2 font-bold">
+                {/* 직책 */}
+                <div className="text-md text-gray-700">
+                  {positionLabelMap[language]?.[item.position] ?? item.position}
+                </div>
+
+                {/* 이름 */}
+                <div className="font-bold text-lg text-[#005999] mt-1">
                   {item.name}
                 </div>
 
-                <div className="px-3 py-3 text-sm space-y-2">
-                  <div>{item.position}</div>
+                {/* 연락처 */}
+                <div className="mt-3 space-y-2 text-md text-gray-700">
+                  {item.phone && (
+                    <div className="flex items-center">
+                      <Image
+                        alt="전화기 아이콘"
+                        src="/images/telephone.png"
+                        width={14}
+                        height={14}
+                        className="mr-2 opacity-70"
+                      />
+                      {item.phone}
+                    </div>
+                  )}
 
-                  <div className="flex items-center font-bold">
-                    <Image
-                      alt="전화기 아이콘"
-                      src="/images/telephone.png"
-                      width={15}
-                      height={15}
-                      className="mr-2"
-                    />
-                    {item.phone}
-                  </div>
-
-                  <div className="flex items-center font-bold break-all">
-                    <Image
-                      alt="이메일 아이콘"
-                      src="/images/mail.png"
-                      width={15}
-                      height={15}
-                      className="mr-2"
-                    />
-                    {item.email}
-                  </div>
+                  {item.email && (
+                    <div className="flex items-center break-all">
+                      <Image
+                        alt="이메일 아이콘"
+                        src="/images/mail.png"
+                        width={14}
+                        height={14}
+                        className="mr-2 opacity-70"
+                      />
+                      {item.email}
+                    </div>
+                  )}
                 </div>
               </li>
             ))}
