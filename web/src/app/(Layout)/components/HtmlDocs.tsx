@@ -1,3 +1,5 @@
+// /guidance 페이지
+
 "use client";
 import { useEffect, useState } from "react";
 import useCustomFetch from "@/app/lib/customFetch";
@@ -21,6 +23,7 @@ import {
 } from "../../menu";
 import MapCompo from "./MapCompo";
 import { useAuth } from "@/app/hook/auth";
+import SubtitleHeader from "./SubtitleHeader";
 
 export default function HtmlDocs(props: HtmlDocsProps) {
   const [allData, setAllData] = useState({
@@ -108,16 +111,9 @@ export default function HtmlDocs(props: HtmlDocsProps) {
 
   return (
     <main className="w-full">
-      <div className="h-12"></div>
-
       <section className="w-full flex justify-center">
         {props.category ? (
-          <header
-            className="w-full flex justify-center items-center font-bold text-3xl"
-            style={{ height: "200px" }}
-          >
-            {guidanceMenu[language]?.[props.category]}
-          </header>
+          <SubtitleHeader title={guidanceMenu[language]?.[props.category]} />
         ) : (
           <article className="w-11/12 flex flex-col mt-4">
             <div className="flex justify-between items-center border-t-2 border-blue-400 pt-2">
