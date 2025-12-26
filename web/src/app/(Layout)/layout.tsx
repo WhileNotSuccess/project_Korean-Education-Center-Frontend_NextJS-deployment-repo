@@ -195,7 +195,7 @@ export default async function RootLayout({
       <main className="grow w-full">{children}</main>
 
       {/* 푸터 */}
-      <footer className="w-full mt-36 px-4 lg:px-20 py-6">
+      <footer className="w-full mt-36 px-4 lg:px-20 py-6 notranslate"> {/* notranslate = 구글 자동번역 막기, hydration 오류 방지 */}
         <div className="flex justify-end mb-3">
           <div className="text-sm">
             {language === Language.english ? (
