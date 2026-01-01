@@ -34,6 +34,8 @@ interface Applicants {
   applicationImageName: string;
   guidelinesForApplicantsFileName: string;
   guidelinesForApplicantsImageName: string;
+  guideBookFileName: string;
+  guideBookImageName: string;
 }
 
 interface NoticeType {
@@ -69,6 +71,8 @@ export default function HomePageCompo() {
     applicationImageName: "",
     guidelinesForApplicantsFileName: "",
     guidelinesForApplicantsImageName: "",
+    guideBookFileName: "",
+    guideBookImageName: "",
   });
   const [language, setLanguage] = useState<Language>(Language.korean);
   const [overviewId, setOverviewId] = useState("")
@@ -383,21 +387,27 @@ export default function HomePageCompo() {
             </div>
           </div>
 
-          {/* 알림 */}
+          {/* 가이드북 다운로드 */}
           <div
             className="relative w-full lg:w-48 aspect-square rounded-md shadow-lg overflow-hidden cursor-pointer group"
-            onClick={() => onGoBoard("notice")}
+            onClick={() => {
+              router.push(
+                `${process.env.NEXT_PUBLIC_BACKEND_URL}/${entranceApplication.guideBookFileName}`
+              );
+            }}
           >
             <Image
-              src="/images/main_notice.png"
-              alt="교육센터 알림 바로가기 버튼"
-              fill
-              className="object-cover transition group-hover:scale-105"
+              src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${entranceApplication.guideBookImageName}`}
+              alt="가이드북 다운로드 버튼"
+              width={2000}
+              height={300}
+              unoptimized
+              className="w-full h-full object-cover transition group-hover:scale-105"
               priority
             />
             <div className="absolute inset-0 bg-black/50" />
             <div className="absolute bottom-2 left-2 text-white text-xs sm:text-sm md:text-md p-2">
-              교육센터 알림 &gt;
+              {homePage[language]?.["Guide-Book"]}
             </div>
           </div>
         </section>
