@@ -11,6 +11,7 @@ import { BoardData, Language } from "@/app/common/types";
 import { formatDate } from "@/app/common/formatDate";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/app/hook/auth";
+import SubtitleHeader from "./SubtitleHeader";
 
 type BoardPageProps = {
   name: keyof (typeof boardMenu)[Language];
@@ -116,12 +117,9 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
 
   return (
     <div className="w-full">
-      <header
-        className="w-full flex justify-center items-center font-bold text-3xl"
-        style={{ height: "200px" }}
-      >
-        {boardMenu[language]?.[name]}
-      </header>
+      {/* 제목 */}
+      <SubtitleHeader title={boardMenu[language]?.[name]} />
+
       <section className="w-full flex justify-center">
       <div className="w-[80%] xl:w-[50%] flex flex-wrap sm:flex-nowrap gap-2 border-2 border-black p-2">
         <select

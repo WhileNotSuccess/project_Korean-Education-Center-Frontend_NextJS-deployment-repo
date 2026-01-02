@@ -9,6 +9,7 @@ import { selectMenu, SelectPageCompoMenu } from "@/app/menu";
 import parser from "html-react-parser";
 import { Language } from "@/app/common/types";
 import Cookies from "js-cookie";
+import SubtitleHeader from "./SubtitleHeader";
 
 type SelectTabProps = {
   categoryTab: Record<Language, { key: string; value: string }[]>; // 세부 카테고리
@@ -60,9 +61,8 @@ export default function SelectTabComponent({
   return (
     <main className="w-full">
       {/* 카테고리 제목 표시 */}
-      <header className="h-12 border-b flex items-center justify-center mb-4">
-        <div className="text-3xl font-bold">{selectMenu[language]?.[name]}</div>  
-      </header>
+      <SubtitleHeader title={selectMenu[language]?.[name]} />
+      
       <div className="w-full px-4 xl:w-3/5 mx-auto">
         {/* 탭 메뉴 */}
         <nav className="flex justify-center gap-1 p-4">
