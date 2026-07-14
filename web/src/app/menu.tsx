@@ -142,7 +142,7 @@ export const homePage: Record<Language, Record<string, string>> = {
     review: "유학생 후기",
     footerAddress:
       "41527 대구광역시 북구 복현로 35 (복현2동 218) 영진전문대학교 한국어교육센터",
-    footerCallEmail: "대표전화 : +82-53-940-5768 이메일 : intl@yju.ac.kr",
+    footerCallEmail: "대표전화 : +82-53-940-5768 이메일 : kcenter@yju.ac.kr",
     "Guide-Book": "한국 유학 가이드북",
   },
   [Language.japanese]: {
@@ -159,7 +159,7 @@ export const homePage: Record<Language, Record<string, string>> = {
     review: "留学生の感想",
     footerAddress:
       "41527 大邱広域市 北区 復県路 35 (復県2洞 218) 永進専門大学 韓国語教育センター",
-    footerCallEmail: "代表電話 : +82-53-940-5768 メール : intl@yju.ac.kr",
+    footerCallEmail: "代表電話 : +82-53-940-5768 メール : kcenter@yju.ac.kr",
     "Guide-Book": "韓国留学ガイドブック",
   },
   [Language.english]: {
@@ -176,7 +176,7 @@ export const homePage: Record<Language, Record<string, string>> = {
     review: "International Student Reviews",
     footerAddress:
       "41527 35 Bokhyeon-ro, Buk-gu, Daegu, Korea Yeungjin College Korean Language Education Center",
-    footerCallEmail: "Phone: +82-53-940-5768 Email: intl@yju.ac.kr",
+    footerCallEmail: "Phone: +82-53-940-5768 Email: kcenter@yju.ac.kr",
     "Guide-Book": "Korean Study Guidebook",
   },
 };
@@ -235,15 +235,15 @@ export const koreancurriculumList: Record<
 > = {
   [Language.korean]: [
     { key: "korean-outline", value: "개요" },
-    { key: "korean-sample", value: "프로그램 샘플" },
+    { key: "korean-sample", value: "학사일정" },
   ],
   [Language.japanese]: [
     { key: "korean-outline", value: "概要" },
-    { key: "korean-sample", value: "プログラムサンプル" },
+    { key: "korean-sample", value: "学事日程" },
   ],
   [Language.english]: [
     { key: "korean-outline", value: "Overview of Korean Language Program" },
-    { key: "korean-sample", value: "Program Sample" },
+    { key: "korean-sample", value: "Academic Calendar" },
   ],
 };
 
@@ -264,7 +264,7 @@ export const boardMenu: Record<Language, Record<string, string>> = {
     facility: "학교 시설 안내",
     insurance: "건강 보험 안내",
     "korean-outline": "한국어교육과정 개요",
-    "korean-sample": "한국어교육과정 프로그램 샘플",
+    "korean-sample": "한국어교육과정 학사일정",
     "opencampus-purpose": "오픈캠퍼스 목적",
     "opencampus-content": "오픈캠퍼스 일정 및 내용",
     "opencampus-schedule": "오픈캠퍼스 스케쥴",
@@ -288,7 +288,7 @@ export const boardMenu: Record<Language, Record<string, string>> = {
     facility: "学校施設案内",
     insurance: "健康保険案内",
     "korean-outline": "韓国語教育課程概要",
-    "korean-sample": "韓国語教育課程プログラムサンプル",
+    "korean-sample": "韓国語教育課程学事日程",
     "opencampus-purpose": "オープンキャンパスの目的",
     "opencampus-content": "オープンキャンパスの内容",
     "opencampus-schedule": "オープンキャンパスのスケジュール",
@@ -312,7 +312,7 @@ export const boardMenu: Record<Language, Record<string, string>> = {
     facility: "School Facilities Guide",
     insurance: "Health Insurance Information",
     "korean-outline": "Overview of Korean Language Program",
-    "korean-sample": "Sample Korean Language Program",
+    "korean-sample": "Academic Calendar of Korean Language Program",
     "opencampus-purpose": "Purpose of Open Campus",
     "opencampus-content": "Open Campus Schedule and Details",
     "opencampus-schedule": "Open Campus Schedule",
@@ -339,7 +339,7 @@ export const categoryList: Record<Language, { key: string; value: string }[]> =
       { key: "news", value: "한국어교육센터 알림" },
       { key: "faq", value: "FAQ" },
       { key: "korean-outline", value: "개요" },
-      { key: "korean-sample", value: "프로그램 샘플" },
+      { key: "korean-sample", value: "학사일정" },
       { key: "opencampus-purpose", value: "목적" },
       { key: "opencampus-content", value: "일정 및 내용" },
       { key: "opencampus-schedule", value: "스케쥴" },
@@ -359,7 +359,7 @@ export const categoryList: Record<Language, { key: string; value: string }[]> =
       { key: "news", value: "お知らせ" },
       { key: "faq", value: "FAQ" },
       { key: "korean-outline", value: "概要" },
-      { key: "korean-sample", value: "プログラムサンプル" },
+      { key: "korean-sample", value: "学事日程" },
       { key: "opencampus-purpose", value: "目的" },
       { key: "opencampus-content", value: "日程と内容" },
       { key: "opencampus-schedule", value: "スケジュール" },
@@ -379,7 +379,7 @@ export const categoryList: Record<Language, { key: string; value: string }[]> =
       { key: "news", value: "Korean Education Center News" },
       { key: "faq", value: "FAQ" },
       { key: "korean-outline", value: "Overview" },
-      { key: "korean-sample", value: "Program Sample" },
+      { key: "korean-sample", value: "Academic Calendar" },
       { key: "opencampus-purpose", value: "Purpose" },
       { key: "opencampus-content", value: "Schedule and Content" },
       { key: "opencampus-schedule", value: "Schedule" },
@@ -413,7 +413,7 @@ export const guidanceMenu: Record<Language, Record<string, string>> = {
     facility: "학교 시설 안내",
     insurance: "건강 보험 안내",
     "korean-outline": "개요",
-    "korean-sample": "프로그램 샘플",
+    "korean-sample": "학사일정",
     "opencampus-purpose": "목적",
     "opencampus-content": "일정 및 내용",
     "opencampus-schedule": "스케쥴",
@@ -427,7 +427,7 @@ export const guidanceMenu: Record<Language, Record<string, string>> = {
     facility: "学校施設案内",
     insurance: "健康保険案内",
     "korean-outline": "概要",
-    "korean-sample": "プログラムサンプル",
+    "korean-sample": "学事日程",
     "opencampus-purpose": "目的",
     "opencampus-content": "日程と内容",
     "opencampus-schedule": "スケジュール",
@@ -441,7 +441,7 @@ export const guidanceMenu: Record<Language, Record<string, string>> = {
     facility: "School Facility Guide",
     insurance: "Health Insurance Information",
     "korean-outline": "Overview of Korean Language Program",
-    "korean-sample": "Program Sample",
+    "korean-sample": "Academic Calendar",
     "opencampus-purpose": "Purpose",
     "opencampus-content": "Schedule and Content",
     "opencampus-schedule": "Schedule",

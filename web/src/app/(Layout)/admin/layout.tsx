@@ -140,7 +140,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                     href="/admin/korean-sample"
                     className="block hover:underline text-xs"
                   >
-                    한국어교육과정 프로그램 샘플
+                    한국어교육과정 학사일정
                   </a>
                 </li>
                 <li>
