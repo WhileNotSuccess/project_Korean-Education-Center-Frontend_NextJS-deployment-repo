@@ -11,7 +11,7 @@
   "dependencies": {
     "@googlemaps/js-api-loader": "^1.16.8",
     "@next/third-parties": "^16.2.10",
-    "@tinymce/tinymce-react": "^5.1.1",
+    "@tinymce/tinymce-react": "^6.3.0",
     "@types/google__maps": "^0.5.20",
     "flowbite": "^3.1.2",
     "html-react-parser": "^5.2.2",
@@ -19,7 +19,7 @@
     "next": "16.2.10",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
-    "react-kakao-maps-sdk": "^1.1.27",
+    "react-kakao-maps-sdk": "^1.2.1",
     "swr": "^2.3.2",
     "tinymce": "^6.8.5"
   },
