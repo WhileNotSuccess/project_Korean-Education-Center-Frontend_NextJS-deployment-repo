@@ -96,6 +96,7 @@ export const editorCompo: Record<Language, Record<string, string>> = {
     table: "테이블",
     needInputTitle: "제목을 입력해주세요",
     needInputContent: "내용을 입력해주세요",
+    pin: "상단 고정",
   },
   [Language.japanese]: {
     submit: "提出",
@@ -110,6 +111,7 @@ export const editorCompo: Record<Language, Record<string, string>> = {
     table: "テーブル",
     needInputTitle: "タイトルを入力してください。",
     needInputContent: "内容を入力してください。",
+    pin: "上部固定",
   },
   [Language.english]: {
     submit: "Submit",
@@ -124,6 +126,7 @@ export const editorCompo: Record<Language, Record<string, string>> = {
     table: "Table",
     needInputTitle: "Please enter the title.",
     needInputContent: "Please enter the content.",
+    pin: "Pin to top",
   },
 };
 
@@ -468,6 +471,7 @@ export const boardPage: Record<Language, Record<string, string>> = {
   // 게시판페이지에 사용되는 메뉴들
   [Language.korean]: {
     notice: "공지",
+    pinned: "고정",
     title: "제목",
     content: "내용",
     createDate: "작성일",
@@ -480,6 +484,7 @@ export const boardPage: Record<Language, Record<string, string>> = {
   },
   [Language.japanese]: {
     notice: "通知",
+    pinned: "固定",
     title: "タイトル",
     content: "内容",
     createDate: "作成日",
@@ -492,6 +497,7 @@ export const boardPage: Record<Language, Record<string, string>> = {
   },
   [Language.english]: {
     notice: "Notice",
+    pinned: "Pinned",
     title: "Title",
     content: "Content",
     createDate: "Created Date",

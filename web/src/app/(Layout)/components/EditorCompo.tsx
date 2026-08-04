@@ -36,6 +36,7 @@ export default function EditorComponent(props: EditorProps) {
   const customFormFetch = useCustomFormFetch();
   const customFetch = useCustomFetch();
   const [category, setCategory] = useState<string>(props.categoryName || "");
+  const [isPinned, setIsPinned] = useState(false);
   const router = useRouter();
   const [isAdmin, setIsAdmin] = useState(false);
   const [language, setLanguage] = useState<Language>(Language.korean);
@@ -58,6 +59,7 @@ export default function EditorComponent(props: EditorProps) {
         setContent(data.data.content);
         setTitle(data.data.title);
         setCategory(data.data.category);
+        setIsPinned(!!data.data.isPinned);
         setDocumentFileNames(
           data.files.map((file: ServerDocumentFile) => file.filename)
         );
@@ -94,6 +96,9 @@ export default function EditorComponent(props: EditorProps) {
         formData.append("content", content);
         formData.append("category", category);
         formData.append("language", language);
+        if (category === "notice" && isPinned) {
+          formData.append("isPinned", "true");
+        }
 
         // 첨부파일이 있다면, FormData에 추가
         documentFiles.forEach((file) => {
@@ -128,6 +133,9 @@ export default function EditorComponent(props: EditorProps) {
         formData.append("content", content);
         formData.append("category", category);
         formData.append("language", language);
+        if (category === "notice" && isPinned) {
+          formData.append("isPinned", "true");
+        }
 
         formData.append("deleteFilePath", JSON.stringify(deleteFileNames));
         documentFiles.forEach((file) => {
@@ -220,7 +228,11 @@ export default function EditorComponent(props: EditorProps) {
               <select
                 className="shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-e-0 border-gray-300 dark:border-gray-700 dark:text-white rounded-s-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
                 value={category}
-                onChange={(e) => setCategory(e.target.value)}
+                onChange={(e) => {
+                  const next = e.target.value;
+                  setCategory(next);
+                  if (next !== "notice") setIsPinned(false);
+                }}
               >
                 All categories
                 {categoryList[language].map((item) => (
@@ -248,6 +260,16 @@ export default function EditorComponent(props: EditorProps) {
                 })}
               </select>
             </div>
+          ) : null}
+          {isAdmin && category === "notice" ? (
+            <label className="flex items-center gap-2 mt-2 mb-2 text-sm text-gray-800 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={isPinned}
+                onChange={(e) => setIsPinned(e.target.checked)}
+              />
+              {editorCompo[language]?.pin}
+            </label>
           ) : null}
         </form>
 
