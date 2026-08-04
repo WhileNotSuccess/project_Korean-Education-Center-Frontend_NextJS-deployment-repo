@@ -50,6 +50,7 @@ export type BoardData = {
   createdDate: string;
   updatedDate: string;
   category: string;
+  isPinned?: boolean;
 };
 
 export type Banner = {

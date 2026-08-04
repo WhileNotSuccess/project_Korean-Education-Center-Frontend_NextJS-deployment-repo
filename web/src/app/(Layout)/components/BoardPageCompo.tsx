@@ -12,6 +12,7 @@ import { formatDate } from "@/app/common/formatDate";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/app/hook/auth";
 import SubtitleHeader from "./SubtitleHeader";
+import { Pin } from "lucide-react";
 
 type BoardPageProps = {
   name: keyof (typeof boardMenu)[Language];
@@ -159,7 +160,7 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
       <section className="w-full flex flex-col items-center mb-5">
         <div className="w-4/5 h-16 border-x-0 border-y-2 border-t-[#4171b4] mt-12 flex sm:items-center items-center justify-between">
           {name==="notice" ?
-          <div className="w-20"></div>
+          <div className="w-24"></div>
           :
           null
         }
@@ -184,8 +185,15 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
                 className="w-4/5 h-12 border-b-2 border-[#e5e7eb] flex justify-between items-center sm:items-center"
               >
                 {name === "notice" ? (
-                  <div className="w-20 border rounded-sm flex justify-center items-center text-white bg-[#0093EE] font-semibold">
-                    {boardPage[language]?.notice}
+                  <div className="w-24 flex items-center gap-1">
+                    {item.isPinned ? (
+                      <Pin className="w-4 h-4 shrink-0 text-[#0093EE]" />
+                    ) : (
+                      <span className="w-4 shrink-0" aria-hidden />
+                    )}
+                    <div className="flex-1 border rounded-sm flex justify-center items-center text-white bg-[#0093EE] font-semibold">
+                      {boardPage[language]?.notice}
+                    </div>
                   </div>
                 ) : (
                   <div className="sm:w-20 hidden"></div>
