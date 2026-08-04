@@ -28,7 +28,7 @@ export const menu: Record<Language, Record<string, string>> = {
 export const smallMenu: Record<Language, Record<string, string>> = {
   // 예시메뉴
   [Language.korean]: {
-    centerIntro: "한국어교육센터",
+    centerIntro: "인사말",
     howToGetHere: "오시는길",
     "staff-intro": "교직원",
     "korean-curriculum": "한국어교육과정",
@@ -39,7 +39,7 @@ export const smallMenu: Record<Language, Record<string, string>> = {
     "procedure-guide": "입학 신청",
   },
   [Language.japanese]: {
-    centerIntro: "韓国語教育センター",
+    centerIntro: "ご挨拶",
     howToGetHere: "アクセス",
     "staff-intro": "教職員",
     "korean-curriculum": "韓国語教育課程",
@@ -50,7 +50,7 @@ export const smallMenu: Record<Language, Record<string, string>> = {
     "procedure-guide": "入学申請",
   },
   [Language.english]: {
-    centerIntro: "Korean Education Center",
+    centerIntro: "Welcome Message",
     howToGetHere: "Directions",
     "staff-intro": "Faculty and Staff",
     "korean-curriculum": "Korean Language Curriculum",
@@ -679,12 +679,21 @@ export const counselingPageMenu: Record<Language, Record<string, string>> = {
 export const locationMap: Record<Language, Record<string, string>> = {
   [Language.korean]: {
     "main-campus": " 대구광역시 북구 복현로 35",
+    "address": "대구 북구 복현동 218",
+    "zipCode": "우편번호 41527",
+    "room": "정보관 402호",
   },
   [Language.japanese]: {
     "main-campus": " 大邱広域市北区復現路35",
+    "address": "大邱市北区復現路35",
+    "zipCode": "郵便番号 707-855",
+    "room": "情報館 402号室",
   },
   [Language.english]: {
     "main-campus": "35, Bokhyeon-ro, Buk-gu, Daegu, South Korea",
+    "address": "35, Bokhyeon-ro, Buk-gu, Daegu, South Korea",
+    "zipCode": "Zip Code 707-855",
+    "room": "Information Room 402",
   },
 };
 

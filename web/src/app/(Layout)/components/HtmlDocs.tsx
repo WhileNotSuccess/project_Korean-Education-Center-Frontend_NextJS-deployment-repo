@@ -195,9 +195,18 @@ export default function HtmlDocs(props: HtmlDocsProps) {
             <MapCompo />
           </section>
           <section className="w-full mt-0 flex justify-center">
-            <div className="w-[70%] bg-[#5592e7] p-4 mb-10">
-              <div className="text-left text-white text-lg font-bold">
+            <div className="w-[70%] bg-[#5592e7] p-4 mb-10 text-left text-white">
+              <div className="text-lg font-bold">
                 {locationMap[language]["main-campus"]}
+              </div>
+              <div className="mt-2 text-base">
+                {locationMap[language].address}
+              </div>
+              <div className="mt-1 text-base">
+                {locationMap[language].zipCode}
+              </div>
+              <div className="mt-1 text-base">
+                {locationMap[language].room}
               </div>
             </div>
           </section>
