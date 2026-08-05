@@ -42,7 +42,14 @@ export default function StaffModal({ onClose, data, method }: ModalProps) {
 
     if (response.ok) {
       window.location.href = location.href;
+      return;
     }
+
+    const errorBody = await response.json().catch(() => null);
+    const message = Array.isArray(errorBody?.message)
+      ? errorBody.message.join("\n")
+      : errorBody?.message || "교직원 저장에 실패했습니다.";
+    alert(message);
   };
   return createPortal(
     <dialog
@@ -77,7 +84,7 @@ export default function StaffModal({ onClose, data, method }: ModalProps) {
           htmlFor="phone"
           className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
         >
-          phone
+          phone (예: 010-1234-5678)
         </label>
 
         <input
@@ -87,6 +94,7 @@ export default function StaffModal({ onClose, data, method }: ModalProps) {
           }}
           type="text"
           id="phone"
+          placeholder="010-1234-5678"
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         />
 
