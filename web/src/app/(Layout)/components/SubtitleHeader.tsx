@@ -6,7 +6,7 @@ type SubtitleHeaderProps = {
 
 export default function SubtitleHeader({ title }: SubtitleHeaderProps) {
   return (
-    <section className="relative w-full h-[200px] lg:h-[280px] overflow-hidden rounded-b-xl mb-20">
+    <section className="relative w-full h-[140px] lg:h-[200px] overflow-hidden rounded-b-xl mb-20">
       {/* 배경 이미지 */}
       <Image
         src="/images/globalcampus1.png"

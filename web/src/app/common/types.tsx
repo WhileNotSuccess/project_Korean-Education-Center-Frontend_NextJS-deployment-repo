@@ -70,8 +70,10 @@ export interface Teacher {
   id: number;
   name: string;
   position: string;
+  subrole?: string | null;
   phone: string | null;
   email: string | null;
+  sortOrder?: number;
 }
 
 export interface SubmittedDocument {

@@ -9,12 +9,12 @@ import {
 import useCustomFetch from "@/app/lib/customFetch";
 import { useEffect, useState } from "react";
 import ApplicationFormItem from "./ApplicationFormItem";
-import BoardPageCompo from "../../components/BoardPageCompo";
+import BoardPageCompo from "../../../(Layout)/components/BoardPageCompo";
 import BannerItem from "./BannerItem";
 import BannerPostModal from "./BannerPostModal";
 import StaffComponent from "./StaffComponent";
 import StaffModal from "./StaffModal";
-import Pagination from "../../components/Pagination"; // 페이지네이션 컴포넌트
+import Pagination from "../../../(Layout)/components/Pagination"; // 페이지네이션 컴포넌트
 import CourseModal from "./CourseModal";
 import CourseComponent from "./CourseComponent";
 
@@ -40,12 +40,57 @@ export default function AdminComponent({ category }: AdminComponentProps) {
   const [nextPage, setNextPage] = useState<number>(0);
   const [loading, setLoading] = useState(false);
 
-    if (category === "applications") {
+  // 드래그 앤 드롭 상태 및 핸들러
+  const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
+
+  const handleDragStart = (index: number) => {
+    setDraggedIndex(index);
+  };
+
+  const handleDragOver = (e: React.DragEvent<HTMLElement>) => {
+    e.preventDefault();
+  };
+
+  const handleDragEnter = (targetIndex: number) => {
+    if (draggedIndex === null || draggedIndex === targetIndex) return;
+
+    setStaff((prev) => {
+      const list = [...prev];
+      const draggedItem = list[draggedIndex];
+      list.splice(draggedIndex, 1);
+      list.splice(targetIndex, 0, draggedItem);
+      return list;
+    });
+
+    setDraggedIndex(targetIndex);
+  };
+
+  const handleDragEnd = async () => {
+    setDraggedIndex(null);
+    const updatedOrders = staff.map((item, idx) => ({
+      id: item.id,
+      sortOrder: idx + 1,
+    }));
+
+    try {
+      const response = await customFetch("/staff/order", {
+        method: "PATCH",
+        body: JSON.stringify(updatedOrders),
+      });
+      if (!response.ok) {
+        console.error("Failed to update staff order");
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  if (category === "applications") {
     // 신청서 리스트를 받아오는 함수
     const getApplications = async (page: number) => {
       setLoading(true);
-      const response = await customFetch(`/application-form?limit=10&page=${page}&ignore=true`,{
-        method : "GET"
+      const response = await customFetch(`/application-form?limit=10&page=${page}&ignore=true`, {
+        method: "GET"
       });
       const data = await response.json()
       setApplications(data.data);
@@ -71,8 +116,10 @@ export default function AdminComponent({ category }: AdminComponentProps) {
 
     return (
       <>
-        <h1 className="text-3xl mb-4 font-bold text-center">서류 확인</h1>
-        <div className="flex flex-row flex-wrap ">
+        <div className="flex items-center justify-between border-b border-slate-100 pb-4 mb-6 w-full">
+          <h1 className="text-2xl font-bold text-slate-800">서류 확인</h1>
+        </div>
+        <div className="flex flex-row flex-wrap gap-2">
           {applications.map((item) => {
             return (
               <div key={item.id}>
@@ -114,18 +161,18 @@ export default function AdminComponent({ category }: AdminComponentProps) {
             }}
           />
         ) : null}
-        <h1 className="text-3xl mb-4 font-bold text-center">배너</h1>
-        <div className="w-full">
+        <div className="flex items-center justify-between border-b border-slate-100 pb-4 mb-6">
+          <h1 className="text-2xl font-bold text-slate-800">배너 관리</h1>
           <button
             onClick={() => {
               setBannerPostModal(true);
             }}
-            className="absolute text-white top-24 right-10 bg-blue-600 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5"
+            className="text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-xl text-sm px-5 py-2.5 shadow-sm shadow-blue-500/10 transition-colors"
           >
             배너 추가
           </button>
         </div>
-        <div className="flex flex-row flex-wrap ">
+        <div className="flex flex-row flex-wrap gap-2">
           {banners.map((item) => {
             return (
               <div key={item.id}>
@@ -141,8 +188,8 @@ export default function AdminComponent({ category }: AdminComponentProps) {
       async function getStaff() {
         const response = await customFetch("/staff");
         const data = await response.json()
-        setTeacher(data.teacher);
-        setStaff(data.staff);
+        setTeacher(data.teacher || []);
+        setStaff(data.staff || []);
       }
       getStaff();
     }, []);
@@ -157,25 +204,39 @@ export default function AdminComponent({ category }: AdminComponentProps) {
           />
         )}
         <div className="flex flex-wrap">
-          <h1 className="text-3xl mb-4 font-bold text-center w-full">
-            강사진 및 교직원 소개
-            <span className="p-4 text-right">
-              <button
-                onClick={() => {
-                  setStaffPostModal(true);
-                }}
-                className="text-white bg-blue-600 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5"
-              >
-                추가하기
-              </button>
-            </span>
-          </h1>
+          <div className="flex items-center justify-between border-b border-slate-100 pb-4 mb-6 w-full">
+            <div>
+              <h1 className="text-2xl font-bold text-slate-800">교직원 소개</h1>
+              <p className="text-xs text-slate-400 mt-1.5 flex items-center">
+                <span className="inline-block mr-1">💡</span>
+                마우스 드래그 앤 드롭으로 노출 순서를 바로 지정할 수 있습니다.
+              </p>
+            </div>
+            <button
+              onClick={() => {
+                setStaffPostModal(true);
+              }}
+              className="text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-xl text-sm px-5 py-2.5 shadow-sm shadow-blue-500/10 transition-colors"
+            >
+              교직원 추가
+            </button>
+          </div>
 
-          {teacher.map((item) => {
-            return <StaffComponent key={item.name} {...item} />;
+          {teacher.map((item, index) => {
+            return <StaffComponent key={item.id} {...item} orderNumber={index + 1} />;
           })}
-          {staff.map((item) => {
-            return <StaffComponent key={item.name} {...item} />;
+          {staff.map((item, index) => {
+            return (
+              <StaffComponent
+                key={item.id}
+                {...item}
+                orderNumber={index + 1}
+                onDragStart={() => handleDragStart(index)}
+                onDragEnter={() => handleDragEnter(index)}
+                onDragEnd={handleDragEnd}
+                onDragOver={handleDragOver}
+              />
+            );
           })}
         </div>
       </>
@@ -200,19 +261,17 @@ export default function AdminComponent({ category }: AdminComponentProps) {
           />
         )}
         <div className="flex flex-wrap">
-          <h1 className="text-3xl mb-4 font-bold text-center w-full">
-            강좌
-            <span className="p-4 text-right">
-              <button
-                onClick={() => {
-                  setCoursePostModal(true);
-                }}
-                className="text-white bg-blue-600 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5"
-              >
-                추가하기
-              </button>
-            </span>
-          </h1>
+          <div className="flex items-center justify-between border-b border-slate-100 pb-4 mb-6 w-full">
+            <h1 className="text-2xl font-bold text-slate-800">강좌 관리</h1>
+            <button
+              onClick={() => {
+                setCoursePostModal(true);
+              }}
+              className="text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-xl text-sm px-5 py-2.5 shadow-sm shadow-blue-500/10 transition-colors"
+            >
+              강좌 추가
+            </button>
+          </div>
 
           {course.map((item) => {
             return <CourseComponent key={item.id} {...item} />;
@@ -220,7 +279,7 @@ export default function AdminComponent({ category }: AdminComponentProps) {
         </div>
       </>
     );
-  }  else {
+  } else {
     return (
       <div className="w-full flex justify-center items-center">
         <BoardPageCompo name={category} />
