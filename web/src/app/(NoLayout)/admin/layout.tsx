@@ -385,6 +385,15 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                   <span>강좌 관리</span>
                 </a>
               </li>
+              <li>
+                <a
+                  href="/"
+                  className="flex items-center space-x-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 text-slate-600 hover:text-slate-900 hover:bg-slate-50/80"
+                >
+                  <span className="text-base">🏠</span>
+                  <span>홈페이지로 이동</span>
+                </a>
+              </li>
             </ul>
           </div>
         </div>
