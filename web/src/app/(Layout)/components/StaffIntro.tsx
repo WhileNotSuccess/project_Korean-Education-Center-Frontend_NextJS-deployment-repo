@@ -1,6 +1,6 @@
 "use client";
 
-import {Language, Teacher } from "@/app/common/types";
+import { Language, Teacher } from "@/app/common/types";
 import useCustomFetch from "@/app/lib/customFetch";
 import { useEffect, useState } from "react";
 import { staffPage, getError, smallMenu } from "@/app/menu";
@@ -24,8 +24,8 @@ export default function StaffIntro({ name }: StaffPageProps) {
     language === Language.korean
       ? "강사"
       : language === Language.english
-      ? "Teacher"
-      : "講師";
+        ? "Teacher"
+        : "講師";
 
   const positionLabelMap: Record<Language, Record<string, string>> = {
     korean: {
@@ -63,8 +63,8 @@ export default function StaffIntro({ name }: StaffPageProps) {
           method: "GET",
         });
         const data = await response.json()
-        setTeacher(data.teacher);
-        setStaff(data.staff);
+        setTeacher(data.teacher || []);
+        setStaff(data.staff || []);
       } catch (error) {
         alert(getError[language]?.staffError);
       } finally {
@@ -98,44 +98,7 @@ export default function StaffIntro({ name }: StaffPageProps) {
       {/* 타이틀 */}
       <SubtitleHeader title={smallMenu[language]?.[name]} />
 
-      {/* 강사진 */}
-      <section className="w-full">
-        <div className="w-full flex justify-center mb-6">
-          <div className="w-4/5 border-b border-gray-300 pb-2 text-xl lg:text-2xl font-medium">
-            {staffPage[language]?.faculty}
-          </div>
-        </div>
-
-        <div className="w-full flex justify-center">
-          <ul className="w-4/5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-10">
-            {loading ? (
-              <StaffSkeleton count={6} />
-            ) : (
-              teacher.map((item) => (
-                <li
-                  key={item.id}
-                  className="border-b border-[#0072BA]/50 pb-5"
-                >
-                  {/* 직책 */}
-                  <div className="text-md text-gray-700">
-                    {teacherLabel}
-                  </div>
-
-                  {/* 이름 */}
-                  <div className="font-bold text-lg text-[#005999] mt-2">
-                    {item.name}
-                  </div>
-
-                  {/* 소속 */}
-                  <div className="text-md text-gray-700 mt-1">
-                    {staffPage[language]?.dept}
-                  </div>
-                </li>
-              ))
-            )}
-          </ul>
-        </div>
-      </section>
+      {/* 강사진 삭제됨*/}
 
       {/* 직원 */}
       <section className="w-full mt-20">
@@ -158,6 +121,7 @@ export default function StaffIntro({ name }: StaffPageProps) {
                   {/* 직책 */}
                   <div className="text-md text-gray-700">
                     {positionLabelMap[language]?.[item.position] ?? item.position}
+                    {item.subrole ? ` (${item.subrole})` : ""}
                   </div>
 
                   {/* 이름 */}
