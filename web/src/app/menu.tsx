@@ -239,14 +239,17 @@ export const koreancurriculumList: Record<
   [Language.korean]: [
     { key: "korean-outline", value: "개요" },
     { key: "korean-sample", value: "학사일정" },
+    { key: "visa", value: "비자 안내" },
   ],
   [Language.japanese]: [
     { key: "korean-outline", value: "概要" },
     { key: "korean-sample", value: "学事日程" },
+    { key: "visa", value: "ビザ案内" },
   ],
   [Language.english]: [
     { key: "korean-outline", value: "Overview of Korean Language Program" },
     { key: "korean-sample", value: "Academic Calendar" },
+    { key: "visa", value: "Visa Information" },
   ],
 };
 
@@ -931,7 +934,6 @@ export const Hamburger: Record<
       topMenu: "신청",
       subMenu: [
         { address: "/guidance/procedure-guide", name: "입학 신청" },
-        { address: "/guidance/visa", name: "비자 안내" },
       ],
     },
     {
@@ -984,7 +986,6 @@ export const Hamburger: Record<
         { address: "/guidance/procedure-guide", name: "Application for Admission" },
         { address: "/form/counseling", name: "Counseling Application" },
         { address: "/board/application-form", name: "Application Documents" },
-        { address: "/guidance/visa", name: "Visa Information" },
       ],
     },
     {
@@ -1040,7 +1041,6 @@ export const Hamburger: Record<
         { address: "/guidance/procedure-guide", name: "入学申請" },
         { address: "/form/counseling", name: "カウンセリング申し込み" },
         { address: "/board/application-form", name: "申請書類" },
-        { address: "/guidance/visa", name: "ビザ案内" },
       ],
     },
     {
