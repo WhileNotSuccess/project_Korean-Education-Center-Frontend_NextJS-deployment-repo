@@ -240,16 +240,19 @@ export const koreancurriculumList: Record<
     { key: "korean-outline", value: "개요" },
     { key: "korean-sample", value: "학사일정" },
     { key: "visa", value: "비자 안내" },
+    { key: "insurance", value: "건강보험 안내" },
   ],
   [Language.japanese]: [
     { key: "korean-outline", value: "概要" },
     { key: "korean-sample", value: "学事日程" },
     { key: "visa", value: "ビザ案内" },
+    { key: "insurance", value: "健康保険案内" },
   ],
   [Language.english]: [
     { key: "korean-outline", value: "Overview of Korean Language Program" },
     { key: "korean-sample", value: "Academic Calendar" },
     { key: "visa", value: "Visa Information" },
+    { key: "insurance", value: "Health Insurance Information" },
   ],
 };
 
@@ -942,7 +945,6 @@ export const Hamburger: Record<
         { address: "/guidance/dormitory", name: "기숙사 안내" },
         { address: "/guidance/facility", name: "학교 시설 안내" },
         { address: "/board/learning-materials", name: "학습 자료 안내" },
-        { address: "/guidance/insurance", name: "건강 보험 안내" },
       ],
     },
     {
@@ -1000,10 +1002,6 @@ export const Hamburger: Record<
           address: "/board/learning-materials",
           name: "Learning Materials Information",
         },
-        {
-          address: "/guidance/insurance",
-          name: "Health Insurance Information",
-        },
       ],
     },
     {
@@ -1049,7 +1047,6 @@ export const Hamburger: Record<
         { address: "/guidance/dormitory", name: "寮案内" },
         { address: "/guidance/facility", name: "学校施設案内" },
         { address: "/board/learning-materials", name: "学習資料案内" },
-        { address: "/guidance/insurance", name: "健康保険案内" },
       ],
     },
     {
