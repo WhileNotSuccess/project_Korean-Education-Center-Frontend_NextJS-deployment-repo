@@ -10,7 +10,7 @@ export default async function PostTest({ params }: Props) {
   const { category } = resolvedParams;
   return (
     <main>
-      <UserCheck />
+      {category !== "qna" && <UserCheck />}
       <EditorComponent categoryName={category} />
     </main>
   );

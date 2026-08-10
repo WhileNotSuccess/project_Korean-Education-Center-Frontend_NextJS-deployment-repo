@@ -1,18 +1,17 @@
 "use client";
 
 import useCustomFetch from "@/app/lib/customFetch";
-import { boardMenu } from "@/app/menu";
+import { boardMenu, boardPage, getError, LoginCompoMenu, RegisterCompoMenu } from "@/app/menu";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import Pagination from "./Pagination";
-import { boardPage, getError } from "@/app/menu";
 import Cookies from "js-cookie";
 import { BoardData, Language } from "@/app/common/types";
 import { formatDate } from "@/app/common/formatDate";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/app/hook/auth";
 import SubtitleHeader from "./SubtitleHeader";
-import { Pin } from "lucide-react";
+import { Pin, Lock, LogIn, UserPlus } from "lucide-react";
 
 type BoardPageProps = {
   name: keyof (typeof boardMenu)[Language];
@@ -20,7 +19,7 @@ type BoardPageProps = {
 
 export default function BoardPageCompo({ name }: BoardPageProps) {
   const customFetch = useCustomFetch();
-  const { user } = useAuth();
+  const { user, isLoading } = useAuth();
   const [searchOption, setSearchOption] = useState<string>("title");
   const [boardData, setBoardData] = useState<BoardData[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1); // 현재 페이지
@@ -92,10 +91,6 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
     }
   };
 
-  const onWrite = (category: string) => {
-    router.push(`/post/${category}`);
-  };
-
   const onSearch = async (value: string) => {
     try {
       const response = await customFetch(
@@ -114,6 +109,34 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
     } catch (error) {
       alert("테스트 실패");
     }
+  };
+
+  const handlePostClick = (item: BoardData) => {
+    if (item.isSecret && !adminCheck) {
+      const password = prompt(
+        language === Language.korean
+          ? "비밀번호를 입력하세요 (4자 이상)."
+          : language === Language.japanese
+          ? "パスワードを入力してください (4文字以上)。"
+          : "Please enter the password (4 characters or more)."
+      );
+      if (password === null) return;
+      if (password.length < 4) {
+        alert(
+          language === Language.korean
+            ? "비밀번호는 4자 이상이어야 합니다."
+            : "Password must be at least 4 characters."
+        );
+        return;
+      }
+      router.push(`/board/${name}/${item.id}?password=${encodeURIComponent(password)}`);
+    } else {
+      router.push(`/board/${name}/${item.id}`);
+    }
+  };
+
+  const onWrite = (category: string) => {
+    router.push(`/post/${category}`);
   };
 
   return (
@@ -146,7 +169,7 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
           {boardPage[language]?.search}
         </button>
 
-        {(adminCheck || ((name === "review" || name === "faq") && userCheck)) && (
+        {(adminCheck || name === "qna" || ((name === "review" || name === "faq") && userCheck)) && (
           <button
             className="px-2 bg-[#0093EE] text-white w-full sm:w-auto"
             onClick={() => onWrite(name)}
@@ -199,12 +222,25 @@ export default function BoardPageCompo({ name }: BoardPageProps) {
                   <div className="sm:w-20 hidden"></div>
                 )}
 
-                <Link
-                  href={`/board/${name}/${item.id}`}
-                  className="sm:w-2/5 w-3/5 cursor-pointer ml-4 overflow-hidden text-ellipsis whitespace-nowrap"
+                <div
+                  onClick={() => handlePostClick(item)}
+                  className="sm:w-2/5 w-3/5 cursor-pointer ml-4 overflow-hidden text-ellipsis whitespace-nowrap flex items-center gap-1.5 hover:underline"
                 >
-                  {item.title}
-                </Link>
+                  {name === "qna" && (
+                    <span className={`px-1.5 py-0.5 text-[10px] font-bold rounded-sm shrink-0 ${
+                      item.answer 
+                        ? "bg-blue-100 text-blue-600 border border-blue-200" 
+                        : "bg-amber-100 text-amber-600 border border-amber-200"
+                    }`}>
+                      {item.answer 
+                        ? (language === Language.korean ? "답변완료" : language === Language.japanese ? "回答完了" : "Answered")
+                        : (language === Language.korean ? "답변대기" : language === Language.japanese ? "回答待ち" : "Pending")
+                      }
+                    </span>
+                  )}
+                  {item.isSecret && <Lock className="w-3.5 h-3.5 text-slate-400 shrink-0" />}
+                  <span>{item.title}</span>
+                </div>
                 <div className="sm:w-1/5 sm:flex sm:justify-center sm:overflow-hidden sm:text-ellipsis sm:whitespace-nowrap hidden sm:block">
                   {item.author}
                 </div>
