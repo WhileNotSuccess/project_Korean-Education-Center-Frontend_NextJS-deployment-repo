@@ -123,14 +123,14 @@ export default function EditorComponent(props: EditorProps) {
             alert(language === Language.korean ? "작성자 이름을 입력해주세요." : "Please enter the writer name.");
             return;
           }
+          if (!password || password.length < 4) {
+            alert(language === Language.korean ? "비밀번호는 4자 이상이어야 합니다." : "Password must be at least 4 characters.");
+            return;
+          }
           formData.append("writerName", writerName);
+          formData.append("password", password);
           if (isSecret) {
-            if (!password || password.length < 4) {
-              alert(language === Language.korean ? "비밀번호는 4자 이상이어야 합니다." : "Password must be at least 4 characters.");
-              return;
-            }
             formData.append("isSecret", "true");
-            formData.append("password", password);
           }
         }
 
@@ -246,7 +246,7 @@ export default function EditorComponent(props: EditorProps) {
 
   return (
     <main className="w-full flex justify-center">
-      <section style={{ width: "80%" }} className="mt-4">
+      <section style={{ width: "80%" }} className="mt-12">
         <form>
           <div className="flex">
             <div>
@@ -261,7 +261,7 @@ export default function EditorComponent(props: EditorProps) {
               <input
                 type="search"
                 id="search-dropdown"
-                className="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg rounded-s-gray-100 rounded-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
+                className="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
                 placeholder="Title"
                 required
                 onChange={(e) => setTitle(e.target.value)}
@@ -270,42 +270,51 @@ export default function EditorComponent(props: EditorProps) {
             </div>
           </div>
           {category === "qna" && (
-            <div className="flex flex-col gap-2 mb-3 mt-3">
-              <div className="flex gap-2">
-                <input
-                  type="text"
-                  placeholder={language === Language.korean ? "작성자 이름" : "Author Name"}
-                  className="p-2.5 border border-gray-300 rounded-lg text-sm w-full sm:w-1/3"
-                  value={writerName}
-                  onChange={(e) => setWriterName(e.target.value)}
-                  required
-                />
-              </div>
-              
-              <div className="flex items-center gap-4 mt-1">
-                <label className="flex items-center gap-2 text-sm text-gray-800 cursor-pointer">
+            <div className="flex flex-col gap-3.5 mb-5 mt-4 p-4 border border-slate-100 rounded-xl bg-slate-50/50">
+              <div className="flex flex-col sm:flex-row gap-4 w-full">
+                {/* 작성자 이름 필드 */}
+                <div className="flex flex-col gap-1.5 w-full sm:w-1/2">
+                  <label className="text-xs font-semibold text-slate-600 pl-0.5">
+                    {language === Language.korean ? "작성자 이름" : "Author Name"}
+                  </label>
                   <input
-                    type="checkbox"
-                    checked={isSecret}
-                    onChange={(e) => {
-                      setIsSecret(e.target.checked);
-                      if (!e.target.checked) setPassword("");
-                    }}
+                    type="text"
+                    placeholder={language === Language.korean ? "이름을 입력해주세요" : "Enter author name"}
+                    className="p-2.5 border border-slate-200 rounded-lg text-sm bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all"
+                    value={writerName}
+                    onChange={(e) => setWriterName(e.target.value)}
+                    required
                   />
-                  {language === Language.korean ? "비밀글로 작성" : language === Language.japanese ? "非公開にする" : "Write as secret post"}
-                </label>
+                </div>
 
-                {isSecret && (
+                {/* 비밀번호 필드 */}
+                <div className="flex flex-col gap-1.5 w-full sm:w-1/2">
+                  <label className="text-xs font-semibold text-slate-600 pl-0.5">
+                    {language === Language.korean ? "비밀번호" : "Password"}
+                  </label>
                   <input
                     type="password"
                     placeholder={language === Language.korean ? "비밀번호 (4자 이상)" : "Password (4+ chars)"}
-                    className="p-2 border border-gray-300 rounded-lg text-sm w-full sm:w-1/3"
+                    className="p-2.5 border border-slate-200 rounded-lg text-sm bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     minLength={4}
                     required
                   />
-                )}
+                </div>
+              </div>
+
+              {/* 비밀글 체크박스 */}
+              <div className="flex items-center mt-1 pl-0.5">
+                <label className="flex items-center gap-2 text-sm text-slate-700 font-medium cursor-pointer select-none">
+                  <input
+                    type="checkbox"
+                    checked={isSecret}
+                    onChange={(e) => setIsSecret(e.target.checked)}
+                    className="w-4 h-4 text-blue-600 border-slate-300 rounded focus:ring-blue-500"
+                  />
+                  {language === Language.korean ? "비밀글로 작성" : language === Language.japanese ? "非公開にする" : "Write as secret post"}
+                </label>
               </div>
             </div>
           )}
@@ -360,54 +369,56 @@ export default function EditorComponent(props: EditorProps) {
 
         </form>
 
-        <div className="w-full flex justify-between items-center">
-          <section className="w-[50%]">
-            <label className="w-full text-xs  bg-blue-500 text-white p-2 rounded-md">
-              {SelectPageCompoMenu[language].fileSelect}
-              <input
-                type="file"
-                accept=".*"
-                multiple
-                onChange={handleDocumentFileChange}
-                className="hidden"
-              />
-            </label>
+        {category !== "qna" && (
+          <div className="w-full flex justify-between items-center">
+            <section className="w-[50%]">
+              <label className="w-full text-xs  bg-blue-500 text-white p-2 rounded-md">
+                {SelectPageCompoMenu[language].fileSelect}
+                <input
+                  type="file"
+                  accept=".*"
+                  multiple
+                  onChange={handleDocumentFileChange}
+                  className="hidden"
+                />
+              </label>
 
-            <ul className={documentFileNames.length > 0 ? "border mt-4" : ""}>
-              {documentFileNames &&
-                documentFileNames.map((fileName, index) => (
-                  <div
-                    key={index}
-                    className={`flex justify-between items-center ${deleteFileNames.includes(fileName) ? "hidden" : ""
-                      }`}
-                  >
-                    <div className="flex flex-rows items-center">
+              <ul className={documentFileNames.length > 0 ? "border mt-4" : ""}>
+                {documentFileNames &&
+                  documentFileNames.map((fileName, index) => (
+                    <div
+                      key={index}
+                      className={`flex justify-between items-center ${deleteFileNames.includes(fileName) ? "hidden" : ""
+                        }`}
+                    >
+                      <div className="flex flex-rows items-center">
+                        <Image
+                          src="/images/attachFile.png"
+                          alt=""
+                          width={96}
+                          height={96}
+                          className="size-4 flex justify-center items-center mr-4"
+                        />
+                        <li>
+                          {fileName.match(/^\d{8}-\d{6}_/)
+                            ? fileName.substring(16)
+                            : fileName}
+                        </li>
+                      </div>
                       <Image
-                        src="/images/attachFile.png"
+                        src="/images/xbutton.png"
                         alt=""
                         width={96}
                         height={96}
-                        className="size-4 flex justify-center items-center mr-4"
+                        className="size-4 cursor-pointer"
+                        onClick={() => addDeleteFileName(fileName)}
                       />
-                      <li>
-                        {fileName.match(/^\d{8}-\d{6}_/)
-                          ? fileName.substring(16)
-                          : fileName}
-                      </li>
                     </div>
-                    <Image
-                      src="/images/xbutton.png"
-                      alt=""
-                      width={96}
-                      height={96}
-                      className="size-4 cursor-pointer"
-                      onClick={() => addDeleteFileName(fileName)}
-                    />
-                  </div>
-                ))}
-            </ul>
-          </section>
-        </div>
+                  ))}
+              </ul>
+            </section>
+          </div>
+        )}
         <section className="mt-1.5">
           {category === "qna" ? (
             <textarea
