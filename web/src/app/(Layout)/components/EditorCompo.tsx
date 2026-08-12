@@ -123,14 +123,14 @@ export default function EditorComponent(props: EditorProps) {
             alert(language === Language.korean ? "작성자 이름을 입력해주세요." : "Please enter the writer name.");
             return;
           }
+          if (!password || password.length < 4) {
+            alert(language === Language.korean ? "비밀번호는 4자 이상이어야 합니다." : "Password must be at least 4 characters.");
+            return;
+          }
           formData.append("writerName", writerName);
+          formData.append("password", password);
           if (isSecret) {
-            if (!password || password.length < 4) {
-              alert(language === Language.korean ? "비밀번호는 4자 이상이어야 합니다." : "Password must be at least 4 characters.");
-              return;
-            }
             formData.append("isSecret", "true");
-            formData.append("password", password);
           }
         }
 
@@ -289,23 +289,20 @@ export default function EditorComponent(props: EditorProps) {
                     checked={isSecret}
                     onChange={(e) => {
                       setIsSecret(e.target.checked);
-                      if (!e.target.checked) setPassword("");
                     }}
                   />
                   {language === Language.korean ? "비밀글로 작성" : language === Language.japanese ? "非公開にする" : "Write as secret post"}
                 </label>
 
-                {isSecret && (
-                  <input
-                    type="password"
-                    placeholder={language === Language.korean ? "비밀번호 (4자 이상)" : "Password (4+ chars)"}
-                    className="p-2 border border-gray-300 rounded-lg text-sm w-full sm:w-1/3"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    minLength={4}
-                    required
-                  />
-                )}
+                <input
+                  type="password"
+                  placeholder={language === Language.korean ? "비밀번호 (4자 이상)" : "Password (4+ chars)"}
+                  className="p-2 border border-gray-300 rounded-lg text-sm w-full sm:w-1/3"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  minLength={4}
+                  required
+                />
               </div>
             </div>
           )}
