@@ -168,6 +168,9 @@ export default async function RootLayout({
                     <Link href="/board/faq" className="block py-2 hover:text-gray-600 hover:scale-105 transition text-sm">
                       {boardMenu[language]?.faq}
                     </Link>
+                    <Link href="/board/qna" className="block py-2 hover:text-gray-600 hover:scale-105 transition text-sm">
+                      {boardMenu[language]?.qna}
+                    </Link>
                   </div>
                 </div>
             </div>

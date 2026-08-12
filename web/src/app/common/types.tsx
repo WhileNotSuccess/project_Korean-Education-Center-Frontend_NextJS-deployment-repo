@@ -51,6 +51,10 @@ export type BoardData = {
   updatedDate: string;
   category: string;
   isPinned?: boolean;
+  answer?: string | null;
+  isSecret?: boolean;
+  answerDate?: string | null;
+  writerName?: string;
 };
 
 export type Banner = {
@@ -65,6 +69,7 @@ export type LoginBody = {
   email: string;
   password: string;
 };
+
 
 export interface Teacher {
   id: number;

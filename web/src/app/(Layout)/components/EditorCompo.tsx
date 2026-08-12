@@ -37,6 +37,9 @@ export default function EditorComponent(props: EditorProps) {
   const customFetch = useCustomFetch();
   const [category, setCategory] = useState<string>(props.categoryName || "");
   const [isPinned, setIsPinned] = useState(false);
+  const [isSecret, setIsSecret] = useState(false);
+  const [writerName, setWriterName] = useState("");
+  const [password, setPassword] = useState("");
   const router = useRouter();
   const [isAdmin, setIsAdmin] = useState(false);
   const [language, setLanguage] = useState<Language>(Language.korean);
@@ -49,40 +52,56 @@ export default function EditorComponent(props: EditorProps) {
   }, []);
 
   useEffect(() => {
-    const oldPost = async () => {
-      if (!props.id) return;
-      try {
-        const response = await customFetch(`/posts?id=${props.id}`, {
-          method: "GET",
-        });
-        const data = await response.json()
-        setContent(data.data.content);
-        setTitle(data.data.title);
-        setCategory(data.data.category);
-        setIsPinned(!!data.data.isPinned);
-        setDocumentFileNames(
-          data.files.map((file: ServerDocumentFile) => file.filename)
-        );
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    oldPost();
-  }, [props.id]);
+    const checkPermissionAndLoad = async () => {
+      let currentCategory = props.categoryName || "";
 
-  useEffect(() => {
-    const fetchUserInfo = async () => {
+      if (props.id) {
+        try {
+          const urlPwd = new URLSearchParams(window.location.search).get("password") || "";
+          const endpoint = `/posts?id=${props.id}${urlPwd ? `&password=${encodeURIComponent(urlPwd)}` : ""}`;
+          const response = await customFetch(endpoint, {
+            method: "GET",
+          });
+          if (!response.ok) throw new Error("Load failed");
+          const data = await response.json();
+          setContent(data.data.content);
+          setTitle(data.data.title);
+          setCategory(data.data.category);
+          setIsPinned(!!data.data.isPinned);
+          setIsSecret(!!data.data.isSecret);
+          setWriterName(data.data.writerName || "");
+          setPassword(urlPwd || data.data.password || "");
+          setDocumentFileNames(
+            data.files.map((file: ServerDocumentFile) => file.filename)
+          );
+          currentCategory = data.data.category;
+        } catch (error) {
+          alert(language === Language.korean ? "게시글을 불러올 수 없거나 권한이 없습니다." : "Cannot load post or unauthorized.");
+          router.back();
+          return;
+        }
+      }
+
       try {
         const response = await customFetch("/users");
-        const adminData = await response.json()
-        setIsAdmin(adminData.result);
+        if (response.ok) {
+          const adminData = await response.json();
+          setIsAdmin(adminData.result);
+        } else {
+          if (currentCategory !== "qna") {
+            alert(language === Language.korean ? "관리자 로그인이 필요합니다." : "Admin login required.");
+            router.push("/login");
+          }
+        }
       } catch (error) {
-        alert("로그인이 필요합니다");
-        router.back();
+        if (currentCategory !== "qna") {
+          alert(language === Language.korean ? "관리자 로그인이 필요합니다." : "Admin login required.");
+          router.push("/login");
+        }
       }
     };
-    fetchUserInfo();
-  }, []);
+    checkPermissionAndLoad();
+  }, [props.id, props.categoryName]);
 
   const submit = async () => {
     if (title === "") {
@@ -98,6 +117,21 @@ export default function EditorComponent(props: EditorProps) {
         formData.append("language", language);
         if (category === "notice" && isPinned) {
           formData.append("isPinned", "true");
+        }
+        if (category === "qna") {
+          if (!writerName.trim()) {
+            alert(language === Language.korean ? "작성자 이름을 입력해주세요." : "Please enter the writer name.");
+            return;
+          }
+          formData.append("writerName", writerName);
+          if (isSecret) {
+            if (!password || password.length < 4) {
+              alert(language === Language.korean ? "비밀번호는 4자 이상이어야 합니다." : "Password must be at least 4 characters.");
+              return;
+            }
+            formData.append("isSecret", "true");
+            formData.append("password", password);
+          }
         }
 
         // 첨부파일이 있다면, FormData에 추가
@@ -135,6 +169,18 @@ export default function EditorComponent(props: EditorProps) {
         formData.append("language", language);
         if (category === "notice" && isPinned) {
           formData.append("isPinned", "true");
+        }
+        if (category === "qna") {
+          if (!writerName.trim()) {
+            alert(language === Language.korean ? "작성자 이름을 입력해주세요." : "Please enter the writer name.");
+            return;
+          }
+          formData.append("writerName", writerName);
+          if (isSecret) {
+            formData.append("isSecret", "true");
+          }
+          const urlPwd = new URLSearchParams(window.location.search).get("password") || "";
+          formData.append("password", password || urlPwd);
         }
 
         formData.append("deleteFilePath", JSON.stringify(deleteFileNames));
@@ -223,6 +269,46 @@ export default function EditorComponent(props: EditorProps) {
               />
             </div>
           </div>
+          {category === "qna" && (
+            <div className="flex flex-col gap-2 mb-3 mt-3">
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  placeholder={language === Language.korean ? "작성자 이름" : "Author Name"}
+                  className="p-2.5 border border-gray-300 rounded-lg text-sm w-full sm:w-1/3"
+                  value={writerName}
+                  onChange={(e) => setWriterName(e.target.value)}
+                  required
+                />
+              </div>
+              
+              <div className="flex items-center gap-4 mt-1">
+                <label className="flex items-center gap-2 text-sm text-gray-800 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={isSecret}
+                    onChange={(e) => {
+                      setIsSecret(e.target.checked);
+                      if (!e.target.checked) setPassword("");
+                    }}
+                  />
+                  {language === Language.korean ? "비밀글로 작성" : language === Language.japanese ? "非公開にする" : "Write as secret post"}
+                </label>
+
+                {isSecret && (
+                  <input
+                    type="password"
+                    placeholder={language === Language.korean ? "비밀번호 (4자 이상)" : "Password (4+ chars)"}
+                    className="p-2 border border-gray-300 rounded-lg text-sm w-full sm:w-1/3"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    minLength={4}
+                    required
+                  />
+                )}
+              </div>
+            </div>
+          )}
           {isAdmin ? (
             <div className="w-full flex justify-between border mb-1">
               <select
@@ -271,6 +357,7 @@ export default function EditorComponent(props: EditorProps) {
               {editorCompo[language]?.pin}
             </label>
           ) : null}
+
         </form>
 
         <div className="w-full flex justify-between items-center">
@@ -322,48 +409,58 @@ export default function EditorComponent(props: EditorProps) {
           </section>
         </div>
         <section className="mt-1.5">
-          <Editor
-            tinymceScriptSrc={"/tinymce/tinymce.min.js"}
-            id="tinymce-editor"
-            value={content}
-            onInit={(evt, editor) => {
-              editorRef.current = editor;
-            }}
-            init={{
-              language: "ko_KR",
-              relative_urls: false,
-              remove_script_host: false,
-              document_base_url: process.env.NEXT_PUBLIC_BACKEND_URL?.replace(
-                "/api",
-                ""
-              ),
-              language_url: "/tinymce/langs/ko_KR.js",
-              height: 800,
-              plugins: ["lists", "link", "image", "table"],
-              content_style: "p {margin:0} img{display:inline}",
-              toolbar:
-                "undo redo | bold italic | alignleft aligncenter alignright | bullist numlist | forecolor backcolor | table",
-              file_picker_types: "image", // 파일 선택기에서 다룰 파일 형식
-              file_picker_callback: (cb, value, meta) => {
-                const input = fileInputRef.current;
-                input?.addEventListener("change", async (e) => {
-                  const target = e.target as HTMLInputElement;
-                  const imageFile = target.files ? target.files[0] : null;
-                  if (imageFile) {
-                    const url = await handleFileSelect(imageFile);
-                    if (url) {
-                      setImagePath((prev) => [...prev, url]);
-                      cb(`${process.env.NEXT_PUBLIC_BACKEND_URL}/${url}`, {
-                        title: imageFile.name,
-                      });
+          {category === "qna" ? (
+            <textarea
+              className="w-full min-h-[300px] p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+              placeholder={language === Language.korean ? "내용을 입력해주세요." : "Enter content here..."}
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              required
+            />
+          ) : (
+            <Editor
+              tinymceScriptSrc={"/tinymce/tinymce.min.js"}
+              id="tinymce-editor"
+              value={content}
+              onInit={(evt, editor) => {
+                editorRef.current = editor;
+              }}
+              init={{
+                language: "ko_KR",
+                relative_urls: false,
+                remove_script_host: false,
+                document_base_url: process.env.NEXT_PUBLIC_BACKEND_URL?.replace(
+                  "/api",
+                  ""
+                ),
+                language_url: "/tinymce/langs/ko_KR.js",
+                height: 800,
+                plugins: ["lists", "link", "image", "table"],
+                content_style: "p {margin:0} img{display:inline}",
+                toolbar:
+                  "undo redo | bold italic | alignleft aligncenter alignright | bullist numlist | forecolor backcolor | table",
+                file_picker_types: "image", // 파일 선택기에서 다룰 파일 형식
+                file_picker_callback: (cb, value, meta) => {
+                  const input = fileInputRef.current;
+                  input?.addEventListener("change", async (e) => {
+                    const target = e.target as HTMLInputElement;
+                    const imageFile = target.files ? target.files[0] : null;
+                    if (imageFile) {
+                      const url = await handleFileSelect(imageFile);
+                      if (url) {
+                        setImagePath((prev) => [...prev, url]);
+                        cb(`${process.env.NEXT_PUBLIC_BACKEND_URL}/${url}`, {
+                          title: imageFile.name,
+                        });
+                      }
                     }
-                  }
-                });
-                input?.click();
-              },
-            }}
-            onEditorChange={(item) => setContent(item)}
-          />
+                  });
+                  input?.click();
+                },
+              }}
+              onEditorChange={(item) => setContent(item)}
+            />
+          )}
           <input
             ref={fileInputRef}
             type="file"

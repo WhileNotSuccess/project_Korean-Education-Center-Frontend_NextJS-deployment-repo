@@ -36,7 +36,7 @@ export default function BoardDataMapCompo (props : Props) {
         { method : "GET" }
       )
       const data = await response.json()
-      setData(data.data)
+      setData(data.data || [])
     }catch(error){
       console.error("board fetch error:", error); // 이거 추가
       alert(getError[language]?.boardError ?? "게시글을 불러오는 중 오류가 발생했습니다.");
@@ -48,7 +48,7 @@ export default function BoardDataMapCompo (props : Props) {
 
   return(
     <div>
-      {data.map((item, index) => {
+      {data?.map((item, index) => {
       return (
         <article
           key={index}

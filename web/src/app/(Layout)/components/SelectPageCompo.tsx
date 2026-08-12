@@ -83,9 +83,9 @@ export default function SelectTabComponent({
             scheduleRes.json(),
           ]);
 
-          setPurposeContent(purposeData?.data?.content || "");
-          setContentContent(contentData?.data?.content || "");
-          setScheduleContent(scheduleData?.data?.content || "");
+          setPurposeContent(removeDuplicateTitle(purposeData?.data?.content || ""));
+          setContentContent(removeDuplicateTitle(contentData?.data?.content || ""));
+          setScheduleContent(removeDuplicateTitle(scheduleData?.data?.content || ""));
         } catch (error) {
           console.error("Failed to load open-campus content", error);
         } finally {
@@ -111,47 +111,47 @@ export default function SelectTabComponent({
               </p>
             </div>
           ) : (
-            <div className="w-full max-w-4xl flex flex-col gap-10">
-              {/* Card 1: 목적 (Purpose) */}
+            <div className="w-full max-w-3xl flex flex-col gap-12 mt-6">
+              {/* Section 1: 목적 (Purpose) */}
               {purposeContent && (
-                <div className="bg-white rounded-lg border border-slate-200 p-6 md:p-8 shadow-sm">
-                  <div className="flex items-center gap-2 mb-6 pb-2 border-b border-slate-100">
-                    <span className="w-1.5 h-6 bg-[#0D578D] rounded-sm"></span>
-                    <h2 className="text-xl lg:text-2xl font-bold text-slate-800">
+                <div className="flex flex-col">
+                  <div className="flex items-center gap-2 mb-4 pb-1 border-b border-slate-100">
+                    <span className="w-1 h-6 bg-[#0D578D] rounded-full"></span>
+                    <h2 className="text-2xl font-bold text-slate-800 tracking-tight">
                       {language === Language.korean ? "과정 목적" : language === Language.japanese ? "課程の目的" : "Program Purpose"}
                     </h2>
                   </div>
-                  <div className="text-slate-700 leading-relaxed parsed-html">
+                  <div className="text-slate-600 text-sm leading-7 parsed-html pl-3">
                     {parser(purposeContent)}
                   </div>
                 </div>
               )}
 
-              {/* Card 2: 일정 및 내용 (Schedule & Content) */}
+              {/* Section 2: 일정 및 내용 */}
               {contentContent && (
-                <div className="bg-white rounded-lg border border-slate-200 p-6 md:p-8 shadow-sm">
-                  <div className="flex items-center gap-2 mb-6 pb-2 border-b border-slate-100">
-                    <span className="w-1.5 h-6 bg-[#0D578D] rounded-sm"></span>
-                    <h2 className="text-xl lg:text-2xl font-bold text-slate-800">
+                <div className="flex flex-col">
+                  <div className="flex items-center gap-2 mb-4 pb-1 border-b border-slate-100">
+                    <span className="w-1 h-6 bg-[#0D578D] rounded-full"></span>
+                    <h2 className="text-2xl font-bold text-slate-800 tracking-tight">
                       {language === Language.korean ? "일정 및 내용" : language === Language.japanese ? "日程と内容" : "Schedule & Content"}
                     </h2>
                   </div>
-                  <div className="text-slate-700 leading-relaxed parsed-html">
+                  <div className="text-slate-600 text-sm leading-7 parsed-html pl-3">
                     {parser(contentContent)}
                   </div>
                 </div>
               )}
 
-              {/* Card 3: 스케쥴 (Timetable) */}
+              {/* Section 3: 스케쥴 */}
               {scheduleContent && (
-                <div className="bg-white rounded-lg border border-slate-200 p-6 md:p-8 shadow-sm">
-                  <div className="flex items-center gap-2 mb-6 pb-2 border-b border-slate-100">
-                    <span className="w-1.5 h-6 bg-[#0D578D] rounded-sm"></span>
-                    <h2 className="text-xl lg:text-2xl font-bold text-slate-800">
+                <div className="flex flex-col">
+                  <div className="flex items-center gap-2 mb-4 pb-1 border-b border-slate-100">
+                    <span className="w-1 h-6 bg-[#0D578D] rounded-full"></span>
+                    <h2 className="text-2xl font-bold text-slate-800 tracking-tight">
                       {language === Language.korean ? "스케쥴" : language === Language.japanese ? "スケジュール" : "Timetable"}
                     </h2>
                   </div>
-                  <div className="text-slate-700 leading-relaxed parsed-html">
+                  <div className="text-slate-600 text-sm leading-7 parsed-html pl-3 flex flex-col items-center justify-center">
                     {parser(scheduleContent)}
                   </div>
                 </div>
@@ -167,11 +167,10 @@ export default function SelectTabComponent({
               {categoryTab[language].map((item) => (
                 <button
                   key={item.key}
-                  className={`py-2 px-4 text-nowrap text-base font-medium text-center border transition w-40 flex-grow ${
-                    selectedTab === item.key
+                  className={`py-2 px-4 text-nowrap text-base font-medium text-center border transition w-40 flex-grow ${selectedTab === item.key
                       ? "bg-blue-500 text-white font-black"
                       : "bg-sky-500/50 text-white font-black"
-                  }`}
+                    }`}
                   onClick={() => setSelectedTab(item.key)}
                 >
                   {item.value}
@@ -192,4 +191,18 @@ export default function SelectTabComponent({
       )}
     </main>
   );
+}
+
+function removeDuplicateTitle(html: string): string {
+  if (!html) return "";
+  // 1. 대제목 및 구분선 제거
+  let cleaned = html.replace(/^(\s*(?:<p[^>]*>&nbsp;<\/p>|<br\s*\/?>)*\s*<p[^>]*>.*?24pt.*?<\/p>[\s\S]*?<hr[^>]*>\s*)/i, "");
+
+  // 2. 소제목 크기 및 색상 필터링 (가독성 향상)
+  // 파란색 원색(rgb(53, 152, 219))을 차분한 메인 테마 블루(#0D578D)로 변경
+  cleaned = cleaned.replace(/color:\s*rgb\(5[23],\s*152,\s*219\)/gi, "color: rgb(13, 87, 141)");
+  // 18pt/24pt 소제목 폰트 사이즈를 가독성 좋은 1.25rem (20px) 수준으로 조절
+  cleaned = cleaned.replace(/font-size:\s*(?:18|24)pt/gi, "font-size: 1.25rem");
+
+  return cleaned;
 }

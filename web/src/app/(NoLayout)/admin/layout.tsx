@@ -18,7 +18,8 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
       pathname.includes("/admin/learning-materials") ||
       pathname.includes("/admin/notice") ||
       pathname.includes("/admin/news") ||
-      pathname.includes("/admin/faq")
+      pathname.includes("/admin/faq") ||
+      pathname.includes("/admin/qna")
     ) {
       setOpen(1);
     } else if (
@@ -140,6 +141,18 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                         }`}
                       >
                         FAQ
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="/admin/qna"
+                        className={`block px-3 py-2 rounded-lg text-xs font-semibold transition-all duration-150 ${
+                          pathname === "/admin/qna"
+                            ? "bg-blue-50 text-blue-600 border border-blue-100/50 shadow-sm"
+                            : "text-slate-500 hover:text-slate-800 hover:bg-slate-50/60"
+                        }`}
+                      >
+                        Q&A 관리
                       </a>
                     </li>
                   </ul>

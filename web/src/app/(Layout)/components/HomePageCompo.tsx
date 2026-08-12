@@ -107,7 +107,7 @@ export default function HomePageCompo() {
           method: "GET",
         });
         const data = await response.json()
-        setNewsData(data.data);
+        setNewsData(data.data || []);
         const res = await customFetch(
           "/posts?category=guidelinesForApplicants",
           {
@@ -522,7 +522,7 @@ export default function HomePageCompo() {
               className="relative w-full lg:w-[71%] overflow-hidden cursor-pointer active:cursor-grabbing scroll-smooth"
             >
               <div className="flex gap-4 w-max">
-                {newsData.map((item, index) => (
+                {newsData?.map((item, index) => (
                   <Link href={`/board/news/${item.id}`} key={index}>
                     <article
                       ref={index === 0 ? itemRef : null}
