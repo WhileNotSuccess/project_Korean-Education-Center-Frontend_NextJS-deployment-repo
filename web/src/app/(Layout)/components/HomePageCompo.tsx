@@ -410,6 +410,48 @@ export default function HomePageCompo() {
               {homePage[language]?.["Guide-Book"]}
             </div>
           </div>
+
+          {/* 입학신청 */}
+          <div
+            className="relative w-full lg:w-48 aspect-square rounded-md shadow-lg overflow-hidden cursor-pointer group"
+            onClick={() => router.push("/guidance/procedure-guide")}
+          >
+            <Image
+              src="/images/main_campus.png"
+              alt="입학신청 바로가기 버튼"
+              fill
+              className="object-cover transition group-hover:scale-105"
+              priority
+            />
+            <div className="absolute inset-0 bg-black/50" />
+            <div className="absolute bottom-2 left-2 text-white text-xs sm:text-sm md:text-md p-2">
+              {homePage[language]?.["procedure-guide"]}
+            </div>
+          </div>
+
+          {/* 인스타그램 */}
+          <div
+            className="relative w-full lg:w-48 aspect-square rounded-md shadow-lg overflow-hidden cursor-pointer group"
+            onClick={() =>
+              window.open(
+                "https://www.instagram.com/kcenter.yju/",
+                "_blank",
+                "noopener,noreferrer"
+              )
+            }
+          >
+            <Image
+              src="/images/instargram.jpg"
+              alt="한국어교육센터 인스타그램 바로가기 버튼"
+              fill
+              className="object-cover transition group-hover:scale-105"
+              priority
+            />
+            <div className="absolute inset-0 bg-black/50" />
+            <div className="absolute bottom-2 left-2 text-white text-xs sm:text-sm md:text-md p-2">
+              {homePage[language]?.instagram}
+            </div>
+          </div>
         </section>
       </div>
 
